@@ -1,6 +1,8 @@
 <script lang="ts">
+  import AmenitiesCore from './AmenitiesCore.svelte';
   import Photo from './Photo.svelte';
-  import type { AccoCard } from './types/blocks.ts';
+  import PricingShort from './PricingShort.svelte';
+  import { isAmenitiesCore, isPricingShort, type AccoCard } from './types/blocks.ts';
 
   let props: AccoCard = $props();
 </script>
@@ -20,8 +22,8 @@
     {#if cardContent.blocks}
       {#each cardContent.blocks as b, i}
         <div class="block-container-{i}">
-          {#if isAmnetiesCore(b)}
-            <AmenitiesCore {...b.content} />
+          {#if isAmenitiesCore(b)}
+            <AmenitiesCore {...b} />
           {:else if isPricingShort(b)}
             <PricingShort
               showMaximum={b.content.showMaximum}
