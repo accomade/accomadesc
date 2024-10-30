@@ -11,124 +11,142 @@
   import SmokingSvg from './svg/SmokingSVG.svelte';
   import TvSvg from './svg/TvSVG.svelte';
   import WifiSvg from './svg/WifiSVG.svelte';
-  import type { AmenitiesCore } from './types/blocks.ts';
+  import type { AmenitiesCoreContent, I18nFacade } from './types/blocks.ts';
 
-  let theCore: AmenitiesCore = $props();
+  let {
+    peopleMin,
+    peopleMax,
+    size,
+    bedRooms,
+    bathRooms,
+    pets,
+    showPets,
+    wifi,
+    showWifi,
+    smoking,
+    showSmoking,
+    ac,
+    showAc,
+    tv,
+    showTv,
+    parking,
+    showParking,
+    formatFunc,
+  }: AmenitiesCoreContent & I18nFacade = $props();
+
+  let formattedSize: string = $derived(formatFunc ? formatFunc('size', { size: size }) : `${size}`);
 </script>
 
 <div class="amneties-wrapper">
-  {#if theCore}
-    {@const content = theCore.content}
-    <div class="element-wrapper">
-      <AreaSvg size="2rem" />
-      <div>
-        {@html content.formattedSize}
-      </div>
+  <div class="element-wrapper">
+    <AreaSvg size="2rem" />
+    <div>
+      {@html formattedSize}
     </div>
-    <div class="element-wrapper">
-      <PeopleSvg size="2rem" />
-      <div>
-        {content.peopleMin}-{content.peopleMax}
-      </div>
+  </div>
+  <div class="element-wrapper">
+    <PeopleSvg size="2rem" />
+    <div>
+      {peopleMin}-{peopleMax}
     </div>
-    <div class="element-wrapper">
-      <BedroomSvg size="2rem" />
-      <div>
-        {content.bedRooms}
-      </div>
+  </div>
+  <div class="element-wrapper">
+    <BedroomSvg size="2rem" />
+    <div>
+      {bedRooms}
     </div>
-    <div class="element-wrapper">
-      <BathroomSvg size="2rem" />
-      <div>
-        {content.bathRooms}
-      </div>
+  </div>
+  <div class="element-wrapper">
+    <BathroomSvg size="2rem" />
+    <div>
+      {bathRooms}
     </div>
-    {#if content.showPets}
-      <div class="bool-element-wrapper">
-        {#if !content.pets}
-          <div class="main-icon-container">
-            <PetsSvg size="1.6rem" />
-          </div>
-          <div class="not-icon-container">
-            <NotSvg size="2.2rem" />
-          </div>
-        {:else}
-          <div class="main-icon-container">
-            <PetsSvg size="2rem" />
-          </div>
-        {/if}
-      </div>
-    {/if}
-    {#if content.showWifi}
-      <div class="bool-element-wrapper">
-        {#if !content.wifi}
-          <div class="main-icon-container">
-            <WifiSvg size="1.6rem" />
-          </div>
-          <div class="not-icon-container">
-            <NotSvg size="2.2rem" />
-          </div>
-        {:else}
-          <WifiSvg size="2rem" />
-        {/if}
-      </div>
-    {/if}
-    {#if content.showSmoking}
-      <div class="bool-element-wrapper">
-        {#if !content.smoking}
-          <div class="main-icon-container">
-            <SmokingSvg size="1.6rem" />
-          </div>
-          <div class="not-icon-container">
-            <NotSvg size="2.2rem" />
-          </div>
-        {:else}
-          <SmokingSvg size="2rem" />
-        {/if}
-      </div>
-    {/if}
-    {#if content.showAc}
-      <div class="bool-element-wrapper">
-        {#if !content.ac}
-          <div class="main-icon-container">
-            <AcSvg size="1.6rem" />
-          </div>
-          <div class="not-icon-container">
-            <NotSvg size="2.2rem" />
-          </div>
-        {:else}
-          <AcSvg size="2rem" />
-        {/if}
-      </div>
-    {/if}
-    {#if content.showTv}
-      <div class="bool-element-wrapper">
-        {#if !content.tv}
-          <div class="main-icon-container">
-            <TvSvg size="1.6rem" />
-          </div>
-          <div class="not-icon-container">
-            <NotSvg size="2.2rem" />
-          </div>
-        {:else}
-          <TvSvg size="2rem" />
-        {/if}
-      </div>
-    {/if}
-    {#if content.showParking}
-      <div class="bool-element-wrapper">
-        {#if !content.parking}
-          <div class="main-icon-container">
-            <ParkingSvg size="1.6rem" />
-          </div>
-          <div class="not-icon-container">
-            <NotSvg size="2.2rem" />
-          </div>
-        {:else}
-          <ParkingSvg size="2rem" />
-        {/if}
-      </div>
-    {/if}
+  </div>
+  {#if showPets}
+    <div class="bool-element-wrapper">
+      {#if !pets}
+        <div class="main-icon-container">
+          <PetsSvg size="1.6rem" />
+        </div>
+        <div class="not-icon-container">
+          <NotSvg size="2.2rem" />
+        </div>
+      {:else}
+        <div class="main-icon-container">
+          <PetsSvg size="2rem" />
+        </div>
+      {/if}
+    </div>
+  {/if}
+  {#if showWifi}
+    <div class="bool-element-wrapper">
+      {#if !wifi}
+        <div class="main-icon-container">
+          <WifiSvg size="1.6rem" />
+        </div>
+        <div class="not-icon-container">
+          <NotSvg size="2.2rem" />
+        </div>
+      {:else}
+        <WifiSvg size="2rem" />
+      {/if}
+    </div>
+  {/if}
+  {#if showSmoking}
+    <div class="bool-element-wrapper">
+      {#if !smoking}
+        <div class="main-icon-container">
+          <SmokingSvg size="1.6rem" />
+        </div>
+        <div class="not-icon-container">
+          <NotSvg size="2.2rem" />
+        </div>
+      {:else}
+        <SmokingSvg size="2rem" />
+      {/if}
+    </div>
+  {/if}
+  {#if showAc}
+    <div class="bool-element-wrapper">
+      {#if !ac}
+        <div class="main-icon-container">
+          <AcSvg size="1.6rem" />
+        </div>
+        <div class="not-icon-container">
+          <NotSvg size="2.2rem" />
+        </div>
+      {:else}
+        <AcSvg size="2rem" />
+      {/if}
+    </div>
+  {/if}
+  {#if showTv}
+    <div class="bool-element-wrapper">
+      {#if !tv}
+        <div class="main-icon-container">
+          <TvSvg size="1.6rem" />
+        </div>
+        <div class="not-icon-container">
+          <NotSvg size="2.2rem" />
+        </div>
+      {:else}
+        <TvSvg size="2rem" />
+      {/if}
+    </div>
+  {/if}
+  {#if showParking}
+    <div class="bool-element-wrapper">
+      {#if !parking}
+        <div class="main-icon-container">
+          <ParkingSvg size="1.6rem" />
+        </div>
+        <div class="not-icon-container">
+          <NotSvg size="2.2rem" />
+        </div>
+      {:else}
+        <ParkingSvg size="2rem" />
+      {/if}
+    </div>
   {/if}
 </div>
 

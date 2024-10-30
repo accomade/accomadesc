@@ -1,6 +1,79 @@
-import { type Dinero, type DineroSnapshot } from 'dinero.js';
-import type { PricingColumn, StaticRangeDate } from './sub.ts';
-import type { DateTime } from 'luxon';
+import type {
+  PricingColumn,
+  PricingEntry,
+  PricingRange,
+  CardContent,
+  StaticPricingRange,
+} from './sub.ts';
+
+export interface Text {
+  id: string;
+  kind: 'text';
+  content: TextContent;
+}
+export interface TextContent {
+  ref: string;
+  translation: string;
+  minHeight?: string;
+  textFontSize?: string;
+  headerFontSize?: string;
+}
+
+export interface AccoDescription {
+  id: string;
+  kind: 'acco-description';
+  content: AccoDescriptionContent;
+}
+
+export interface AccoDescriptionContent {
+  ref: string;
+  translatedRef: string;
+  minHeight?: string;
+  textFontSize?: string;
+  headerFontSize?: string;
+}
+
+export interface Weather {
+  id: string;
+  kind: 'weather';
+  content: WeatherContent;
+}
+
+export interface WeatherContent {
+  header1: string;
+  header1Translation: string;
+  header2: string;
+  header2Translation: string;
+  location: string;
+}
+
+export interface Photo {
+  id: string;
+  kind: 'photo';
+  content: PhotoContent;
+}
+
+export interface PhotoContent {
+  photoPath: string;
+  alt: string;
+  altTranslation: string;
+  attribution?: string;
+  link?: string;
+  external?: boolean;
+  height?: string | undefined;
+  ratio?: string | undefined;
+  width?: string | undefined;
+}
+
+export interface PhotoGallery {
+  id: string;
+  kind: 'gallery';
+  content: PhotoGalleryContent;
+}
+export interface PhotoGalleryContent {
+  gridPhotoWidth?: number;
+  photos: Photo[];
+}
 
 export interface LeafletMap {
   id: string;
@@ -33,101 +106,6 @@ export interface CalendarAvailableContent {
   search: number[];
 }
 
-export interface Text {
-  id: string;
-  kind: 'text';
-  content: TextContent;
-}
-export interface TextContent {
-  ref: string;
-  minHeight?: string;
-  textFontSize?: string;
-  headerFontSize?: string;
-}
-
-export interface Weather {
-  id: string;
-  kind: 'weather';
-  content: WeatherContent;
-}
-export interface WeatherContent {
-  header1: string;
-  header2: string;
-  location: string;
-  currenLang: string;
-}
-
-export interface Photo {
-  id: string;
-  kind: 'photo';
-  content: PhotoContent;
-}
-export interface PhotoContent {
-  photoPath: string;
-  alt: string;
-  attribution?: string;
-  link?: string;
-  external?: boolean;
-  height?: string | undefined;
-  ratio?: string | undefined;
-  width?: string | undefined;
-  eager?: boolean;
-  frame?: boolean;
-  transition?: 'none';
-}
-
-export interface PhotoGallery {
-  id: string;
-  kind: 'gallery';
-  content: PhotoGalleryContent;
-}
-export interface PhotoGalleryContent {
-  gridPhotoWidth?: number;
-  photos: Photo[];
-}
-
-export interface Pricing {
-  id: string;
-  kind: 'pricing';
-  content: PricingContent;
-}
-
-export interface PricingContent {
-  global: PricingEntry;
-  staticRanges?: StaticPricingRange[];
-  ranges?: PricingRange[];
-  entries?: PricingRange[]; //different name for ranges ... always the same
-  columns?: PricingColumn[];
-  footnote?: string;
-}
-
-export interface PricingRange {
-  from: string;
-  to: string;
-  entry: PricingEntry;
-}
-
-export interface StaticPricingRange {
-  from: StaticRangeDate;
-  to: StaticRangeDate;
-  entry: PricingEntry;
-}
-
-export interface PricingEntry {
-  firstNightPrice?: DineroSnapshot<number>;
-  perNightPrice: DineroSnapshot<number>;
-
-  minNumberOfNights?: number;
-
-  additionalPersonPrice1?: DineroSnapshot<number>;
-  additionalPersonPrice2?: DineroSnapshot<number>;
-  additionalPersonPrice3?: DineroSnapshot<number>;
-
-  additionalPersonText1?: string;
-  additionalPersonText2?: string;
-  additionalPersonText3?: string;
-}
-
 export interface PricingShort {
   id: string;
   kind: 'pricing-short';
@@ -142,6 +120,24 @@ export interface PricingShortContent {
   showMaximum?: boolean;
   showMinimum?: boolean;
   footnote?: string;
+  footnoteTranslation?: string;
+}
+
+export interface Pricing {
+  id: string;
+  kind: 'pricing';
+  content: PricingContent;
+}
+
+export interface PricingContent {
+  global: PricingEntry;
+  staticRanges?: StaticPricingRange[];
+  ranges?: PricingRange[];
+  columns?: PricingColumn[];
+  columnsTranslations?: Record<PricingColumn, string>;
+  entries?: PricingRange[]; //different name for ranges ... always the same
+  footnote?: string;
+  footnoteTranslation?: string;
 }
 
 export interface AmenitiesCore {
@@ -149,10 +145,12 @@ export interface AmenitiesCore {
   kind: 'amenities-core';
   content: AmenitiesCoreContent;
 }
+
 export interface AmenitiesCoreContent {
   peopleMin: number;
   peopleMax: number;
   size: number;
+  formattedSize: string;
   bedRooms: number;
   bathRooms: number;
   pets: boolean;
@@ -174,28 +172,9 @@ export interface AccoCard {
   kind: 'acco-card';
   content: AccoCardContent;
 }
-
 export interface AccoCardContent {
   cardContent: CardContent;
   displayName: string;
-}
-
-export interface CardContent {
-  coverPhoto: Photo;
-  slug?: string;
-  blocks: Block[];
-}
-
-export interface AccoDescription {
-  id: string;
-  kind: 'acco-description';
-  content: AccoDescriptionContent;
-}
-export interface AccoDescriptionContent {
-  ref: string;
-  minHeight?: string;
-  textFontSize?: string;
-  headerFontSize?: string;
 }
 
 export type Block =
@@ -220,14 +199,6 @@ export interface Section {
   columnCount?: number;
   padding?: string;
   blocks?: Block[];
-}
-
-export interface I18nFacade {
-  currentLang?: string;
-  translateFunc?: (ref: string) => string;
-  formatFunc?: (formatter: string, props: Record<string, any>) => string;
-  formatMoneyFunc?: (d: Dinero<number> | DineroSnapshot<number>) => string;
-  formatDateFunc?: (d: DateTime | string) => string;
 }
 
 export const isAccoCard = (b: Block): b is AccoCard => {

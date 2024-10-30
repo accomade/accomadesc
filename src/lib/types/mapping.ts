@@ -38,13 +38,6 @@ import { EUR } from '@dinero.js/currencies';
 import { type DateTime, DateTime as luxon } from 'luxon';
 import { randomID } from '$lib/names/gen.ts';
 
-export interface I18nFacade {
-  translateFunc: (ref: string) => string;
-  formatFunc: (formatter: string, props: Record<string, any>) => string;
-  formatMoneyFunc: (d: Dinero<number>) => string;
-  formatDateFunc: (d: DateTime) => string;
-}
-
 export const mapBlock = (jb: BlockDTO, f: I18nFacade): Block => {
   if (!jb) return undefined;
 

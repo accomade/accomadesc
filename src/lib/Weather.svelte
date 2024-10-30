@@ -1,50 +1,63 @@
 <script lang="ts">
-  import { run } from 'svelte/legacy';
-
-  import { currentLang } from '$lib/stores/lang';
-  import { dictEntry } from '$lib/conf/translations';
-
   import { onMount } from 'svelte';
-  import { load } from '$lib/weather';
+  import { browser } from '$app/environment';
+  import type { I18nFacade, WeatherContent } from './types/blocks.ts';
 
-  interface Props {
-    header1: string;
-    header2: string;
-    location: string;
-  }
+  let { header1, header2, location, translateFunc, currentLang }: WeatherContent & I18nFacade =
+    $props();
 
-  let { header1, header2, location }: Props = $props();
-  
   const callback = () => {
     //TODO maybe do something here
     // probably build something custom, not using weatherwidget.io, yes maptiler might be good option
     //
     //console.log("weather script loaded")
     initialLoadDone = true;
-  }
+  };
 
   let initialLoadDone = $state(false);
-  onMount( () => {
-    load(callback, window)
-  })
+  onMount(() => {
+    load(callback);
+  });
 
-  run(() => {
-    if(initialLoadDone && $currentLang) {
+  const load = (callback: VoidFunction) => {
+    if (browser) {
+      const existing = document.getElementById('weatherwidget-io-js');
+      if (!existing) {
+        const tag = document.createElement('script');
+        tag.src = 'https://weatherwidget.io/js/widget.min.js';
+        tag.id = 'weatherwidget-io-js';
+        tag.defer = true;
+        tag.async = true;
+        tag.onload = callback;
+        document.body.appendChild(tag);
+      } else {
+        callback();
+      }
+    }
+  };
+
+  let translatedHeader1 = $state('');
+  let translatedHeader2 = $state('');
+
+  $effect(() => {
+    if (initialLoadDone) {
+      translatedHeader1 = translateFunc ? translateFunc(header1) : '';
+      translatedHeader2 = translateFunc ? translateFunc(header2) : '';
       document.getElementById('weatherwidget-io-js')?.remove();
-      load(callback, window);
+      load(callback);
     }
   });
 </script>
 
 <div class="weather-wrapper">
-
-  <a 
-    class="weatherwidget-io" 
-    href="https://forecast7.com/{$currentLang}/{location}"
-    data-label_1="{dictEntry($currentLang, header1)}"
-    data-label_2="{dictEntry($currentLang, header2)}"
-    data-theme="pure" >
-    {dictEntry($currentLang, header1)} {dictEntry($currentLang, header2)}
+  <a
+    class="weatherwidget-io"
+    href="https://forecast7.com/{currentLang ?? 'en'}/{location}"
+    data-label_1={translatedHeader1}
+    data-label_2={translatedHeader2}
+    data-theme="pure"
+  >
+    {translatedHeader1}
+    {translatedHeader2}
   </a>
-  
 </div>

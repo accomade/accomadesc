@@ -1,21 +1,6 @@
 <script lang="ts">
   import type { Block, Section } from './types/blocks.ts';
 
-  /*
- Text,
-    Photo,
-    PhotoGallery,
-    Calendar,
-    CalendarAvailable,
-    Pricing,
-    PricingShort,
-    AmenitiesCore,
-    Weather,
-    LeafletMap,
-    AccoCard,
-    AccoDescription,
-
-  */
   import Text from './Text.svelte';
   import Photo from './Photo.svelte';
   import PhotoGallery from './PhotoGallery.svelte';
@@ -42,15 +27,22 @@
     isPricingShort,
     isAccoDescription,
   } from './types/blocks.ts';
+  import type { I18nFacade } from './types/blocks.ts';
 
   let {
     id,
     header = undefined,
-    translatedHeader = undefined,
     columnCount = 2,
     padding = $bindable('10vw'),
     blocks = [],
-  }: Section = $props();
+    translateFunc,
+    formatMoneyFunc,
+    formatDateFunc,
+    formatFunc,
+    currentLang,
+  }: Section & I18nFacade = $props();
+
+  let translatedHeader = $derived(header && translateFunc ? translateFunc(header) : '');
 
   let gridTemplateColumns = $state(`repeat(${columnCount}, 1fr)`);
 
@@ -79,33 +71,27 @@
     {#each blocks as block}
       <div class="block-container">
         {#if isPhoto(block)}
-          <Photo {block} />
+          <Photo {...block.content} {translateFunc} />
         {:else if isText(block)}
-          <TextBlockEditor {supabase} {block} {blockId} />
+          <Text {...block.content} {translateFunc} />
         {:else if isLeafletMap(block)}
-          <MapEditor {block} {blockId} {valueChanged} />
+          <LeafletMap {...block.content} />
         {:else if isGallery(block)}
-          <GalleryEditor {block} {blockId} {valueChanged} />
+          <PhotoGallery {...block.content} {translateFunc} />
         {:else if isWeather(block)}
-          <WeatherBlockEditor {block} {blockId} />
+          <Weather {...block.content} {translateFunc} {currentLang} />
         {:else if isAmenitiesCore(block)}
-          {#if !accosManager.loaded || !acco}
-            <Spinner />
-          {:else}
-            <AmenitiesEditor {acco} {blockId} />
-          {/if}
+          <AmenitiesCore {...block.content} {formatFunc} />
         {:else if isPricing(block)}
-          {#if !accosManager.loaded || !acco}
-            <Spinner />
-          {:else}
-            <PricingDisplayEditor {supabase} {acco} {block} />
-          {/if}
+          <Pricing
+            {...block.content}
+            {translateFunc}
+            {formatFunc}
+            {formatMoneyFunc}
+            {formatDateFunc}
+          />
         {:else if isPricingShort(block)}
-          {#if !accosManager.loaded || !acco}
-            <Spinner />
-          {:else}
-            <PricingShortDisplayEditor {block} {acco} />
-          {/if}
+          <PricingShort {...block.content} />
         {:else if isCalendar(block)}
           <div class="block-explainer">
             <span>{@html i18n.l.calendarBlockExplainer()}</span>
@@ -125,8 +111,6 @@
         {:else}
           <div>[UNEXPECTED VALUE]</div>
         {/if}
-
-        <BlockBlock spec={b} />
       </div>
     {/each}
   </div>
@@ -160,4 +144,3 @@
     margin-bottom: 0.8rem;
   }
 </style>
-

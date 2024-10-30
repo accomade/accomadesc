@@ -1,35 +1,28 @@
 <script lang="ts">
-  import { currentLang } from '$lib/stores/lang';
-  import { dictEntry } from '$lib/conf/translations';
-  interface Props {
-    ref: string;
-    minHeight?: string;
-    textFontSize?: string;
-    headerFontSize?: string;
-  }
+  import type { TextContent, I18nFacade } from './types/blocks.ts';
 
   let {
     ref,
     minHeight = '100%',
     textFontSize = '1rem',
-    headerFontSize = '1.5rem'
-  }: Props = $props();
+    headerFontSize = '1.5rem',
+    translateFunc,
+  }: TextContent & I18nFacade = $props();
 
+  let translated = $derived(translateFunc ? translateFunc(ref) : '');
 </script>
 
 <div class="container">
-
   <div
-      style="
+    style="
         min-height: {minHeight};
         --font-size-text-text-editor: {textFontSize};
         --font-size-header-text-editor: {headerFontSize};
         "
-      class="content" 
-      id="content">
-
-    {@html dictEntry($currentLang, ref)}  
-    
+    class="content"
+    id="content"
+  >
+    {@html translated}
   </div>
 </div>
 

@@ -58,3 +58,9 @@ export interface CardContent {
   translatedSlug?: string;
   blocks: Block[];
 }
+
+export interface GridPhoto {
+  photo: Photo;
+  zoomed: boolean;
+  id: string;
+}

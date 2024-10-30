@@ -2,84 +2,71 @@
   import LinkSvg from '$lib/svg/LinkSVG.svelte';
   import ExtLinkSvg from '$lib/svg/ExtLinkSVG.svelte';
   import { TwicImg } from '@twicpics/components/svelte5';
-  import type { Photo } from './types/blocks.ts';
+  import type { PhotoContent, I18nFacade } from './types/blocks.ts';
 
-  let props: Photo = $props();
+  let {
+    alt,
+    photoPath,
+    eager = false,
+    link = '',
+    external = false,
+    attribution = undefined,
+    ratio = 'none',
+    frame = false,
+    transition = 'none',
+    width = '100%',
+    height = '100%',
+    translateFunc,
+  }: PhotoContent & I18nFacade = $props();
 
   export const className: string = 'photo-container-sizing';
 
+  let altTranslation = $derived(translateFunc ? translateFunc(alt) : '');
   let photoHeight = $state(0);
 </script>
 
 {#snippet twic()}
-  <TwicImg
-    class={className}
-    src={props.content.photoPath}
-    alt={props.content.altTranslation}
-    ratio={props.content.ratio}
-    mode="cover"
-    eager="false"
-    transition="fade"
-  />
+  <div class:no-frame={!frame} class:frame>
+    <TwicImg
+      class={className}
+      src={photoPath}
+      alt={altTranslation}
+      {ratio}
+      mode="cover"
+      {eager}
+      {transition}
+    />
+  </div>
+  {#if attribution}
+    <div style="height:calc({photoHeight}px - 0.5rem);" class="attribution-container">
+      <div class="attribution-wrapper">
+        {@html attribution}
+      </div>
+    </div>
+  {/if}
 {/snippet}
 
-{#if props.content.link}
-  {#if props.content.external}
+{#if link}
+  {#if external}
     <a
       bind:clientHeight={photoHeight}
-      style="width: {props.content.width}; height: {props.content.height};"
-      href={props.content.link}
+      style="width: {width}; height: {height};"
+      href={link}
       target="_blank"
       rel="noreferrer noopener"
     >
-      <div class="no-frame">
-        {@render twic()}
-      </div>
-
-      {#if props.content.attribution}
-        <div style="height:calc({photoHeight}px - 0.5rem);" class="attribution-container">
-          <div class="attribution-wrapper">
-            {@html props.content.attribution}
-          </div>
-        </div>
-      {/if}
+      {@render twic()}
       <div class="link-icon-wrapper"><ExtLinkSvg size="1.8rem" /></div>
     </a>
   {:else}
-    <a
-      bind:clientHeight={photoHeight}
-      style="width: {props.content.width}; height: {props.content.height};"
-      href={props.content.link}
-    >
-      <div class="no-frame">
-        {@render twic()}
-      </div>
-
-      {#if props.content.attribution}
-        <div style="height:calc({photoHeight}px - 0.5rem);" class="attribution-container">
-          <div class="attribution-wrapper">
-            {@html props.content.attribution}
-          </div>
-        </div>
-      {/if}
+    <a bind:clientHeight={photoHeight} style="width: {width}; height: {height};" href={link}>
+      {@render twic()}
       <div class="link-icon-wrapper"><LinkSvg size="1.4rem" /></div>
     </a>
   {/if}
 {:else}
-  <div
-    bind:clientHeight={photoHeight}
-    style="width: {props.content.width}; height: {props.content.height};"
-  >
-    <div class="no-frame">
-      {@render twic()}
-    </div>
-    {#if props.content.attribution}
-      <div style="height:{photoHeight};" class="attribution-container">
-        <div class="attribution-wrapper">
-          {@html props.content.attribution}
-        </div>
-      </div>
-    {/if}
+  <div bind:clientHeight={photoHeight} style="width: {width}; height: {height};">
+    {@render twic()}
   </div>
 {/if}
 
@@ -128,5 +115,18 @@
   .no-frame {
     width: 100%;
     height: 100%;
+  }
+
+  .frame {
+    width: 100%;
+    height: 100%;
+    padding: 0.3rem;
+    box-shadow:
+      0px 1.1px 2.2px rgba(0, 0, 0, 0.02),
+      0px 2.7px 5.3px rgba(0, 0, 0, 0.028),
+      0px 5px 10px rgba(0, 0, 0, 0.035),
+      0px 8.9px 17.9px rgba(0, 0, 0, 0.042),
+      0px 16.7px 33.4px rgba(0, 0, 0, 0.05),
+      0px 40px 80px rgba(0, 0, 0, 0.07);
   }
 </style>
