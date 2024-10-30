@@ -11,50 +11,41 @@
   import SmokingSvg from './svg/SmokingSVG.svelte';
   import TvSvg from './svg/TvSVG.svelte';
   import WifiSvg from './svg/WifiSVG.svelte';
+  import type { AmenitiesCore } from './types/blocks.ts';
 
-  import { formatSize } from '$lib/conf/formats';
-  import { currentLang } from '$lib/stores/lang';
-
-  import type { AmenitiesCoreBlock } from './types.js';
-
-  interface Props {
-    core: AmenitiesCoreBlock;
-  }
-
-  let { core }: Props = $props();
-
-  let theCore = $derived(core);
+  let theCore: AmenitiesCore = $props();
 </script>
 
 <div class="amneties-wrapper">
   {#if theCore}
+    {@const content = theCore.content}
     <div class="element-wrapper">
       <AreaSvg size="2rem" />
       <div>
-        {@html formatSize($currentLang, theCore.size)}
+        {@html content.formattedSize}
       </div>
     </div>
     <div class="element-wrapper">
       <PeopleSvg size="2rem" />
       <div>
-        {theCore.peopleMin}-{theCore.peopleMax}
+        {content.peopleMin}-{content.peopleMax}
       </div>
     </div>
     <div class="element-wrapper">
       <BedroomSvg size="2rem" />
       <div>
-        {theCore.bedRooms}
+        {content.bedRooms}
       </div>
     </div>
     <div class="element-wrapper">
       <BathroomSvg size="2rem" />
       <div>
-        {theCore.bathRooms}
+        {content.bathRooms}
       </div>
     </div>
-    {#if theCore.showPets}
+    {#if content.showPets}
       <div class="bool-element-wrapper">
-        {#if !theCore.pets}
+        {#if !content.pets}
           <div class="main-icon-container">
             <PetsSvg size="1.6rem" />
           </div>
@@ -68,9 +59,9 @@
         {/if}
       </div>
     {/if}
-    {#if theCore.showWifi}
+    {#if content.showWifi}
       <div class="bool-element-wrapper">
-        {#if !theCore.wifi}
+        {#if !content.wifi}
           <div class="main-icon-container">
             <WifiSvg size="1.6rem" />
           </div>
@@ -82,9 +73,9 @@
         {/if}
       </div>
     {/if}
-    {#if theCore.showSmoking}
+    {#if content.showSmoking}
       <div class="bool-element-wrapper">
-        {#if !theCore.smoking}
+        {#if !content.smoking}
           <div class="main-icon-container">
             <SmokingSvg size="1.6rem" />
           </div>
@@ -96,9 +87,9 @@
         {/if}
       </div>
     {/if}
-    {#if theCore.showAc}
+    {#if content.showAc}
       <div class="bool-element-wrapper">
-        {#if !theCore.ac}
+        {#if !content.ac}
           <div class="main-icon-container">
             <AcSvg size="1.6rem" />
           </div>
@@ -110,9 +101,9 @@
         {/if}
       </div>
     {/if}
-    {#if theCore.showTv}
+    {#if content.showTv}
       <div class="bool-element-wrapper">
-        {#if !theCore.tv}
+        {#if !content.tv}
           <div class="main-icon-container">
             <TvSvg size="1.6rem" />
           </div>
@@ -124,9 +115,9 @@
         {/if}
       </div>
     {/if}
-    {#if theCore.showParking}
+    {#if content.showParking}
       <div class="bool-element-wrapper">
-        {#if !theCore.parking}
+        {#if !content.parking}
           <div class="main-icon-container">
             <ParkingSvg size="1.6rem" />
           </div>

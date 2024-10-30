@@ -1,4 +1,10 @@
-# create-svelte
+# asc (Accomade Svelte Components)
+
+This project is a collection of Svelte 5 components used throughout the different products and websites that are made with https://accoma.de.
+
+
+
+# INITIAL README - create-svelte
 
 Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
 
