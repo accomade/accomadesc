@@ -2,7 +2,7 @@
   import LinkSvg from '$lib/svg/LinkSVG.svelte';
   import ExtLinkSvg from '$lib/svg/ExtLinkSVG.svelte';
   import { TwicImg } from '@twicpics/components/svelte5';
-  import type { PhotoContent, I18nFacade } from './types/blocks.ts';
+  import type { PhotoContent, I18nFacade } from './types.ts';
 
   let {
     alt,
@@ -19,7 +19,7 @@
     translateFunc,
   }: PhotoContent & I18nFacade = $props();
 
-  export const className: string = 'photo-container-sizing';
+  const className: string = 'photo-container-sizing';
 
   let altTranslation = $derived(translateFunc ? translateFunc(alt) : '');
   let photoHeight = $state(0);

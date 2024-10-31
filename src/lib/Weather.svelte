@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
-  import type { I18nFacade, WeatherContent } from './types/blocks.ts';
+  import type { I18nFacade, WeatherContent } from './types.ts';
 
   let { header1, header2, location, translateFunc, currentLang }: WeatherContent & I18nFacade =
     $props();

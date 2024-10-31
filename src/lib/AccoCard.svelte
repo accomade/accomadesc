@@ -1,18 +1,28 @@
 <script lang="ts">
   import AmenitiesCore from './AmenitiesCore.svelte';
+  import CalendarAvailable from './CalendarAvailable.svelte';
   import Photo from './Photo.svelte';
   import PricingShort from './PricingShort.svelte';
-  import { isAmenitiesCore, isPricingShort, type AccoCard } from './types/blocks.ts';
+  import {
+    isAmenitiesCore,
+    isCalendarAvailable,
+    isPricingShort,
+    type AccoCardContent,
+    type I18nFacade,
+  } from './types.ts';
 
-  let props: AccoCard = $props();
+  let { cardContent, displayName, translateFunc, formatFunc }: AccoCardContent & I18nFacade =
+    $props();
+  let translatedSlug = $derived(
+    translateFunc && cardContent.slug ? translateFunc(cardContent.slug) : '',
+  );
 </script>
 
 <div class="accocard-wrapper">
-  {#if props.content.cardContent}
-    {@const cardContent = props.content.cardContent}
+  {#if cardContent}
     <div class="title-with-slug">
-      <h2>{props.content.displayName}</h2>
-      <div class="slug">{cardContent.translatedSlug}</div>
+      <h2>{displayName}</h2>
+      <div class="slug">{@html translatedSlug}</div>
     </div>
     {#if cardContent.coverPhoto}
       <div class="photo">
@@ -23,15 +33,11 @@
       {#each cardContent.blocks as b, i}
         <div class="block-container-{i}">
           {#if isAmenitiesCore(b)}
-            <AmenitiesCore {...b} />
+            <AmenitiesCore {...b.content} {formatFunc} />
           {:else if isPricingShort(b)}
-            <PricingShort
-              showMaximum={b.content.showMaximum}
-              showMinimum={b.content.showMinimum}
-              pricing={mapJsonPricing(b.content)}
-            />
+            <PricingShort {...b.content} {translateFunc} {formatFunc} />
           {:else if isCalendarAvailable(b)}
-            <CalendarAvailable {...b.content} />
+            <CalendarAvailable {...b.content} {translateFunc} {formatFunc} />
           {:else}
             <span class="wart">Unsupported</span>
           {/if}

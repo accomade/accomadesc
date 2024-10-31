@@ -5,7 +5,7 @@
   import 'leaflet/dist/images/marker-icon.png';
 
   import { onMount, onDestroy } from 'svelte';
-  import type { LeafletMapContent } from './types/blocks.ts';
+  import type { LeafletMapContent } from './types.ts';
 
   let { lat, long, zoom, address = 'Achterstr. 4, 17459 Koserow' }: LeafletMapContent = $props();
 
@@ -78,4 +78,3 @@
     min-height: 60vh;
   }
 </style>
-

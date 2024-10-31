@@ -1,6 +1,4 @@
 <script lang="ts">
-  import type { Block, Section } from './types/blocks.ts';
-
   import Text from './Text.svelte';
   import Photo from './Photo.svelte';
   import PhotoGallery from './PhotoGallery.svelte';
@@ -15,6 +13,8 @@
   import AccoDescription from './AccoDescription.svelte';
 
   import {
+    type Section,
+    type I18nFacade,
     isAmenitiesCore,
     isLeafletMap,
     isPhoto,
@@ -26,11 +26,10 @@
     isPricing,
     isPricingShort,
     isAccoDescription,
-  } from './types/blocks.ts';
-  import type { I18nFacade } from './types/blocks.ts';
+    isAccoCard,
+  } from './types.ts';
 
   let {
-    id,
     header = undefined,
     columnCount = 2,
     padding = $bindable('10vw'),
@@ -40,6 +39,7 @@
     formatDateFunc,
     formatFunc,
     currentLang,
+    calendarTranslation,
   }: Section & I18nFacade = $props();
 
   let translatedHeader = $derived(header && translateFunc ? translateFunc(header) : '');
@@ -70,18 +70,22 @@
   <div class="content" style="grid-template-columns: {gridTemplateColumns}">
     {#each blocks as block}
       <div class="block-container">
-        {#if isPhoto(block)}
-          <Photo {...block.content} {translateFunc} />
-        {:else if isText(block)}
-          <Text {...block.content} {translateFunc} />
-        {:else if isLeafletMap(block)}
-          <LeafletMap {...block.content} />
-        {:else if isGallery(block)}
-          <PhotoGallery {...block.content} {translateFunc} />
-        {:else if isWeather(block)}
-          <Weather {...block.content} {translateFunc} {currentLang} />
+        {#if isAccoCard(block)}
+          <AccoCard {...block.content} {translateFunc} {formatFunc} />
+        {:else if isAccoDescription(block)}
+          <AccoDescription {...block.content} {translateFunc} />
         {:else if isAmenitiesCore(block)}
           <AmenitiesCore {...block.content} {formatFunc} />
+        {:else if isCalendar(block)}
+          <Calendar {...block.content} {translateFunc} {calendarTranslation} />
+        {:else if isCalendarAvailable(block)}
+          <CalendarAvailable {...block.content} {formatFunc} {translateFunc} />
+        {:else if isLeafletMap(block)}
+          <LeafletMap {...block.content} />
+        {:else if isPhoto(block)}
+          <Photo {...block.content} {translateFunc} />
+        {:else if isGallery(block)}
+          <PhotoGallery {...block.content} {translateFunc} />
         {:else if isPricing(block)}
           <Pricing
             {...block.content}
@@ -89,25 +93,14 @@
             {formatFunc}
             {formatMoneyFunc}
             {formatDateFunc}
+            {currentLang}
           />
         {:else if isPricingShort(block)}
-          <PricingShort {...block.content} />
-        {:else if isCalendar(block)}
-          <div class="block-explainer">
-            <span>{@html i18n.l.calendarBlockExplainer()}</span>
-          </div>
-        {:else if isCalendarAvailable(block)}
-          {#if !accosManager.loaded || !acco}
-            <Spinner />
-          {:else}
-            <CalendarAvailableEditor {block} {valueChanged} />
-          {/if}
-        {:else if isAccoDescription(block)}
-          {#if !accosManager.loaded || !acco}
-            <Spinner />
-          {:else}
-            <AccoDescriptionEditor {supabase} {acco} />
-          {/if}
+          <PricingShort {...block.content} {translateFunc} {formatFunc} />
+        {:else if isText(block)}
+          <Text {...block.content} {translateFunc} />
+        {:else if isWeather(block)}
+          <Weather {...block.content} {translateFunc} {currentLang} />
         {:else}
           <div>[UNEXPECTED VALUE]</div>
         {/if}

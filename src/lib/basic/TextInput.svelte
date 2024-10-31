@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { randomId } from '../names/gen.ts';
+  import { randomID } from '../names/gen.ts';
 
   let {
     placeholder = '',
@@ -24,7 +24,7 @@
     messageValid = 'OK',
     showInitialMessage = false,
     showMessageOnInvalid = true,
-    id = `text-field-${randomId()}`,
+    id = `text-field-${randomID()}`,
     translating = false,
     blurred = () => {},
     focussed = () => {},

@@ -6,8 +6,8 @@
     I18nFacade,
     StaticPricingRange,
     PricingEntry,
-  } from './types/blocks.ts';
-  import type { PricingColumn } from './types/sub.ts';
+    PricingColumn,
+  } from './types.ts';
   import type { Dinero, DineroSnapshot } from 'dinero.js';
 
   let filteredRanges: PricingRange[] = $state([]);
@@ -24,6 +24,10 @@
     formatFunc,
     currentLang,
   }: PricingContent & I18nFacade = $props();
+
+  if (!ranges && entries) {
+    ranges = entries;
+  }
 
   const colHeaderStyle = {
     timeRange: 'width: 20%;',
@@ -60,14 +64,29 @@
 
   const formatRangeCol = (range: PricingRange): string => {
     let result = '';
-    if (!formatDateFunc || !translateFunc || !formatMoneyFunc || !formatFunc) return result;
+    if (!formatFunc) return result;
     if (range.from && range.to) {
-      result = `${formatDateFunc(range.from)} - ${formatDateFunc(range.to)}`;
+      result = formatFunc('rangeFromTo', { from: range.from, to: range.to });
     } else if (range.from) {
-      result = `${translateFunc('from')} ${formatDateFunc(range.from)}}`;
+      result = formatFunc('rangeFrom', { from: range.from });
     } else if (range.to) {
-      result = `${translateFunc('to')} ${formatDateFunc(range.to)}`;
+      result = formatFunc('rangeTo', { to: range.to });
     }
+    return result;
+  };
+
+  const formatStaticRangeCol = (range: StaticPricingRange): string => {
+    let result = '';
+    if (!formatFunc) return result;
+
+    if (range.from && range.to) {
+      result = formatFunc('staticRangeFromTo', { from: range.from, to: range.to });
+    } else if (range.from) {
+      result = formatFunc('staticRangeFrom', { from: range.from });
+    } else if (range.to) {
+      result = formatFunc('staticRangeTo', { to: range.to });
+    }
+
     return result;
   };
 
@@ -141,13 +160,7 @@
     const entry = range.entry;
     switch (col) {
       case 'timeRange':
-        if (range.from && range.to) {
-          result = formatFunc('staticRangeFromTo', { from: range.from, to: range.to });
-        } else if (range.from) {
-          result = formatFunc('staticRangeFrom', { from: range.from });
-        } else if (range.to) {
-          result = formatFunc('staticRangeTo', { to: range.to });
-        }
+        result = formatStaticRangeCol(range);
       case 'firstNight':
         result = formatFirstNightPriceCol(entry);
       case 'eachNight':
@@ -483,4 +496,3 @@
     font-weight: bolder;
   }
 </style>
-

@@ -26,6 +26,9 @@ importers:
       luxon:
         specifier: ^3.5.0
         version: 3.5.0
+      occuplan:
+        specifier: ^0.3.15
+        version: 0.3.15
     devDependencies:
       '@sveltejs/adapter-auto':
         specifier: ^3.3.1
@@ -609,6 +612,10 @@ packages:
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
     hasBin: true
 
+  occuplan@0.3.15:
+    resolution: {integrity: sha512-Ls2HQq/1sEI0S7v/Ae9tiOKfL9bwwdo1y6+/qyveJGmCFjcrHdTtm36yxeWLgi4NWhExxlkQJyh77c6HHVWJfA==}
+    engines: {node: '>=22'}
+
   once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
 
@@ -676,6 +683,10 @@ packages:
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
+
+  squirrelly@9.1.0:
+    resolution: {integrity: sha512-kvjFqb7qzC4gX4lkqSaU8QPvUHhDLMiDpxpz7a66vjTH0JtjLJqAXbPrc7ST61EefuuuW05sne2rjGskunrF2A==}
+    engines: {node: '>=6.0.0'}
 
   stackback@0.0.2:
     resolution: {integrity: sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==}
@@ -1260,6 +1271,11 @@ snapshots:
       npm-bundled: 2.0.1
       npm-normalize-package-bin: 2.0.0
 
+  occuplan@0.3.15:
+    dependencies:
+      luxon: 3.5.0
+      squirrelly: 9.1.0
+
   once@1.4.0:
     dependencies:
       wrappy: 1.0.2
@@ -1337,6 +1353,8 @@ snapshots:
       totalist: 3.0.1
 
   source-map-js@1.2.1: {}
+
+  squirrelly@9.1.0: {}
 
   stackback@0.0.2: {}
 

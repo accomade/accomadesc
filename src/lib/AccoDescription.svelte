@@ -1,15 +1,14 @@
 <script lang="ts">
-  import type { AccoDescription } from "./types/blocks.ts";
+  import type { AccoDescriptionContent, I18nFacade } from './types.ts';
   let {
-    id,
-    content = {
     ref,
-    translatedRef = ''
     minHeight = '100%',
     textFontSize = '1rem',
     headerFontSize = '1.5rem',
-    }
-  }: AccoDescription = $props();
+    translateFunc,
+  }: AccoDescriptionContent & I18nFacade = $props();
+
+  let translatedRef = $derived(translateFunc ? translateFunc(ref) : '');
 </script>
 
 <div class="container">
@@ -22,7 +21,7 @@
     class="content"
     id="content"
   >
-    {@html dictEntry($currentLang, ref)}
+    {@html translatedRef}
   </div>
 </div>
 
@@ -51,4 +50,3 @@
     width: 100%;
   }
 </style>
-

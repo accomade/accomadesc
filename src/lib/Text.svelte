@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { TextContent, I18nFacade } from './types/blocks.ts';
+  import type { TextContent, I18nFacade } from './types.ts';
 
   let {
     ref,

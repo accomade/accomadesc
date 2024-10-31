@@ -11,7 +11,7 @@
   import SmokingSvg from './svg/SmokingSVG.svelte';
   import TvSvg from './svg/TvSVG.svelte';
   import WifiSvg from './svg/WifiSVG.svelte';
-  import type { AmenitiesCoreContent, I18nFacade } from './types/blocks.ts';
+  import type { AmenitiesCoreContent, I18nFacade } from './types.ts';
 
   let {
     peopleMin,
