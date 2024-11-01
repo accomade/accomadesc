@@ -6,10 +6,15 @@
   } from '$lib/types.ts';
   import Text from '$lib/Text.svelte';
   import type { Dinero, DineroSnapshot } from 'dinero.js';
+  import { dinero, toDecimal } from 'dinero.js';
   import type { DateTime } from 'luxon';
+  import { DateTime as luxon } from 'luxon';
   import Button from '$lib/basic/Button.svelte';
   import AmenitiesCore from '$lib/AmenitiesCore.svelte';
   import { randomID } from '$lib/names/gen.ts';
+
+  import TextEditor from './TextEditor.svelte';
+  import AmenitiesEditor from './AmenitiesEditor.svelte';
 
   let textRef = 'textRef';
   let text: TextBlock = $state({
@@ -23,7 +28,7 @@
     },
   });
 
-  let amenitiesCore: AmenitiesCoreBlock = $state({
+  let amenities: AmenitiesCoreBlock = $state({
     id: randomID(),
     kind: 'amenities-core',
     content: {
@@ -59,20 +64,44 @@
     },
   });
 
+  let formats: Record<string, Record<string, any>> = $state({
+    en: {
+      size: (props: Record<string, any>) => `${props.size} m<sup>2</sup>`,
+    },
+    de: {
+      size: (props: Record<string, any>) => `${props.size} p<sup>3</sup>`,
+    },
+    fr: {
+      size: (props: Record<string, any>) => `${props.size} f<sup>2</sup>`,
+    },
+  });
+
+  const isDinero = (d: Dinero<number> | DineroSnapshot<number>): d is Dinero<number> => {
+    if ('calculator' in d) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   class I18n implements I18nFacade {
     currentLang = $state('en');
     calendarTranslation = $state('');
     translateFunc(ref: string): string {
-      return translations[this.currentLang].textRef;
+      return translations[this.currentLang][ref];
     }
-    formatFunc(ref: string): string {
-      return '';
+    formatFunc(ref: string, props: Record<string, any>): string {
+      return formats[this.currentLang][ref](props);
     }
     formatMoneyFunc(d: Dinero<number> | DineroSnapshot<number>): string {
-      return '';
+      if (!isDinero(d)) d = dinero(d);
+      return toDecimal(d, ({ value, currency }) => `${value} ${currency.code}`);
     }
     formatDateFunc(d: string | DateTime<boolean>): string {
-      return '';
+      if (typeof d === 'string') {
+        d = luxon.fromISO(d);
+      }
+      return d.toFormat('d. MMMM yy');
     }
   }
 
@@ -104,58 +133,37 @@
     <div class="component-view">
       <Text {...text.content} {...i18n} />
     </div>
-    <div class="component-control">
-      <div
-        bind:textContent={translations[i18n.currentLang].textRef}
-        style="height: 100%; padding: 1rem; width: 100%; border: 1px solid red; border-radius: 1rem;"
-        contenteditable
-      >
-        {translations[i18n.currentLang].textRef}
-      </div>
-      <div class="input-wrapper">
-        <label>
-          Block Height
-          <input type="text" bind:value={text.content.minHeight} />
-        </label>
-        <label>
-          Text Fontsize
-          <input type="text" bind:value={text.content.textFontSize} />
-        </label>
-        <label>
-          H3 Fontsize
-          <input type="text" bind:value={text.content.headerFontSize} />
-        </label>
-      </div>
-    </div>
+    <TextEditor
+      bind:text={translations[i18n.currentLang].textRef}
+      bind:minHeight={text.content.minHeight}
+      bind:textFontSize={text.content.textFontSize}
+      bind:headerFontSize={text.content.headerFontSize}
+    />
   </div>
   <h3>AmenitiesCore</h3>
   <div class="component">
     <div class="component-view">
-      <AmenitiesCore {...amenitiesCore.content} {...i18n} />
+      <AmenitiesCore {...amenities.content} {...i18n} />
     </div>
-    <div class="component-control">
-      <div
-        bind:textContent={translations[i18n.currentLang].textRef}
-        style="height: 100%; padding: 1rem; width: 100%; border: 1px solid red; border-radius: 1rem;"
-        contenteditable
-      >
-        {translations[i18n.currentLang].textRef}
-      </div>
-      <div class="input-wrapper">
-        <label>
-          Block Height
-          <input type="text" bind:value={text.content.minHeight} />
-        </label>
-        <label>
-          Text Fontsize
-          <input type="text" bind:value={text.content.textFontSize} />
-        </label>
-        <label>
-          H3 Fontsize
-          <input type="text" bind:value={text.content.headerFontSize} />
-        </label>
-      </div>
-    </div>
+    <AmenitiesEditor
+      bind:peopleMin={amenities.content.peopleMin}
+      bind:peopleMax={amenities.content.peopleMax}
+      bind:size={amenities.content.size}
+      bind:bedRooms={amenities.content.bedRooms}
+      bind:bathRooms={amenities.content.bathRooms}
+      bind:pets={amenities.content.pets}
+      bind:showPets={amenities.content.showPets}
+      bind:wifi={amenities.content.wifi}
+      bind:showWifi={amenities.content.showWifi}
+      bind:smoking={amenities.content.smoking}
+      bind:showSmoking={amenities.content.showSmoking}
+      bind:ac={amenities.content.ac}
+      bind:showAc={amenities.content.showAc}
+      bind:tv={amenities.content.tv}
+      bind:showTv={amenities.content.showTv}
+      bind:parking={amenities.content.parking}
+      bind:showParking={amenities.content.showParking}
+    />
   </div>
 </div>
 
@@ -200,17 +208,5 @@
     padding: 1rem;
     flex: 1;
     min-width: 40%;
-  }
-
-  .input-wrapper {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .component-control {
-    display: flex;
-    padding: 1rem;
-    flex: 1;
-    gap: 1rem;
   }
 </style>
