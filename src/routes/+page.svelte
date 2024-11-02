@@ -1,20 +1,28 @@
 <script lang="ts">
   import type {
     AmenitiesCore as AmenitiesCoreBlock,
-    I18nFacade,
+    LeafletMap as LeafletMapBlock,
+    Photo as PhotoBlock,
     Text as TextBlock,
   } from '$lib/types.ts';
   import Text from '$lib/Text.svelte';
-  import type { Dinero, DineroSnapshot } from 'dinero.js';
-  import { dinero, toDecimal } from 'dinero.js';
-  import type { DateTime } from 'luxon';
-  import { DateTime as luxon } from 'luxon';
   import Button from '$lib/basic/Button.svelte';
   import AmenitiesCore from '$lib/AmenitiesCore.svelte';
   import { randomID } from '$lib/names/gen.ts';
 
   import TextEditor from './TextEditor.svelte';
   import AmenitiesEditor from './AmenitiesEditor.svelte';
+  import MapEditor from './MapEditor.svelte';
+  import { I18n } from './I18n.svelte.ts';
+  import LeafletMap from '$lib/LeafletMap.svelte';
+  import Photo from '$lib/Photo.svelte';
+
+  import { installTwicPics } from '@twicpics/components/sveltekit';
+  import '@twicpics/components/style.css';
+  import PhotoEditor from './PhotoEditor.svelte';
+  installTwicPics({
+    domain: `https://accomade.twic.pics`,
+  });
 
   let textRef = 'textRef';
   let text: TextBlock = $state({
@@ -52,58 +60,42 @@
     },
   });
 
-  let translations: Record<string, Record<string, string>> = $state({
-    en: {
-      textRef: '<h3>HEADER</h3><p>Some english text</p>',
-    },
-    de: {
-      textRef: '<h3>HEADER</h3><p>Ein deutscher text</p>',
-    },
-    fr: {
-      textRef: '<h3>HEADER</h3><p>En francaise text</p>',
-    },
-  });
-
-  let formats: Record<string, Record<string, any>> = $state({
-    en: {
-      size: (props: Record<string, any>) => `${props.size} m<sup>2</sup>`,
-    },
-    de: {
-      size: (props: Record<string, any>) => `${props.size} p<sup>3</sup>`,
-    },
-    fr: {
-      size: (props: Record<string, any>) => `${props.size} f<sup>2</sup>`,
+  let leafletMap: LeafletMapBlock = $state({
+    id: randomID(),
+    kind: 'leaflet-map',
+    content: {
+      address: 'Wallaby Way, Sydney',
+      lat: -33.75573776507028,
+      long: 150.60356140726984,
+      zoom: 15,
     },
   });
 
-  const isDinero = (d: Dinero<number> | DineroSnapshot<number>): d is Dinero<number> => {
-    if ('calculator' in d) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  const photos = [
+    'https://accomade.twic.pics/prod/stock/photos/PXL_20220103_114534268.jpg',
+    'https://accomade.twic.pics/prod/stock/photos/PXL_20220418_175413201.jpg',
+    'https://accomade.twic.pics/prod/stock/photos/PXL_20230708_175935120.jpg',
+  ];
 
-  class I18n implements I18nFacade {
-    currentLang = $state('en');
-    calendarTranslation = $state('');
-    translateFunc(ref: string): string {
-      return translations[this.currentLang][ref];
-    }
-    formatFunc(ref: string, props: Record<string, any>): string {
-      return formats[this.currentLang][ref](props);
-    }
-    formatMoneyFunc(d: Dinero<number> | DineroSnapshot<number>): string {
-      if (!isDinero(d)) d = dinero(d);
-      return toDecimal(d, ({ value, currency }) => `${value} ${currency.code}`);
-    }
-    formatDateFunc(d: string | DateTime<boolean>): string {
-      if (typeof d === 'string') {
-        d = luxon.fromISO(d);
-      }
-      return d.toFormat('d. MMMM yy');
-    }
-  }
+  let altRef = 'photoAlt';
+  let photo: PhotoBlock = $state({
+    id: randomID(),
+    kind: 'photo',
+    content: {
+      photos,
+      photoPath: 'https://accomade.twic.pics/prod/stock/photos/PXL_20220103_114534268.jpg',
+      alt: altRef,
+      attribution: undefined,
+      link: undefined,
+      external: false,
+      height: '5rem',
+      ratio: '1/1',
+      width: '5rem',
+      eager: false,
+      frame: false,
+      transition: 'none',
+    },
+  });
 
   const i18n = new I18n();
 </script>
@@ -134,7 +126,7 @@
       <Text {...text.content} {...i18n} />
     </div>
     <TextEditor
-      bind:text={translations[i18n.currentLang].textRef}
+      bind:text={i18n.translations[i18n.currentLang].textRef}
       bind:minHeight={text.content.minHeight}
       bind:textFontSize={text.content.textFontSize}
       bind:headerFontSize={text.content.headerFontSize}
@@ -163,6 +155,38 @@
       bind:showTv={amenities.content.showTv}
       bind:parking={amenities.content.parking}
       bind:showParking={amenities.content.showParking}
+    />
+  </div>
+  <h3>Leaflet Map</h3>
+  <div class="component">
+    <div class="component-view">
+      <LeafletMap {...leafletMap.content} />
+    </div>
+    <MapEditor
+      bind:address={leafletMap.content.address}
+      bind:zoom={leafletMap.content.zoom}
+      bind:lat={leafletMap.content.lat}
+      bind:long={leafletMap.content.long}
+    />
+  </div>
+  <h3>Photo</h3>
+  <div class="component">
+    <div class="component-view">
+      <Photo {...photo.content} {...i18n} />
+    </div>
+    <PhotoEditor
+      {photos}
+      bind:photoPath={photo.content.photoPath}
+      bind:altText={i18n.translations[i18n.currentLang][altRef]}
+      bind:attribution={photo.content.attribution}
+      bind:link={photo.content.link}
+      bind:external={photo.content.external}
+      bind:height={photo.content.height}
+      bind:ratio={photo.content.ratio}
+      bind:width={photo.content.width}
+      bind:eager={photo.content.eager}
+      bind:frame={photo.content.frame}
+      bind:transition={photo.content.transition}
     />
   </div>
 </div>
@@ -208,5 +232,6 @@
     padding: 1rem;
     flex: 1;
     min-width: 40%;
+    border-right: 1px dashed red;
   }
 </style>
