@@ -9,7 +9,6 @@
     height = $bindable('5rem'),
     ratio = $bindable('1/1'),
     width = $bindable('5rem'),
-    eager = $bindable(false),
     frame = $bindable(false),
     transition = $bindable('none'),
   }: {
@@ -22,7 +21,6 @@
     height?: string;
     ratio?: string;
     width?: string;
-    eager?: boolean;
     frame?: boolean;
     transition?: string;
   } = $props();
@@ -65,10 +63,6 @@
     <label>
       Ratio (format: W/H)
       <input type="text" bind:value={ratio} />
-    </label>
-    <label>
-      Eager
-      <input type="checkbox" bind:checked={eager} />
     </label>
     <label>
       Frame

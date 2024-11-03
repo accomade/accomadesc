@@ -85,12 +85,12 @@
       photos,
       photoPath: 'https://accomade.twic.pics/prod/stock/photos/PXL_20220103_114534268.jpg',
       alt: altRef,
-      attribution: undefined,
-      link: undefined,
-      external: false,
-      height: '5rem',
+      attribution: 'Copyright by this and that<br>and such',
+      link: 'https://google.com',
+      external: true,
+      height: '15rem',
       ratio: '1/1',
-      width: '5rem',
+      width: '15rem',
       eager: false,
       frame: false,
       transition: 'none',
@@ -184,7 +184,6 @@
       bind:height={photo.content.height}
       bind:ratio={photo.content.ratio}
       bind:width={photo.content.width}
-      bind:eager={photo.content.eager}
       bind:frame={photo.content.frame}
       bind:transition={photo.content.transition}
     />
