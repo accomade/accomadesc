@@ -72,7 +72,7 @@
       Transition
       <select bind:value={transition}>
         <option value="none">none</option>
-        <option value="slide">slide</option>
+        <option value="zoom">zoom</option>
         <option value="fade">fade</option>
       </select>
     </label>

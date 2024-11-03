@@ -1,4 +1,7 @@
 <script lang="ts">
+  import '@fontsource/raleway/500.css';
+  import '@fontsource/raleway/700.css';
+
   import type {
     AmenitiesCore as AmenitiesCoreBlock,
     LeafletMap as LeafletMapBlock,
@@ -23,6 +26,10 @@
   installTwicPics({
     domain: `https://accomade.twic.pics`,
   });
+  import { css as initialCss } from './css.ts';
+  import CssEditor from './CssEditor.svelte';
+  let css = $state(initialCss);
+  let styleOpen = $state(false);
 
   let textRef = 'textRef';
   let text: TextBlock = $state({
@@ -88,9 +95,9 @@
       attribution: 'Copyright by this and that<br>and such',
       link: 'https://google.com',
       external: true,
-      height: '15rem',
-      ratio: '1/1',
-      width: '15rem',
+      height: '20rem',
+      ratio: '2/1',
+      width: '100%',
       eager: false,
       frame: false,
       transition: 'none',
@@ -98,10 +105,17 @@
   });
 
   const i18n = new I18n();
+
+  $effect(() => {
+    if (css) {
+      console.log('css changed', css);
+    }
+  });
 </script>
 
 <h1>Welcome to Accomade Svelte Components (accomadesc)</h1>
 <h2>Components Show-Case</h2>
+
 <div class="wrapper">
   <div class="lang-switcher">
     <Button
@@ -120,9 +134,20 @@
       clicked={() => (i18n.currentLang = 'fr')}
     />
   </div>
+  <h3>
+    Styles&nbsp;{#if styleOpen}<Button
+        clicked={() => (styleOpen = !styleOpen)}
+        text="Close"
+      />{:else}<Button clicked={() => (styleOpen = !styleOpen)} text="Open" />{/if}
+  </h3>
+  {#if styleOpen}
+    <div>
+      <CssEditor bind:css />
+    </div>
+  {/if}
   <h3>Text</h3>
   <div class="component">
-    <div class="component-view">
+    <div class="component-view" style={css}>
       <Text {...text.content} {...i18n} />
     </div>
     <TextEditor
@@ -134,7 +159,7 @@
   </div>
   <h3>AmenitiesCore</h3>
   <div class="component">
-    <div class="component-view">
+    <div class="component-view" style={css}>
       <AmenitiesCore {...amenities.content} {...i18n} />
     </div>
     <AmenitiesEditor
@@ -159,7 +184,7 @@
   </div>
   <h3>Leaflet Map</h3>
   <div class="component">
-    <div class="component-view">
+    <div class="component-view" style={css}>
       <LeafletMap {...leafletMap.content} />
     </div>
     <MapEditor
@@ -171,7 +196,7 @@
   </div>
   <h3>Photo</h3>
   <div class="component">
-    <div class="component-view">
+    <div class="component-view" style={css}>
       <Photo {...photo.content} {...i18n} />
     </div>
     <PhotoEditor
@@ -232,5 +257,57 @@
     flex: 1;
     min-width: 40%;
     border-right: 1px dashed red;
+
+    font-family: var(--main-font-family, 'sans-serif');
+    font-variant: var(--main-font-variant, 'small-caps');
+
+    :global(hr) {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    :global(h4) {
+      font-family: var(--header-font-family, 'sans-serif');
+      font-variant: var(--header-font-variant, 'small-caps');
+      font-size: 1.2rem;
+      text-align: center;
+      padding-bottom: 0.2rem;
+      padding-top: 0.4rem;
+    }
+
+    :global(h3) {
+      font-family: var(--header-font-family, 'sans-serif');
+      font-variant: var(--header-font-variant, 'small-caps');
+      text-align: center;
+      font-size: 1.8rem;
+      padding-bottom: 0.6rem;
+      padding-top: 1rem;
+    }
+
+    :global(h2) {
+      font-family: var(--header-font-family, 'sans-serif');
+      font-variant: var(--header-font-variant, 'small-caps');
+      font-size: 2.2rem;
+      padding-bottom: 0.8rem;
+      padding-top: 1.2rem;
+    }
+
+    :global(h1) {
+      font-family: var(--header-font-family, 'sans-serif');
+      font-variant: var(--header-font-variant, 'small-caps');
+      font-size: 3rem;
+      padding-bottom: 0.8rem;
+      padding-top: 1.2rem;
+    }
+
+    :global(ol) {
+      padding-left: 0.5rem;
+      margin: 1rem;
+    }
+
+    :global(ul) {
+      margin-left: 1rem;
+      padding-left: 0.2rem;
+    }
   }
 </style>

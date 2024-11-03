@@ -52,6 +52,7 @@
 	},
 	"dependencies": {
 		"@dinero.js/currencies": "2.0.0-alpha.14",
+		"@fontsource/raleway": "^5.1.0",
 		"@twicpics/components": "^0.31.0",
 		"@types/leaflet": "^1.9.14",
 		"dinero.js": "2.0.0-alpha.14",
