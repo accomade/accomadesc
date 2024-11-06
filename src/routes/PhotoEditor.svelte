@@ -1,4 +1,6 @@
 <script lang="ts">
+  import TextInput from '$lib/basic/TextInput.svelte';
+
   let {
     photos = [],
     photoPath = $bindable(),
@@ -38,15 +40,15 @@
     </label>
     <label>
       AltText
-      <input type="string" bind:value={altText} />
+      <TextInput marginForMessage={false} type="text" bind:value={altText} />
     </label>
     <label>
       Attribution
-      <input type="string" bind:value={attribution} />
+      <TextInput marginForMessage={false} type="text" bind:value={attribution} />
     </label>
     <label>
       Link
-      <input type="string" bind:value={link} />
+      <TextInput marginForMessage={false} type="text" bind:value={link} />
     </label>
     <label>
       External
@@ -54,15 +56,15 @@
     </label>
     <label>
       Height
-      <input type="text" bind:value={height} />
+      <TextInput marginForMessage={false} type="text" bind:value={height} />
     </label>
     <label>
       Width
-      <input type="text" bind:value={width} />
+      <TextInput marginForMessage={false} type="text" bind:value={width} />
     </label>
     <label>
       Ratio (format: W/H)
-      <input type="text" bind:value={ratio} />
+      <TextInput marginForMessage={false} type="text" bind:value={ratio} />
     </label>
     <label>
       Frame

@@ -1,4 +1,9 @@
 export const css = `
+  --main-border: 1px solid rgb(2, 48, 71);
+  --main-bg-color: white;
+  --main-font-color: #070707;
+  --not-color: #c50000;
+
   --table-bg-color-odd: rgb(243, 243, 243);
   --table-bg-color-even: rgb(226, 226, 226);
   --table-font-color-odd: black;
@@ -8,15 +13,13 @@ export const css = `
   --table-footer-bg-color: rgb(37, 37, 37);
   --table-footer-font-color: rgb(243, 243, 243);
   
+  --attribution-bg-color: rgba(225, 225, 225, 0.6);
+  --attribution-font-color: #070707;
+  
   --picture-link-bg-color: rgba(51, 51, 51, 0.8);
   --picture-link-font-color: rgb(168, 194, 250);
   --external-link-font-color: rgb(105, 152, 252);
-
-  --main-border: 1px solid rgb(2, 48, 71);
-  --main-bg-color: white;
-  --main-font-color: #070707;
-  --not-color: #c50000;
-  
+ 
   --nav-bg-color: rgba(7,7,7, 0.8);
   --nav-font-color: white; 
 

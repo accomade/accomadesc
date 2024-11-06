@@ -60,6 +60,7 @@
   .wrapper {
     width: 100%;
     position: relative;
+    background-color: var(--main-bg-color);
   }
   .nav-floater {
     position: absolute;

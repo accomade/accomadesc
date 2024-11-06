@@ -42,7 +42,7 @@
     timeRange: 'text-align:center;',
     firstNight: 'text-align:right;',
     eachNight: 'text-align:right;',
-    peopleNum: 'text-align: center;',
+    peopleNum: 'text-align:center;',
     extraPerson: 'text-align:left;',
     minNumNights: 'text-align:right;',
   };
@@ -197,42 +197,6 @@
   </thead>
 {/snippet}
 
-{#snippet wideTableFooter()}
-  {#if footnote}
-    <tfoot>
-      <tr>
-        <td colspan={columns.length}>
-          {@html translateFunc ? translateFunc(footnote) : ''}
-        </td>
-      </tr>
-    </tfoot>
-  {/if}
-{/snippet}
-
-{#snippet mediumTableFooter()}
-  {#if footnote}
-    <tfoot>
-      <tr>
-        <td colspan="2">
-          {@html translateFunc ? translateFunc(footnote) : ''}
-        </td>
-      </tr>
-    </tfoot>
-  {/if}
-{/snippet}
-
-{#snippet smallTableFooter()}
-  {#if footnote}
-    <tfoot>
-      <tr>
-        <td>
-          {@html translateFunc ? translateFunc(footnote) : ''}
-        </td>
-      </tr>
-    </tfoot>
-  {/if}
-{/snippet}
-
 {#key currentLang}
   <figure bind:clientWidth={w} class="pricing-wrapper">
     {#if global}
@@ -293,7 +257,6 @@
               </tr>
             {/each}
           </tbody>
-          {@render wideTableFooter()}
         </table>
       {:else if w > 400 && w < 800}
         <table class="pricing-table">
@@ -320,7 +283,6 @@
               {/each}
             </tbody>
           {/each}
-          {@render mediumTableFooter()}
         </table>
       {:else}
         <table class="pricing-table">
@@ -349,7 +311,6 @@
               {/each}
             </tbody>
           {/each}
-          {@render smallTableFooter()}
         </table>
       {/if}
     {/if}
@@ -368,7 +329,6 @@
               </tr>
             {/each}
           </tbody>
-          {@render wideTableFooter()}
         </table>
       {:else if w > 400 && w < 800}
         <table class="pricing-table">
@@ -395,7 +355,6 @@
               {/each}
             </tbody>
           {/each}
-          {@render mediumTableFooter()}
         </table>
       {:else}
         <table class="pricing-table">
@@ -424,9 +383,20 @@
               {/each}
             </tbody>
           {/each}
-          {@render smallTableFooter()}
         </table>
       {/if}
+    {/if}
+
+    {#if footnote}
+      <table>
+        <tfoot>
+          <tr>
+            <td>
+              {@html translateFunc ? translateFunc(footnote) : ''}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
     {/if}
   </figure>
 {/key}
@@ -472,12 +442,21 @@
   thead {
     background-color: var(--table-header-bg-color);
     color: var(--table-header-font-color);
+    :global(*) {
+      background-color: var(--table-header-bg-color);
+      color: var(--table-header-font-color);
+    }
   }
 
   tfoot {
     background-color: var(--table-footer-bg-color);
     color: var(--table-footer-font-color);
+    :global(*) {
+      background-color: var(--table-footer-bg-color);
+      color: var(--table-footer-font-color);
+    }
   }
+
   tfoot td {
     padding: 1rem;
   }
@@ -485,11 +464,19 @@
   tbody tr:nth-child(odd) {
     background-color: var(--table-bg-color-odd, white);
     color: var(--table-font-color-odd, black);
+    :global(*) {
+      background-color: var(--table-bg-color-odd, white);
+      color: var(--table-font-color-odd, black);
+    }
   }
 
   tbody tr:nth-child(even) {
     background-color: var(--table-bg-color-even, black);
     color: var(--table-font-color-even, white);
+    :global(*) {
+      background-color: var(--table-bg-color-even, black);
+      color: var(--table-font-color-even, white);
+    }
   }
 
   .main-header {

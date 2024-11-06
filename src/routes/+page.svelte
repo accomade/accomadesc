@@ -6,6 +6,10 @@
     AmenitiesCore as AmenitiesCoreBlock,
     LeafletMap as LeafletMapBlock,
     Photo as PhotoBlock,
+    Pricing as PricingBlock,
+    PricingColumn,
+    PricingRange,
+    StaticPricingRange,
     Text as TextBlock,
   } from '$lib/types.ts';
   import Text from '$lib/Text.svelte';
@@ -28,6 +32,9 @@
   });
   import { css as initialCss } from './css.ts';
   import CssEditor from './CssEditor.svelte';
+  import Pricing from '$lib/Pricing.svelte';
+  import PricingEditor from './PricingEditor.svelte';
+
   let css = $state(initialCss);
   let styleOpen = $state(false);
 
@@ -104,8 +111,49 @@
     },
   });
 
-  const i18n = new I18n();
+  let pricing: PricingBlock = $state({
+    id: randomID(),
+    kind: 'pricing',
+    content: {
+      global: {
+        firstNightPrice: {
+          scale: 2,
+          amount: 12000,
+          currency: { code: 'EUR', base: 10, exponent: 2 },
+        },
+        perNightPrice: { scale: 2, amount: 8000, currency: { code: 'EUR', base: 10, exponent: 2 } },
+        minNumberOfNights: 4,
+        additionalPersonText1: 'priceGAdd1',
+        additionalPersonText2: 'priceGAdd2',
+        additionalPersonText3: 'priceGAdd3',
+        additionalPersonPrice1: {
+          scale: 2,
+          amount: 1500,
+          currency: { code: 'EUR', base: 10, exponent: 2 },
+        },
+        additionalPersonPrice2: {
+          scale: 2,
+          amount: 3500,
+          currency: { code: 'EUR', base: 10, exponent: 2 },
+        },
+        additionalPersonPrice3: {
+          scale: 2,
+          amount: 0,
+          currency: { code: 'EUR', base: 10, exponent: 2 },
+        },
+      },
+      staticRanges: [],
+      ranges: [],
+      entries: [],
+      columns: [],
+      footnote: 'priceGFoot',
+    },
+  });
 
+  const newRanges: PricingRange[] = [];
+  const newStaticRanges: StaticPricingRange[] = [];
+
+  const i18n = new I18n();
   $effect(() => {
     if (css) {
       console.log('css changed', css);
@@ -135,16 +183,31 @@
     />
   </div>
   <h3>
-    Styles&nbsp;{#if styleOpen}<Button
+    Colors And Styles &nbsp;{#if styleOpen}<Button
         clicked={() => (styleOpen = !styleOpen)}
         text="Close"
-      />{:else}<Button clicked={() => (styleOpen = !styleOpen)} text="Open" />{/if}
+      />{:else}<Button clicked={() => (styleOpen = !styleOpen)} text="Show" />{/if}
   </h3>
   {#if styleOpen}
     <div>
       <CssEditor bind:css />
     </div>
   {/if}
+  <h3>Pricing</h3>
+  <div class="component">
+    <div class="component-view" style={css}>
+      <Pricing {...pricing.content} {...i18n} />
+    </div>
+    <PricingEditor
+      bind:global={pricing.content.global}
+      bind:ranges={pricing.content.ranges as PricingRange[]}
+      bind:entries={pricing.content.entries as PricingRange[]}
+      bind:staticRanges={pricing.content.staticRanges as StaticPricingRange[]}
+      bind:columns={pricing.content.columns as PricingColumn[]}
+      bind:footnoteText={i18n.translations[i18n.currentLang].priceGFoot}
+    />
+  </div>
+
   <h3>Text</h3>
   <div class="component">
     <div class="component-view" style={css}>
@@ -230,13 +293,19 @@
     margin: 1rem;
   }
   h3 {
-    text-align: center;
+    display: flex;
+    align-items: center;
   }
 
   :global(*) {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+  }
+
+  :global(label) {
+    display: flex;
+    align-items: center;
   }
 
   .wrapper {
@@ -262,8 +331,9 @@
     font-variant: var(--main-font-variant, 'small-caps');
 
     :global(hr) {
-      padding-top: 1rem;
-      padding-bottom: 1rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      border: var(--main-border);
     }
 
     :global(h4) {

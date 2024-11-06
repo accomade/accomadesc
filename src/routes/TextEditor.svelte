@@ -1,4 +1,6 @@
 <script lang="ts">
+  import TextInput from '$lib/basic/TextInput.svelte';
+
   let {
     text = $bindable(''),
     minHeight = $bindable('10rem'),
@@ -23,15 +25,15 @@
   <div class="input-wrapper">
     <label>
       Block Height
-      <input type="text" bind:value={minHeight} />
+      <TextInput marginForMessage={false} type="text" bind:value={minHeight} />
     </label>
     <label>
       Text Fontsize
-      <input type="text" bind:value={textFontSize} />
+      <TextInput marginForMessage={false} type="text" bind:value={textFontSize} />
     </label>
     <label>
       H3 Fontsize
-      <input type="text" bind:value={headerFontSize} />
+      <TextInput marginForMessage={false} type="text" bind:value={headerFontSize} />
     </label>
   </div>
 </div>

@@ -32,7 +32,6 @@
     height: 100%;
     width: 100%;
     background-color: var(--main-bg-color);
-    color: var(--main-font-color);
 
     .content {
       width: 100%;
@@ -43,6 +42,7 @@
       margin-right: 0.2rem;
 
       :global(*) {
+        color: var(--main-font-color);
         font-size: var(--font-size-text);
       }
 

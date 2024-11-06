@@ -91,8 +91,8 @@
   }
 
   .attribution-wrapper {
-    color: var(--main-font-color);
-    background-color: rgba(225, 225, 225, 0.6);
+    color: var(--attribution-font-color);
+    background-color: var(--attribution-bg-color);
     font-size: 0.7rem;
     font-weight: bolder;
     padding: 0.2rem 0.7rem 0.1rem 0.7rem;

@@ -7,26 +7,68 @@ export class I18n implements I18nFacade {
     en: {
       textRef: '<h3>HEADER</h3><p>Some english text</p>',
       photoAlt: 'A Lake',
+      priceGAdd1: 'Kids',
+      priceGAdd2: 'Teens',
+      priceGAdd3: 'Toddlers',
+      priceGFoot: 'Towel package 15.50 Euro',
+      timeRange: 'Range',
+      firstNight: 'First Night',
+      eachNight: 'Every Night',
+      peopleNum: '# Guests',
+      extraPerson: 'Addon Guest(s)',
+      minNumNights: 'Min. Nights',
+      globalPricing: 'Prices',
     },
     de: {
       textRef: '<h3>HEADER</h3><p>Ein deutscher text</p>',
       photoAlt: 'Ein See',
+      priceGAdd1: 'Kinder',
+      priceGAdd2: 'Teenagers',
+      priceGAdd3: 'Babys',
+      priceGFoot: 'Handtuch-Paket 15.50 Euro',
+      timeRange: 'Zeitraum',
+      firstNight: 'Erste Nacht',
+      eachNight: 'Pro Nacht',
+      peopleNum: '# Gäste',
+      extraPerson: 'Zus. Gäste',
+      minNumNights: 'Min. Nächte',
+      globalPricing: 'Basispreis',
     },
     fr: {
       textRef: '<h3>HEADER</h3><p>En francaise text</p>',
       photoAlt: 'Un Lac',
+      priceGAdd1: 'Kids',
+      priceGAdd2: 'Teens',
+      priceGAdd3: 'Toddlers',
+      priceGFoot: 'Towel packackage 15.50 Euro',
+      timeRange: 'Range',
+      firstNight: 'First Night',
+      eachNight: 'Every Night',
+      peopleNum: '# Guests',
+      extraPerson: 'Addon Guest(s)',
+      minNumNights: 'Min. Nights',
+      globalPricing: 'Prices',
     },
   });
 
   formats: Record<string, Record<string, any>> = $state({
     en: {
       size: (props: Record<string, any>) => `${props.size} m<sup>2</sup>`,
+      additionalPersonPrice: (props: Record<string, any>) =>
+        `${this.formatMoneyFunc(props.price)} for ${props.terms}`,
+      minNumberOfNights: (props: Record<string, any>) => `${props.num} nights`,
     },
     de: {
       size: (props: Record<string, any>) => `${props.size} p<sup>3</sup>`,
+      additionalPersonPrice: (props: Record<string, any>) =>
+        `${this.formatMoneyFunc(props.price)} für ${props.terms}`,
+      minNumberOfNights: (props: Record<string, any>) => `${props.num} Nächte`,
     },
     fr: {
       size: (props: Record<string, any>) => `${props.size} f<sup>2</sup>`,
+      additionalPersonPrice: (props: Record<string, any>) =>
+        `${this.formatMoneyFunc(props.price)} e ${props.terms}`,
+      minNumberOfNights: (props: Record<string, any>) => `${props.num} nuits`,
     },
   });
 

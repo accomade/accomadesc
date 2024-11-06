@@ -152,11 +152,18 @@
 
 <style>
   .amneties-wrapper {
+    background-color: var(--main-bg-color);
+    color: var(--main-font-color);
+
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     align-items: baseline;
     justify-content: center;
+
+    :global(*) {
+      color: var(--main-font-color);
+    }
   }
 
   .element-wrapper {

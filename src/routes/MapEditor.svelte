@@ -1,4 +1,6 @@
 <script lang="ts">
+  import TextInput from '$lib/basic/TextInput.svelte';
+
   let {
     address = $bindable(),
     lat = $bindable(),
@@ -16,19 +18,19 @@
   <div class="input-wrapper">
     <label>
       Address
-      <input type="string" bind:value={address} />
+      <TextInput marginForMessage={false} type="string" bind:value={address} />
     </label>
     <label>
       Latitude
-      <input type="number" bind:value={lat} />
+      <TextInput marginForMessage={false} type="number" bind:value={lat} />
     </label>
     <label>
       Longitude
-      <input type="number" bind:value={long} />
+      <TextInput marginForMessage={false} type="number" bind:value={long} />
     </label>
     <label>
       Zoom
-      <input type="number" bind:value={zoom} />
+      <TextInput marginForMessage={false} type="number" bind:value={zoom} />
     </label>
   </div>
 </div>

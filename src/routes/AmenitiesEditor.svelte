@@ -1,4 +1,6 @@
 <script lang="ts">
+  import TextInput from '$lib/basic/TextInput.svelte';
+
   let {
     peopleMin = $bindable(),
     peopleMax = $bindable(),
@@ -42,27 +44,27 @@
   <div class="input-wrapper">
     <label>
       PeopleMin
-      <input type="number" bind:value={peopleMin} />
+      <TextInput marginForMessage={false} type="number" bind:value={peopleMin} />
     </label>
     <label>
       PeopleMax
-      <input type="number" bind:value={peopleMax} />
+      <TextInput marginForMessage={false} type="number" bind:value={peopleMax} />
     </label>
     <label>
       PeopleMin
-      <input type="number" bind:value={peopleMin} />
+      <TextInput marginForMessage={false} type="number" bind:value={peopleMin} />
     </label>
     <label>
       Size
-      <input type="number" bind:value={size} />
+      <TextInput marginForMessage={false} type="number" bind:value={size} />
     </label>
     <label>
       BedRooms
-      <input type="number" bind:value={bedRooms} />
+      <TextInput marginForMessage={false} type="number" bind:value={bedRooms} />
     </label>
     <label>
       BathRooms
-      <input type="number" bind:value={bathRooms} />
+      <TextInput marginForMessage={false} type="number" bind:value={bathRooms} />
     </label>
     <label>
       Pets
