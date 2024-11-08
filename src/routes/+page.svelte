@@ -156,7 +156,7 @@
   const i18n = new I18n();
   $effect(() => {
     if (css) {
-      console.log('css changed', css);
+      console.log('css changed');
     }
   });
 </script>
@@ -201,10 +201,10 @@
     <PricingEditor
       bind:global={pricing.content.global}
       bind:ranges={pricing.content.ranges as PricingRange[]}
-      bind:entries={pricing.content.entries as PricingRange[]}
       bind:staticRanges={pricing.content.staticRanges as StaticPricingRange[]}
       bind:columns={pricing.content.columns as PricingColumn[]}
       bind:footnoteText={i18n.translations[i18n.currentLang].priceGFoot}
+      {i18n}
     />
   </div>
 

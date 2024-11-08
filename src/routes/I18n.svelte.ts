@@ -57,18 +57,30 @@ export class I18n implements I18nFacade {
       additionalPersonPrice: (props: Record<string, any>) =>
         `${this.formatMoneyFunc(props.price)} for ${props.terms}`,
       minNumberOfNights: (props: Record<string, any>) => `${props.num} nights`,
+      rangeFromTo: (props: Record<string, any>) =>
+        `${this.formatDateFunc(props.from)} => ${this.formatDateFunc(props.to)}`,
+      rangeFrom: (props: Record<string, any>) => `${this.formatDateFunc(props.from)} => ???`,
+      rangeTo: (props: Record<string, any>) => `??? => ${this.formatDateFunc(props.to)}`,
     },
     de: {
       size: (props: Record<string, any>) => `${props.size} p<sup>3</sup>`,
       additionalPersonPrice: (props: Record<string, any>) =>
         `${this.formatMoneyFunc(props.price)} für ${props.terms}`,
       minNumberOfNights: (props: Record<string, any>) => `${props.num} Nächte`,
+      rangeFromTo: (props: Record<string, any>) =>
+        `${this.formatDateFunc(props.from)} => ${this.formatDateFunc(props.to)}`,
+      rangeFrom: (props: Record<string, any>) => `${this.formatDateFunc(props.from)} => ???`,
+      rangeTo: (props: Record<string, any>) => `??? => ${this.formatDateFunc(props.to)}`,
     },
     fr: {
       size: (props: Record<string, any>) => `${props.size} f<sup>2</sup>`,
       additionalPersonPrice: (props: Record<string, any>) =>
         `${this.formatMoneyFunc(props.price)} e ${props.terms}`,
       minNumberOfNights: (props: Record<string, any>) => `${props.num} nuits`,
+      rangeFromTo: (props: Record<string, any>) =>
+        `${this.formatDateFunc(props.from)} => ${this.formatDateFunc(props.to)}`,
+      rangeFrom: (props: Record<string, any>) => `${this.formatDateFunc(props.from)} => ???`,
+      rangeTo: (props: Record<string, any>) => `??? => ${this.formatDateFunc(props.to)}`,
     },
   });
 

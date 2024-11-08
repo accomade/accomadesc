@@ -129,7 +129,7 @@
   const formatMinNightsCol = (entry: PricingEntry): string => {
     let result = '';
     if (!formatFunc) return result;
-    result = formatFunc('minNumberOfNights', { num: entry.minNumberOfNights });
+    result = formatFunc('minNumberOfNights', { num: entry.minNumberOfNights ?? 0 });
     return result;
   };
 
@@ -141,14 +141,19 @@
     switch (col) {
       case 'timeRange':
         result = formatRangeCol(range);
+        break;
       case 'firstNight':
         result = formatFirstNightPriceCol(entry);
+        break;
       case 'eachNight':
         result = formatEachNightCol(entry);
+        break;
       case 'extraPerson':
         result = formatExtraPersonCol(entry);
+        break;
       case 'minNumNights':
         result = formatMinNightsCol(entry);
+        break;
     }
     return result;
   };

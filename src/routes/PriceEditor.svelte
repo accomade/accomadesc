@@ -3,19 +3,31 @@
   import { dinero, toSnapshot, type DineroSnapshot } from 'dinero.js';
 
   let {
-    e = $bindable(),
+    price = $bindable(),
   }: {
-    e: DineroSnapshot<number>;
+    price?: DineroSnapshot<number>;
   } = $props();
 
-  let value = $state($state.snapshot(e.amount));
+  if (!price)
+    price = toSnapshot(
+      dinero({
+        amount: 0,
+        currency: { code: 'EUR', base: 10, exponent: 2 },
+        scale: 2,
+      }),
+    );
 
-  $effect(() => {
-    if (value) {
-      const d = dinero({ ...e, amount: value });
-      e = toSnapshot(d);
+  const changed = (valid: boolean, name: string, value: string | number) => {
+    console.log(valid, name, value);
+    if (valid && value) {
+      if (price) {
+        const d = dinero({ ...price, amount: value as number });
+        price = toSnapshot(d);
+      }
     }
-  });
+  };
 </script>
 
-<TextInput type="number" marginForMessage={false} bind:value />
+{#if price}
+  <TextInput type="number" marginForMessage={false} value={price.amount} valueChanged={changed} />
+{/if}

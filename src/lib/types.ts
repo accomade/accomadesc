@@ -108,12 +108,16 @@ export interface PricingContent {
   footnote?: string;
 }
 
-export type PricingColumn =
-  | 'timeRange'
-  | 'firstNight'
-  | 'eachNight'
-  | 'extraPerson'
-  | 'minNumNights';
+export const PRICING_COLUMNS = [
+  'timeRange',
+  'firstNight',
+  'eachNight',
+  'peopleNum',
+  'extraPerson',
+  'minNumNights',
+];
+
+export type PricingColumn = (typeof PRICING_COLUMNS)[number];
 
 export interface StaticRangeDate {
   month: number;
