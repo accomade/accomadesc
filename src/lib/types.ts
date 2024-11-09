@@ -140,6 +140,8 @@ export interface PricingEntry {
   firstNightPrice?: DineroSnapshot<number>;
   perNightPrice: DineroSnapshot<number>;
 
+  numberOfGuestsBase?: number;
+  numberOfGuestsMax?: number;
   minNumberOfNights?: number;
 
   additionalPersonPrice1?: DineroSnapshot<number>;

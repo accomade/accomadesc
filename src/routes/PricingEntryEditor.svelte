@@ -45,6 +45,18 @@
       pricingEntry.minNumberOfNights = value as number;
     }
   };
+
+  const changeNumberOfGuestsBase = (valid: boolean, _: string, value: string | number) => {
+    if (valid && value) {
+      pricingEntry.numberOfGuestsBase = value as number;
+    }
+  };
+
+  const changeNumberOfGuestsMax = (valid: boolean, _: string, value: string | number) => {
+    if (valid && value) {
+      pricingEntry.numberOfGuestsMax = value as number;
+    }
+  };
 </script>
 
 <div class="entry-wrapper">
@@ -55,9 +67,29 @@
           marginForMessage={false}
           value={pricingEntry.minNumberOfNights}
           type="number"
+          minNumber={1}
           valueChanged={changeMinNumNights}
         />
       </label>
+      <label
+        >Number of Guests Base <TextInput
+          marginForMessage={false}
+          value={pricingEntry.numberOfGuestsBase}
+          type="number"
+          minNumber={1}
+          valueChanged={changeNumberOfGuestsBase}
+        />
+      </label>
+      <label
+        >Number of Guests Max <TextInput
+          marginForMessage={false}
+          value={pricingEntry.numberOfGuestsMax}
+          type="number"
+          minNumber={1}
+          valueChanged={changeNumberOfGuestsMax}
+        />
+      </label>
+
       <label>FirstNight <PriceEditor bind:price={pricingEntry.firstNightPrice} /> </label>
       <label>EachNight <PriceEditor bind:price={pricingEntry.perNightPrice} /> </label>
       <hr />

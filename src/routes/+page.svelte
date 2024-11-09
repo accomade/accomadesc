@@ -2,15 +2,16 @@
   import '@fontsource/raleway/500.css';
   import '@fontsource/raleway/700.css';
 
-  import type {
-    AmenitiesCore as AmenitiesCoreBlock,
-    LeafletMap as LeafletMapBlock,
-    Photo as PhotoBlock,
-    Pricing as PricingBlock,
-    PricingColumn,
-    PricingRange,
-    StaticPricingRange,
-    Text as TextBlock,
+  import {
+    PRICING_COLUMNS,
+    type AmenitiesCore as AmenitiesCoreBlock,
+    type LeafletMap as LeafletMapBlock,
+    type Photo as PhotoBlock,
+    type Pricing as PricingBlock,
+    type PricingColumn,
+    type PricingRange,
+    type StaticPricingRange,
+    type Text as TextBlock,
   } from '$lib/types.ts';
   import Text from '$lib/Text.svelte';
   import Button from '$lib/basic/Button.svelte';
@@ -145,7 +146,7 @@
       staticRanges: [],
       ranges: [],
       entries: [],
-      columns: [],
+      columns: [...PRICING_COLUMNS],
       footnote: 'priceGFoot',
     },
   });

@@ -99,7 +99,7 @@
       {#each PRICING_COLUMNS as pc}
         <label
           >{pc}
-          <input type="checkbox" checked={pc in columns} oninput={() => toggleColumn(pc)} />
+          <input type="checkbox" checked={columns.includes(pc)} oninput={() => toggleColumn(pc)} />
         </label>
       {/each}
     </div>
@@ -109,6 +109,58 @@
   <div class="button-row">
     <Button text="Add Static Range" clicked={addStaticRange} />
     <Button text="Add Specific Range" clicked={addSpecRange} />
+  </div>
+  <div class="input-wrapper">
+    <h4>Generic Ranges</h4>
+    {#each staticRanges as r}
+      <div class="input-wrapper range">
+        <div class="static-wrapper">
+          <label
+            >From Day <TextInput
+              maxNumber={31}
+              minNumber={1}
+              maxWidth="4rem"
+              type="number"
+              marginForMessage={false}
+              bind:value={r.from.day}
+            /></label
+          >
+          <label
+            >From Month <TextInput
+              maxNumber={12}
+              minNumber={1}
+              maxWidth="4rem"
+              type="number"
+              marginForMessage={false}
+              bind:value={r.from.month}
+            /></label
+          >
+        </div>
+        <div class="static-wrapper">
+          <label
+            >To Day <TextInput
+              maxNumber={31}
+              minNumber={1}
+              maxWidth="4rem"
+              type="number"
+              marginForMessage={false}
+              bind:value={r.to.day}
+            /></label
+          >
+          <label
+            >To Month <TextInput
+              maxNumber={12}
+              minNumber={1}
+              maxWidth="4rem"
+              type="number"
+              marginForMessage={false}
+              bind:value={r.to.month}
+            /></label
+          >
+        </div>
+        <PricingEntryEditor bind:pricingEntry={r.entry} {i18n} />
+      </div>
+    {/each}
   </div>
   <div class="input-wrapper">
     <h4>Specific Ranges</h4>
@@ -137,6 +189,11 @@
 </div>
 
 <style>
+  .static-wrapper {
+    display: flex;
+    justify-content: space-around;
+  }
+
   .component-control {
     display: flex;
     padding: 1rem;
@@ -155,6 +212,8 @@
   label {
     justify-content: space-between;
     display: flex;
+    gap: 1rem;
+    text-align: center;
   }
 
   .button-row {

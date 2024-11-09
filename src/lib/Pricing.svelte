@@ -29,7 +29,7 @@
     ranges = entries;
   }
 
-  const colHeaderStyle = {
+  const colHeaderStyle: Record<PricingColumn, string> = {
     timeRange: 'width: 20%;',
     firstNight: 'width: 12%',
     eachNight: 'width: 12%',
@@ -38,7 +38,7 @@
     minNumNights: 'width: 12%',
   };
 
-  const colCellStyle = {
+  const colCellStyle: Record<PricingColumn, string> = {
     timeRange: 'text-align:center;',
     firstNight: 'text-align:right;',
     eachNight: 'text-align:right;',
@@ -133,6 +133,16 @@
     return result;
   };
 
+  const formatPeopleNum = (entry: PricingEntry): string => {
+    let result = '';
+    if (!formatFunc) return result;
+    result = formatFunc('numberOfGuests', {
+      base: entry.numberOfGuestsBase,
+      max: entry.numberOfGuestsMax,
+    });
+    return result;
+  };
+
   const colOutputRange = (range: PricingRange, col: PricingColumn): string => {
     let result = '';
     if (!formatDateFunc || !translateFunc || !formatMoneyFunc || !formatFunc) return result;
@@ -154,6 +164,9 @@
       case 'minNumNights':
         result = formatMinNightsCol(entry);
         break;
+      case 'peopleNum':
+        result = formatPeopleNum(entry);
+        break;
     }
     return result;
   };
@@ -166,14 +179,22 @@
     switch (col) {
       case 'timeRange':
         result = formatStaticRangeCol(range);
+        break;
       case 'firstNight':
         result = formatFirstNightPriceCol(entry);
+        break;
       case 'eachNight':
         result = formatEachNightCol(entry);
+        break;
       case 'extraPerson':
         result = formatExtraPersonCol(entry);
+        break;
       case 'minNumNights':
         result = formatMinNightsCol(entry);
+        break;
+      case 'peopleNum':
+        result = formatPeopleNum(entry);
+        break;
     }
     return result;
   };
