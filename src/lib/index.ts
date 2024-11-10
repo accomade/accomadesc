@@ -54,6 +54,7 @@ export type {
   AccoDescription as AccoDescriptionI,
   AccoDescriptionContent,
   Section as SectionI,
+  I18nFacade,
 } from './types.ts';
 
 export { PRICING_COLUMNS } from './types.ts';
