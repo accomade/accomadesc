@@ -53,6 +53,7 @@ export type {
   CardContent,
   AccoDescription as AccoDescriptionI,
   AccoDescriptionContent,
+  Section as SectionI,
 } from './types.ts';
 
 export { PRICING_COLUMNS } from './types.ts';
