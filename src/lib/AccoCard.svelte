@@ -26,7 +26,7 @@
     </div>
     {#if cardContent.coverPhoto}
       <div class="photo">
-        <Photo {...cardContent.coverPhoto} />
+        <Photo {...cardContent.coverPhoto.content} {translateFunc} />
       </div>
     {/if}
     {#if cardContent.blocks}
