@@ -2,13 +2,6 @@ import { type Dinero, type DineroSnapshot } from 'dinero.js';
 import type { DateTime } from 'luxon';
 import type { I18n } from 'occuplan';
 
-export interface Acco {
-  path: string;
-  displayName: string;
-  cardContent?: AccoCardContent;
-  siteContent?: Section[];
-}
-
 export interface GridPhoto {
   photo: Photo;
   zoomed: boolean;
@@ -199,6 +192,13 @@ export interface AmenitiesCoreContent {
   showTv?: boolean;
   parking: boolean;
   showParking?: boolean;
+}
+
+export interface Acco {
+  path: string;
+  displayName: string;
+  cardContent?: AccoCardContent;
+  siteContent?: Section[];
 }
 
 export interface AccoCard {
