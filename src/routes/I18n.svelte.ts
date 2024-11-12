@@ -18,6 +18,7 @@ export class I18n implements I18nFacade {
       extraPerson: 'Addon Guest(s)',
       minNumNights: 'Min. Nights',
       globalPricing: 'Prices',
+      accoCCCalt: 'Picture of Apartment',
     },
     de: {
       textRef: '<h3>HEADER</h3><p>Ein deutscher text</p>',
@@ -33,6 +34,7 @@ export class I18n implements I18nFacade {
       extraPerson: 'Zus. Gäste',
       minNumNights: 'Min. Nächte',
       globalPricing: 'Basispreis',
+      accoCCCalt: 'Bild vom Apartment',
     },
     fr: {
       textRef: '<h3>HEADER</h3><p>En francaise text</p>',
@@ -48,6 +50,7 @@ export class I18n implements I18nFacade {
       extraPerson: 'Addon Guest(s)',
       minNumNights: 'Min. Nights',
       globalPricing: 'Prices',
+      accoCCCalt: 'Picture of Apartment',
     },
   });
 
@@ -128,20 +131,25 @@ export class I18n implements I18nFacade {
     }
   }
 
-  translateFunc(ref: string): string {
+  public translateFunc = (ref: string): string => {
     return this.translations[this.currentLang][ref];
-  }
-  formatFunc(ref: string, props: Record<string, any>): string {
-    return this.formats[this.currentLang][ref](props);
-  }
-  formatMoneyFunc(d: Dinero<number> | DineroSnapshot<number>): string {
+  };
+  public formatFunc = (ref: string, props: Record<string, any>): string => {
+    if (this.formats[this.currentLang][ref]) {
+      console.log('missing formatFunc', ref);
+      return '';
+    } else {
+      return this.formats[this.currentLang][ref](props);
+    }
+  };
+  public formatMoneyFunc = (d: Dinero<number> | DineroSnapshot<number>): string => {
     if (!this.isDinero(d)) d = dinero(d);
     return toDecimal(d, ({ value, currency }) => `${value} ${currency.code}`);
-  }
-  formatDateFunc(d: string | DateTime<boolean>): string {
+  };
+  public formatDateFunc = (d: string | DateTime<boolean>): string => {
     if (typeof d === 'string') {
       d = luxon.fromISO(d);
     }
     return d.toFormat('d. MMMM yy');
-  }
+  };
 }

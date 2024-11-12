@@ -37,7 +37,7 @@ export interface CalendarAvailable {
 export interface CalendarAvailableContent {
   calUrl: string;
   search: number[];
-  maxFutureDate: string;
+  maxFutureDate?: string;
 }
 
 export interface Text {
@@ -213,7 +213,7 @@ export interface AccoCardContent {
 }
 
 export interface CardContent {
-  coverPhoto: Photo;
+  coverPhoto: PhotoContent;
   slug?: string;
   blocks: Block[];
 }

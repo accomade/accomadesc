@@ -22,11 +22,13 @@
   {#if cardContent}
     <div class="title-with-slug">
       <h2>{displayName}</h2>
-      <div class="slug">{@html translatedSlug}</div>
+      {#if cardContent.slug}
+        <div class="slug">{@html translatedSlug}</div>
+      {/if}
     </div>
     {#if cardContent.coverPhoto}
       <div class="photo">
-        <Photo {...cardContent.coverPhoto.content} {translateFunc} />
+        <Photo {...cardContent.coverPhoto} {translateFunc} />
       </div>
     {/if}
     {#if cardContent.blocks}

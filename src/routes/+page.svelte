@@ -4,6 +4,7 @@
 
   import {
     PRICING_COLUMNS,
+    type AccoCard as AccoCardBlock,
     type AmenitiesCore as AmenitiesCoreBlock,
     type LeafletMap as LeafletMapBlock,
     type Photo as PhotoBlock,
@@ -35,6 +36,7 @@
   import CssEditor from './CssEditor.svelte';
   import Pricing from '$lib/Pricing.svelte';
   import PricingEditor from './PricingEditor.svelte';
+  import AccoCard from '$lib/AccoCard.svelte';
 
   let css = $state(initialCss);
   let styleOpen = $state(false);
@@ -151,8 +153,135 @@
     },
   });
 
-  const newRanges: PricingRange[] = [];
-  const newStaticRanges: StaticPricingRange[] = [];
+  const accoCard: AccoCardBlock = {
+    id: randomID(),
+    kind: 'acco-card',
+    content: {
+      displayName: 'A beautiful Apartment',
+      cardContent: {
+        coverPhoto: {
+          photoPath: photos[1],
+          alt: 'accoCCCalt',
+        },
+        blocks: [
+          {
+            id: randomID(),
+            kind: 'amenities-core',
+            content: {
+              peopleMin: 2,
+              peopleMax: 4,
+              size: 55,
+              bedRooms: 2,
+              bathRooms: 1,
+              pets: true,
+              wifi: true,
+              smoking: false,
+              ac: false,
+              tv: true,
+              parking: true,
+              showPets: true,
+              showWifi: true,
+              showSmoking: true,
+              showAc: false,
+              showTv: true,
+              showParking: true,
+            },
+          },
+          {
+            id: randomID(),
+            content: {
+              showMaximum: true,
+              showMinimum: true,
+              footnote: 'promising-tassel-weed',
+              entries: [
+                {
+                  from: '2024-09-01T02:00:00.000+02:00',
+                  to: '2025-06-30T00:00:00.000Z',
+                  entry: {
+                    perNightPrice: {
+                      scale: 2,
+                      amount: 5000,
+                      currency: {
+                        code: 'EUR',
+                        base: 10,
+                        exponent: 2,
+                      },
+                    },
+                    minNumberOfNights: 3,
+                    firstNightPrice: {
+                      scale: 2,
+                      amount: 8000,
+                      currency: {
+                        code: 'EUR',
+                        base: 10,
+                        exponent: 2,
+                      },
+                    },
+                  },
+                },
+                {
+                  from: '2025-09-01T02:00:00.000+02:00',
+                  to: '2026-06-30T00:00:00.000Z',
+                  entry: {
+                    perNightPrice: {
+                      amount: 5000,
+                      scale: 2,
+                      currency: {
+                        code: 'EUR',
+                        base: 10,
+                        exponent: 2,
+                      },
+                    },
+                    minNumberOfNights: 3,
+                    firstNightPrice: {
+                      amount: 8000,
+                      scale: 2,
+                      currency: {
+                        code: 'EUR',
+                        base: 10,
+                        exponent: 2,
+                      },
+                    },
+                  },
+                },
+              ],
+              global: {
+                perNightPrice: {
+                  amount: 7000,
+                  currency: {
+                    code: 'EUR',
+                    base: 10,
+                    exponent: 2,
+                  },
+                  scale: 2,
+                },
+                minNumberOfNights: 5,
+                firstNightPrice: {
+                  amount: 10000,
+                  currency: {
+                    code: 'EUR',
+                    base: 10,
+                    exponent: 2,
+                  },
+                  scale: 2,
+                },
+              },
+            },
+            kind: 'pricing-short',
+          },
+          {
+            id: randomID(),
+            content: {
+              calUrl:
+                'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/050edcb4-680e-4542-96df-3ae4a2af89a5',
+              search: [3, 7, 14],
+            },
+            kind: 'calendar-available',
+          },
+        ],
+      },
+    },
+  };
 
   const i18n = new I18n();
   $effect(() => {
@@ -161,6 +290,8 @@
     }
   });
 </script>
+
+{@debug i18n}
 
 <h1>Welcome to Accomade Svelte Components (accomadesc)</h1>
 <h2>Components Show-Case</h2>
@@ -194,6 +325,13 @@
       <CssEditor bind:css />
     </div>
   {/if}
+  <h3>AccoCard</h3>
+  <div class="component">
+    <div class="component-view">
+      <AccoCard {...accoCard.content} {...i18n} />
+    </div>
+  </div>
+
   <h3>Pricing</h3>
   <div class="component">
     <div class="component-view" style={css}>
