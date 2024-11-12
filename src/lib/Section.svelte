@@ -13,7 +13,7 @@
   import AccoDescription from './AccoDescription.svelte';
 
   import {
-    type Section,
+    type Section as SectionI,
     type I18nFacade,
     isAmenitiesCore,
     isLeafletMap,
@@ -40,7 +40,7 @@
     formatFunc,
     currentLang,
     calendarTranslation,
-  }: Section & I18nFacade = $props();
+  }: SectionI & I18nFacade = $props();
 
   let translatedHeader = $derived(header && translateFunc ? translateFunc(header) : '');
 
