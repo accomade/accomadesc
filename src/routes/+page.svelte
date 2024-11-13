@@ -8,6 +8,7 @@
     type AmenitiesCore as AmenitiesCoreBlock,
     type LeafletMap as LeafletMapBlock,
     type Photo as PhotoBlock,
+    type PhotoGallery as PhotoGalleryBlock,
     type Pricing as PricingBlock,
     type PricingColumn,
     type PricingRange,
@@ -37,6 +38,7 @@
   import Pricing from '$lib/Pricing.svelte';
   import PricingEditor from './PricingEditor.svelte';
   import AccoCard from '$lib/AccoCard.svelte';
+  import PhotoGallery from '$lib/PhotoGallery.svelte';
 
   let css = $state(initialCss);
   let styleOpen = $state(false);
@@ -99,7 +101,6 @@
     id: randomID(),
     kind: 'photo',
     content: {
-      photos,
       photoPath: 'https://accomade.twic.pics/prod/stock/photos/PXL_20220103_114534268.jpg',
       alt: altRef,
       attribution: 'Copyright by this and that<br>and such',
@@ -284,6 +285,47 @@
   };
   //console.log(JSON.stringify(accoCard, null, 2));
 
+  const photoGallery: PhotoGalleryBlock = {
+    id: randomID(),
+    kind: 'gallery',
+    content: {
+      gridPhotoWidth: 200,
+
+      photos: [
+        {
+          kind: 'photo',
+          id: randomID(),
+          content: {
+            photoPath: photos[0],
+            alt: altRef,
+            eager: false,
+            frame: false,
+          },
+        },
+        {
+          kind: 'photo',
+          id: randomID(),
+          content: {
+            photoPath: photos[1],
+            alt: altRef,
+            eager: false,
+            frame: false,
+          },
+        },
+        {
+          kind: 'photo',
+          id: randomID(),
+          content: {
+            photoPath: photos[2],
+            alt: altRef,
+            eager: false,
+            frame: false,
+          },
+        },
+      ],
+    },
+  };
+
   const i18n = new I18n();
   $effect(() => {
     if (css) {
@@ -324,6 +366,12 @@
       <CssEditor bind:css />
     </div>
   {/if}
+  <h3>PhotoGallery</h3>
+  <div class="component">
+    <div class="component-view" style={css}>
+      <PhotoGallery {...photoGallery} {...i18n} />
+    </div>
+  </div>
   <h3>AccoCard</h3>
   <div class="component">
     <div class="component-view" style={css}>

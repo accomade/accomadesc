@@ -61,7 +61,7 @@ export class I18n implements I18nFacade {
       maximumPrice: (props: Record<string, any>) => `To ${this.formatMoneyFunc(props.max)}`,
       nothingAvailable: (props: Record<string, any>) =>
         `Not Available for ${props.forDays} days before ${this.formatDateFunc(props.maxFutureDate)}`,
-      availabelFromFor: (props: Record<string, any>) =>
+      availableFromFor: (props: Record<string, any>) =>
         `Min. ${props.forDays} days from ${this.formatDateFunc(props.from)} ${JSON.stringify(props)}`,
 
       additionalPersonPrice: (props: Record<string, any>) =>
@@ -88,7 +88,7 @@ export class I18n implements I18nFacade {
       minimumPrice: (props: Record<string, any>) => `Von: ${this.formatMoneyFunc(props.min)}`,
       maximumPrice: (props: Record<string, any>) => `Bis: ${this.formatMoneyFunc(props.max)}`,
       nothingAvailable: (props: Record<string, any>) => `${JSON.stringify(props)}`,
-      availabelFromFor: (props: Record<string, any>) => `${JSON.stringify(props)}`,
+      availableFromFor: (props: Record<string, any>) => `${JSON.stringify(props)}`,
 
       additionalPersonPrice: (props: Record<string, any>) =>
         `${this.formatMoneyFunc(props.price)} für ${props.terms}`,
@@ -114,7 +114,7 @@ export class I18n implements I18nFacade {
       minimumPrice: (props: Record<string, any>) => `${JSON.stringify(props)}`,
       maximumPrice: (props: Record<string, any>) => `${JSON.stringify(props)}`,
       nothingAvailable: (props: Record<string, any>) => `${JSON.stringify(props)}`,
-      availabelFromFor: (props: Record<string, any>) => `${JSON.stringify(props)}`,
+      availableFromFor: (props: Record<string, any>) => `${JSON.stringify(props)}`,
 
       additionalPersonPrice: (props: Record<string, any>) =>
         `${this.formatMoneyFunc(props.price)} e ${props.terms}`,

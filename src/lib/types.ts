@@ -13,6 +13,7 @@ export interface LeafletMap {
   kind: 'leaflet-map';
   content: LeafletMapContent;
 }
+
 export interface LeafletMapContent {
   address: string;
   lat: number;

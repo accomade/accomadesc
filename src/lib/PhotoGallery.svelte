@@ -2,6 +2,7 @@
   import PhotoComponent from './Photo.svelte';
   import type { I18nFacade, Photo, PhotoGalleryContent, GridPhoto } from './types.js';
   import { browser } from '$app/environment';
+  import { randomID } from './names/gen.js';
 
   let { photos, gridPhotoWidth = 300, translateFunc }: PhotoGalleryContent & I18nFacade = $props();
 
@@ -16,15 +17,19 @@
 
   let galleryContainer: HTMLDivElement | undefined = $state();
 
-  let gridPhotos: GridPhoto[] = $state(
-    photos.map((p: Photo): GridPhoto => {
-      return {
-        photo: p,
-        zoomed: false,
-        id: crypto.randomUUID(),
-      };
-    }),
-  );
+  let gridPhotos: GridPhoto[] = $state([]);
+
+  $effect(() => {
+    if (photos) {
+      gridPhotos = photos.map((p: Photo): GridPhoto => {
+        return {
+          photo: p,
+          zoomed: false,
+          id: randomID(),
+        };
+      });
+    }
+  });
 
   let width = $state(1000);
   let numberOfCols = $derived(
