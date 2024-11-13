@@ -52,10 +52,16 @@
 
 <style>
   .cal-wrapper {
+    color: var(--main-font-color);
+    background-color: var(--main-bg-color);
     position: relative;
     display: flex;
     flex-direction: column;
     align-content: center;
+    * {
+      color: var(--main-font-color);
+      background-color: var(--main-bg-color);
+    }
   }
 
   h3 {
@@ -75,4 +81,3 @@
     font-size: 1.2rem;
   }
 </style>
-

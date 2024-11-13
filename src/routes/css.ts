@@ -30,4 +30,17 @@ export const css = `
 
   --header-font-color: white;
   --header-bg-color: #070707;
+
+  --acco-card-shadow:  
+      -1.2px -3.7px 4.5px rgba(0, 0, 0, 0.017),
+      -1.4px -4.4px 8.9px rgba(0, 0, 0, 0.024),
+      -0.4px -1.3px 13.3px rgba(0, 0, 0, 0.03),
+      1.7px 5.5px 17.9px rgba(0, 0, 0, 0.035),
+      4.9px 15.5px 23.3px rgba(0, 0, 0, 0.04),
+      8.9px 28.2px 30.7px rgba(0, 0, 0, 0.046),
+      13.7px 43.1px 43.8px rgba(0, 0, 0, 0.053),
+      19px 60px 80px rgba(0, 0, 0, 0.07);
+  --acco-card-font: black;
+  --acco-card-bg: white;
+
 `;

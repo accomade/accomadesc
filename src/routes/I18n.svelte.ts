@@ -57,6 +57,13 @@ export class I18n implements I18nFacade {
   formats: Record<string, Record<string, any>> = $state({
     en: {
       size: (props: Record<string, any>) => `${props.size} m<sup>2</sup>`,
+      minimumPrice: (props: Record<string, any>) => `From ${this.formatMoneyFunc(props.min)}`,
+      maximumPrice: (props: Record<string, any>) => `To ${this.formatMoneyFunc(props.max)}`,
+      nothingAvailable: (props: Record<string, any>) =>
+        `Not Available for ${props.forDays} days before ${this.formatDateFunc(props.maxFutureDate)}`,
+      availabelFromFor: (props: Record<string, any>) =>
+        `Min. ${props.forDays} days from ${this.formatDateFunc(props.from)} ${JSON.stringify(props)}`,
+
       additionalPersonPrice: (props: Record<string, any>) =>
         `${this.formatMoneyFunc(props.price)} for ${props.terms}`,
       minNumberOfNights: (props: Record<string, any>) => `${props.num} nights`,
@@ -78,6 +85,11 @@ export class I18n implements I18nFacade {
     },
     de: {
       size: (props: Record<string, any>) => `${props.size} p<sup>3</sup>`,
+      minimumPrice: (props: Record<string, any>) => `Von: ${this.formatMoneyFunc(props.min)}`,
+      maximumPrice: (props: Record<string, any>) => `Bis: ${this.formatMoneyFunc(props.max)}`,
+      nothingAvailable: (props: Record<string, any>) => `${JSON.stringify(props)}`,
+      availabelFromFor: (props: Record<string, any>) => `${JSON.stringify(props)}`,
+
       additionalPersonPrice: (props: Record<string, any>) =>
         `${this.formatMoneyFunc(props.price)} für ${props.terms}`,
       minNumberOfNights: (props: Record<string, any>) => `${props.num} Nächte`,
@@ -99,6 +111,11 @@ export class I18n implements I18nFacade {
     },
     fr: {
       size: (props: Record<string, any>) => `${props.size} f<sup>2</sup>`,
+      minimumPrice: (props: Record<string, any>) => `${JSON.stringify(props)}`,
+      maximumPrice: (props: Record<string, any>) => `${JSON.stringify(props)}`,
+      nothingAvailable: (props: Record<string, any>) => `${JSON.stringify(props)}`,
+      availabelFromFor: (props: Record<string, any>) => `${JSON.stringify(props)}`,
+
       additionalPersonPrice: (props: Record<string, any>) =>
         `${this.formatMoneyFunc(props.price)} e ${props.terms}`,
       minNumberOfNights: (props: Record<string, any>) => `${props.num} nuits`,
@@ -135,7 +152,7 @@ export class I18n implements I18nFacade {
     return this.translations[this.currentLang][ref];
   };
   public formatFunc = (ref: string, props: Record<string, any>): string => {
-    if (this.formats[this.currentLang][ref]) {
+    if (!this.formats[this.currentLang][ref]) {
       console.log('missing formatFunc', ref);
       return '';
     } else {

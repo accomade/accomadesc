@@ -92,9 +92,17 @@
 
 <style>
   .pricing-short-wrapper {
+    color: var(--main-font-color);
+    background-color: var(--main-bg-color);
+
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    * {
+      color: var(--main-font-color);
+      background-color: var(--main-bg-color);
+    }
   }
 
   .pricing-short-wrapper h3 {

@@ -291,8 +291,6 @@
   });
 </script>
 
-{@debug i18n}
-
 <h1>Welcome to Accomade Svelte Components (accomadesc)</h1>
 <h2>Components Show-Case</h2>
 
@@ -327,7 +325,7 @@
   {/if}
   <h3>AccoCard</h3>
   <div class="component">
-    <div class="component-view">
+    <div class="component-view" style={css}>
       <AccoCard {...accoCard.content} {...i18n} />
     </div>
   </div>
