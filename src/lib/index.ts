@@ -55,9 +55,9 @@ export type {
   Section as SectionI,
   I18nFacade,
   Acco as AccoI,
-} from './types.ts';
+} from './types.js';
 
-export { PRICING_COLUMNS } from './types.ts';
+export { PRICING_COLUMNS } from './types.js';
 
 export {
   randomID,

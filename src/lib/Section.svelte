@@ -27,7 +27,7 @@
     isPricingShort,
     isAccoDescription,
     isAccoCard,
-  } from './types.ts';
+  } from './types.js';
 
   let {
     header = undefined,

@@ -9,7 +9,7 @@
     isPricingShort,
     type AccoCardContent,
     type I18nFacade,
-  } from './types.ts';
+  } from './types.js';
 
   let { cardContent, displayName, translateFunc, formatFunc }: AccoCardContent & I18nFacade =
     $props();

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { AccoDescriptionContent, I18nFacade } from './types.ts';
+  import type { AccoDescriptionContent, I18nFacade } from './types.js';
   let {
     ref,
     minHeight = '100%',

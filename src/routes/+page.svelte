@@ -13,7 +13,7 @@
     type PricingRange,
     type StaticPricingRange,
     type Text as TextBlock,
-  } from '$lib/types.ts';
+  } from '$lib/types.js';
   import Text from '$lib/Text.svelte';
   import Button from '$lib/basic/Button.svelte';
   import AmenitiesCore from '$lib/AmenitiesCore.svelte';

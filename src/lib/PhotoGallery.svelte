@@ -1,6 +1,6 @@
 <script lang="ts">
   import PhotoComponent from './Photo.svelte';
-  import type { I18nFacade, Photo, PhotoGalleryContent, GridPhoto } from './types.ts';
+  import type { I18nFacade, Photo, PhotoGalleryContent, GridPhoto } from './types.js';
   import { browser } from '$app/environment';
 
   let { photos, gridPhotoWidth = 300, translateFunc }: PhotoGalleryContent & I18nFacade = $props();

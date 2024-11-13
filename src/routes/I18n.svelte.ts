@@ -1,4 +1,4 @@
-import type { I18nFacade } from '$lib/types.ts';
+import type { I18nFacade } from '$lib/types.js';
 import { dinero, toDecimal, type Dinero, type DineroSnapshot } from 'dinero.js';
 import { DateTime as luxon, type DateTime } from 'luxon';
 

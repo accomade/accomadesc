@@ -2,7 +2,7 @@
   import { OccuPlanAvailableInfo } from 'occuplan';
   import { DateTime } from 'luxon';
   import Spinner from './basic/Spinner.svelte';
-  import type { CalendarAvailableContent, I18nFacade } from './types.ts';
+  import type { CalendarAvailableContent, I18nFacade } from './types.js';
 
   let {
     calUrl,

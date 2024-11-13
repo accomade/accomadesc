@@ -1,6 +1,6 @@
 <script lang="ts">
   import { I18n } from './I18n.svelte';
-  import type { PricingEntry } from '$lib/types.ts';
+  import type { PricingEntry } from '$lib/types.js';
   import PriceEditor from './PriceEditor.svelte';
   import TextInput from '$lib/basic/TextInput.svelte';
   import { randomID } from '$lib/names/gen.js';

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { OccuPlanWrapper } from 'occuplan';
   import Spinner from './basic/Spinner.svelte';
-  import type { CalendarContent, I18nFacade } from './types.ts';
+  import type { CalendarContent, I18nFacade } from './types.js';
 
   let { calUrl, calendarTranslation, translateFunc }: CalendarContent & I18nFacade = $props();
   let calLoading = $state(true);
@@ -26,4 +26,3 @@
     justify-content: center;
   }
 </style>
-

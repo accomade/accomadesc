@@ -2,7 +2,7 @@
   import LinkSvg from '$lib/svg/LinkSVG.svelte';
   import ExtLinkSvg from '$lib/svg/ExtLinkSVG.svelte';
   import { TwicImg } from '@twicpics/components/svelte5';
-  import type { PhotoContent, I18nFacade } from './types.ts';
+  import type { PhotoContent, I18nFacade } from './types.js';
 
   let {
     alt,
