@@ -282,6 +282,7 @@
       },
     },
   };
+  //console.log(JSON.stringify(accoCard, null, 2));
 
   const i18n = new I18n();
   $effect(() => {

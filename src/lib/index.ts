@@ -1,5 +1,5 @@
 // Reexport your entry components here
-import { randomName, randomID } from './names/gen.ts';
+import { randomName, randomID } from './names/gen.js';
 
 import Avatar from './basic/Avatar.svelte';
 import Button from './basic/Button.svelte';
