@@ -17,7 +17,7 @@
   import Text from '$lib/Text.svelte';
   import Button from '$lib/basic/Button.svelte';
   import AmenitiesCore from '$lib/AmenitiesCore.svelte';
-  import { randomID } from '$lib/names/gen.ts';
+  import { randomID } from '$lib/names/gen.js';
 
   import TextEditor from './TextEditor.svelte';
   import AmenitiesEditor from './AmenitiesEditor.svelte';
