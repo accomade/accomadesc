@@ -14,9 +14,7 @@
     };
   }
   let ratio = $derived(landscape ? '16/9' : '9/16');
-
   let galleryContainer: HTMLDivElement | undefined = $state();
-
   let gridPhotos: GridPhoto[] = $state([]);
 
   $effect(() => {

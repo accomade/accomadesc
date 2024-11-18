@@ -62,7 +62,6 @@ export interface WeatherContent {
   header1: string;
   header2: string;
   location: string;
-  currenLang: string;
 }
 
 export interface Photo {

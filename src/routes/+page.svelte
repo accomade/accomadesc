@@ -39,6 +39,8 @@
   import PricingEditor from './PricingEditor.svelte';
   import AccoCard from '$lib/AccoCard.svelte';
   import PhotoGallery from '$lib/PhotoGallery.svelte';
+  import type { WeatherI } from '$lib/index.ts';
+  import Weather from '$lib/Weather.svelte';
 
   let css = $state(initialCss);
   let styleOpen = $state(false);
@@ -290,7 +292,6 @@
     kind: 'gallery',
     content: {
       gridPhotoWidth: 200,
-
       photos: [
         {
           kind: 'photo',
@@ -298,8 +299,6 @@
           content: {
             photoPath: photos[0],
             alt: altRef,
-            eager: false,
-            frame: false,
           },
         },
         {
@@ -308,8 +307,6 @@
           content: {
             photoPath: photos[1],
             alt: altRef,
-            eager: false,
-            frame: false,
           },
         },
         {
@@ -318,11 +315,21 @@
           content: {
             photoPath: photos[2],
             alt: altRef,
-            eager: false,
-            frame: false,
           },
         },
       ],
+    },
+  };
+
+  const whRef1 = 'weatherRef1';
+  const whRef2 = 'weatherRef2';
+  const weather: WeatherI = {
+    id: randomID(),
+    kind: 'weather',
+    content: {
+      header1: whRef1,
+      header2: whRef2,
+      location: '54d0514d00/koserow/',
     },
   };
 
@@ -366,10 +373,16 @@
       <CssEditor bind:css />
     </div>
   {/if}
+  <h3>Weather</h3>
+  <div class="component">
+    <div class="component-view" style={css}>
+      <Weather {...weather.content} {...i18n} />
+    </div>
+  </div>
   <h3>PhotoGallery</h3>
   <div class="component">
     <div class="component-view" style={css}>
-      <PhotoGallery {...photoGallery} {...i18n} />
+      <PhotoGallery {...photoGallery.content} {...i18n} />
     </div>
   </div>
   <h3>AccoCard</h3>

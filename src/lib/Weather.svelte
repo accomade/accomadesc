@@ -8,8 +8,7 @@
 
   const callback = () => {
     //TODO maybe do something here
-    // probably build something custom, not using weatherwidget.io, yes maptiler might be good option
-    //
+    // probably build something custom, not using weatherwidget.io
     //console.log("weather script loaded")
     initialLoadDone = true;
   };

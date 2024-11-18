@@ -19,6 +19,8 @@ export class I18n implements I18nFacade {
       minNumNights: 'Min. Nights',
       globalPricing: 'Prices',
       accoCCCalt: 'Picture of Apartment',
+      weatherRef1: 'Koserow',
+      weatherRef2: 'Weather',
     },
     de: {
       textRef: '<h3>HEADER</h3><p>Ein deutscher text</p>',
@@ -35,6 +37,8 @@ export class I18n implements I18nFacade {
       minNumNights: 'Min. Nächte',
       globalPricing: 'Basispreis',
       accoCCCalt: 'Bild vom Apartment',
+      weatherRef1: 'Koserow',
+      weatherRef2: 'Wetter',
     },
     fr: {
       textRef: '<h3>HEADER</h3><p>En francaise text</p>',
@@ -51,6 +55,8 @@ export class I18n implements I18nFacade {
       minNumNights: 'Min. Nights',
       globalPricing: 'Prices',
       accoCCCalt: 'Picture of Apartment',
+      weatherRef1: 'Koserow',
+      weatherRef2: 'Clima',
     },
   });
 
@@ -62,7 +68,7 @@ export class I18n implements I18nFacade {
       nothingAvailable: (props: Record<string, any>) =>
         `Not Available for ${props.forDays} days before ${this.formatDateFunc(props.maxFutureDate)}`,
       availableFromFor: (props: Record<string, any>) =>
-        `Min. ${props.forDays} days from ${this.formatDateFunc(props.from)} ${JSON.stringify(props)}`,
+        `Min. ${props.forDays} days from ${this.formatDateFunc(props.from)}`,
 
       additionalPersonPrice: (props: Record<string, any>) =>
         `${this.formatMoneyFunc(props.price)} for ${props.terms}`,
