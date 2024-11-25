@@ -21,6 +21,10 @@ export class I18n implements I18nFacade {
       accoCCCalt: 'Picture of Apartment',
       weatherRef1: 'Koserow',
       weatherRef2: 'Weather',
+      cfRef1: 'Name',
+      cfRef2: 'Email',
+      cfRef3: 'Submit',
+      cfRef4: 'Ihre Nachricht',
     },
     de: {
       textRef: '<h3>HEADER</h3><p>Ein deutscher text</p>',
@@ -39,6 +43,10 @@ export class I18n implements I18nFacade {
       accoCCCalt: 'Bild vom Apartment',
       weatherRef1: 'Koserow',
       weatherRef2: 'Wetter',
+      cfRef1: 'Name',
+      cfRef2: 'Email',
+      cfRef3: 'Submit',
+      cfRef4: 'Ihre Nachricht',
     },
     fr: {
       textRef: '<h3>HEADER</h3><p>En francaise text</p>',
@@ -57,6 +65,10 @@ export class I18n implements I18nFacade {
       accoCCCalt: 'Picture of Apartment',
       weatherRef1: 'Koserow',
       weatherRef2: 'Clima',
+      cfRef1: 'Name',
+      cfRef2: 'Email',
+      cfRef3: 'Submit',
+      cfRef4: 'Ihre Nachricht',
     },
   });
 

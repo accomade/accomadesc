@@ -230,6 +230,27 @@ export interface AccoDescriptionContent {
   headerFontSize?: string;
 }
 
+export interface ContactForm {
+  id: string;
+  kind: 'contact-form';
+  content: ContactFormContent;
+}
+
+export interface ContactFormContent {
+  userID: string;
+  endpoint: string;
+  nameLabel: string;
+  emailLabel: string;
+  questionLabel: string;
+  submitText: string;
+  maxCharsAllowed?: number;
+  explainer?: string;
+}
+
+export interface BookingRequest {}
+
+export interface BookingRequestContent {}
+
 export type Block =
   | Text
   | Photo
@@ -243,6 +264,7 @@ export type Block =
   | LeafletMap
   | AccoCard
   | AccoDescription
+  | ContactForm
   | undefined;
 
 export interface Section {
@@ -321,4 +343,9 @@ export const isPricingShort = (b: Block): b is PricingShort => {
 export const isAccoDescription = (b: Block): b is AccoDescription => {
   if (!b) return false;
   return b.kind === 'acco-description';
+};
+
+export const isContactForm = (b: Block): b is ContactForm => {
+  if (!b) return false;
+  return b.kind === 'contact-form';
 };

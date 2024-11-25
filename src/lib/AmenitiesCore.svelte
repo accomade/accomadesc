@@ -37,7 +37,7 @@
   let formattedSize: string = $derived(formatFunc ? formatFunc('size', { size: size }) : `${size}`);
 </script>
 
-<div class="amneties-wrapper">
+<div class="amenities-wrapper">
   <div class="element-wrapper">
     <AreaSvg size="2rem" />
     <div>
@@ -151,7 +151,7 @@
 </div>
 
 <style>
-  .amneties-wrapper {
+  .amenities-wrapper {
     background-color: var(--main-bg-color);
     color: var(--main-font-color);
 

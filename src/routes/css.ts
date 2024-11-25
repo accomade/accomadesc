@@ -1,7 +1,9 @@
 export const css = `
   --main-border: 1px solid rgb(2, 48, 71);
+  --dashed-border: 0.5px dashed rgba(2, 48, 71, .5);
   --main-bg-color: white;
   --main-font-color: #070707;
+  --alert-font-color: #c50000;
   --not-color: #c50000;
 
   --table-bg-color-odd: rgb(243, 243, 243);
@@ -43,4 +45,6 @@ export const css = `
   --acco-card-font: black;
   --acco-card-bg: white;
 
+  --longinput-bg-color: #fff7dd;
+  --longinput-font-color: #160067;
 `;

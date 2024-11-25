@@ -14,12 +14,14 @@
     type PricingRange,
     type StaticPricingRange,
     type Text as TextBlock,
+    type ContactForm as ContactFormBlock,
   } from '$lib/types.js';
   import Text from '$lib/Text.svelte';
   import Button from '$lib/basic/Button.svelte';
   import AmenitiesCore from '$lib/AmenitiesCore.svelte';
   import { randomID } from '$lib/names/gen.js';
 
+  import ContactForm from '$lib/ContactForm.svelte';
   import TextEditor from './TextEditor.svelte';
   import AmenitiesEditor from './AmenitiesEditor.svelte';
   import MapEditor from './MapEditor.svelte';
@@ -333,6 +335,24 @@
     },
   };
 
+  const cfRef1 = 'cfRef1'; //randomID();
+  const cfRef2 = 'cfRef2';
+  const cfRef3 = 'cfRef3';
+  const cfRef4 = 'cfRef4';
+  const cfRef5 = 'cfRef5';
+  const cForm: ContactFormBlock = {
+    id: randomID(),
+    kind: 'contact-form',
+    content: {
+      userID: '3726b92f-a33d-4b9d-b5ce-1f45f04c6f6a',
+      endpoint: 'https://accomade-crenshinibon-my-team-29e99517.vercel.app/contact',
+      nameLabel: cfRef1,
+      emailLabel: cfRef2,
+      questionLabel: cfRef4,
+      submitText: cfRef3,
+    },
+  };
+
   const i18n = new I18n();
   $effect(() => {
     if (css) {
@@ -373,6 +393,12 @@
       <CssEditor bind:css />
     </div>
   {/if}
+  <h3>Contact Form</h3>
+  <div class="component">
+    <div class="compontent-view" style={css}>
+      <ContactForm {...cForm.content} {...i18n} />
+    </div>
+  </div>
   <h3>Weather</h3>
   <div class="component">
     <div class="component-view" style={css}>
