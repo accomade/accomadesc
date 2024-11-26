@@ -1,6 +1,8 @@
 <script lang="ts">
+  import Spinner from './basic/Spinner.svelte';
   import Button from './basic/Button.svelte';
   import TextInput from './basic/TextInput.svelte';
+  import Notes from './basic/Notes.svelte';
   import type { ContactFormContent, I18nFacade } from './types.js';
 
   const {
@@ -18,6 +20,13 @@
   let name = $state('');
   let email = $state('');
   let question = $state('');
+  let successfullySend = $state(false);
+  let sending = $state(false);
+  let errored = $state(false);
+
+  const questionChanged = (value: string) => {
+    question = value;
+  };
 
   let currentCharsCount = $derived(question.length);
   let showMaxCharsMessage = $derived(currentCharsCount > 150);
@@ -28,12 +37,8 @@
       question.length <= maxCharsAllowed,
   );
 
-  const questionChanged = (e: Event) => {
-    const target = e.currentTarget as HTMLDivElement;
-    question = target.getHTML();
-  };
-
   const submitMessage = async (e: Event) => {
+    sending = true;
     e.preventDefault();
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -48,8 +53,12 @@
       }),
     });
     if (response.status != 201) {
+      errored = true;
       console.log('Error sending mail', response.status, response.statusText);
+    } else {
+      successfullySend = true;
     }
+    sending = false;
   };
 </script>
 
@@ -67,7 +76,7 @@
       {@html translateFunc ? translateFunc(emailLabel) : 'Email'}:
       <TextInput type="email" name="email" marginForMessage={false} bind:value={email} />
     </label>
-    <label for="question-input"
+    <label class="row-label"
       ><div>
         {@html translateFunc
           ? translateFunc(questionLabel)
@@ -75,8 +84,9 @@
             >&nbsp;({currentCharsCount}/{maxCharsAllowed})</span
           >{/if}:
       </div>
+
+      <Notes disabled={successfullySend} changed={questionChanged} />
     </label>
-    <div contenteditable="plaintext-only" class="question-input" oninput={questionChanged}></div>
     <div class="button-wrapper">
       <Button
         enabled={canSubmit}
@@ -85,6 +95,9 @@
       />
     </div>
   </form>
+  {#if sending}
+    <Spinner />
+  {/if}
 </div>
 
 <style>
@@ -116,40 +129,9 @@
     justify-content: space-between;
   }
 
-  .question-input {
-    position: relative;
-
-    min-width: 400px;
-    width: 100%;
-    max-width: 800px;
-    min-height: 5rem;
-    height: 100%;
-
-    border: var(--main-border);
-    border-radius: 1rem;
-
-    background-color: var(--longinput-bg-color);
-
-    padding-left: 1.3rem;
-    padding-right: 1.3rem;
-    padding-top: 0.5rem;
-  }
-
-  .question-input::after {
-    content: '';
-    position: absolute;
-    border: var(--dashed-border);
-    right: 1rem;
-    top: 0;
-    bottom: 0;
-  }
-  .question-input::before {
-    content: '';
-    position: absolute;
-    border: var(--dashed-border);
-    left: 1rem;
-    top: 0;
-    bottom: 0;
+  .row-label {
+    flex-direction: column;
+    gap: 0.2rem;
   }
 
   .max-chars-message {

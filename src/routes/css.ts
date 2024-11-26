@@ -1,4 +1,16 @@
 export const css = `
+  --bg-button-prim-color: rgb(234, 250, 255);
+  --bg-button-sec-color: #F2F2F2;
+  --bg-button-tert-color: #FFFFFF;
+  --bg-negative-color: #B01313;
+  
+  --focussed-border-color-triplet: 102, 120, 243;
+  --focussed-border-color: rgba(var(--focussed-border-color-triplet), 0.9);
+  --disabled-border-color-triplet: 35, 35, 35;
+  --disabled-border-color: rgba(var(--focussed-border-color-triplet), 0.5);
+
+  --font-disabled-color: rgba(35,35,35, 0.4);
+
   --main-border: 1px solid rgb(2, 48, 71);
   --dashed-border: 0.5px dashed rgba(2, 48, 71, .5);
   --main-bg-color: white;

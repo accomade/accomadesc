@@ -277,7 +277,7 @@
     align-items: center;
 
     background-color: var(--bg-button-prim-color);
-    color: var(--font-prim-color);
+    color: var(--main-font-color);
 
     cursor: pointer;
     overflow: hidden;
