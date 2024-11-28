@@ -1,157 +1,73 @@
 <script lang="ts">
+  import { normalizeDate } from '$lib/helpers/normalizeDate.ts';
   import { DateTime, type DayNumbers, type MonthNumbers, type WeekdayNumbers } from 'luxon';
   import * as Sqrl from 'squirrelly';
   import {
     defaultMonthHeaderFormat,
     defaultMonthLabels,
     defaultWeekdayLabels,
+    getOccupationTypeFormatting,
+    OccupationState,
     type MonthLabels,
+    type Occupation,
+    type OccuplanTranslations,
     type WeekdayLabels,
-  } from '../types/i18n.ts';
+  } from './state.svelte.js';
 
   /** I18n ... month and weekday labels */
   let {
+    occupationState,
+    header = '',
+    footer = '',
     weekdayLabels = defaultWeekdayLabels,
     monthLabels = defaultMonthLabels,
     monthHeaderFormat = defaultMonthHeaderFormat,
-    typeNames = {
-      defaultOccupationTypeName: 'occupied',
-    },
-  }: {
-    weekdayLabels: WeekdayLabels;
-    monthLabels: MonthLabels;
-    monthHeaderFormat: string;
-    typeNames: Record<string, string>;
+    numberOfMonth = 12,
+    firstMonth = DateTime.utc().month,
+    year = DateTime.utc().year,
+    maxYear = DateTime.utc().plus({ years: 2 }).year,
+    minYear = year,
+  }: OccuplanTranslations & {
+    numberOfMonth: number;
+    firstMonth: MonthNumbers;
+    year: number;
+    minYear: number;
+    maxYear: number;
+    occupationState: OccupationState;
   } = $props();
 
-  export let i18n: I18n = {
-    weekdayLabels: defaultWeekdayLabels,
-    monthLabels: defaultMonthLabels,
-    monthHeaderFormat: defaultMonthHeaderFormat,
-    typeNames: {
-      defaultOccupationTypeName: 'occupied',
-    },
+  let formatFun = $derived(Sqrl.compile(monthHeaderFormat, { useWith: true }));
+  const monthHeader = (monthNum: MonthNumbers, year: number): string => {
+    const monthLabel = monthLabels[monthNum];
+    return formatFun({ month: monthLabel, year }, Sqrl.defaultConfig);
   };
 
-  let monthHeader = $derived((m: DateTime) => {
-    let monthLabel = defaultMonthLabels[m.month as MonthNumbers];
-    if (i18n?.monthLabels) {
-      //@ts-ignore
-      const custMonthLabel = i18n.monthLabels[m.month];
-      if (!!custMonthLabel) monthLabel = custMonthLabel;
-    }
-
-    let format = defaultMonthHeaderFormat;
-    if (i18n.monthHeaderFormat) {
-      format = i18n.monthHeaderFormat;
-    }
-
-    const formatFun = Sqrl.compile(format, { useWith: true });
-
-    return formatFun(
-      {
-        month: monthLabel,
-        year: `${m.year}`,
-      },
-      Sqrl.defaultConfig,
-    );
-  });
-
-  $: weekdayHeader = (dayNum: WeekdayNumbers): string => {
-    let weekdayLabel = defaultWeekdayLabels[dayNum];
-    if (i18n?.weekdayLabels) {
-      weekdayLabel = i18n.weekdayLabels[dayNum];
-    }
-    return weekdayLabel;
-  };
-  /** I18n ... end */
-
-  /** Occupation Types configuration */
-  export let defaultOccupationType: OccupationType = {
-    name: 'defaultOccupationTypeName',
-    backgroundColor: 'rgb(33, 158, 188)',
-    fontColor: 'rgb(2, 48, 71)',
+  let weekdayHeader = (dayNum: WeekdayNumbers): string => {
+    return weekdayLabels[dayNum];
   };
 
-  let occupationTypes: OccupationType[] = [defaultOccupationType];
+  let prevYear = $derived(DateTime.local(year).minus({ years: 1 }).year);
+  let nextYear = $derived(DateTime.local(year).plus({ years: 1 }).year);
 
-  const addType = (t: OccupationType) => {
-    const found = occupationTypes.find((et) => et.name === t.name);
-    if (!found) {
-      occupationTypes = [...occupationTypes, t];
-    }
-  };
-
-  /** Occupation Types ... end */
-
-  /** Styling */
-  export let mainBorder = '1px solid rgb(2, 48, 71)';
-  export let gridBorder = '0.2px solid rgba(2, 48, 71, 0.2)';
-  export let fontColorMain = 'rgb(2, 48, 71)';
-  export let fontColorDays = 'rgb(2, 48, 71)';
-  export let fontColorDayHeaders = 'rgb(2, 48, 71)'; //'rgb(251, 133, 0)';
-  export let fontColorWeekNum = 'rgba(2, 48, 71, 0.5)';
-  export let backgroundColorDayHeaders = 'rgb(142, 202, 230)'; //'rgb(33, 158, 188)';
-  export let backgroundColorWeeknum = 'transparent'; //'rgb(142, 202, 230)';
-  export let backgroundColorMain = 'transparent'; //'rgb(142, 202, 230)';
-  export let backgroundColorInvalidDays = 'rgba(110,110,110,0.6)';
-
-  export let buttonStyle = `
-    background-color: ${backgroundColorMain};
-    padding: 0.2rem;
-    border: 1px solid ${fontColorMain};
-    border-radius: 0.5rem;
-    filter: drop-shadow(0 0 0.2rem ${fontColorMain});
-  `;
-  /** Styling end */
-
-  /** Hedear & Footer */
-  export let headerContent = 'occupation plan';
-  export let footerContent = `
-    <a 
-        style="color: ${fontColorMain}; filter: opacity(0.3);"
-        href="https://github.com/accomade/occuplan" 
-        target="_blank">
-      Occuplan is OSS
-    </a>`;
-  /** Header & Footer end*/
-
-  /** Date calculations */
-  export let year = DateTime.now().year;
-  export let maxYear = DateTime.local(year).plus({ years: 2 }).year;
-  export let minYear = year;
-
-  export let firstMonth = DateTime.now().month;
-
-  // 1 => Monday; always Monday. Don't overcomplicate things
-  //export let firstDayOfWeek = 1;
-  export let numberOfMonth = 12;
-
-  $: prevYear = DateTime.local(year).minus({ years: 1 }).year;
-  $: nextYear = DateTime.local(year).plus({ years: 1 }).year;
-
-  let months: DateTime[] = [];
-  $: {
+  let months: DateTime[] = $derived.by(() => {
+    const result = [];
     let fMonth = DateTime.utc(year, firstMonth, 1);
-    months = [fMonth];
+    result.push(fMonth);
 
     let nMonth = fMonth.plus({ months: 1 });
     for (let c = 1; c < numberOfMonth; c++) {
-      months.push(nMonth);
+      result.push(nMonth);
       nMonth = nMonth.plus({ months: 1 });
     }
-  }
+    return result;
+  });
 
   const nextYearClicked = () => {
-    prevYear = year;
     year = nextYear;
-    nextYear++;
   };
 
   const prevYearClicked = () => {
-    nextYear = year;
     year = prevYear;
-    prevYear--;
   };
 
   let monthGridTemplateColumns = `[rowLegend] 1fr [d1] 1fr [d2] 1fr [d3] 1fr [d4] 1fr [d5] 1fr [d6] 1fr [d7] 1fr`;
@@ -206,77 +122,40 @@
     return d > today;
   };
 
-  /** Date calculations end */
-
-  /** Occupations */
-  export let occupations: Occupation[] = [];
-
-  const occupied = (d: DateTime, occupations: Occupation[]): Occupation | undefined => {
-    const startOfDay = d.startOf('day');
-    const endOfDay = d.endOf('day');
-    return occupations.find((o) => o.arrival < startOfDay && o.leave > endOfDay);
-  };
-
-  const occupationStarts = (d: DateTime, occupations: Occupation[]): Occupation | undefined => {
-    const startOfDay = d.startOf('day');
-    const endOfDay = d.endOf('day');
-    return occupations.find((o) => o.arrival > startOfDay && o.arrival < endOfDay);
-  };
-
-  const occupationEnds = (d: DateTime, occupations: Occupation[]): Occupation | undefined => {
-    const startOfDay = d.startOf('day');
-    const endOfDay = d.endOf('day');
-    return occupations.find((o) => o.leave > startOfDay && o.leave < endOfDay);
-  };
-
   const occupationStyle = (d: DateTime, m: DateTime, occupations: Occupation[]): string => {
     const valid = validDay(d);
     if (!valid) {
       return `
-      color: ${backgroundColorInvalidDays};
-      opacity: 0.3;
-      background-color: ${backgroundColorInvalidDays};
-        `;
+        color: var(--occuplan-bg-color-invalid-days);
+        opacity: 0.3;
+        background-color: var(--occuplan-font-color-invalid-days);
+      `;
     }
 
-    const o = occupied(d, occupations);
-    const oStarts = occupationStarts(d, occupations);
-    const oEnds = occupationEnds(d, occupations);
+    const o = occupationState.fullOccupation(d);
+    const oStarts = occupationState.startingOccupation(d);
+    const oEnds = occupationState.endingOccupation(d);
     const otherMonth = d.month !== m.month;
 
     if (o) {
-      let t = defaultOccupationType;
-      if (o?.type) {
-        t = o.type;
-        addType(t);
-      }
-
+      const f = getOccupationTypeFormatting(o);
       if (otherMonth) {
         return `
-          background-color: ${t.backgroundColor};
-          color: ${t.fontColor};
+          background-color: ${f.bgColor};
+          color: ${f.fontColor};
           opacity: 0.3;
         `;
       }
 
       return `
-        background-color: ${t.backgroundColor};
-        color: ${t.fontColor};
+        background-color: ${f.bgColor};
+        color: ${f.fontColor};
       `;
     }
 
     if (oEnds && oStarts) {
-      let endType = defaultOccupationType;
-      if (oEnds.type) {
-        endType = oEnds.type;
-        addType(endType);
-      }
-      let startType = defaultOccupationType;
-      if (oStarts.type) {
-        startType = oStarts.type;
-        addType(startType);
-      }
-
+      const sf = getOccupationTypeFormatting(oStarts);
+      const ef = getOccupationTypeFormatting(oEnds);
       if (otherMonth) {
         return `
         background: linear-gradient(90deg, ${endType.backgroundColor}, ${startType.backgroundColor});
@@ -592,4 +471,3 @@
     font-variant: small-caps;
   }
 </style>
-

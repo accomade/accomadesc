@@ -57,6 +57,26 @@ export const css = `
   --acco-card-font: black;
   --acco-card-bg: white;
 
+  --occuplan-main-border: 1px solid rgb(2, 48, 71);
+  --occuplan-grid-border: 0.2px solid rgba(2, 48, 71, 0.2);
+  --occuplan-font-color-main: rgb(2, 48, 71);
+  --occuplan-font-color-days: rgb(2, 48, 71);
+  --occuplan-font-color-days-header: rgb(2, 48, 71);
+  --occuplan-font-color-weeknum: rgba(2, 48, 71, 0.5);
+  --occuplan-font-color-invalid-days: rgb(25, 25, 25);
+  --occuplan-bg-color-day-headers: rgb(142, 202, 230);
+  --occuplan-bg-color-weeknum: transparent;
+  --occuplan-bg-color-main: transparent;
+  --occuplan-bg-color-invalid-days: rgba(110,110,110,0.6);
+
+  --occupation-type-1-font-color: rgb(2, 48, 71);
+  --occupation-type-1-bg-color: rgb(33, 158, 188);
+  --occupation-type-2-font-color: black;
+  --occupation-type-2-bg-color: white;
+  --occupation-type-3-font-color: yellow;
+  --occupation-type-3-bg-color: darkbrown;
+
+
   --longinput-bg-color: #fff7dd;
   --longinput-font-color: #160067;
 `;

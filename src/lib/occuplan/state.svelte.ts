@@ -1,7 +1,7 @@
 import { debounce } from '$lib/helpers/debounce.ts';
 import { normalizeDate } from '$lib/helpers/normalizeDate.ts';
 import { getEvents } from '$lib/helpers/readICS.ts';
-import type { DateTime } from 'luxon';
+import type { DateTime, MonthNumbers, WeekdayNumbers } from 'luxon';
 import { DateTime as luxon } from 'luxon';
 
 export interface AvailableSpans {
@@ -11,18 +11,89 @@ export interface AvailableSpans {
 export interface Occupation {
   arrival: DateTime;
   leave: DateTime;
-  type?: OccupationType | undefined;
-}
-export interface OccupationType {
-  name: string;
-  backgroundColor: string;
-  fontColor: string;
+  type: OccupationType;
 }
 export type OccupationCallback = (occupation: Occupation) => void;
+
+export type WeekdayLabels = {
+  [key in WeekdayNumbers]: string;
+};
+
+export type MonthLabels = {
+  [key in MonthNumbers]: string;
+};
+
+export type OccupationType = 'one' | 'two' | 'three';
+
+export const getOccupationTypeFormatting = (
+  o?: Occupation,
+): { fontColor: string; bgColor: string } => {
+  switch (o?.type) {
+    case 'one':
+      return {
+        fontColor: 'var(--occupation-type-1-font-color)',
+        bgColor: 'var(--occupation-type-1-bg-color)',
+      };
+    case 'two':
+      return {
+        fontColor: 'var(--occupation-type-2-font-color)',
+        bgColor: 'var(--occupation-type-2-bg-color)',
+      };
+    case 'three':
+      return {
+        fontColor: 'var(--occupation-type-3-font-color)',
+        bgColor: 'var(--occupation-type-3-bg-color)',
+      };
+    default:
+      return {
+        fontColor: 'var(--occupation-type-1-font-color)',
+        bgColor: 'var(--occupation-type-1-bg-color)',
+      };
+  }
+};
+
+export interface OccuplanTranslations {
+  header?: string;
+  footer?: string;
+  weekendLabel?: string;
+  weekdayLabels?: WeekdayLabels;
+  monthLabels?: MonthLabels;
+  monthHeaderFormat?: string;
+  typeOneName?: string;
+  typeTwoName?: string;
+  typeThreeName?: string;
+}
+
+export const defaultWeekdayLabels: WeekdayLabels = {
+  1: 'Mo',
+  2: 'Tu',
+  3: 'We',
+  4: 'Th',
+  5: 'Fr',
+  6: 'Sa',
+  7: 'Su',
+} as const;
+export const defaultMonthLabels: MonthLabels = {
+  1: 'Jan',
+  2: 'Feb',
+  3: 'Mar',
+  4: 'Apr',
+  5: 'May',
+  6: 'Jun',
+  7: 'Jul',
+  8: 'Aug',
+  9: 'Sep',
+  10: 'Oct',
+  11: 'Nov',
+  12: 'Dec',
+} as const;
+
+export const defaultMonthHeaderFormat = '{{month}} / {{year}}';
 
 export class OccupationState {
   public iCalURL: string;
   public occupiedDays: Record<string, boolean> = {};
+  public occupations: Occupation[] = [];
 
   constructor(iCalURL: string) {
     this.iCalURL = iCalURL;
@@ -46,10 +117,15 @@ export class OccupationState {
   };
 
   private eventsIncomingCallback = (o: Occupation) => {
+    this.occupations.push(o);
     this.updateOccupiedDays(o);
   };
 
-  public updateOccupiedDays = (o: Occupation) => {
+  private dayKey = (d: DateTime): string => {
+    return `${d.year}-${d.month}-${d.day}`;
+  };
+
+  private updateOccupiedDays = (o: Occupation) => {
     let startDate = o.arrival;
     let endDate = o.leave;
 
@@ -60,7 +136,7 @@ export class OccupationState {
 
     let cDate = startDate;
     while (cDate < endDate) {
-      const key = `${cDate.year}-${cDate.month}-${cDate.day}`;
+      const key = this.dayKey(cDate);
       this.occupiedDays[key] = true;
       cDate = cDate.plus({ days: 1 });
     }
@@ -109,5 +185,29 @@ export class OccupationState {
       d = d.plus({ day: 1 });
     }
     return av;
+  };
+
+  public dayOccupied = (day: DateTime): boolean => {
+    const key = this.dayKey(day);
+    return this.occupiedDays[key];
+  };
+
+  public startingOccupation = (d: DateTime): Occupation | undefined => {
+    const startOfDay = d.startOf('day');
+    const endOfDay = d.endOf('day');
+    return this.occupations.find((o) => o.arrival > startOfDay && o.arrival < endOfDay);
+  };
+
+  public endingOccupation = (d: DateTime): Occupation | undefined => {
+    const startOfDay = d.startOf('day');
+    const endOfDay = d.endOf('day');
+    return this.occupations.find((o) => o.leave > startOfDay && o.leave < endOfDay);
+  };
+
+  public fullOccupation = (d: DateTime): Occupation | undefined => {
+    const startOfDay = d.startOf('day');
+    const endOfDay = d.endOf('day');
+
+    return this.occupations.find((o) => o.arrival < startOfDay && o.leave > endOfDay);
   };
 }

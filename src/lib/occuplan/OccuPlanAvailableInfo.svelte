@@ -1,7 +1,7 @@
 <script lang="ts">
   import { DateTime } from 'luxon';
   import { normalizeDate } from '$lib/helpers/normalizeDate.js';
-  import type { AvailableSpans, OccupationState } from '../state.svelte.ts';
+  import type { AvailableSpans, OccupationState } from './state.svelte.js';
   import type { Snippet } from 'svelte';
 
   let {
