@@ -7,16 +7,18 @@
     defaultMonthLabels,
     defaultWeekdayLabels,
     getOccupationTypeFormatting,
+    OCCUPATION_STATE,
     OccupationState,
     type MonthLabels,
     type Occupation,
     type OccuplanTranslations,
     type WeekdayLabels,
   } from './state.svelte.js';
+  import { getContext, setContext } from 'svelte';
 
   /** I18n ... month and weekday labels */
   let {
-    occupationState,
+    url,
     header = '',
     footer = '',
     weekdayLabels = defaultWeekdayLabels,
@@ -28,6 +30,7 @@
     maxYear = DateTime.utc().plus({ years: 2 }).year,
     minYear = year,
   }: OccuplanTranslations & {
+    url: string;
     numberOfMonth: number;
     firstMonth: MonthNumbers;
     year: number;
@@ -35,6 +38,13 @@
     maxYear: number;
     occupationState: OccupationState;
   } = $props();
+
+  const oStateID = `i-${url}-${OCCUPATION_STATE}`;
+  let occupationState: OccupationState = getContext(oStateID);
+  if (!occupationState) {
+    occupationState = new OccupationState(url);
+    setContext(oStateID, occupationState);
+  }
 
   let formatFun = $derived(Sqrl.compile(monthHeaderFormat, { useWith: true }));
   const monthHeader = (monthNum: MonthNumbers, year: number): string => {

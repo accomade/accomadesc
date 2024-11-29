@@ -25,6 +25,8 @@ export type MonthLabels = {
 
 export type OccupationType = 'one' | 'two' | 'three';
 
+export const OCCUPATION_STATE = 'occupation-state';
+
 export const getOccupationTypeFormatting = (
   o?: Occupation,
 ): { fontColor: string; bgColor: string } => {
