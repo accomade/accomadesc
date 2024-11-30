@@ -27,10 +27,16 @@ export type OccupationType = 'one' | 'two' | 'three';
 
 export const OCCUPATION_STATE = 'occupation-state';
 
-export const getOccupationTypeFormatting = (
+export const occupationTypeFormattingByOccupation = (
   o?: Occupation,
 ): { fontColor: string; bgColor: string } => {
-  switch (o?.type) {
+  return occupationTypeFormatting(o?.type);
+};
+
+export const occupationTypeFormatting = (
+  t?: OccupationType,
+): { fontColor: string; bgColor: string } => {
+  switch (t) {
     case 'one':
       return {
         fontColor: 'var(--occupation-type-1-font-color)',
@@ -61,10 +67,19 @@ export interface OccuplanTranslations {
   weekdayLabels?: WeekdayLabels;
   monthLabels?: MonthLabels;
   monthHeaderFormat?: string;
-  typeOneName?: string;
-  typeTwoName?: string;
-  typeThreeName?: string;
+  typeLabels: Record<OccupationType, string>;
 }
+
+export interface OccuplanMiscProps {
+  url: string;
+  numberOfMonth: number;
+  firstMonth: MonthNumbers;
+  year: number;
+  minYear: number;
+  maxYear: number;
+}
+
+export const defaultWeekendLabel = 'Weekend';
 
 export const defaultWeekdayLabels: WeekdayLabels = {
   1: 'Mo',

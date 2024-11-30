@@ -63,11 +63,14 @@ export const css = `
   --occuplan-font-color-days: rgb(2, 48, 71);
   --occuplan-font-color-days-header: rgb(2, 48, 71);
   --occuplan-font-color-weeknum: rgba(2, 48, 71, 0.5);
+  --occuplan-font-color-months: rgb(2, 48, 71);
   --occuplan-font-color-invalid-days: rgb(25, 25, 25);
-  --occuplan-bg-color-day-headers: rgb(142, 202, 230);
+  --occuplan-bg-color-days-header: rgb(142, 202, 230);
   --occuplan-bg-color-weeknum: transparent;
+  --occuplan-bg-color-months: rgb(142, 202, 230);
   --occuplan-bg-color-main: transparent;
   --occuplan-bg-color-invalid-days: rgba(110,110,110,0.6);
+  --occuplan-bg-color-weekend: rgb(2, 48, 71);
 
   --occupation-type-1-font-color: rgb(2, 48, 71);
   --occupation-type-1-bg-color: rgb(33, 158, 188);
