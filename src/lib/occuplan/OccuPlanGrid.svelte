@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { normalizeDate } from '$lib/helpers/normalizeDate.ts';
-  import { DateTime, type DayNumbers, type MonthNumbers, type WeekdayNumbers } from 'luxon';
+  import { DateTime, type MonthNumbers, type WeekdayNumbers } from 'luxon';
   import * as Sqrl from 'squirrelly';
   import {
     defaultMonthHeaderFormat,

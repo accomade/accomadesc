@@ -25,6 +25,8 @@ export class I18n implements I18nFacade {
       cfRef2: 'Email',
       cfRef3: 'Submit',
       cfRef4: 'Ihre Nachricht',
+      availability: 'Availability',
+      calendarHeader: 'Calendar',
     },
     de: {
       textRef: '<h3>HEADER</h3><p>Ein deutscher text</p>',
@@ -47,6 +49,8 @@ export class I18n implements I18nFacade {
       cfRef2: 'Email',
       cfRef3: 'Submit',
       cfRef4: 'Ihre Nachricht',
+      availability: 'Verfügbarkeit',
+      calendarHeader: 'Belegung',
     },
     fr: {
       textRef: '<h3>HEADER</h3><p>En francaise text</p>',
@@ -69,6 +73,8 @@ export class I18n implements I18nFacade {
       cfRef2: 'Email',
       cfRef3: 'Submit',
       cfRef4: 'Ihre Nachricht',
+      availability: 'Availability',
+      calendarHeader: 'Calendar',
     },
   });
 

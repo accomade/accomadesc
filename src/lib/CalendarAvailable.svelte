@@ -1,17 +1,16 @@
 <script lang="ts">
-  import { OccuPlanAvailableInfo } from 'occuplan';
+  import OccuPlanAvailableInfo from './occuplan/OccuPlanAvailableInfo.svelte';
   import { DateTime } from 'luxon';
-  import Spinner from './basic/Spinner.svelte';
   import type { CalendarAvailableContent, I18nFacade } from './types.js';
+  import { type AvailableSpans } from './occuplan/state.svelte.ts';
 
   let {
-    calUrl,
+    url,
     search = [3, 7, 14],
     maxFutureDate = DateTime.now().plus({ years: 2 }).toISO(),
     formatFunc,
     translateFunc,
   }: CalendarAvailableContent & I18nFacade = $props();
-  let calLoading = $state(true);
 
   let availHeader = $derived(translateFunc ? translateFunc('availability') : '[AVAILABILITY]');
 
@@ -33,21 +32,15 @@
 <div class="cal-wrapper">
   <h3>{availHeader}</h3>
 
-  <OccuPlanAvailableInfo
-    {search}
-    on:result={() => (calLoading = false)}
-    {calUrl}
-    let:available={av}
-  >
-    <ul>
-      {#each search as s}
-        <li>{formatAvailability(av[s], s)}</li>
-      {/each}
-    </ul>
+  <OccuPlanAvailableInfo {search} {url}>
+    {#snippet children(av: AvailableSpans)}
+      <ul>
+        {#each search as s}
+          <li>{formatAvailability(av[s], s)}</li>
+        {/each}
+      </ul>
+    {/snippet}
   </OccuPlanAvailableInfo>
-  {#if calLoading}
-    <Spinner />
-  {/if}
 </div>
 
 <style>

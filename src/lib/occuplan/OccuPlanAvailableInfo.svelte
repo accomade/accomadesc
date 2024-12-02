@@ -4,6 +4,7 @@
   import type { AvailableSpans } from './state.svelte.js';
   import { getContext, setContext, type Snippet } from 'svelte';
   import { OCCUPATION_STATE, OccupationState } from './state.svelte.js';
+  import Spinner from '$lib/basic/Spinner.svelte';
 
   let {
     url,
@@ -25,5 +26,9 @@
   }
   let av = $derived(occupationState ? occupationState.calcAvailability(search, maxFutureDate) : {});
 </script>
+
+{#if occupationState.loading}
+  <Spinner />
+{/if}
 
 {@render children(av)}

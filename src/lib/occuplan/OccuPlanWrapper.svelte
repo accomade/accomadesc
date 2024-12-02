@@ -26,9 +26,11 @@
 
 <div class="calendar-wrapper" bind:clientWidth={w}>
   {#if w && w.valueOf() > 640}
-    <OccuPlanRows {...props} />
+    BIG:({w.valueOf()}) {JSON.stringify(props)}
+    <!-- OccuPlanRows {...props} /-->
   {:else}
-    <OccuPlanGrid {...props} />
+    SMALL:({w.valueOf()}) {JSON.stringify(props)}
+    <!--  OccuPlanGrid {...props} /-->
   {/if}
 </div>
 

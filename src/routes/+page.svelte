@@ -15,6 +15,8 @@
     type StaticPricingRange,
     type Text as TextBlock,
     type ContactForm as ContactFormBlock,
+    type CalendarAvailable as CalendarAvailableBlock,
+    type Calendar as CalendarBlock,
   } from '$lib/types.js';
   import Text from '$lib/Text.svelte';
   import Button from '$lib/basic/Button.svelte';
@@ -43,6 +45,8 @@
   import PhotoGallery from '$lib/PhotoGallery.svelte';
   import type { WeatherI } from '$lib/index.ts';
   import Weather from '$lib/Weather.svelte';
+  import CalendarAvailable from '$lib/CalendarAvailable.svelte';
+  import Calendar from '$lib/Calendar.svelte';
 
   let css = $state(initialCss);
   let styleOpen = $state(false);
@@ -277,8 +281,7 @@
           {
             id: randomID(),
             content: {
-              calUrl:
-                'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/050edcb4-680e-4542-96df-3ae4a2af89a5',
+              url: 'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/050edcb4-680e-4542-96df-3ae4a2af89a5',
               search: [3, 7, 14],
             },
             kind: 'calendar-available',
@@ -353,6 +356,23 @@
     },
   };
 
+  const calAvailable: CalendarAvailableBlock = {
+    id: randomID(),
+    content: {
+      url: 'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/83cd06fd-858d-4e21-994f-325778812713',
+      search: [3, 7, 14],
+    },
+    kind: 'calendar-available',
+  };
+
+  const cal: CalendarBlock = {
+    id: randomID(),
+    content: {
+      url: 'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/83cd06fd-858d-4e21-994f-325778812713',
+    },
+    kind: 'calendar',
+  };
+
   const i18n = new I18n();
   $effect(() => {
     if (css) {
@@ -393,6 +413,18 @@
       <CssEditor bind:css />
     </div>
   {/if}
+  <h3>Dynamic Calendar</h3>
+  <div class="component">
+    <div class="component-view" style={css}>
+      <Calendar {...cal.content} {...i18n} />
+    </div>
+  </div>
+  <h3>Calendar Available</h3>
+  <div class="component">
+    <div class="component-view" style={css}>
+      <CalendarAvailable {...calAvailable.content} {...i18n} />
+    </div>
+  </div>
   <h3>Contact Form</h3>
   <div class="component">
     <div class="compontent-view" style={css}>

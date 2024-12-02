@@ -27,7 +27,7 @@ export interface Calendar {
   content: CalendarContent;
 }
 export interface CalendarContent {
-  calUrl: string;
+  url: string;
 }
 
 export interface CalendarAvailable {
@@ -36,9 +36,33 @@ export interface CalendarAvailable {
   content: CalendarAvailableContent;
 }
 export interface CalendarAvailableContent {
-  calUrl: string;
+  url: string;
   search: number[];
   maxFutureDate?: string;
+}
+
+export interface CalendarGrid {
+  id: string;
+  kind: 'calendar-grid';
+  content: CalendarGridContent;
+}
+
+export interface CalendarGridContent {
+  url: string;
+  maxYear?: number;
+  minYear?: number;
+}
+
+export interface CalendarRows {
+  id: string;
+  kind: 'calendar-rows';
+  content: CalendarRowsContent;
+}
+
+export interface CalendarRowsContent {
+  url: string;
+  maxYear?: number;
+  minYear?: number;
 }
 
 export interface Text {

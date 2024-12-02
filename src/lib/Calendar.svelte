@@ -1,21 +1,15 @@
 <script lang="ts">
-  import { OccuPlanWrapper } from 'occuplan';
-  import Spinner from './basic/Spinner.svelte';
+  import OccuPlanWrapper from './occuplan/OccuPlanWrapper.svelte';
   import type { CalendarContent, I18nFacade } from './types.js';
 
-  let { calUrl, calendarTranslation, translateFunc }: CalendarContent & I18nFacade = $props();
-  let calLoading = $state(true);
+  let { url, calendarTranslation, translateFunc }: CalendarContent & I18nFacade = $props();
 </script>
 
 <div class="cal-wrapper">
-  {#if calLoading}
-    <Spinner />
-  {/if}
   <OccuPlanWrapper
-    on:result={() => (calLoading = false)}
-    {calUrl}
-    headerContent={translateFunc ? translateFunc('calendarHeader') : ''}
-    translations={calendarTranslation}
+    {url}
+    header={translateFunc ? translateFunc('calendarHeader') : ''}
+    {...calendarTranslation}
   />
 </div>
 

@@ -2,9 +2,7 @@
   import { DateTime, type DayNumbers, type MonthNumbers } from 'luxon';
   import { getContext, setContext } from 'svelte';
   import {
-    defaultMonthHeaderFormat,
     defaultMonthLabels,
-    defaultWeekdayLabels,
     defaultWeekendLabel,
     OCCUPATION_STATE,
     OccupationState,
@@ -25,7 +23,6 @@
     style: string;
   }
   /** Helpers end */
-
   let {
     url,
     header = '',
@@ -57,10 +54,6 @@
     occupationState = new OccupationState(url);
     setContext(oStateID, occupationState);
   }
-
-  const monthHeader = (monthNum: MonthNumbers): string => {
-    return monthLabels[monthNum];
-  };
 
   let prevYear = $derived(DateTime.local(year).minus({ years: 1 }).year);
   let nextYear = $derived(DateTime.local(year).plus({ years: 1 }).year);

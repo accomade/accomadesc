@@ -109,8 +109,9 @@ export const defaultMonthHeaderFormat = '{{month}} / {{year}}';
 
 export class OccupationState {
   public iCalURL: string;
-  public occupiedDays: Record<string, boolean> = {};
-  public occupations: Occupation[] = [];
+  public occupiedDays: Record<string, boolean> = $state({});
+  public occupations: Occupation[] = $state([]);
+  public loading: boolean = $state(false);
 
   constructor(iCalURL: string) {
     this.iCalURL = iCalURL;
@@ -119,11 +120,14 @@ export class OccupationState {
 
   private loadOccupations = () => {
     if (this.iCalURL) {
+      this.loading = true;
       debounce(
         this.iCalURL,
         async (): Promise<boolean> => {
           if (this.iCalURL) {
             const eventsResult = await getEvents(this.iCalURL, this.eventsIncomingCallback);
+
+            this.loading = false;
             return !eventsResult.error;
           }
           return false;
