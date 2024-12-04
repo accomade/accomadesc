@@ -5,6 +5,7 @@
   import { getContext, setContext, type Snippet } from 'svelte';
   import { OCCUPATION_STATE, OccupationState } from './state.svelte.js';
   import Spinner from '$lib/basic/Spinner.svelte';
+  import { browser } from '$app/environment';
 
   let {
     url,
@@ -19,15 +20,18 @@
   } = $props();
 
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
-  let occupationState: OccupationState = getContext(oStateID);
-  if (!occupationState) {
-    occupationState = new OccupationState(url);
-    setContext(oStateID, occupationState);
-  }
+  let occupationState: OccupationState = $state(getContext(oStateID));
+
+  $effect(() => {
+    if (!occupationState && browser) {
+      occupationState = new OccupationState(url);
+      setContext(oStateID, occupationState);
+    }
+  });
   let av = $derived(occupationState ? occupationState.calcAvailability(search, maxFutureDate) : {});
 </script>
 
-{#if occupationState.loading}
+{#if !occupationState || occupationState.loading}
   <Spinner />
 {/if}
 

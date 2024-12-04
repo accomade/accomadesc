@@ -60,6 +60,22 @@ export const occupationTypeFormatting = (
   }
 };
 
+export interface DayHelper {
+  day: number;
+  month: MonthNumbers;
+  year: number;
+}
+
+const validDay = (d: DayHelper): boolean => {
+  const today = luxon.utc();
+  const m = luxon.local(d.year, d.month, d.day);
+  if (m < today) {
+    return false;
+  }
+
+  return d.day <= m.endOf('month').day;
+};
+
 export interface OccuplanTranslations {
   header?: string;
   footer?: string;
@@ -231,4 +247,95 @@ export class OccupationState {
 
     return this.occupations.find((o) => o.arrival < startOfDay && o.leave > endOfDay);
   };
+
+  public occupationStyle = (d: DayHelper, highlightWeekend: boolean = false): string => {
+    const valid = validDay(d);
+    if (!valid) {
+      return 'background-color: var(--occuplan-bg-color-invalid-days);';
+    }
+
+    const day = luxon.utc(d.year, d.month, d.day);
+
+    const o = this.fullOccupation(day);
+    const oStarts = this.startingOccupation(day);
+    const oEnds = this.endingOccupation(day);
+    const isWeekend = [6, 7].includes(day.weekday);
+
+    if (o) {
+      const f = occupationTypeFormattingByOccupation(o);
+      if (highlightWeekend && isWeekend) {
+        return `
+          background: radial-gradient(var(--occuplan-bg-color-weekend), ${f.bgColor}, ${f.bgColor});
+        `;
+      }
+
+      return `
+        background-color: ${f.bgColor};
+      `;
+    }
+
+    if (oEnds && oStarts) {
+      const sf = occupationTypeFormattingByOccupation(oStarts);
+      const ef = occupationTypeFormattingByOccupation(oEnds);
+
+      if (isWeekend) {
+        return `
+          background: radial-gradient(var(--occuplan-bg-color-weekend), var(--occuplan-bg-color-main), var(--occuplan-bg-color-main)), linear-gradient(90deg, ${ef.bgColor}, ${sf.bgColor});
+          `;
+      }
+
+      return `
+        background: linear-gradient(90deg, ${ef.bgColor}, ${sf.bgColor});
+        `;
+    }
+
+    if (oStarts) {
+      const sf = occupationTypeFormattingByOccupation(oStarts);
+
+      if (isWeekend) {
+        return `
+        background: radial-gradient( var(--occuplan-bg-color-weekend), var(--occuplan-bg-color-main), var(--occuplan-bg-color-main)), linear-gradient(90deg, var(--occuplan-bg-color-main), ${sf.bgColor});
+        `;
+      }
+
+      return `
+        background: linear-gradient(90deg, var(--occuplan-bg-color-main), ${sf.bgColor});
+        `;
+    }
+
+    if (oEnds) {
+      const ef = occupationTypeFormattingByOccupation(oEnds);
+
+      if (isWeekend) {
+        return `
+        background: radial-gradient( var(--occuplan-bg-color-weekend), var(--occuplan-bg-color-main), var(--occuplan-bg-color-main)), linear-gradient(90deg, ${ef.bgColor}, var(--occuplan-bg-color-main));
+        `;
+      }
+
+      return `
+        background: linear-gradient(90deg, ${ef.bgColor}, var(--occuplan-bg-color-main));
+        `;
+    }
+
+    if (isWeekend) {
+      return `
+        background: radial-gradient(var(--occuplan-bg-color-weekend), var(occuplan-bg-color-main), var(occupln-bg-color-main));
+      `;
+    }
+
+    return `
+        background-color: var(--occuplan-bg-color-main);
+      `;
+  };
 }
+
+let _instances: Record<string, OccupationState> = {};
+export const getOccupationState = (url: string) => {
+  const currentInstance = _instances[url];
+  if (currentInstance) return currentInstance;
+
+  const newInstance = new OccupationState(url);
+  _instances[url] = newInstance;
+
+  return _instances[url];
+};

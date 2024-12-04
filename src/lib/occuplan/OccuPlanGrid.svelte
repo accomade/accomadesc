@@ -5,7 +5,6 @@
     defaultMonthHeaderFormat,
     defaultMonthLabels,
     defaultWeekdayLabels,
-    occupationTypeFormattingByOccupation,
     OCCUPATION_STATE,
     OccupationState,
     occupationTypeFormatting,
@@ -129,105 +128,6 @@
     return lastDayOfMonth < firstDayOfWeek;
   };
 
-  const today = DateTime.now();
-  const validDay = (d: DateTime): boolean => {
-    return d > today;
-  };
-
-  const occupationStyle = (d: DateTime, m: DateTime): string => {
-    const valid = validDay(d);
-    if (!valid) {
-      return `
-        color: var(--occuplan-bg-color-invalid-days);
-        opacity: 0.3;
-        background-color: var(--occuplan-font-color-invalid-days);
-      `;
-    }
-
-    const o = occupationState.fullOccupation(d);
-    const oStarts = occupationState.startingOccupation(d);
-    const oEnds = occupationState.endingOccupation(d);
-    const otherMonth = d.month !== m.month;
-
-    if (o) {
-      const f = occupationTypeFormattingByOccupation(o);
-      if (otherMonth) {
-        return `
-          background-color: ${f.bgColor};
-          color: ${f.fontColor};
-          opacity: 0.3;
-        `;
-      }
-
-      return `
-        background-color: ${f.bgColor};
-        color: ${f.fontColor};
-      `;
-    }
-
-    if (oEnds && oStarts) {
-      const sf = occupationTypeFormattingByOccupation(oStarts);
-      const ef = occupationTypeFormattingByOccupation(oEnds);
-      if (otherMonth) {
-        return `
-        background: linear-gradient(90deg, ${ef.bgColor}, ${sf.bgColor});
-        color: var(--occuplan-font-color-days);
-        opacity: 0.3;
-        `;
-      }
-
-      return `
-        background: linear-gradient(90deg, ${ef.bgColor}, ${sf.bgColor});
-        color: var(--occuplan-font-color-days);
-        `;
-    }
-
-    if (oStarts) {
-      const f = occupationTypeFormattingByOccupation(oStarts);
-      if (otherMonth) {
-        return `
-        background: linear-gradient(90deg, 'var(--occuplan-bg-color-main)', ${f.bgColor});
-        color: var(--occuplan-font-color-days);
-        opacity: 0.3;
-        `;
-      }
-
-      return `
-        background: linear-gradient(90deg, (var(--occuplan-bg-color-main)', ${f.bgColor});
-        color: var(--occuplan-font-color-days);
-        `;
-    }
-
-    if (oEnds) {
-      let f = occupationTypeFormattingByOccupation(oEnds);
-      if (otherMonth) {
-        return `
-        background: linear-gradient(90deg, ${f.bgColor}, 'var(--occuplan-bg-color-main)');
-        color: var(--occuplan-font-color-days);
-        opacity: 0.3;
-        `;
-      }
-
-      return `
-        background: linear-gradient(90deg, ${f.bgColor}, 'var(--occupln-bg-color-main)');
-        color: var(--occuplan-font-color-days);
-        `;
-    }
-
-    if (otherMonth) {
-      return `
-      background-color: var(--occuplan-bg-color-main);
-      color: var(--occuplan-font-color-days);
-      opacity: 0.3;
-      `;
-    }
-
-    return `
-      background-color: var(--occuplan-bg-color-main);
-      color: var(--occuplan-font-color-days);
-      `;
-  };
-
   let foundOccupationTypes: OccupationType[] = $derived(
     occupationState.occupations.reduce((res, occupation) => {
       if (!res.includes(occupation.type)) {
@@ -292,7 +192,10 @@
               class="day"
               style="
                 grid-area: w{d.weekNumber} / d{d.weekday} / w{d.weekNumber} / d{d.weekday};
-                {occupationStyle(d, m)}
+                {occupationState.occupationStyle(
+                { day: d.day, month: d.month, year: d.year },
+                false,
+              )}
                 "
             >
               {d.day}

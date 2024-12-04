@@ -1,28 +1,20 @@
 <script lang="ts">
   import { DateTime, type DayNumbers, type MonthNumbers } from 'luxon';
-  import { getContext, setContext } from 'svelte';
   import {
     defaultMonthLabels,
     defaultWeekendLabel,
-    OCCUPATION_STATE,
     OccupationState,
     occupationTypeFormatting,
-    occupationTypeFormattingByOccupation,
     type OccupationType,
     type OccuplanTranslations,
+    OCCUPATION_STATE,
+    type DayHelper,
   } from './state.svelte.ts';
   import Button from '$lib/basic/Button.svelte';
+  import { browser } from '$app/environment';
+  import { getContext, setContext } from 'svelte';
+  import Spinner from '$lib/basic/Spinner.svelte';
 
-  /** Helpers */
-  interface DayHelper {
-    day: number;
-    month: MonthNumbers;
-    year: number;
-  }
-  interface DayHelperWithStyle extends DayHelper {
-    style: string;
-  }
-  /** Helpers end */
   let {
     url,
     header = '',
@@ -30,7 +22,7 @@
     weekendLabel = defaultWeekendLabel,
     monthLabels = defaultMonthLabels,
     numberOfMonth = 12,
-    firstMonth = DateTime.utc().month,
+    firstMonth = 1,
     year = DateTime.utc().year,
     maxYear = DateTime.utc().plus({ years: 2 }).year,
     minYear = year,
@@ -49,11 +41,14 @@
   } = $props();
 
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
-  let occupationState: OccupationState = getContext(oStateID);
-  if (!occupationState) {
-    occupationState = new OccupationState(url);
-    setContext(oStateID, occupationState);
-  }
+  let occupationState: OccupationState = $state(getContext(oStateID));
+  $effect(() => {
+    if (!occupationState && browser) {
+      occupationState = new OccupationState(url);
+      setContext(oStateID, occupationState);
+      console.log('setting context');
+    }
+  });
 
   let prevYear = $derived(DateTime.local(year).minus({ years: 1 }).year);
   let nextYear = $derived(DateTime.local(year).plus({ years: 1 }).year);
@@ -80,9 +75,10 @@
   };
 
   const monthDays = [...Array(31).keys()].map((i) => i + 1);
-
-  let days: DayHelperWithStyle[] = $derived.by(() => {
-    let days = [];
+  let days: DayHelper[] = $derived.by(() => {
+    const ldays: DayHelper[] = [];
+    if (!browser) return ldays;
+    if (!occupationState || occupationState.loading) return ldays;
     for (const m of months) {
       for (let d: DayNumbers = 1; d <= 31; d++) {
         const day: DayHelper = {
@@ -90,14 +86,11 @@
           month: m.month as MonthNumbers,
           year: m.year,
         };
-        let dayWithStyle = {
-          ...day,
-          style: occupationStyle(day),
-        };
-        days.push(dayWithStyle);
+        ldays.push(day);
       }
     }
-    return days;
+    console.log('rerun');
+    return ldays;
   });
 
   let monthGridTemplateColumns = $derived(
@@ -114,122 +107,35 @@
     }, '[columnLegend] 1fr'),
   );
 
-  const today = DateTime.now();
-  const validDay = (d: DayHelper): boolean => {
-    const m = DateTime.local(d.year, d.month, d.day);
-    if (m < today) {
-      return false;
-    }
-
-    return d.day <= m.endOf('month').day;
-  };
-
-  const occupationStyle = (d: DayHelper): string => {
-    const valid = validDay(d);
-    if (!valid) {
-      return 'background-color: var(--occuplan-bg-color-invalid-days);';
-    }
-
-    const day = DateTime.local(d.year, d.month, d.day);
-
-    const o = occupationState.fullOccupation(day);
-    const oStarts = occupationState.startingOccupation(day);
-    const oEnds = occupationState.endingOccupation(day);
-    const isWeekend = [6, 7].includes(day.weekday);
-
-    if (o) {
-      const f = occupationTypeFormattingByOccupation(o);
-      if (isWeekend) {
-        return `
-          background: radial-gradient(var(--occuplan-bg-color-weekend), ${f.bgColor}, ${f.bgColor});
-        `;
-      }
-
-      return `
-        background-color: ${f.bgColor};
-      `;
-    }
-
-    if (oEnds && oStarts) {
-      const sf = occupationTypeFormattingByOccupation(oStarts);
-      const ef = occupationTypeFormattingByOccupation(oEnds);
-
-      if (isWeekend) {
-        return `
-          background: radial-gradient(var(--occuplan-bg-color-weekend), var(--occuplan-bg-color-main), var(--occuplan-bg-color-main)), linear-gradient(90deg, ${ef.bgColor}, ${sf.bgColor});
-          `;
-      }
-
-      return `
-        background: linear-gradient(90deg, ${ef.bgColor}, ${sf.bgColor});
-        `;
-    }
-
-    if (oStarts) {
-      const sf = occupationTypeFormattingByOccupation(oStarts);
-
-      if (isWeekend) {
-        return `
-        background: radial-gradient( var(--occuplan-bg-color-weekend), var(--occuplan-bg-color-main), var(--occuplan-bg-color-main)), linear-gradient(90deg, var(--occuplan-bg-color-main), ${sf.bgColor});
-        `;
-      }
-
-      return `
-        background: linear-gradient(90deg, var(--occuplan-bg-color-main), ${sf.bgColor});
-        `;
-    }
-
-    if (oEnds) {
-      const ef = occupationTypeFormattingByOccupation(oEnds);
-
-      if (isWeekend) {
-        return `
-        background: radial-gradient( var(--occuplan-bg-color-weekend), var(--occuplan-bg-color-main), var(--occuplan-bg-color-main)), linear-gradient(90deg, ${ef.bgColor}, var(--occuplan-bg-color-main));
-        `;
-      }
-
-      return `
-        background: linear-gradient(90deg, ${ef.bgColor}, var(--occuplan-bg-color-main));
-        `;
-    }
-
-    if (isWeekend) {
-      return `
-        background: radial-gradient(var(--occuplan-bg-color-weekend), var(occuplan-bg-color-main), var(occupln-bg-color-main));
-      `;
-    }
-
-    return `
-        background-color: var(--occuplan-bg-color-main);
-      `;
-  };
-
   let foundOccupationTypes: OccupationType[] = $derived(
-    occupationState.occupations.reduce((res, occupation) => {
-      if (!res.includes(occupation.type)) {
-        res.push(occupation.type);
-      }
-      return res;
-    }, [] as OccupationType[]),
+    occupationState
+      ? occupationState.occupations.reduce((res, occupation) => {
+          if (!res.includes(occupation.type)) {
+            res.push(occupation.type);
+          }
+          return res;
+        }, [] as OccupationType[])
+      : [],
   );
+
+  let width = $state(0);
 </script>
 
-<section class="occuplan-wrapper">
+{#if !occupationState || occupationState.loading}
+  <Spinner />
+{/if}
+
+<section class="occuplan-wrapper" bind:clientWidth={width}>
   <header class="occupation-plan-header">
-    <div class="left-header-controls">
+    <div class="header-controls">
       {#if prevYear >= minYear}
         <Button text={`${prevYear}`} clicked={prevYearClicked} />
-        >
-      {:else}
-        <span>&nbsp;</span>
       {/if}
     </div>
-    <div class="header-label">{@html header}&nbsp;({year})</div>
-    <div class="right-header-controls">
+    <div class="header-label"><h3>{@html header}&nbsp;({year} - {width})</h3></div>
+    <div class="header-controls">
       {#if nextYear <= maxYear}
         <Button text={`${nextYear}`} clicked={nextYearClicked} />
-      {:else}
-        <span>&nbsp;</span>
       {/if}
     </div>
   </header>
@@ -243,14 +149,14 @@
       style="
       grid-area: columnLegend / rowLegend / columnLegend / rowLegend;
       background-color: var(--occuplan-bg-color-main);
-      "
+       = "
     >
       &nbsp;
     </div>
 
     {#each monthDays as d}
       <div class="monthday-header" style="grid-area: columnLegend / d{d} / columnLegend / d{d};">
-        {d}
+        <span>{d}</span>
       </div>
     {/each}
 
@@ -259,22 +165,24 @@
         class="month-label"
         style="grid-area: m{m.month}y{m.year} / rowLegend / m{m.month}y{m.year} / rowLegend;"
       >
-        {monthLabels[m.month as MonthNumbers]};
+        <span>{monthLabels[m.month as MonthNumbers]}</span>
       </div>
     {/each}
 
-    {#each days as d (`${d.year}-${d.month}-${d.day}`)}
-      <div
-        class="day"
-        style="
+    {#if occupationState}
+      {#each days as d (`${d.year}-${d.month}-${d.day}`)}
+        <div
+          class="day"
+          style="
             outline: var(--occuplan-grid-border);
             grid-area: m{d.month}y{d.year}  / d{d.day} / m{d.month}y{d.year} / d{d.day};
-            {occupationStyle(d)}
+            {occupationState.occupationStyle(d, true)}
             "
-      >
-        &nbsp;
-      </div>
-    {/each}
+        >
+          &nbsp;
+        </div>
+      {/each}
+    {/if}
   </main>
   <footer>
     <div class="legend">
@@ -330,17 +238,24 @@
   main {
     display: grid;
     width: 100%;
-    max-width: 44rem;
+    max-width: 100rem;
   }
 
   .month-label {
     display: flex;
     align-items: center;
-    padding-left: 0.2rem;
-    padding-right: 0.2rem;
-    outline: var(--occuplan-grid-border);
+    border-bottom: var(--occuplan-grid-border);
+    border-top: var(--occuplan-grid-border);
     color: var(--occuplan-font-color-months);
     background-color: var(--occuplan-bg-color-month);
+    container-type: size;
+    container-name: month-label;
+  }
+
+  @container month-label (min-height: 0) {
+    .month-label span {
+      font-size: 45cqh;
+    }
   }
 
   .monthday-header {
@@ -351,6 +266,14 @@
     outline: var(--occuplan-grid-border);
     background-color: var(--occuplan-bg-color-days-header);
     color: var(--occuplan-font-color-days-header);
+    container-type: size;
+    container-name: month-header;
+  }
+
+  @container month-header (min-width: 0) {
+    .monthday-header span {
+      font-size: 55cqh;
+    }
   }
 
   .occupation-plan-header {
@@ -365,6 +288,15 @@
     text-transform: capitalize;
     font-variant: small-caps;
     font-weight: bold;
+
+    h3 {
+      padding-top: 0;
+      padding-bottom: 0.2rem;
+    }
+  }
+
+  .header-controls {
+    width: 5rem;
   }
 
   .occuplan-wrapper {

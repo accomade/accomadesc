@@ -17,6 +17,7 @@
     type ContactForm as ContactFormBlock,
     type CalendarAvailable as CalendarAvailableBlock,
     type Calendar as CalendarBlock,
+    type CalendarRows as CalendarRowsBlock,
   } from '$lib/types.js';
   import Text from '$lib/Text.svelte';
   import Button from '$lib/basic/Button.svelte';
@@ -47,12 +48,13 @@
   import Weather from '$lib/Weather.svelte';
   import CalendarAvailable from '$lib/CalendarAvailable.svelte';
   import Calendar from '$lib/Calendar.svelte';
+  import CalendarRows from '$lib/CalendarRows.svelte';
 
   let css = $state(initialCss);
   let styleOpen = $state(false);
 
   let textRef = 'textRef';
-  let text: TextBlock = $state({
+  const text: TextBlock = $state({
     id: textRef,
     kind: 'text',
     content: {
@@ -63,7 +65,7 @@
     },
   });
 
-  let amenities: AmenitiesCoreBlock = $state({
+  const amenities: AmenitiesCoreBlock = $state({
     id: randomID(),
     kind: 'amenities-core',
     content: {
@@ -87,7 +89,7 @@
     },
   });
 
-  let leafletMap: LeafletMapBlock = $state({
+  const leafletMap: LeafletMapBlock = $state({
     id: randomID(),
     kind: 'leaflet-map',
     content: {
@@ -342,7 +344,6 @@
   const cfRef2 = 'cfRef2';
   const cfRef3 = 'cfRef3';
   const cfRef4 = 'cfRef4';
-  const cfRef5 = 'cfRef5';
   const cForm: ContactFormBlock = {
     id: randomID(),
     kind: 'contact-form',
@@ -371,6 +372,14 @@
       url: 'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/83cd06fd-858d-4e21-994f-325778812713',
     },
     kind: 'calendar',
+  };
+
+  const calRows: CalendarRowsBlock = {
+    id: randomID(),
+    content: {
+      url: 'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/83cd06fd-858d-4e21-994f-325778812713',
+    },
+    kind: 'calendar-rows',
   };
 
   const i18n = new I18n();
@@ -413,6 +422,12 @@
       <CssEditor bind:css />
     </div>
   {/if}
+  <h3>Monthly Rows Calendar</h3>
+  <div class="component">
+    <div class="component-view" style={css}>
+      <CalendarRows {...calRows.content} {...i18n} />
+    </div>
+  </div>
   <h3>Dynamic Calendar</h3>
   <div class="component">
     <div class="component-view" style={css}>
