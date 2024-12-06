@@ -36,27 +36,6 @@
     },
   }: OccuplanTranslations & OccuplanMiscProps = $props();
 
-  /*
-    url,
-    header = '',
-    footer = '',
-    nextPage = '>',
-    prevPage = '<',
-    weekdayLabels = defaultWeekdayLabels,
-    monthLabels = defaultMonthLabels,
-    monthHeaderFormat = defaultMonthHeaderFormat,
-    numberOfMonth = 12,
-    firstMonth = DateTime.utc().month,
-    year = DateTime.utc().year,
-    maxYear = DateTime.utc().plus({ years: 2 }).year,
-    minYear = year,
-    typeLabels = {
-      one: 'BOOKING',
-      two: 'RESERVATION',
-      three: 'PERSONAL',
-    },
-
-  */
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
   let occupationState: OccupationState = getContext(oStateID);
   if (!occupationState) {
