@@ -46,7 +46,6 @@
     if (!occupationState && browser) {
       occupationState = new OccupationState(url);
       setContext(oStateID, occupationState);
-      console.log('setting context');
     }
   });
 
@@ -97,7 +96,7 @@
     monthDays.reduce((s, d) => {
       s += ` [d${d}] 1fr`;
       return s;
-    }, '[rowLegend] 1fr'),
+    }, '[rowLegend] 1.5fr'),
   );
 
   let monthGridTemplateRows = $derived(
@@ -146,10 +145,10 @@
     "
   >
     <div
+      class="corner"
       style="
-      grid-area: columnLegend / rowLegend / columnLegend / rowLegend;
-      background-color: var(--occuplan-bg-color-main);
-       = "
+        grid-area: columnLegend / rowLegend / columnLegend / rowLegend;
+        background-color: var(--occuplan-bg-color-main);"
     >
       &nbsp;
     </div>
@@ -238,7 +237,8 @@
   main {
     display: grid;
     width: 100%;
-    max-width: 100rem;
+    max-width: 110rem;
+    overflow-x: auto;
   }
 
   .month-label {
@@ -247,14 +247,15 @@
     border-bottom: var(--occuplan-grid-border);
     border-top: var(--occuplan-grid-border);
     color: var(--occuplan-font-color-months);
-    background-color: var(--occuplan-bg-color-month);
+    background-color: var(--occuplan-bg-color-months);
     container-type: size;
     container-name: month-label;
+    padding-left: 0.3rem;
   }
 
   @container month-label (min-height: 0) {
     .month-label span {
-      font-size: 45cqh;
+      font-size: 55cqh;
     }
   }
 

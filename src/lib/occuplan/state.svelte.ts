@@ -134,23 +134,15 @@ export class OccupationState {
     this.loadOccupations();
   }
 
-  private loadOccupations = () => {
+  private loadOccupations = async () => {
+    this.loading = true;
     if (this.iCalURL) {
-      this.loading = true;
-      debounce(
-        this.iCalURL,
-        async (): Promise<boolean> => {
-          if (this.iCalURL) {
-            const eventsResult = await getEvents(this.iCalURL, this.eventsIncomingCallback);
+      const eventsResult = await getEvents(this.iCalURL, this.eventsIncomingCallback);
 
-            this.loading = false;
-            return !eventsResult.error;
-          }
-          return false;
-        },
-        { initialDelay: 200, debounceDelay: 5000 },
-      );
+      this.loading = false;
+      return !eventsResult.error;
     }
+    return false;
   };
 
   private eventsIncomingCallback = (o: Occupation) => {
@@ -278,7 +270,7 @@ export class OccupationState {
       const sf = occupationTypeFormattingByOccupation(oStarts);
       const ef = occupationTypeFormattingByOccupation(oEnds);
 
-      if (isWeekend) {
+      if (isWeekend && highlightWeekend) {
         return `
           background: radial-gradient(var(--occuplan-bg-color-weekend), var(--occuplan-bg-color-main), var(--occuplan-bg-color-main)), linear-gradient(90deg, ${ef.bgColor}, ${sf.bgColor});
           `;
@@ -292,7 +284,7 @@ export class OccupationState {
     if (oStarts) {
       const sf = occupationTypeFormattingByOccupation(oStarts);
 
-      if (isWeekend) {
+      if (isWeekend && highlightWeekend) {
         return `
         background: radial-gradient( var(--occuplan-bg-color-weekend), var(--occuplan-bg-color-main), var(--occuplan-bg-color-main)), linear-gradient(90deg, var(--occuplan-bg-color-main), ${sf.bgColor});
         `;
@@ -306,7 +298,7 @@ export class OccupationState {
     if (oEnds) {
       const ef = occupationTypeFormattingByOccupation(oEnds);
 
-      if (isWeekend) {
+      if (isWeekend && highlightWeekend) {
         return `
         background: radial-gradient( var(--occuplan-bg-color-weekend), var(--occuplan-bg-color-main), var(--occuplan-bg-color-main)), linear-gradient(90deg, ${ef.bgColor}, var(--occuplan-bg-color-main));
         `;
@@ -317,9 +309,9 @@ export class OccupationState {
         `;
     }
 
-    if (isWeekend) {
+    if (isWeekend && highlightWeekend) {
       return `
-        background: radial-gradient(var(--occuplan-bg-color-weekend), var(occuplan-bg-color-main), var(occupln-bg-color-main));
+        background: radial-gradient(var(--occuplan-bg-color-weekend), var(--occuplan-bg-color-main), var(--occuplan-bg-color-main));
       `;
     }
 
