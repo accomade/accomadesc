@@ -13,11 +13,15 @@
   } from './state.svelte.js';
   import { getContext, setContext } from 'svelte';
   import Button from '$lib/basic/Button.svelte';
+  import { browser } from '$app/environment';
+  import Spinner from '$lib/basic/Spinner.svelte';
 
   let {
     url,
     header = '',
     footer = '',
+    nextPage = '>',
+    prevPage = '<',
     weekdayLabels = defaultWeekdayLabels,
     monthLabels = defaultMonthLabels,
     monthHeaderFormat = defaultMonthHeaderFormat,
@@ -41,20 +45,18 @@
   } = $props();
 
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
-  let occupationState: OccupationState = getContext(oStateID);
-  if (!occupationState) {
-    occupationState = new OccupationState(url);
-    setContext(oStateID, occupationState);
-  }
+  let occupationState: OccupationState = $state(getContext(oStateID));
+  $effect(() => {
+    if (!occupationState && browser) {
+      occupationState = new OccupationState(url);
+      setContext(oStateID, occupationState);
+    }
+  });
 
   let formatFun = $derived(Sqrl.compile(monthHeaderFormat, { useWith: true }));
   const monthHeader = (monthNum: MonthNumbers, year: number): string => {
     const monthLabel = monthLabels[monthNum];
     return formatFun({ month: monthLabel, year }, Sqrl.defaultConfig);
-  };
-
-  let weekdayHeader = (dayNum: WeekdayNumbers): string => {
-    return weekdayLabels[dayNum];
   };
 
   let prevYear = $derived(DateTime.local(year).minus({ years: 1 }).year);
@@ -129,7 +131,7 @@
   };
 
   let foundOccupationTypes: OccupationType[] = $derived(
-    occupationState.occupations.reduce((res, occupation) => {
+    occupationState?.occupations.reduce((res, occupation) => {
       if (!res.includes(occupation.type)) {
         res.push(occupation.type);
       }
@@ -138,17 +140,21 @@
   );
 </script>
 
+{#if !occupationState || occupationState.loading}
+  <Spinner />
+{/if}
+
 <section class="occuplan-wrapper">
   <header class="occupation-plan-header">
     <div class="left-header-controls">
       {#if prevYear >= minYear}
-        <Button text={`${prevYear}`} clicked={prevYearClicked} />
+        <Button text={`${prevPage}`} clicked={prevYearClicked} />
       {/if}
     </div>
-    <div class="header-label">{@html header}</div>
+    <div class="header-label"><h3>{@html header}</h3></div>
     <div class="right-header-controls">
       {#if nextYear <= maxYear}
-        <Button text={`${nextYear}`} clicked={nextYearClicked} />
+        <Button text={`${nextPage}`} clicked={nextYearClicked} />
       {/if}
     </div>
   </header>
@@ -163,26 +169,26 @@
           "
           class="days"
         >
-          <div class="weekday-header">
-            {weekdayHeader(1)}
+          <div class="weekday-header" style="grid-area: columnLegend / d1 / columnLegend / d1;">
+            {weekdayLabels[1]}
           </div>
-          <div class="weekday-header">
-            {weekdayHeader(2)}
+          <div class="weekday-header" style="grid-area: columnLegend / d2 / columnLegend / d2;">
+            {weekdayLabels[2]}
           </div>
-          <div class="weekday-header">
-            {weekdayHeader(3)}
+          <div class="weekday-header" style="grid-area: columnLegend / d3 / columnLegend / d3;">
+            {weekdayLabels[3]}
           </div>
-          <div class="weekday-header">
-            {weekdayHeader(4)}
+          <div class="weekday-header" style="grid-area: columnLegend / d4 / columnLegend / d4;">
+            {weekdayLabels[4]}
           </div>
-          <div class="weekday-header">
-            {weekdayHeader(5)}
+          <div class="weekday-header" style="grid-area: columnLegend / d5 / columnLegend / d5;">
+            {weekdayLabels[5]}
           </div>
-          <div class="weekday-header">
-            {weekdayHeader(6)}
+          <div class="weekday-header" style="grid-area: columnLegend / d6 / columnLegend / d6;">
+            {weekdayLabels[6]}
           </div>
-          <div class="weekday-header">
-            {weekdayHeader(7)}
+          <div class="weekday-header" style="grid-area: columnLegend / d7 / columnLegend / d7;">
+            {weekdayLabels[7]}
           </div>
 
           {#each days(m) as d (`${d.year}-${d.month}-${d.day}`)}
@@ -192,8 +198,8 @@
               class="day"
               style="
                 grid-area: w{d.weekNumber} / d{d.weekday} / w{d.weekNumber} / d{d.weekday};
-                {occupationState.occupationStyle(
-                { day: d.day, month: d.month, year: d.year },
+                {occupationState?.occupationStyle(
+                { day: d.day, month: d.month as MonthNumbers, year: d.year },
                 false,
               )}
                 "

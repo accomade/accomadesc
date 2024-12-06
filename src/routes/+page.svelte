@@ -18,6 +18,7 @@
     type CalendarAvailable as CalendarAvailableBlock,
     type Calendar as CalendarBlock,
     type CalendarRows as CalendarRowsBlock,
+    type CalendarGrid as CalendarGridBlock,
   } from '$lib/types.js';
   import Text from '$lib/Text.svelte';
   import Button from '$lib/basic/Button.svelte';
@@ -49,6 +50,7 @@
   import CalendarAvailable from '$lib/CalendarAvailable.svelte';
   import Calendar from '$lib/Calendar.svelte';
   import CalendarRows from '$lib/CalendarRows.svelte';
+  import CalendarGrid from '$lib/CalendarGrid.svelte';
 
   let css = $state(initialCss);
   let styleOpen = $state(false);
@@ -382,6 +384,14 @@
     kind: 'calendar-rows',
   };
 
+  const calGrid: CalendarGridBlock = {
+    id: randomID(),
+    content: {
+      url: 'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/83cd06fd-858d-4e21-994f-325778812713',
+    },
+    kind: 'calendar-grid',
+  };
+
   const i18n = new I18n();
   $effect(() => {
     if (css) {
@@ -422,6 +432,12 @@
       <CssEditor bind:css />
     </div>
   {/if}
+  <h3>Month Grid Calendar</h3>
+  <div class="component">
+    <div class="component-view" style={css}>
+      <CalendarGrid {...calGrid.content} {...i18n} />
+    </div>
+  </div>
   <h3>Monthly Rows Calendar</h3>
   <div class="component">
     <div class="component-view" style={css}>

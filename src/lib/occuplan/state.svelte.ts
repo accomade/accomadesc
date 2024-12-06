@@ -83,6 +83,8 @@ export interface OccuplanTranslations {
   weekdayLabels?: WeekdayLabels;
   monthLabels?: MonthLabels;
   monthHeaderFormat?: string;
+  nextPage?: string;
+  prevPage?: string;
   typeLabels: Record<OccupationType, string>;
 }
 

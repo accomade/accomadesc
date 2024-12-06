@@ -131,7 +131,7 @@
         <Button text={`${prevYear}`} clicked={prevYearClicked} />
       {/if}
     </div>
-    <div class="header-label"><h3>{@html header}&nbsp;({year} - {width})</h3></div>
+    <div class="header-label"><h3>{@html header}&nbsp;({year})</h3></div>
     <div class="header-controls">
       {#if nextYear <= maxYear}
         <Button text={`${nextYear}`} clicked={nextYearClicked} />
