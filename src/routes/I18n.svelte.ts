@@ -1,6 +1,19 @@
+import type { OccuplanTranslations } from '$lib/occuplan/state.svelte.ts';
 import type { I18nFacade } from '$lib/types.js';
 import { dinero, toDecimal, type Dinero, type DineroSnapshot } from 'dinero.js';
 import { DateTime as luxon, type DateTime } from 'luxon';
+
+export const calendarTranslations: Record<string, OccuplanTranslations> = {
+  en: {
+    monthHeaderFormat: '{{year}}-{{month}}',
+  },
+  de: {
+    monthHeaderFormat: '{{month}}-{{year}}',
+  },
+  fr: {
+    monthHeaderFormat: '{{year}}/{{month}}',
+  },
+};
 
 export class I18n implements I18nFacade {
   translations: Record<string, Record<string, string>> = $state({
@@ -25,6 +38,8 @@ export class I18n implements I18nFacade {
       cfRef2: 'Email',
       cfRef3: 'Submit',
       cfRef4: 'Ihre Nachricht',
+      cfRef5: 'Successfully Sent!',
+      cfRef6: 'An error occurred!',
       availability: 'Availability',
       calendarHeader: 'Calendar',
     },
@@ -49,6 +64,8 @@ export class I18n implements I18nFacade {
       cfRef2: 'Email',
       cfRef3: 'Submit',
       cfRef4: 'Ihre Nachricht',
+      cfRef5: 'Erfolgreich gesendet!',
+      cfRef6: 'Es ist ein Fehler aufgetreten!',
       availability: 'Verfügbarkeit',
       calendarHeader: 'Belegung',
     },
@@ -73,6 +90,8 @@ export class I18n implements I18nFacade {
       cfRef2: 'Email',
       cfRef3: 'Submit',
       cfRef4: 'Ihre Nachricht',
+      cfRef5: 'Erfolg!',
+      cfRef6: 'Fehler!',
       availability: 'Availability',
       calendarHeader: 'Calendar',
     },
@@ -162,7 +181,7 @@ export class I18n implements I18nFacade {
   });
 
   currentLang = $state('en');
-  calendarTranslation = $state('');
+  calendarTranslation = $derived(calendarTranslations[this.currentLang]);
 
   isDinero(d: Dinero<number> | DineroSnapshot<number>): d is Dinero<number> {
     if ('calculator' in d) {

@@ -17,6 +17,7 @@ export const css = `
   --main-font-color: #070707;
   --alert-font-color: #c50000;
   --not-color: #c50000;
+  --accept-font-color: #0D9D00;
 
   --table-bg-color-odd: rgb(243, 243, 243);
   --table-bg-color-even: rgb(226, 226, 226);
@@ -81,5 +82,6 @@ export const css = `
 
 
   --longinput-bg-color: #fff7dd;
+  --longinput-disabled-bg-color: #eeefde;
   --longinput-font-color: #160067;
 `;

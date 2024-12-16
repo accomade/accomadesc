@@ -267,6 +267,8 @@ export interface ContactFormContent {
   emailLabel: string;
   questionLabel: string;
   submitText: string;
+  successfullySentText: string;
+  sentErroredText: string;
   maxCharsAllowed?: number;
   explainer?: string;
 }

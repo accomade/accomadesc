@@ -1,4 +1,3 @@
-import { debounce } from '$lib/helpers/debounce.ts';
 import { normalizeDate } from '$lib/helpers/normalizeDate.ts';
 import { getEvents } from '$lib/helpers/readICS.ts';
 import type { DateTime, MonthNumbers, WeekdayNumbers } from 'luxon';
@@ -85,7 +84,7 @@ export interface OccuplanTranslations {
   monthHeaderFormat?: string;
   nextPage?: string;
   prevPage?: string;
-  typeLabels: Record<OccupationType, string>;
+  typeLabels?: Record<OccupationType, string>;
 }
 
 export interface OccuplanMiscProps {

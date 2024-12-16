@@ -346,6 +346,8 @@
   const cfRef2 = 'cfRef2';
   const cfRef3 = 'cfRef3';
   const cfRef4 = 'cfRef4';
+  const cfRef5 = 'cfRef5';
+  const cfRef6 = 'cfRef6';
   const cForm: ContactFormBlock = {
     id: randomID(),
     kind: 'contact-form',
@@ -356,6 +358,8 @@
       emailLabel: cfRef2,
       questionLabel: cfRef4,
       submitText: cfRef3,
+      successfullySentText: cfRef5,
+      sentErroredText: cfRef6,
     },
   };
 

@@ -60,7 +60,8 @@
 
   .question-input.disabled {
     border-color: var(--disabled-border-color);
-    font: var(--disabled-font-color);
+    font: var(--font-disabled-color);
+    background-color: var(--longinput-disabled-bg-color);
   }
 
   .question-input::after {

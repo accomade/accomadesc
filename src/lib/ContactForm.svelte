@@ -13,6 +13,8 @@
     nameLabel,
     questionLabel,
     submitText,
+    successfullySentText,
+    sentErroredText,
     maxCharsAllowed = 300,
     translateFunc,
   }: ContactFormContent & I18nFacade = $props();
@@ -20,7 +22,7 @@
   let name = $state('');
   let email = $state('');
   let question = $state('');
-  let successfullySend = $state(false);
+  let successfullySent = $state(false);
   let sending = $state(false);
   let errored = $state(false);
 
@@ -56,10 +58,17 @@
       errored = true;
       console.log('Error sending mail', response.status, response.statusText);
     } else {
-      successfullySend = true;
+      successfullySent = true;
     }
     sending = false;
+
+    setTimeout(() => {
+      errored = false;
+      successfullySent = false;
+    }, 15000);
   };
+
+  let disabled = $derived(errored || successfullySent);
 </script>
 
 <div class="wrapper">
@@ -68,16 +77,16 @@
   {/if}
   <form onsubmit={submitMessage}>
     <input type="hidden" value={userID} />
-    <label>
+    <label class:disabled>
       {@html translateFunc ? translateFunc(nameLabel) : 'Name'}:
-      <TextInput type="text" marginForMessage={false} bind:value={name} />
+      <TextInput type="text" marginForMessage={false} bind:value={name} enabled={!disabled} />
     </label>
-    <label>
+    <label class:disabled>
       {@html translateFunc ? translateFunc(emailLabel) : 'Email'}:
-      <TextInput type="email" name="email" marginForMessage={false} bind:value={email} />
+      <TextInput type="email" marginForMessage={false} bind:value={email} enabled={!disabled} />
     </label>
     <label class="row-label"
-      ><div>
+      ><div class:disabled>
         {@html translateFunc
           ? translateFunc(questionLabel)
           : 'Your Message'}{#if showMaxCharsMessage}<span class="max-chars-message"
@@ -85,11 +94,21 @@
           >{/if}:
       </div>
 
-      <Notes disabled={successfullySend} changed={questionChanged} />
+      <Notes {disabled} changed={questionChanged} />
     </label>
+    {#if successfullySent}
+      <div class="success">
+        {translateFunc ? translateFunc(successfullySentText) : 'Successfully Sent Email'}
+      </div>
+    {/if}
+    {#if errored}
+      <div class="error">
+        {translateFunc ? translateFunc(sentErroredText) : 'Error Occurred Sending Email'}
+      </div>
+    {/if}
     <div class="button-wrapper">
       <Button
-        enabled={canSubmit}
+        enabled={canSubmit && !disabled}
         text={translateFunc ? translateFunc(submitText) : 'Submit'}
         type="submit"
       />
@@ -137,5 +156,19 @@
   .max-chars-message {
     font-weight: bolder;
     color: var(--alert-font-color);
+  }
+
+  .success {
+    color: var(--accept-font-color);
+    font-weight: bolder;
+  }
+
+  .error {
+    color: var(--alert-font-color);
+    font-weight: bolder;
+  }
+
+  .disabled {
+    color: var(--font-disabled-color);
   }
 </style>

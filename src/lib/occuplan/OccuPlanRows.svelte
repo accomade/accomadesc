@@ -242,6 +242,7 @@
   }
 
   .month-label {
+    aspect-ratio: 3 / 2;
     display: flex;
     align-items: center;
     border-bottom: var(--occuplan-grid-border);
