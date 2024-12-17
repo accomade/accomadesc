@@ -31,7 +31,7 @@
   };
 
   let currentCharsCount = $derived(question.length);
-  let showMaxCharsMessage = $derived(currentCharsCount > 150);
+  let showMaxCharsMessage = $derived(currentCharsCount > maxCharsAllowed - 50);
   let canSubmit: boolean = $derived(
     name.length > 0 &&
       email.length > 0 &&

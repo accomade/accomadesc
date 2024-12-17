@@ -273,9 +273,28 @@ export interface ContactFormContent {
   explainer?: string;
 }
 
-export interface BookingRequest {}
+export interface BookingRequest {
+  id: string;
+  kind: 'booking-request';
+  content: BookingRequestContent;
+}
 
-export interface BookingRequestContent {}
+export interface BookingRequestContent {
+  userID: string;
+  acco: Acco;
+  endpoint: string;
+  nameLabel: string;
+  emailLabel: string;
+  fromLabel: string;
+  toLabel: string;
+  submitText: string;
+  successfullySentText: string;
+  sentErroredText: string;
+  messageLabel: string;
+  numberOfNightsLabel: string;
+  maxCharsAllowed?: number;
+  explainer?: string;
+}
 
 export type Block =
   | Text
@@ -283,6 +302,8 @@ export type Block =
   | PhotoGallery
   | Calendar
   | CalendarAvailable
+  | CalendarGrid
+  | CalendarRows
   | Pricing
   | PricingShort
   | AmenitiesCore
@@ -291,6 +312,7 @@ export type Block =
   | AccoCard
   | AccoDescription
   | ContactForm
+  | BookingRequest
   | undefined;
 
 export interface Section {
@@ -356,6 +378,16 @@ export const isCalendar = (b: Block): b is Calendar => {
   return b.kind === 'calendar';
 };
 
+export const isCalendarGrid = (b: Block): b is CalendarGrid => {
+  if (!b) return false;
+  return b.kind === 'calendar-grid';
+};
+
+export const isCalendarRows = (b: Block): b is CalendarRows => {
+  if (!b) return false;
+  return b.kind === 'calendar-rows';
+};
+
 export const isPricing = (b: Block): b is Pricing => {
   if (!b) return false;
   return b.kind === 'pricing';
@@ -374,4 +406,9 @@ export const isAccoDescription = (b: Block): b is AccoDescription => {
 export const isContactForm = (b: Block): b is ContactForm => {
   if (!b) return false;
   return b.kind === 'contact-form';
+};
+
+export const isBookingRequest = (b: Block): b is BookingRequest => {
+  if (!b) return false;
+  return b.kind === 'booking-request';
 };
