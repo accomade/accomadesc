@@ -1,8 +1,9 @@
 <script lang="ts">
+  import Button from './basic/Button.svelte';
   import PhotoComponent from './Photo.svelte';
-  import type { I18nFacade, Photo, PhotoGalleryContent, GridPhoto } from './types.js';
+  import type { I18nFacade, PhotoGalleryContent } from './types.js';
   import { browser } from '$app/environment';
-  import { randomID } from './names/gen.js';
+  import { slide } from 'svelte/transition';
 
   let { photos, gridPhotoWidth = 300, translateFunc }: PhotoGalleryContent & I18nFacade = $props();
 
@@ -15,42 +16,46 @@
   }
   let ratio = $derived(landscape ? '16/9' : '9/16');
   let galleryContainer: HTMLDivElement | undefined = $state();
-  let gridPhotos: GridPhoto[] = $state([]);
-
-  $effect(() => {
-    if (photos) {
-      gridPhotos = photos.map((p: Photo): GridPhoto => {
-        return {
-          photo: p,
-          zoomed: false,
-          id: randomID(),
-        };
-      });
-    }
-  });
 
   let width = $state(1000);
   let numberOfCols = $derived(
     Math.floor(width / (gridPhotoWidth && Number.isInteger(gridPhotoWidth) ? gridPhotoWidth : 300)),
   );
 
-  const zoom = (z: GridPhoto, i: number) => {
-    let unzoom = false;
-    if (z.zoomed) {
-      unzoom = true;
-    }
+  let zoomed: number | null = $state(0);
+  let zoomedPhoto: Photo | null = $derived(zoomed != null ? photos[zoomed] : null);
 
-    gridPhotos.forEach((p: GridPhoto) => (p.zoomed = false));
-    gridPhotos.splice(i, 1);
-
-    if (!unzoom) {
-      z.zoomed = true;
-    }
-    gridPhotos = [z, ...gridPhotos];
-
+  const zoom = (i: number) => {
+    zoomed = i;
     setTimeout(() => {
-      galleryContainer?.scrollIntoView();
+      galleryContainer?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
+  };
+
+  const unzoom = () => {
+    zoomed = null;
+    setTimeout(() => {
+      galleryContainer?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
+
+  const zoomNext = () => {
+    if (zoomed != null) {
+      if (zoomed == photos.length - 1) {
+        zoomed = 0;
+      } else {
+        zoomed = zoomed + 1;
+      }
+    }
+  };
+  const zoomPrev = () => {
+    if (zoomed != null) {
+      if (zoomed == 0) {
+        zoomed = photos.length - 1;
+      } else {
+        zoomed = zoomed - 1;
+      }
+    }
   };
 </script>
 
@@ -62,27 +67,72 @@
   class="grid-container"
   bind:clientWidth={width}
 >
-  {#each gridPhotos as p, i (p.id)}
+  {#if zoomed != null && zoomedPhoto != null}
     <div
-      class:complete-row={p.zoomed}
+      transition:slide
       aria-label="resize"
       role="button"
       tabindex="-1"
-      onclick={() => zoom(p, i)}
-      onkeyup={() => zoom(p, i)}
+      onclick={() => unzoom()}
+      onkeyup={() => unzoom()}
+      class="photo-container complete-row"
+    >
+      <PhotoComponent {...zoomedPhoto.content} frame={true} {ratio} {translateFunc} />
+
+      <div class="next-wrapper" style="">
+        <Button
+          text=">"
+          size={3.3}
+          fontSize="3rem"
+          clicked={() => zoomNext()}
+          stopPropagation={true}
+        />
+      </div>
+      <div class="prev-wrapper">
+        <Button
+          text="<"
+          size={3.3}
+          fontSize="3rem"
+          clicked={() => zoomPrev()}
+          stopPropagation={true}
+        />
+      </div>
+    </div>
+  {/if}
+
+  {#each photos as p, i (p.id)}
+    <div
+      aria-label="resize"
+      role="button"
+      tabindex="-1"
+      onclick={() => zoom(i)}
+      onkeyup={() => zoom(i)}
       class="photo-container"
     >
-      <PhotoComponent
-        {...p.photo.content}
-        frame={true}
-        ratio={p.zoomed ? ratio : '1'}
-        {translateFunc}
-      />
+      <PhotoComponent {...p.content} frame={true} ratio="1" {translateFunc} />
     </div>
   {/each}
 </div>
 
 <style>
+  .next-wrapper {
+    position: absolute;
+    right: 1rem;
+    top: calc(50% - 1.65rem);
+
+    --bg-button-prim-color: rgba(242, 242, 242, 0.3);
+    --main-font-color: rgba(15, 14, 15, 0.6);
+  }
+
+  .prev-wrapper {
+    position: absolute;
+    left: 1rem;
+    top: calc(50% - 1.65rem);
+
+    --bg-button-prim-color: rgba(242, 242, 242, 0.3);
+    --main-font-color: rgba(15, 14, 15, 0.6);
+  }
+
   .complete-row {
     grid-column-start: firstLine;
     grid-column-end: lastLine;
@@ -94,6 +144,7 @@
     cursor: pointer;
     width: 100%;
     height: 100%;
+    position: relative;
   }
 
   .grid-container {

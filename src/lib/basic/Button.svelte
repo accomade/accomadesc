@@ -310,6 +310,8 @@
     vertical-align: middle;
     font-variant: small-caps;
 
+    color: var(--main-font-color);
+
     margin-left: 0.4rem;
     margin-right: 0.4rem;
   }
