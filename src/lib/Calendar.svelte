@@ -2,12 +2,28 @@
   import OccuPlanWrapper from './occuplan/OccuPlanWrapper.svelte';
   import type { CalendarContent, I18nFacade } from './types.js';
 
-  let { url, calendarTranslation, translateFunc }: CalendarContent & I18nFacade = $props();
+  let {
+    url,
+    calendarTranslation,
+    toggleGridOffset,
+    gridMonthNumbers,
+    gridFirstMonth,
+    toggleRowsOffset,
+    rowsMonthNumbers,
+    rowsFirstMonth,
+    translateFunc,
+  }: CalendarContent & I18nFacade = $props();
 </script>
 
 <div class="cal-wrapper">
   <OccuPlanWrapper
     {url}
+    {toggleGridOffset}
+    {gridMonthNumbers}
+    {gridFirstMonth}
+    {toggleRowsOffset}
+    {rowsMonthNumbers}
+    {rowsFirstMonth}
     header={translateFunc ? translateFunc('calendarHeader') : ''}
     {...calendarTranslation}
   />

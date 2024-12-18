@@ -1,6 +1,6 @@
 import { normalizeDate } from '$lib/helpers/normalizeDate.ts';
 import { getEvents } from '$lib/helpers/readICS.ts';
-import type { DateTime, MonthNumbers, WeekdayNumbers } from 'luxon';
+import { DateTime, type MonthNumbers, type WeekdayNumbers } from 'luxon';
 import { DateTime as luxon } from 'luxon';
 
 export interface AvailableSpans {
@@ -65,6 +65,52 @@ export interface DayHelper {
   year: number;
 }
 
+export const realFirstMonth = (firstMonth: FirstMonth): MonthNumbers | DateTime => {
+  if (typeof firstMonth === 'number') {
+    const intValue = firstMonth as number;
+    if (intValue >= 1 && intValue <= 12) {
+      return intValue as MonthNumbers;
+    }
+  } else if (typeof firstMonth === 'string' && firstMonth.length > 1) {
+    //check + sign
+    if (firstMonth[0] == '+') {
+      const toParse = firstMonth.slice(1);
+      try {
+        const intValue = parseInt(toParse);
+        if (intValue >= 1 && intValue <= 12) {
+          return DateTime.utc().plus({ month: intValue });
+        }
+      } catch (e) {
+        console.log('casting error', e);
+      }
+      //check - sign
+    } else if (firstMonth[0] == '-') {
+      const toParse = firstMonth.slice(1);
+      try {
+        const intValue = parseInt(toParse);
+        if (intValue >= 0 && intValue <= 12) {
+          return DateTime.utc().minus({ month: intValue });
+        }
+      } catch (e) {
+        console.log('casting error', e);
+      }
+    }
+  }
+
+  if (typeof firstMonth == 'string') {
+    try {
+      const intValue = parseInt(firstMonth);
+      if (intValue >= 0 && intValue <= 12) {
+        return intValue as MonthNumbers;
+      }
+    } catch (e) {
+      console.log('casting error', e);
+    }
+  }
+
+  return 1;
+};
+
 const validDay = (d: DayHelper): boolean => {
   const today = luxon.utc();
   const m = luxon.local(d.year, d.month, d.day);
@@ -87,13 +133,46 @@ export interface OccuplanTranslations {
   typeLabels?: Record<OccupationType, string>;
 }
 
+export type NextMonthNumbers =
+  | '+1'
+  | '+2'
+  | '+3'
+  | '+4'
+  | '+5'
+  | '+6'
+  | '+7'
+  | '+8'
+  | '+9'
+  | '+10'
+  | '+11'
+  | '+12';
+export type PrevMonthNumbers =
+  | '-1'
+  | '-2'
+  | '-3'
+  | '-4'
+  | '-5'
+  | '-6'
+  | '-7'
+  | '-8'
+  | '-9'
+  | '-10'
+  | '-11'
+  | '-12';
+
+export type FirstMonth = MonthNumbers | NextMonthNumbers | PrevMonthNumbers | 0;
+
 export interface OccuplanMiscProps {
   url: string;
-  numberOfMonth: number;
-  firstMonth: MonthNumbers;
+  gridNumberOfMonths: number;
+  gridFirstMonth: FirstMonth;
+  rowsNumberOfMonths: number;
+  rowsFirstMonth: FirstMonth;
   year: number;
   minYear: number;
   maxYear: number;
+  toggleGridOffset: number;
+  toggleRowsOffset: number;
 }
 
 export const defaultWeekendLabel = 'Weekend';

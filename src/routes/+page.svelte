@@ -51,6 +51,7 @@
   import Calendar from '$lib/Calendar.svelte';
   import CalendarRows from '$lib/CalendarRows.svelte';
   import CalendarGrid from '$lib/CalendarGrid.svelte';
+  import CalendarDynamicEditor from './CalendarDynamicEditor.svelte';
 
   let css = $state(initialCss);
   let styleOpen = $state(false);
@@ -372,13 +373,19 @@
     kind: 'calendar-available',
   };
 
-  const cal: CalendarBlock = {
+  const cal: CalendarBlock = $state({
     id: randomID(),
     content: {
       url: 'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/83cd06fd-858d-4e21-994f-325778812713',
+      toggleGridOffset: 640,
+      gridMonthNumbers: 6,
+      gridFirstMonth: '-1',
+      toggleRowsOffset: 640,
+      rowsMonthNumbers: 12,
+      rowsFirstMonth: 1,
     },
     kind: 'calendar',
-  };
+  });
 
   const calRows: CalendarRowsBlock = {
     id: randomID(),
@@ -398,8 +405,8 @@
 
   const i18n = new I18n();
   $effect(() => {
-    if (css) {
-      console.log('css changed');
+    if (cal.content.gridFirstMonth) {
+      console.log('changed', cal.content.gridFirstMonth);
     }
   });
 </script>
@@ -453,6 +460,14 @@
     <div class="component-view" style={css}>
       <Calendar {...cal.content} {...i18n} />
     </div>
+    <CalendarDynamicEditor
+      bind:toggleRowsOffset={cal.content.toggleRowsOffset}
+      bind:gridMonthNumbers={cal.content.gridMonthNumbers}
+      bind:gridFirstMonth={cal.content.gridFirstMonth}
+      bind:toggleGridOffset={cal.content.toggleGridOffset}
+      bind:rowsMonthNumbers={cal.content.rowsMonthNumbers}
+      bind:rowsFirstMonth={cal.content.rowsFirstMonth}
+    />
   </div>
   <h3>Calendar Available</h3>
   <div class="component">

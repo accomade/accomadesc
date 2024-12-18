@@ -22,8 +22,12 @@
     monthLabels = defaultMonthLabels,
     weekdayLabels = defaultWeekdayLabels,
     monthHeaderFormat = defaultMonthHeaderFormat,
-    numberOfMonth = 12,
-    firstMonth = 1,
+    gridNumberOfMonths = 8,
+    gridFirstMonth = '-1',
+    rowsNumberOfMonths = 12,
+    rowsFirstMonth = 1,
+    toggleGridOffset = 640,
+    toggleRowsOffset = 640,
     year = DateTime.utc().year,
     maxYear = DateTime.utc().plus({ years: 2 }).year,
     minYear = year,
@@ -46,25 +50,44 @@
   /*
     use different component based on different media size.
   */
-  let w: Number = $state(0);
+  let w: number = $state(0);
+  let showGrid: boolean = $state(false);
+  let showRows: boolean = $state(true);
+
+  $effect(() => {
+    if (w < toggleGridOffset && showRows) {
+      showGrid = true;
+      showRows = false;
+    }
+  });
+  $effect(() => {
+    if (w > toggleRowsOffset && showGrid) {
+      showRows = true;
+      showGrid = false;
+    }
+  });
+
+  $effect(() => {
+    console.log('gfm', gridFirstMonth, 'rfm', rowsFirstMonth);
+  });
 </script>
 
 <div class="calendar-wrapper" bind:clientWidth={w}>
-  {#if w && w.valueOf() > 640}
+  {#if showRows}
     <OccuPlanRows
       {url}
       {header}
       {footer}
       {weekendLabel}
       {monthLabels}
-      {numberOfMonth}
-      {firstMonth}
+      numberOfMonth={rowsNumberOfMonths}
+      firstMonth={rowsFirstMonth}
       {year}
       {maxYear}
       {minYear}
       {typeLabels}
     />
-  {:else}
+  {:else if showGrid}
     <OccuPlanGrid
       {url}
       {header}
@@ -74,8 +97,8 @@
       {weekdayLabels}
       {monthLabels}
       {monthHeaderFormat}
-      {numberOfMonth}
-      {firstMonth}
+      numberOfMonth={gridNumberOfMonths}
+      firstMonth={gridFirstMonth}
       {year}
       {maxYear}
       {minYear}

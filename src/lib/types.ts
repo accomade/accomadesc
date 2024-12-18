@@ -1,6 +1,7 @@
 import { type Dinero, type DineroSnapshot } from 'dinero.js';
 import type { DateTime } from 'luxon';
 import type { I18n } from 'occuplan';
+import type { FirstMonth } from './occuplan/state.svelte.ts';
 
 export interface GridPhoto {
   photo: Photo;
@@ -28,6 +29,12 @@ export interface Calendar {
 }
 export interface CalendarContent {
   url: string;
+  toggleGridOffset?: number;
+  gridMonthNumbers?: number;
+  gridFirstMonth?: FirstMonth;
+  toggleRowsOffset?: number;
+  rowsMonthNumbers?: number;
+  rowsFirstMonth?: FirstMonth;
 }
 
 export interface CalendarAvailable {

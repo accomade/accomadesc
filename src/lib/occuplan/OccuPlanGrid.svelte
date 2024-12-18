@@ -8,6 +8,8 @@
     OCCUPATION_STATE,
     OccupationState,
     occupationTypeFormatting,
+    realFirstMonth,
+    type FirstMonth,
     type OccupationType,
     type OccuplanTranslations,
   } from './state.svelte.js';
@@ -38,7 +40,7 @@
   }: OccuplanTranslations & {
     url: string;
     numberOfMonth: number;
-    firstMonth: MonthNumbers;
+    firstMonth: FirstMonth;
     year: number;
     minYear: number;
     maxYear: number;
@@ -62,9 +64,18 @@
   let prevYear = $derived(DateTime.local(year).minus({ years: 1 }).year);
   let nextYear = $derived(DateTime.local(year).plus({ years: 1 }).year);
 
+  let rfMonth: DateTime | number = $derived(realFirstMonth(firstMonth));
+
   let months: DateTime[] = $derived.by(() => {
     const result = [];
-    let fMonth = DateTime.utc(year, firstMonth, 1);
+
+    let fMonth: DateTime;
+    if (typeof rfMonth == 'number') {
+      fMonth = DateTime.utc(year, rfMonth, 1);
+    } else {
+      fMonth = DateTime.utc(rfMonth.year, rfMonth.month, 1);
+    }
+
     result.push(fMonth);
 
     let nMonth = fMonth.plus({ months: 1 });

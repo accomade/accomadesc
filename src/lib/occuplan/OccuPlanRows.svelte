@@ -9,6 +9,8 @@
     type OccuplanTranslations,
     OCCUPATION_STATE,
     type DayHelper,
+    type FirstMonth,
+    realFirstMonth,
   } from './state.svelte.ts';
   import Button from '$lib/basic/Button.svelte';
   import { browser } from '$app/environment';
@@ -34,7 +36,7 @@
   }: OccuplanTranslations & {
     url: string;
     numberOfMonth: number;
-    firstMonth: MonthNumbers;
+    firstMonth: FirstMonth;
     year: number;
     minYear: number;
     maxYear: number;
@@ -49,12 +51,21 @@
     }
   });
 
+  let rfMonth: number | DateTime = $derived(realFirstMonth(firstMonth));
+
   let prevYear = $derived(DateTime.local(year).minus({ years: 1 }).year);
   let nextYear = $derived(DateTime.local(year).plus({ years: 1 }).year);
 
   let months: DateTime[] = $derived.by(() => {
     const result = [];
-    let fMonth = DateTime.utc(year, firstMonth, 1);
+    let fMonth: DateTime;
+
+    if (typeof rfMonth == 'number') {
+      fMonth = DateTime.utc(year, rfMonth, 1);
+    } else {
+      fMonth = DateTime.utc(rfMonth.year, rfMonth.month, 1);
+    }
+
     result.push(fMonth);
 
     let nMonth = fMonth.plus({ months: 1 });
