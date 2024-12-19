@@ -19,10 +19,10 @@
   <OccuPlanWrapper
     {url}
     {toggleGridOffset}
-    {gridMonthNumbers}
+    gridNumberOfMonths={gridMonthNumbers}
     {gridFirstMonth}
     {toggleRowsOffset}
-    {rowsMonthNumbers}
+    rowsNumberOfMonths={rowsMonthNumbers}
     {rowsFirstMonth}
     header={translateFunc ? translateFunc('calendarHeader') : ''}
     {...calendarTranslation}

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { DateTime, type MonthNumbers, type WeekdayNumbers } from 'luxon';
+  import { DateTime, type MonthNumbers } from 'luxon';
   import * as Sqrl from 'squirrelly';
   import {
     defaultMonthHeaderFormat,
@@ -17,6 +17,7 @@
   import Button from '$lib/basic/Button.svelte';
   import { browser } from '$app/environment';
   import Spinner from '$lib/basic/Spinner.svelte';
+  import { minimum } from 'dinero.js';
 
   let {
     url,
@@ -29,9 +30,8 @@
     monthHeaderFormat = defaultMonthHeaderFormat,
     numberOfMonth = 12,
     firstMonth = DateTime.utc().month,
-    year = DateTime.utc().year,
-    maxYear = DateTime.utc().plus({ years: 2 }).year,
-    minYear = year,
+    maxDate = DateTime.utc().plus({ years: 2 }),
+    minDate = DateTime.utc(),
     typeLabels = {
       one: 'BOOKING',
       two: 'RESERVATION',
@@ -39,11 +39,10 @@
     },
   }: OccuplanTranslations & {
     url: string;
-    numberOfMonth: number;
-    firstMonth: FirstMonth;
-    year: number;
-    minYear: number;
-    maxYear: number;
+    numberOfMonth?: number;
+    firstMonth?: FirstMonth;
+    minDate?: DateTime;
+    maxDate?: DateTime;
   } = $props();
 
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
@@ -61,20 +60,15 @@
     return formatFun({ month: monthLabel, year }, Sqrl.defaultConfig);
   };
 
-  let prevYear = $derived(DateTime.local(year).minus({ years: 1 }).year);
-  let nextYear = $derived(DateTime.local(year).plus({ years: 1 }).year);
+  let page: number = $state(0);
+  let rfMonth: DateTime = $derived(realFirstMonth(firstMonth, numberOfMonth, page));
 
-  let rfMonth: DateTime | number = $derived(realFirstMonth(firstMonth));
+  let currentMaxDate = $derived(rfMonth.plus({ month: numberOfMonth }));
 
   let months: DateTime[] = $derived.by(() => {
     const result = [];
 
-    let fMonth: DateTime;
-    if (typeof rfMonth == 'number') {
-      fMonth = DateTime.utc(year, rfMonth, 1);
-    } else {
-      fMonth = DateTime.utc(rfMonth.year, rfMonth.month, 1);
-    }
+    let fMonth: DateTime = DateTime.utc(rfMonth.year, rfMonth.month, 1);
 
     result.push(fMonth);
 
@@ -86,12 +80,12 @@
     return result;
   });
 
-  const nextYearClicked = () => {
-    year = nextYear;
+  const nextClicked = () => {
+    page += 1;
   };
 
-  const prevYearClicked = () => {
-    year = prevYear;
+  const prevClicked = () => {
+    page -= 1;
   };
 
   let monthGridTemplateColumns = `[rowLegend] 1fr [d1] 1fr [d2] 1fr [d3] 1fr [d4] 1fr [d5] 1fr [d6] 1fr [d7] 1fr`;
@@ -157,15 +151,15 @@
 
 <section class="occuplan-wrapper">
   <header class="occupation-plan-header">
-    <div class="left-header-controls">
-      {#if prevYear >= minYear}
-        <Button text={`${prevPage}`} clicked={prevYearClicked} />
+    <div class="header-controls">
+      {#if rfMonth >= minDate}
+        <Button text={`${prevPage}`} clicked={prevClicked} />
       {/if}
     </div>
     <div class="header-label"><h3>{@html header}</h3></div>
-    <div class="right-header-controls">
-      {#if nextYear <= maxYear}
-        <Button text={`${nextPage}`} clicked={nextYearClicked} />
+    <div class="header-controls">
+      {#if currentMaxDate <= maxDate}
+        <Button text={`${nextPage}`} clicked={nextClicked} />
       {/if}
     </div>
   </header>
@@ -212,6 +206,7 @@
                 {occupationState?.occupationStyle(
                 { day: d.day, month: d.month as MonthNumbers, year: d.year },
                 false,
+                maxDate,
               )}
                 "
             >
@@ -353,5 +348,8 @@
     column-gap: 1rem;
     text-transform: capitalize;
     font-variant: small-caps;
+  }
+  .header-controls {
+    width: 2rem;
   }
 </style>

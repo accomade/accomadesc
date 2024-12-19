@@ -19,6 +19,7 @@
     type Calendar as CalendarBlock,
     type CalendarRows as CalendarRowsBlock,
     type CalendarGrid as CalendarGridBlock,
+    type Weather as WeatherBlock,
   } from '$lib/types.js';
   import Text from '$lib/Text.svelte';
   import Button from '$lib/basic/Button.svelte';
@@ -45,7 +46,6 @@
   import PricingEditor from './PricingEditor.svelte';
   import AccoCard from '$lib/AccoCard.svelte';
   import PhotoGallery from '$lib/PhotoGallery.svelte';
-  import type { WeatherI } from '$lib/index.ts';
   import Weather from '$lib/Weather.svelte';
   import CalendarAvailable from '$lib/CalendarAvailable.svelte';
   import Calendar from '$lib/Calendar.svelte';
@@ -333,7 +333,7 @@
 
   const whRef1 = 'weatherRef1';
   const whRef2 = 'weatherRef2';
-  const weather: WeatherI = {
+  const weather: WeatherBlock = {
     id: randomID(),
     kind: 'weather',
     content: {

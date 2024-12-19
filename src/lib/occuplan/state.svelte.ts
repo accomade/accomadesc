@@ -65,11 +65,62 @@ export interface DayHelper {
   year: number;
 }
 
-export const realFirstMonth = (firstMonth: FirstMonth): MonthNumbers | DateTime => {
+export const firstMonthValid = (value: string | number): boolean => {
+  if (typeof value === 'number') {
+    const intValue = value as number;
+    return intValue >= 0 && intValue <= 12;
+  } else if (value.length > 1) {
+    //check + sign
+    if (value[0] == '+') {
+      const toParse = value.slice(1);
+      try {
+        const intValue = parseInt(toParse);
+        if (intValue >= 0 && intValue <= 12) {
+          return true;
+        }
+      } catch (e) {
+        console.log('casting error', e);
+      }
+      //check - sign
+    } else if (value[0] == '-') {
+      const toParse = value.slice(1);
+      try {
+        const intValue = parseInt(toParse);
+        if (intValue >= 0 && intValue <= 12) {
+          return true;
+        }
+      } catch (e) {
+        console.log('casting error', e);
+      }
+    }
+  }
+
+  try {
+    const intValue = parseInt(value);
+    if (intValue >= 0 && intValue <= 12) {
+      return true;
+    }
+  } catch (e) {
+    console.log('casting error', e);
+  }
+
+  return false;
+};
+
+export const realFirstMonth = (
+  firstMonth: FirstMonth,
+  numberOfMonth: number,
+  page: number,
+): DateTime => {
+  const monthToAdd = page * numberOfMonth;
+
   if (typeof firstMonth === 'number') {
     const intValue = firstMonth as number;
     if (intValue >= 1 && intValue <= 12) {
-      return intValue as MonthNumbers;
+      const tDate = normalizeDate(DateTime.utc())
+        .set({ month: intValue })
+        .plus({ month: monthToAdd });
+      return tDate;
     }
   } else if (typeof firstMonth === 'string' && firstMonth.length > 1) {
     //check + sign
@@ -78,7 +129,11 @@ export const realFirstMonth = (firstMonth: FirstMonth): MonthNumbers | DateTime 
       try {
         const intValue = parseInt(toParse);
         if (intValue >= 1 && intValue <= 12) {
-          return DateTime.utc().plus({ month: intValue });
+          const tDate = normalizeDate(DateTime.utc())
+            .plus({ month: intValue })
+            .plus({ month: monthToAdd });
+
+          return tDate;
         }
       } catch (e) {
         console.log('casting error', e);
@@ -89,7 +144,11 @@ export const realFirstMonth = (firstMonth: FirstMonth): MonthNumbers | DateTime 
       try {
         const intValue = parseInt(toParse);
         if (intValue >= 0 && intValue <= 12) {
-          return DateTime.utc().minus({ month: intValue });
+          const tDate = normalizeDate(DateTime.utc())
+            .minus({ month: intValue })
+            .plus({ month: monthToAdd });
+          console.log(tDate.toISODate(), monthToAdd);
+          return tDate;
         }
       } catch (e) {
         console.log('casting error', e);
@@ -101,14 +160,17 @@ export const realFirstMonth = (firstMonth: FirstMonth): MonthNumbers | DateTime 
     try {
       const intValue = parseInt(firstMonth);
       if (intValue >= 0 && intValue <= 12) {
-        return intValue as MonthNumbers;
+        const tDate = normalizeDate(DateTime.utc())
+          .set({ month: intValue })
+          .plus({ month: monthToAdd });
+        return tDate;
       }
     } catch (e) {
       console.log('casting error', e);
     }
   }
 
-  return 1;
+  return normalizeDate(DateTime.utc()).set({ month: 1 }).plus({ month: monthToAdd });
 };
 
 const validDay = (d: DayHelper): boolean => {
@@ -168,9 +230,8 @@ export interface OccuplanMiscProps {
   gridFirstMonth: FirstMonth;
   rowsNumberOfMonths: number;
   rowsFirstMonth: FirstMonth;
-  year: number;
-  minYear: number;
-  maxYear: number;
+  minDate: DateTime;
+  maxDate: DateTime;
   toggleGridOffset: number;
   toggleRowsOffset: number;
 }
@@ -320,13 +381,21 @@ export class OccupationState {
     return this.occupations.find((o) => o.arrival < startOfDay && o.leave > endOfDay);
   };
 
-  public occupationStyle = (d: DayHelper, highlightWeekend: boolean = false): string => {
+  public occupationStyle = (
+    d: DayHelper,
+    highlightWeekend: boolean = false,
+    maxDate: DateTime,
+  ): string => {
     const valid = validDay(d);
     if (!valid) {
       return 'background-color: var(--occuplan-bg-color-invalid-days);';
     }
 
     const day = luxon.utc(d.year, d.month, d.day);
+    const outOfScope = day >= maxDate;
+    if (outOfScope) {
+      return 'background-color: var(--occuplan-bg-color-invalid-days);';
+    }
 
     const o = this.fullOccupation(day);
     const oStarts = this.startingOccupation(day);

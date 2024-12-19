@@ -25,9 +25,8 @@
     monthLabels = defaultMonthLabels,
     numberOfMonth = 12,
     firstMonth = 1,
-    year = DateTime.utc().year,
-    maxYear = DateTime.utc().plus({ years: 2 }).year,
-    minYear = year,
+    maxDate = DateTime.utc().plus({ years: 2 }),
+    minDate = DateTime.utc(),
     typeLabels = {
       one: 'BOOKING',
       two: 'RESERVATION',
@@ -35,11 +34,10 @@
     },
   }: OccuplanTranslations & {
     url: string;
-    numberOfMonth: number;
-    firstMonth: FirstMonth;
-    year: number;
-    minYear: number;
-    maxYear: number;
+    numberOfMonth?: number;
+    firstMonth?: FirstMonth;
+    minDate?: DateTime;
+    maxDate?: DateTime;
   } = $props();
 
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
@@ -51,21 +49,18 @@
     }
   });
 
-  let rfMonth: number | DateTime = $derived(realFirstMonth(firstMonth));
+  let page: number = $state(0);
+  let rfMonth: number | DateTime = $derived(realFirstMonth(firstMonth, numberOfMonth, page));
 
-  let prevYear = $derived(DateTime.local(year).minus({ years: 1 }).year);
-  let nextYear = $derived(DateTime.local(year).plus({ years: 1 }).year);
+  let currentMaxDate = $derived(rfMonth.plus({ month: numberOfMonth }));
 
   let months: DateTime[] = $derived.by(() => {
     const result = [];
-    let fMonth: DateTime;
-
-    if (typeof rfMonth == 'number') {
-      fMonth = DateTime.utc(year, rfMonth, 1);
-    } else {
-      fMonth = DateTime.utc(rfMonth.year, rfMonth.month, 1);
+    if (rfMonth.month == 1) {
+      //result.push(rfMonth);
     }
 
+    let fMonth: DateTime = DateTime.utc(rfMonth.year, rfMonth.month, 1);
     result.push(fMonth);
 
     let nMonth = fMonth.plus({ months: 1 });
@@ -73,15 +68,18 @@
       result.push(nMonth);
       nMonth = nMonth.plus({ months: 1 });
     }
+
+    console.log('months:', numberOfMonth);
+
     return result;
   });
 
-  const nextYearClicked = () => {
-    year = nextYear;
+  const nextClicked = () => {
+    page += 1;
   };
 
-  const prevYearClicked = () => {
-    year = prevYear;
+  const prevClicked = () => {
+    page -= 1;
   };
 
   const monthDays = [...Array(31).keys()].map((i) => i + 1);
@@ -112,9 +110,13 @@
 
   let monthGridTemplateRows = $derived(
     months.reduce((s, m) => {
+      if (m.month == 1 && s != '[columnLegend] 1fr [firstYearRow] 1fr') {
+        s += ` [y${m.year}Row] 1fr`;
+      }
+
       s += ` [m${m.month}y${m.year}] 1fr`;
       return s;
-    }, '[columnLegend] 1fr'),
+    }, '[columnLegend] 1fr [firstYearRow] 1fr'),
   );
 
   let foundOccupationTypes: OccupationType[] = $derived(
@@ -138,14 +140,14 @@
 <section class="occuplan-wrapper" bind:clientWidth={width}>
   <header class="occupation-plan-header">
     <div class="header-controls">
-      {#if prevYear >= minYear}
-        <Button text={`${prevYear}`} clicked={prevYearClicked} />
+      {#if rfMonth >= minDate}
+        <Button text="<" clicked={prevClicked} />
       {/if}
     </div>
-    <div class="header-label"><h3>{@html header}&nbsp;({year})</h3></div>
+    <div class="header-label"><h3>{@html header}</h3></div>
     <div class="header-controls">
-      {#if nextYear <= maxYear}
-        <Button text={`${nextYear}`} clicked={nextYearClicked} />
+      {#if currentMaxDate <= maxDate}
+        <Button text=">" clicked={nextClicked} />
       {/if}
     </div>
   </header>
@@ -170,7 +172,15 @@
       </div>
     {/each}
 
-    {#each months as m (`${m.year}-${m.month}`)}
+    <div class="year-label" style="grid-area: firstYearRow / d1 / firstYearRow / d31;">
+      <span>{rfMonth.year}</span>
+    </div>
+    {#each months as m, i (`${m.year}-${m.month}`)}
+      {#if m.month == 1 && i != 0}
+        <div class="year-label" style="grid-area: y{m.year}Row / d1 / y{m.year}Row / d31;">
+          <span>{m.year}</span>
+        </div>
+      {/if}
       <div
         class="month-label"
         style="grid-area: m{m.month}y{m.year} / rowLegend / m{m.month}y{m.year} / rowLegend;"
@@ -186,7 +196,7 @@
           style="
             outline: var(--occuplan-grid-border);
             grid-area: m{d.month}y{d.year}  / d{d.day} / m{d.month}y{d.year} / d{d.day};
-            {occupationState.occupationStyle(d, true)}
+            {occupationState.occupationStyle(d, true, maxDate)}
             "
         >
           &nbsp;
@@ -309,7 +319,7 @@
   }
 
   .header-controls {
-    width: 5rem;
+    width: 2rem;
   }
 
   .occuplan-wrapper {
@@ -334,5 +344,20 @@
     justify-content: space-between;
     width: 100%;
     margin-top: 1rem;
+  }
+
+  .year-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    container-type: size;
+    container-name: year-label;
+    text-decoration: underline;
+  }
+
+  @container year-label (min-width: 0) {
+    .year-label span {
+      font-size: 65cqh;
+    }
   }
 </style>

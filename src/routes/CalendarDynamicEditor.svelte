@@ -1,6 +1,6 @@
 <script lang="ts">
   import TextInput from '$lib/basic/TextInput.svelte';
-  import type { FirstMonth } from '$lib/occuplan/state.svelte.ts';
+  import { firstMonthValid, type FirstMonth } from '$lib/occuplan/state.svelte.ts';
 
   let {
     toggleGridOffset = $bindable(640),
@@ -28,48 +28,6 @@
     if (valid) {
       rowsFirstMonth = value as FirstMonth;
     }
-  };
-
-  const firstMonthValid = (value: string | number): boolean => {
-    if (typeof value === 'number') {
-      const intValue = value as number;
-      return intValue >= 0 && intValue <= 12;
-    } else if (value.length > 1) {
-      //check + sign
-      if (value[0] == '+') {
-        const toParse = value.slice(1);
-        try {
-          const intValue = parseInt(toParse);
-          if (intValue >= 0 && intValue <= 12) {
-            return true;
-          }
-        } catch (e) {
-          console.log('casting error', e);
-        }
-        //check - sign
-      } else if (value[0] == '-') {
-        const toParse = value.slice(1);
-        try {
-          const intValue = parseInt(toParse);
-          if (intValue >= 0 && intValue <= 12) {
-            return true;
-          }
-        } catch (e) {
-          console.log('casting error', e);
-        }
-      }
-    }
-
-    try {
-      const intValue = parseInt(value);
-      if (intValue >= 0 && intValue <= 12) {
-        return true;
-      }
-    } catch (e) {
-      console.log('casting error', e);
-    }
-
-    return false;
   };
 </script>
 

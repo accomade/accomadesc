@@ -28,9 +28,8 @@
     rowsFirstMonth = 1,
     toggleGridOffset = 640,
     toggleRowsOffset = 640,
-    year = DateTime.utc().year,
-    maxYear = DateTime.utc().plus({ years: 2 }).year,
-    minYear = year,
+    maxDate = DateTime.utc().plus({ years: 2 }),
+    minDate = DateTime.utc(),
     nextPage = '>',
     prevPage = '<',
     typeLabels = {
@@ -68,7 +67,7 @@
   });
 
   $effect(() => {
-    console.log('gfm', gridFirstMonth, 'rfm', rowsFirstMonth);
+    console.log('gfm', gridFirstMonth, 'rfm', rowsFirstMonth, 'rmn', rowsNumberOfMonths);
   });
 </script>
 
@@ -80,11 +79,10 @@
       {footer}
       {weekendLabel}
       {monthLabels}
+      {maxDate}
+      {minDate}
       numberOfMonth={rowsNumberOfMonths}
       firstMonth={rowsFirstMonth}
-      {year}
-      {maxYear}
-      {minYear}
       {typeLabels}
     />
   {:else if showGrid}
@@ -96,12 +94,11 @@
       {prevPage}
       {weekdayLabels}
       {monthLabels}
+      {maxDate}
+      {minDate}
       {monthHeaderFormat}
       numberOfMonth={gridNumberOfMonths}
       firstMonth={gridFirstMonth}
-      {year}
-      {maxYear}
-      {minYear}
       {typeLabels}
     />
   {/if}
