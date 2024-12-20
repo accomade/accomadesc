@@ -24,8 +24,10 @@
     monthHeaderFormat = defaultMonthHeaderFormat,
     gridNumberOfMonths = 8,
     gridFirstMonth = '-1',
+    gridMaxWidth = '1200px',
     rowsNumberOfMonths = 12,
     rowsFirstMonth = 1,
+    rowsMaxWidth = '1200px',
     toggleGridOffset = 640,
     toggleRowsOffset = 640,
     maxDate = DateTime.utc().plus({ years: 2 }),
@@ -65,10 +67,6 @@
       showGrid = false;
     }
   });
-
-  $effect(() => {
-    console.log('gfm', gridFirstMonth, 'rfm', rowsFirstMonth, 'rmn', rowsNumberOfMonths);
-  });
 </script>
 
 <div class="calendar-wrapper" bind:clientWidth={w}>
@@ -81,6 +79,7 @@
       {monthLabels}
       {maxDate}
       {minDate}
+      maxWidth={rowsMaxWidth}
       numberOfMonth={rowsNumberOfMonths}
       firstMonth={rowsFirstMonth}
       {typeLabels}
@@ -96,6 +95,7 @@
       {monthLabels}
       {maxDate}
       {minDate}
+      maxWidth={gridMaxWidth}
       {monthHeaderFormat}
       numberOfMonth={gridNumberOfMonths}
       firstMonth={gridFirstMonth}

@@ -380,9 +380,11 @@
       toggleGridOffset: 640,
       gridMonthNumbers: 6,
       gridFirstMonth: '-1',
+      gridMaxWidth: '1200px',
       toggleRowsOffset: 640,
       rowsMonthNumbers: 12,
       rowsFirstMonth: 1,
+      rowsMaxWidth: '1200px',
     },
     kind: 'calendar',
   });
@@ -404,11 +406,6 @@
   };
 
   const i18n = new I18n();
-  $effect(() => {
-    if (cal.content.gridFirstMonth) {
-      console.log('changed', cal.content.gridFirstMonth);
-    }
-  });
 </script>
 
 <h1>Welcome to Accomade Svelte Components (accomadesc)</h1>
@@ -464,9 +461,11 @@
       bind:toggleRowsOffset={cal.content.toggleRowsOffset}
       bind:gridMonthNumbers={cal.content.gridMonthNumbers}
       bind:gridFirstMonth={cal.content.gridFirstMonth}
+      bind:gridMaxWidth={cal.content.gridMaxWidth}
       bind:toggleGridOffset={cal.content.toggleGridOffset}
       bind:rowsMonthNumbers={cal.content.rowsMonthNumbers}
       bind:rowsFirstMonth={cal.content.rowsFirstMonth}
+      bind:rowsMaxWidth={cal.content.rowsMaxWidth}
     />
   </div>
   <h3>Calendar Available</h3>

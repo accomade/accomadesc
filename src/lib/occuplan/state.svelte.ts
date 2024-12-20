@@ -147,7 +147,6 @@ export const realFirstMonth = (
           const tDate = normalizeDate(DateTime.utc())
             .minus({ month: intValue })
             .plus({ month: monthToAdd });
-          console.log(tDate.toISODate(), monthToAdd);
           return tDate;
         }
       } catch (e) {
@@ -159,7 +158,14 @@ export const realFirstMonth = (
   if (typeof firstMonth == 'string') {
     try {
       const intValue = parseInt(firstMonth);
-      if (intValue >= 0 && intValue <= 12) {
+
+      //current dynamic month
+      if (intValue == 0) {
+        return normalizeDate(DateTime.utc()).plus({ month: monthToAdd });
+      }
+
+      //static month of current year
+      if (intValue >= 1 && intValue <= 12) {
         const tDate = normalizeDate(DateTime.utc())
           .set({ month: intValue })
           .plus({ month: monthToAdd });
@@ -170,6 +176,7 @@ export const realFirstMonth = (
     }
   }
 
+  //first month of current year ... default
   return normalizeDate(DateTime.utc()).set({ month: 1 }).plus({ month: monthToAdd });
 };
 
@@ -228,8 +235,10 @@ export interface OccuplanMiscProps {
   url: string;
   gridNumberOfMonths: number;
   gridFirstMonth: FirstMonth;
+  gridMaxWidth: string;
   rowsNumberOfMonths: number;
   rowsFirstMonth: FirstMonth;
+  rowsMaxWidth: string;
   minDate: DateTime;
   maxDate: DateTime;
   toggleGridOffset: number;

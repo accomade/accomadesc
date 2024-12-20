@@ -25,6 +25,7 @@
     monthLabels = defaultMonthLabels,
     numberOfMonth = 12,
     firstMonth = 1,
+    maxWidth = '1200px',
     maxDate = DateTime.utc().plus({ years: 2 }),
     minDate = DateTime.utc(),
     typeLabels = {
@@ -38,6 +39,7 @@
     firstMonth?: FirstMonth;
     minDate?: DateTime;
     maxDate?: DateTime;
+    maxWidth?: string;
   } = $props();
 
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
@@ -68,9 +70,6 @@
       result.push(nMonth);
       nMonth = nMonth.plus({ months: 1 });
     }
-
-    console.log('months:', numberOfMonth);
-
     return result;
   });
 
@@ -97,7 +96,6 @@
         ldays.push(day);
       }
     }
-    console.log('rerun');
     return ldays;
   });
 
@@ -137,7 +135,7 @@
   <Spinner />
 {/if}
 
-<section class="occuplan-wrapper" bind:clientWidth={width}>
+<section class="occuplan-wrapper" bind:clientWidth={width} style="max-width: {maxWidth};">
   <header class="occupation-plan-header">
     <div class="header-controls">
       {#if rfMonth >= minDate}
@@ -258,7 +256,6 @@
   main {
     display: grid;
     width: 100%;
-    max-width: 110rem;
     overflow-x: auto;
   }
 

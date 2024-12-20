@@ -32,9 +32,11 @@ export interface CalendarContent {
   toggleGridOffset?: number;
   gridMonthNumbers?: number;
   gridFirstMonth?: FirstMonth;
+  gridMaxWidth?: string;
   toggleRowsOffset?: number;
   rowsMonthNumbers?: number;
   rowsFirstMonth?: FirstMonth;
+  rowsMaxWidth?: string;
 }
 
 export interface CalendarAvailable {

@@ -8,9 +8,11 @@
     toggleGridOffset,
     gridMonthNumbers,
     gridFirstMonth,
+    gridMaxWidth,
     toggleRowsOffset,
     rowsMonthNumbers,
     rowsFirstMonth,
+    rowsMaxWidth,
     translateFunc,
   }: CalendarContent & I18nFacade = $props();
 </script>
@@ -21,9 +23,11 @@
     {toggleGridOffset}
     gridNumberOfMonths={gridMonthNumbers}
     {gridFirstMonth}
+    {gridMaxWidth}
     {toggleRowsOffset}
     rowsNumberOfMonths={rowsMonthNumbers}
     {rowsFirstMonth}
+    {rowsMaxWidth}
     header={translateFunc ? translateFunc('calendarHeader') : ''}
     {...calendarTranslation}
   />

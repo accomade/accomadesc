@@ -17,7 +17,6 @@
   import Button from '$lib/basic/Button.svelte';
   import { browser } from '$app/environment';
   import Spinner from '$lib/basic/Spinner.svelte';
-  import { minimum } from 'dinero.js';
 
   let {
     url,
@@ -29,6 +28,7 @@
     monthLabels = defaultMonthLabels,
     monthHeaderFormat = defaultMonthHeaderFormat,
     numberOfMonth = 12,
+    maxWidth = '1200px',
     firstMonth = DateTime.utc().month,
     maxDate = DateTime.utc().plus({ years: 2 }),
     minDate = DateTime.utc(),
@@ -43,6 +43,7 @@
     firstMonth?: FirstMonth;
     minDate?: DateTime;
     maxDate?: DateTime;
+    maxWidth?: string;
   } = $props();
 
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
@@ -149,7 +150,7 @@
   <Spinner />
 {/if}
 
-<section class="occuplan-wrapper">
+<section class="occuplan-wrapper" style="max-width: {maxWidth};">
   <header class="occupation-plan-header">
     <div class="header-controls">
       {#if rfMonth >= minDate}
