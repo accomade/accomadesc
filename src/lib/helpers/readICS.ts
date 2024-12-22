@@ -115,4 +115,3 @@ const getDate = (icsLine: string): DateTime => {
   //normalize to noon
   return rawDateTime.set({ hour: 12, minute: 0, second: 0, millisecond: 0 });
 };
-

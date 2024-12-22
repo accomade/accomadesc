@@ -1,9 +1,11 @@
 <script lang="ts">
-  import type { Acco, BookingRequestContent, I18nFacade } from '$lib/types.js';
+  import type { BookingRequestContent, I18nFacade } from '$lib/types.js';
+  import { getContext } from 'svelte';
   import Button from './basic/Button.svelte';
   import Notes from './basic/Notes.svelte';
   import Spinner from './basic/Spinner.svelte';
   import TextInput from './basic/TextInput.svelte';
+  import { OCCUPATION_STATE, OccupationState } from './occuplan/state.svelte.ts';
 
   const {
     acco,
@@ -12,6 +14,9 @@
     nameLabel,
     emailLabel,
     explainer,
+    successfullySentText,
+    sentErroredText,
+    submitText,
     maxCharsAllowed = 300,
     translateFunc,
   }: BookingRequestContent & I18nFacade = $props();
@@ -28,6 +33,21 @@
   let canSubmit: boolean = $derived(
     name.length > 0 && email.length > 0 && message.length > 0 && message.length <= maxCharsAllowed,
   );
+
+  let errored = $state(false);
+  let successfullySent = $state(false);
+  let sending = $state(false);
+
+
+  //https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/050edcb4-680e-4542-96df-3ae4a2af89a5
+  let url = $derived(`https://${}/${}/${}`);
+
+  const oStateID = `i-${url}-${OCCUPATION_STATE}`;
+  let occupationState: OccupationState = $state(getContext(oStateID));
+
+  const messageChanged = (value: string) => {
+    message = value;
+  };
 
   const createRequest = () => {};
 </script>
@@ -55,7 +75,7 @@
           >{/if}:
       </div>
 
-      <Notes {disabled} changed={questionChanged} />
+      <Notes {disabled} changed={messageChanged} />
     </label>
     {#if successfullySent}
       <div class="success">
