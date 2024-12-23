@@ -20,6 +20,8 @@
     type CalendarRows as CalendarRowsBlock,
     type CalendarGrid as CalendarGridBlock,
     type Weather as WeatherBlock,
+    type BookingRequest as BookingRequestBlock,
+    type Acco,
   } from '$lib/types.js';
   import Text from '$lib/Text.svelte';
   import Button from '$lib/basic/Button.svelte';
@@ -52,6 +54,7 @@
   import CalendarRows from '$lib/CalendarRows.svelte';
   import CalendarGrid from '$lib/CalendarGrid.svelte';
   import CalendarDynamicEditor from './CalendarDynamicEditor.svelte';
+  import BookingRequest from '$lib/BookingRequest.svelte';
 
   let css = $state(initialCss);
   let styleOpen = $state(false);
@@ -405,6 +408,39 @@
     kind: 'calendar-grid',
   };
 
+  const brRef1 = 'brRef1'; //randomID();
+  const brRef2 = 'brRef2';
+  const brRef3 = 'brRef3';
+  const brRef4 = 'brRef4';
+  const brRef5 = 'brRef5';
+  const brRef6 = 'brRef6';
+  const brRef7 = 'brRef7';
+  const brRef8 = 'brRef8';
+  const brRef9 = 'brRef9';
+  const acco: Acco = {
+    displayName: 'Some Flat',
+    path: '050edcb4-680e-4542-96df-3ae4a2af89a5',
+  };
+
+  const brForm: BookingRequestBlock = {
+    id: randomID(),
+    kind: 'booking-request',
+    content: {
+      acco: acco,
+      userID: '81e66599-ac3c-4ad6-b261-fceeb784f9e9',
+      accomadeBaseUrl: 'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/',
+      nameLabel: brRef1,
+      emailLabel: brRef2,
+      messageLabel: brRef4,
+      submitText: brRef3,
+      successfullySentText: brRef5,
+      sentErroredText: brRef6,
+      fromLabel: brRef7,
+      toLabel: brRef8,
+      numberOfNightsLabel: brRef9,
+    },
+  };
+
   const i18n = new I18n();
 </script>
 
@@ -440,6 +476,12 @@
       <CssEditor bind:css />
     </div>
   {/if}
+  <h3>Booking Request</h3>
+  <div class="component">
+    <div class="component-view" style={css}>
+      <BookingRequest {...brForm.content} {...i18n} />
+    </div>
+  </div>
   <h3>Month Grid Calendar</h3>
   <div class="component">
     <div class="component-view" style={css}>

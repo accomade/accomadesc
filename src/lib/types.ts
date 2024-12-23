@@ -289,9 +289,9 @@ export interface BookingRequest {
 }
 
 export interface BookingRequestContent {
+  accomadeBaseUrl?: string;
   userID: string;
   acco: Acco;
-  endpoint: string;
   nameLabel: string;
   emailLabel: string;
   fromLabel: string;

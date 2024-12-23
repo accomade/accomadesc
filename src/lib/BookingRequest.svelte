@@ -8,6 +8,7 @@
   import { OCCUPATION_STATE, OccupationState } from './occuplan/state.svelte.ts';
 
   const {
+    accomadeBaseUrl = 'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/',
     acco,
     messageLabel,
     userID,
@@ -38,10 +39,8 @@
   let successfullySent = $state(false);
   let sending = $state(false);
 
-
   //https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/050edcb4-680e-4542-96df-3ae4a2af89a5
-  let url = $derived(`https://${}/${}/${}`);
-
+  const url = `${accomadeBaseUrl}/${userID}/${acco.path}`;
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
   let occupationState: OccupationState = $state(getContext(oStateID));
 
