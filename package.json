@@ -43,10 +43,10 @@
 		"@types/luxon": "^3.4.2",
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.2",
-		"svelte": "^5.15.0",
+		"svelte": "^5.16.0",
 		"svelte-check": "^4.1.1",
 		"typescript": "^5.7.2",
-		"vite": "^6.0.5",
+		"vite": "^6.0.6",
 		"vitest": "^2.1.8"
 	},
 	"dependencies": {
