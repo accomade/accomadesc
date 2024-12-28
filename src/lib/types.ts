@@ -299,6 +299,7 @@ export interface BookingRequestContent {
   submitText: string;
   successfullySentText: string;
   sentErroredText: string;
+  invalidText: string;
   messageLabel: string;
   numberOfNightsLabel: string;
   maxCharsAllowed?: number;

@@ -417,6 +417,7 @@
   const brRef7 = 'brRef7';
   const brRef8 = 'brRef8';
   const brRef9 = 'brRef9';
+  const brRef10 = 'brRef10';
   const acco: Acco = {
     displayName: 'Some Flat',
     path: '050edcb4-680e-4542-96df-3ae4a2af89a5',
@@ -438,6 +439,7 @@
       fromLabel: brRef7,
       toLabel: brRef8,
       numberOfNightsLabel: brRef9,
+      invalidText: brRef10,
     },
   };
 

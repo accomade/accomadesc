@@ -6,6 +6,7 @@
   import Spinner from './basic/Spinner.svelte';
   import TextInput from './basic/TextInput.svelte';
   import { OCCUPATION_STATE, OccupationState } from './occuplan/state.svelte.ts';
+    import OccuPlanGrid from './occuplan/OccuPlanGrid.svelte';
 
   const {
     accomadeBaseUrl = 'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/',
@@ -14,10 +15,13 @@
     userID,
     nameLabel,
     emailLabel,
+    fromLabel,
+    toLabel,
     explainer,
     successfullySentText,
     sentErroredText,
     submitText,
+    invalidText,
     maxCharsAllowed = 300,
     translateFunc,
   }: BookingRequestContent & I18nFacade = $props();
@@ -39,11 +43,12 @@
   let successfullySent = $state(false);
   let sending = $state(false);
 
+
   //https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/050edcb4-680e-4542-96df-3ae4a2af89a5
   const url = `${accomadeBaseUrl}/${userID}/${acco.path}`;
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
   let occupationState: OccupationState = $state(getContext(oStateID));
-
+  let invalid = $derived(occupationState ? occupationState.validRequest(from, to) : false);
   const messageChanged = (value: string) => {
     message = value;
   };
@@ -62,6 +67,14 @@
       <TextInput type="text" marginForMessage={false} bind:value={name} enabled={!disabled} />
     </label>
     <label class:disabled>
+      {@html translateFunc ? translateFunc(fromLabel) : 'From'}:
+      <input type="date" bind:value={from} />
+    </label>
+    <label class:disabled>
+      {@html translateFunc ? translateFunc(toLabel) : 'To'}:
+      <input type="date" bind:value={to} />
+    </label>
+    <label class:disabled>
       {@html translateFunc ? translateFunc(emailLabel) : 'Email'}:
       <TextInput type="email" marginForMessage={false} bind:value={email} enabled={!disabled} />
     </label>
@@ -73,9 +86,9 @@
             >&nbsp;({currentCharsCount}/{maxCharsAllowed})</span
           >{/if}:
       </div>
-
       <Notes {disabled} changed={messageChanged} />
     </label>
+
     {#if successfullySent}
       <div class="success">
         {translateFunc ? translateFunc(successfullySentText) : 'Successfully Sent Email'}
@@ -84,6 +97,11 @@
     {#if errored}
       <div class="error">
         {translateFunc ? translateFunc(sentErroredText) : 'Error Occurred Sending Email'}
+      </div>
+    {/if}
+    {#if invalid}
+      <div class="error">
+        {translateFunc ? translateFunc(
       </div>
     {/if}
     <div class="button-wrapper">

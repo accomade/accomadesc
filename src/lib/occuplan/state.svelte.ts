@@ -390,6 +390,14 @@ export class OccupationState {
     return this.occupations.find((o) => o.arrival < startOfDay && o.leave > endOfDay);
   };
 
+  public validRequest = (fromString: string, toString: string) => {
+    const from = DateTime.fromFormat(fromString, 'yyyy-mm-dd');
+    const to = DateTime.fromFormat(toString, 'yyyy-mm-dd');
+
+    //TODO take min nights into account
+    return !this.occupations.find((o) => o.arrival < to && o.leave > from);
+  };
+
   public occupationStyle = (
     d: DayHelper,
     highlightWeekend: boolean = false,
@@ -480,7 +488,7 @@ export class OccupationState {
 }
 
 let _instances: Record<string, OccupationState> = {};
-export const getOccupationState = (url: string) => {
+export const getOccupationState = (url: string): OccupationState => {
   const currentInstance = _instances[url];
   if (currentInstance) return currentInstance;
 
