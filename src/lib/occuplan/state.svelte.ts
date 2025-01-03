@@ -319,6 +319,7 @@ export class OccupationState {
       this.occupiedDays[key] = true;
       cDate = cDate.plus({ days: 1 });
     }
+    console.log(this.occupiedDays);
   };
 
   public firstFree = (maxFutureDate: DateTime): DateTime => {

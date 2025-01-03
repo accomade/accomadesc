@@ -9,7 +9,6 @@
     OccupationState,
     occupationTypeFormatting,
     realFirstMonth,
-    type FirstMonth,
     type OccupationType,
     type OccuplanTranslations,
   } from './state.svelte.js';
@@ -28,6 +27,8 @@
     monthHeaderFormat = defaultMonthHeaderFormat,
     numberOfMonth = 2,
     maxDate = DateTime.utc().plus({ years: 2 }),
+    arrival = true,
+    leave = true,
     typeLabels = {
       one: 'BOOKING',
       two: 'RESERVATION',
@@ -35,6 +36,8 @@
     },
   }: OccuplanTranslations & {
     url: string;
+    arrival?: boolean;
+    leave?: boolean;
     numberOfMonth?: number;
     maxDate?: DateTime;
   } = $props();
@@ -66,7 +69,6 @@
     const result = [];
 
     let fMonth: DateTime = DateTime.utc(rfMonth.year, rfMonth.month, 1);
-
     result.push(fMonth);
 
     let nMonth = fMonth.plus({ months: 1 });
@@ -109,11 +111,11 @@
 
   const days = (m: DateTime): DateTime[] => {
     //find first
-    let firstDay = m.startOf('week');
+    let firstDay = normalizeDate(m.startOf('week'));
 
     //find last
-    let lastDayOfMonth = m.endOf('month');
-    let lastDay = lastDayOfMonth.endOf('week');
+    let lastDayOfMonth = normalizeDate(m.endOf('month'));
+    let lastDay = normalizeDate(lastDayOfMonth.endOf('week'));
 
     let n = firstDay.plus({ days: 1 });
     let res: DateTime[] = [firstDay];
@@ -192,7 +194,6 @@
             <div class="weekday-header" style="grid-area: columnLegend / d7 / columnLegend / d7;">
               {weekdayLabels[7]}
             </div>
-
             {#each days(m) as d (`${d.year}-${d.month}-${d.day}`)}
               <div
                 class:weekend={[6, 7].includes(d.weekday)}
@@ -207,7 +208,17 @@
                 )}
                 "
               >
-                {d.day}
+                {#if !occupationState?.dayOccupied(d)}
+                  {#if arrival && occupationState?.endingOccupation(d) && !occupationState.startingOccupation(d)}
+                    <button style="width: 100%; height: 100%;"> A </button>
+                  {:else}
+                    F
+                  {/if}
+                {:else if leave && occupationState?.startingOccupation(d) && !occupationState.endingOccupation(d)}
+                  L
+                {:else}
+                  {d.day}
+                {/if}
               </div>
             {/each}
 
