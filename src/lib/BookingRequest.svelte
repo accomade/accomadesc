@@ -6,7 +6,7 @@
   import Spinner from './basic/Spinner.svelte';
   import TextInput from './basic/TextInput.svelte';
   import { OCCUPATION_STATE, OccupationState } from './occuplan/state.svelte.ts';
-    import OccuPlanGrid from './occuplan/OccuPlanGrid.svelte';
+  import OccuPlanGrid from './occuplan/OccuPlanGrid.svelte';
 
   const {
     accomadeBaseUrl = 'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/',
@@ -32,6 +32,7 @@
   let from = $state('');
   let to = $state('');
   let disabled = $state(false);
+  let toDisabled = $derived(from.length == 0);
 
   let currentCharsCount = $derived(message.length);
   let showMaxCharsMessage = $derived(currentCharsCount > maxCharsAllowed - 50);
@@ -42,7 +43,6 @@
   let errored = $state(false);
   let successfullySent = $state(false);
   let sending = $state(false);
-
 
   //https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/050edcb4-680e-4542-96df-3ae4a2af89a5
   const url = `${accomadeBaseUrl}/${userID}/${acco.path}`;
@@ -68,11 +68,11 @@
     </label>
     <label class:disabled>
       {@html translateFunc ? translateFunc(fromLabel) : 'From'}:
-      <input type="date" bind:value={from} />
+      <input class:invalid class:disabled type="date" bind:value={from} />
     </label>
     <label class:disabled>
       {@html translateFunc ? translateFunc(toLabel) : 'To'}:
-      <input type="date" bind:value={to} />
+      <input class:invalid class:disabled={toDisabled} type="date" bind:value={to} />
     </label>
     <label class:disabled>
       {@html translateFunc ? translateFunc(emailLabel) : 'Email'}:
@@ -101,7 +101,7 @@
     {/if}
     {#if invalid}
       <div class="error">
-        {translateFunc ? translateFunc(
+        {translateFunc ? translateFunc(invalidText) : 'Dates Are Not Available'}
       </div>
     {/if}
     <div class="button-wrapper">
@@ -168,5 +168,43 @@
 
   .disabled {
     color: var(--font-disabled-color);
+  }
+
+  input[type='date'] {
+    position: relative;
+    max-width: 20rem;
+    font-size: 1.1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+
+    height: 2rem;
+    border: 0.15rem solid var(--border-color);
+
+    border-radius: 0.6rem;
+  }
+
+  input[type='date']:focus {
+    outline: none;
+    border: 0.15rem solid var(--focussed-border-color);
+    filter: drop-shadow(0 0 0.75rem var(--focussed-border-color));
+  }
+
+  input[type='date'].invalid {
+    border: 0.15rem solid var(--reject-color);
+  }
+
+  input[type='date']:invalid {
+    border: 0.15rem solid var(--reject-color);
+  }
+
+  input[type='date'].disabled {
+    filter: opacity(0.7);
+  }
+
+  input[type='date']::placeholder {
+    font-weight: lighter;
+    font-style: normal;
+    font-size: 0.8rem;
+    position: absolute;
   }
 </style>

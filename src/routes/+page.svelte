@@ -55,6 +55,7 @@
   import CalendarGrid from '$lib/CalendarGrid.svelte';
   import CalendarDynamicEditor from './CalendarDynamicEditor.svelte';
   import BookingRequest from '$lib/BookingRequest.svelte';
+  import OccuPlanPicker from '$lib/occuplan/OccuPlanPicker.svelte';
 
   let css = $state(initialCss);
   let styleOpen = $state(false);
@@ -484,6 +485,13 @@
       <BookingRequest {...brForm.content} {...i18n} />
     </div>
   </div>
+  <h3>Date Picker</h3>
+  <div class="component">
+    <div class="component-view" style={css}>
+      <OccuPlanPicker {...calGrid.content} {...i18n} />
+    </div>
+  </div>
+
   <h3>Month Grid Calendar</h3>
   <div class="component">
     <div class="component-view" style={css}>

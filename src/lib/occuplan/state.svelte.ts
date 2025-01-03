@@ -321,6 +321,14 @@ export class OccupationState {
     }
   };
 
+  public firstFree = (maxFutureDate: DateTime): DateTime => {
+    let day = normalizeDate();
+    while (this.dayOccupied(day) && day < maxFutureDate) {
+      day = day.plus({ day: 1 });
+    }
+    return day;
+  };
+
   public calcAvailability = (search: number[], maxFutureDate: DateTime): AvailableSpans => {
     let av: AvailableSpans = search.reduce((acc, num) => {
       acc[num] = null;
