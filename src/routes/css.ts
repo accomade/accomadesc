@@ -76,9 +76,9 @@ export const css = `
   --occupation-type-1-font-color: rgb(2, 48, 71);
   --occupation-type-1-bg-color: rgb(33, 158, 188);
   --occupation-type-2-font-color: black;
-  --occupation-type-2-bg-color: white;
+  --occupation-type-2-bg-color: #f970f9;
   --occupation-type-3-font-color: yellow;
-  --occupation-type-3-bg-color: darkbrown;
+  --occupation-type-3-bg-color: #007017;
 
 
   --longinput-bg-color: #fff7dd;

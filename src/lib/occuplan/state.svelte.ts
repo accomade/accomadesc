@@ -191,12 +191,16 @@ const validDay = (d: DayHelper): boolean => {
 };
 
 export interface OccuplanTranslations {
+  arrival?: string;
+  leave?: string;
   header?: string;
   footer?: string;
   weekendLabel?: string;
   weekdayLabels?: WeekdayLabels;
   monthLabels?: MonthLabels;
   monthHeaderFormat?: string;
+  datePickerDateFormat?: string;
+  numberOfNights?: string;
   nextPage?: string;
   prevPage?: string;
   typeLabels?: Record<OccupationType, string>;
@@ -325,6 +329,27 @@ export class OccupationState {
   public firstFree = (maxFutureDate: DateTime): DateTime => {
     let day = normalizeDate();
     while (this.dayOccupied(day) && day < maxFutureDate) {
+      day = day.plus({ day: 1 });
+    }
+    return day;
+  };
+
+  public earliestRequestStart = (currentEnd: DateTime | undefined): DateTime | undefined => {
+    if (!currentEnd) return;
+    let day = normalizeDate(currentEnd).minus({ day: 1 });
+    while (day > normalizeDate() && !this.dayOccupied(day)) {
+      day = day.minus({ day: 1 });
+    }
+    return day;
+  };
+
+  public latestRequestEnd = (
+    maxFutureDate: DateTime,
+    currentStart: DateTime | undefined,
+  ): DateTime | undefined => {
+    if (!currentStart) return;
+    let day = normalizeDate(currentStart);
+    while (day < maxFutureDate && !this.dayOccupied(day)) {
       day = day.plus({ day: 1 });
     }
     return day;

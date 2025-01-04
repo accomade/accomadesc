@@ -491,13 +491,13 @@
       <OccuPlanPicker {...calGrid.content} {...i18n} />
     </div>
   </div>
-  <!--
   <h3>Month Grid Calendar</h3>
   <div class="component">
     <div class="component-view" style={css}>
       <CalendarGrid {...calGrid.content} {...i18n} />
     </div>
   </div>
+  <!--
   <h3>Monthly Rows Calendar</h3>
   <div class="component">
     <div class="component-view" style={css}>

@@ -6,7 +6,8 @@
   import Spinner from './basic/Spinner.svelte';
   import TextInput from './basic/TextInput.svelte';
   import { OCCUPATION_STATE, OccupationState } from './occuplan/state.svelte.ts';
-  import OccuPlanGrid from './occuplan/OccuPlanGrid.svelte';
+  import OccuPlanPicker from './occuplan/OccuPlanPicker.svelte';
+  import { fade } from 'svelte/transition';
 
   const {
     accomadeBaseUrl = 'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/',
@@ -15,8 +16,7 @@
     userID,
     nameLabel,
     emailLabel,
-    fromLabel,
-    toLabel,
+    dateEntryLabel = 'Enter Vacation Dates',
     explainer,
     successfullySentText,
     sentErroredText,
@@ -29,10 +29,10 @@
   let name = $state('');
   let email = $state('');
   let message = $state('');
-  let from = $state('');
-  let to = $state('');
+  let arrival = $state('');
+  let leave = $state('');
   let disabled = $state(false);
-  let toDisabled = $derived(from.length == 0);
+  let enterDatesEngaged = $state(true);
 
   let currentCharsCount = $derived(message.length);
   let showMaxCharsMessage = $derived(currentCharsCount > maxCharsAllowed - 50);
@@ -67,14 +67,6 @@
       <TextInput type="text" marginForMessage={false} bind:value={name} enabled={!disabled} />
     </label>
     <label class:disabled>
-      {@html translateFunc ? translateFunc(fromLabel) : 'From'}:
-      <input class:invalid class:disabled type="date" bind:value={from} />
-    </label>
-    <label class:disabled>
-      {@html translateFunc ? translateFunc(toLabel) : 'To'}:
-      <input class:invalid class:disabled={toDisabled} type="date" bind:value={to} />
-    </label>
-    <label class:disabled>
       {@html translateFunc ? translateFunc(emailLabel) : 'Email'}:
       <TextInput type="email" marginForMessage={false} bind:value={email} enabled={!disabled} />
     </label>
@@ -87,6 +79,15 @@
           >{/if}:
       </div>
       <Notes {disabled} changed={messageChanged} />
+    </label>
+    <label class:disabled>
+      {dateEntryLabel}:
+      <TextInput type="text" enabled={false} value="{arrival} {leave}" />
+      {#if enterDatesEngaged}
+        <div transition:fade style="min-width: 32rem">
+          <OccuPlanPicker {url} />
+        </div>
+      {/if}
     </label>
 
     {#if successfullySent}
@@ -168,43 +169,5 @@
 
   .disabled {
     color: var(--font-disabled-color);
-  }
-
-  input[type='date'] {
-    position: relative;
-    max-width: 20rem;
-    font-size: 1.1rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-
-    height: 2rem;
-    border: 0.15rem solid var(--border-color);
-
-    border-radius: 0.6rem;
-  }
-
-  input[type='date']:focus {
-    outline: none;
-    border: 0.15rem solid var(--focussed-border-color);
-    filter: drop-shadow(0 0 0.75rem var(--focussed-border-color));
-  }
-
-  input[type='date'].invalid {
-    border: 0.15rem solid var(--reject-color);
-  }
-
-  input[type='date']:invalid {
-    border: 0.15rem solid var(--reject-color);
-  }
-
-  input[type='date'].disabled {
-    filter: opacity(0.7);
-  }
-
-  input[type='date']::placeholder {
-    font-weight: lighter;
-    font-style: normal;
-    font-size: 0.8rem;
-    position: absolute;
   }
 </style>

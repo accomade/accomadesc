@@ -7,12 +7,10 @@
     defaultWeekdayLabels,
     OCCUPATION_STATE,
     OccupationState,
-    occupationTypeFormatting,
     realFirstMonth,
-    type OccupationType,
     type OccuplanTranslations,
   } from './state.svelte.js';
-  import { getContext, setContext } from 'svelte';
+  import { getContext, setContext, untrack } from 'svelte';
   import Button from '$lib/basic/Button.svelte';
   import { browser } from '$app/environment';
   import Spinner from '$lib/basic/Spinner.svelte';
@@ -27,19 +25,31 @@
     monthHeaderFormat = defaultMonthHeaderFormat,
     numberOfMonth = 2,
     maxDate = DateTime.utc().plus({ years: 2 }),
-    arrival = true,
-    leave = true,
+    arrival = 'From',
+    leave = 'To',
+    numberOfNights = 'Nights',
+    datePickerDateFormat = 'yyyy-MM-dd',
+    showArrival = true,
+    showLeave = true,
     typeLabels = {
       one: 'BOOKING',
       two: 'RESERVATION',
       three: 'PERSONAL',
     },
+    aborted = () => {
+      return;
+    },
+    dateSelected = () => {
+      return;
+    },
   }: OccuplanTranslations & {
     url: string;
-    arrival?: boolean;
-    leave?: boolean;
+    showArrival?: boolean;
+    showLeave?: boolean;
     numberOfMonth?: number;
     maxDate?: DateTime;
+    aborted?: () => void;
+    dateSelected?: (arrival: DateTime, leave: DateTime) => void;
   } = $props();
 
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
@@ -65,6 +75,7 @@
     realFirstMonth(minDate.month as MonthNumbers, numberOfMonth, page),
   );
   let currentMaxDate = $derived(rfMonth.plus({ month: numberOfMonth }));
+
   let months: DateTime[] = $derived.by(() => {
     const result = [];
 
@@ -86,6 +97,49 @@
   const prevClicked = () => {
     page -= 1;
   };
+
+  let requestStart: DateTime | undefined = $state();
+  let requestEnd: DateTime | undefined = $state();
+  let earliestStart: DateTime | undefined = $derived(
+    occupationState ? occupationState.earliestRequestStart(requestEnd) : undefined,
+  );
+  let latestEnd: DateTime | undefined = $derived(
+    occupationState ? occupationState.latestRequestEnd(maxDate, requestStart) : undefined,
+  );
+  const requestClicked = (d: DateTime) => {
+    if (requestStart) {
+      if (requestEnd?.toISO() == d.toISO()) {
+        requestEnd = undefined;
+        requestedDays = [];
+      } else if (requestStart.toISO() == d.toISO()) {
+        requestStart = undefined;
+        requestEnd = undefined;
+        requestedDays = [];
+      } else if (d < requestStart) {
+        requestStart = d;
+      } else {
+        requestEnd = d;
+      }
+    } else {
+      requestStart = d;
+      requestEnd = undefined;
+    }
+  };
+
+  let requestedDays: string[] = $state([]);
+  $effect(() => {
+    if (requestStart && requestEnd) {
+      let d = normalizeDate(requestStart);
+
+      untrack(() => (requestedDays = [d.toISO() as string]));
+      while (d < requestEnd) {
+        d = d.plus({ day: 1 });
+        untrack(() => requestedDays.push(d.toISO() as string));
+      }
+    }
+  });
+
+  const requestHovering = (d: DateTime) => {};
 
   let monthGridTemplateColumns = `[rowLegend] 1fr [d1] 1fr [d2] 1fr [d3] 1fr [d4] 1fr [d5] 1fr [d6] 1fr [d7] 1fr`;
 
@@ -120,7 +174,7 @@
     let n = firstDay.plus({ days: 1 });
     let res: DateTime[] = [firstDay];
 
-    while (n <= lastDay) {
+    while (n < lastDay) {
       res.push(n);
       n = n.plus({ days: 1 });
     }
@@ -133,15 +187,6 @@
     let firstDayOfWeek = w.startOf('week');
     return lastDayOfMonth < firstDayOfWeek;
   };
-
-  let foundOccupationTypes: OccupationType[] = $derived(
-    occupationState?.occupations.reduce((res, occupation) => {
-      if (!res.includes(occupation.type)) {
-        res.push(occupation.type);
-      }
-      return res;
-    }, [] as OccupationType[]),
-  );
 </script>
 
 {#if !occupationState || occupationState.loading}
@@ -154,6 +199,17 @@
       <div class="header-controls">
         {#if rfMonth >= minDate}
           <Button text={`${prevPage}`} clicked={prevClicked} />
+        {/if}
+      </div>
+      <div class="header-text">
+        {#if requestStart}<span class="header-label">{arrival}:</span>
+          <span>{requestStart.toFormat(datePickerDateFormat)}</span>
+        {/if}
+        {#if requestEnd}<span class="header-label">{leave}:</span>
+          <span>{requestEnd.toFormat(datePickerDateFormat)}</span>
+        {/if}
+        {#if requestStart && requestEnd}
+          <span class="header-label">({numberOfNights}: {requestedDays.length - 1})</span>
         {/if}
       </div>
       <div class="header-controls">
@@ -194,6 +250,7 @@
             <div class="weekday-header" style="grid-area: columnLegend / d7 / columnLegend / d7;">
               {weekdayLabels[7]}
             </div>
+
             {#each days(m) as d (`${d.year}-${d.month}-${d.day}`)}
               <div
                 class:weekend={[6, 7].includes(d.weekday)}
@@ -209,13 +266,41 @@
                 "
               >
                 {#if !occupationState?.dayOccupied(d)}
-                  {#if arrival && occupationState?.endingOccupation(d) && !occupationState.startingOccupation(d)}
-                    <button style="width: 100%; height: 100%;"> A </button>
+                  {#if showArrival && occupationState?.endingOccupation(d) && !occupationState.startingOccupation(d)}
+                    {#if (earliestStart && earliestStart > d) || (latestEnd && latestEnd < d)}
+                      {d.day}
+                    {:else}
+                      <button
+                        class:start={requestStart?.toISO() == d.toISO()}
+                        class="request-button"
+                        class:request={requestedDays.indexOf(d.toISO() as string) != -1}
+                        onclick={() => requestClicked(d)}>{d.day}</button
+                      >
+                    {/if}
+                  {:else if (earliestStart && earliestStart > d) || (latestEnd && latestEnd < d)}
+                    {d.day}
                   {:else}
-                    F
+                    <button
+                      class:start={requestStart?.toISO() == d.toISO()}
+                      class:end={requestEnd?.toISO() == d.toISO()}
+                      class:request={requestedDays.includes(d.toISO() as string)}
+                      class="request-button"
+                      onmouseover={() => requestHovering(d)}
+                      onfocus={() => requestHovering(d)}
+                      onclick={() => requestClicked(d)}>{d.day}</button
+                    >
                   {/if}
-                {:else if leave && occupationState?.startingOccupation(d) && !occupationState.endingOccupation(d)}
-                  L
+                {:else if showLeave && occupationState?.startingOccupation(d) && !occupationState.endingOccupation(d) && requestStart}
+                  {#if (earliestStart && earliestStart > d) || (latestEnd && latestEnd < d)}
+                    {d.day}
+                  {:else}
+                    <button
+                      class:end={requestEnd?.toISO() == d.toISO()}
+                      class:request={requestedDays.includes(d.toISO() as string)}
+                      class="request-button"
+                      onclick={() => requestClicked(d)}>{d.day}</button
+                    >
+                  {/if}
                 {:else}
                   {d.day}
                 {/if}
@@ -237,17 +322,39 @@
     </main>
     <footer>
       <div class="legend">
-        {#each foundOccupationTypes as t}
-          {@const format = occupationTypeFormatting(t)}
-          <span>{typeLabels[t]}</span>
-          <div
-            id="occupation-type-{t}-legend"
-            class="legend-entry-marker"
-            style="background-color: {format.bgColor};"
-          >
-            &nbsp;
-          </div>
-        {/each}
+        <span>{typeLabels['one']}</span>
+        <div
+          class="legend-entry-marker"
+          style="background-color: var(--occupation-type-1-bg-color);"
+        >
+          &nbsp;
+        </div>
+
+        <span>{typeLabels['three']}</span>
+        <div
+          class="legend-entry-marker"
+          style="background-color: rgb(from var(--occupation-type-3-bg-color) r g b / 0.2);"
+        >
+          &nbsp;
+        </div>
+
+        <span>{typeLabels['two']}</span>
+        <div
+          class="legend-entry-marker"
+          style="background-color: var(--occupation-type-2-bg-color);"
+        >
+          &nbsp;
+        </div>
+      </div>
+      <div class="footer-controls">
+        <Button
+          clicked="{() => dateSelected(requestStart, requestEnd)};"
+          enabled={!!requestStart && !!requestEnd}
+          iconName="save"
+          size={2.2}
+          stopPropagation={true}
+        />
+        <Button clicked={aborted} iconName="abort" size={2.2} stopPropagation={true} />
       </div>
     </footer>
   </section>
@@ -262,6 +369,14 @@
 
   .legend-entry-marker {
     outline: var(--occuplan-grid-border);
+    height: 1.1rem;
+    width: 1.1rem;
+  }
+
+  .footer-controls {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-end;
   }
 
   .month-header {
@@ -280,7 +395,10 @@
   }
 
   .week-number {
-    text-align: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     font-style: italic;
     font-weight: lighter;
     background-color: var(--occuplan-bg-color-weeknum);
@@ -288,7 +406,10 @@
   }
 
   .weekday-header {
-    text-align: center;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: var(--occuplan-bg-color-days-header);
     color: var(--occuplan-font-color-days-header);
     grid-area: columnLegend / d1 / columnLegend / d1;
@@ -296,6 +417,9 @@
 
   .day {
     text-align: center;
+    position: relative;
+    font-size: 1.15rem;
+    padding: 0.2rem;
   }
 
   .weekend {
@@ -344,6 +468,7 @@
 
   .legend {
     display: grid;
+    row-gap: 0.2rem;
     grid-template-columns: [label] 1fr [marker] 1rem;
     column-gap: 1rem;
     text-transform: capitalize;
@@ -351,5 +476,52 @@
   }
   .header-controls {
     width: 2rem;
+  }
+
+  .header-text {
+    display: flex;
+    gap: 0.2rem;
+    align-items: center;
+    font-size: 1.05rem;
+    font-weight: bold;
+  }
+
+  .header-label {
+    font-size: 0.9rem;
+    font-weight: normal;
+  }
+
+  .request-button {
+    line-height: 1.35rem;
+    font-size: 1.35rem;
+    cursor: pointer;
+    box-sizing: border-box;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-color: rgb(from var(--occupation-type-3-bg-color) r g b / 0.1);
+    color: var(--occupation-type-3-bg-color);
+    border: 1px solid rgb(from var(--occupation-type-3-font-color) r g b / 0.1);
+  }
+  .request-button:hover {
+    background-color: var(--occupation-type-3-font-color);
+    color: var(--occupation-type-3-bg-color);
+    border: 1px solid var(--occupation-type-3-bg-color);
+  }
+
+  .request-button.start {
+    border: 0.2rem solid var(--accept-font-color);
+  }
+  .request-button.end {
+    border: 0.2rem solid var(--alert-font-color);
+  }
+
+  .request-button.request {
+    background-color: var(--occupation-type-2-bg-color);
+    color: var(--occupation-type-font-bg-color);
   }
 </style>

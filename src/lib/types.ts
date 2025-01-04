@@ -294,8 +294,7 @@ export interface BookingRequestContent {
   acco: Acco;
   nameLabel: string;
   emailLabel: string;
-  fromLabel: string;
-  toLabel: string;
+  dateEntryLabel: string;
   submitText: string;
   successfullySentText: string;
   sentErroredText: string;
