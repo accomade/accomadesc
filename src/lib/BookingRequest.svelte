@@ -11,10 +11,10 @@
   import type { DateTime } from 'luxon';
 
   const {
-    accomadeBaseUrl = 'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/',
     endpoint,
     acco,
     messageLabel,
+    calUrl,
     userID,
     nameLabel,
     emailLabel,
@@ -52,7 +52,8 @@
   let sending = $state(false);
 
   //https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/050edcb4-680e-4542-96df-3ae4a2af89a5
-  const url = `${accomadeBaseUrl}/${userID}/${acco.path}`;
+
+  const url = calUrl; //`${accomadeBaseUrl}/${userID}/${acco.path}`;
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
   let occupationState: OccupationState = $state(getContext(oStateID));
   let invalid = $derived(
@@ -91,8 +92,8 @@
       body: JSON.stringify({
         userID: userID,
         acco: acco.path,
-        email: email,
-        name: name,
+        guestEmail: email,
+        guestName: name,
         message: message,
         arrival: arrival?.toISO(),
         leave: leave?.toISO(),

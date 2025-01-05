@@ -418,10 +418,9 @@
   const brRef7 = 'brRef7';
   const brRef8 = 'brRef8';
   const brRef9 = 'brRef9';
-  const brRef10 = 'brRef10';
   const acco: Acco = {
     displayName: 'Some Flat',
-    path: '050edcb4-680e-4542-96df-3ae4a2af89a5',
+    path: 'fd638e66-c3c4-4248-97ce-47d018e79d83',
   };
 
   const brForm: BookingRequestBlock = {
@@ -429,8 +428,10 @@
     kind: 'booking-request',
     content: {
       acco: acco,
-      userID: '81e66599-ac3c-4ad6-b261-fceeb784f9e9',
-      accomadeBaseUrl: 'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/',
+      endpoint: 'https://accomade-crenshinibon-my-team-29e99517.vercel.app/request',
+      userID: '3726b92f-a33d-4b9d-b5ce-1f45f04c6f6a',
+      calUrl:
+        'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/83cd06fd-858d-4e21-994f-325778812713',
       nameLabel: brRef1,
       emailLabel: brRef2,
       messageLabel: brRef4,
@@ -490,6 +491,12 @@
       <OccuPlanPicker {...calGrid.content} {...i18n} />
     </div>
   </div>
+  <h3>Contact Form</h3>
+  <div class="component">
+    <div class="compontent-view" style={css}>
+      <ContactForm {...cForm.content} {...i18n} />
+    </div>
+  </div>
   <h3>Month Grid Calendar</h3>
   <div class="component">
     <div class="component-view" style={css}>
@@ -523,12 +530,6 @@
   <div class="component">
     <div class="component-view" style={css}>
       <CalendarAvailable {...calAvailable.content} {...i18n} />
-    </div>
-  </div>
-  <h3>Contact Form</h3>
-  <div class="component">
-    <div class="compontent-view" style={css}>
-      <ContactForm {...cForm.content} {...i18n} />
     </div>
   </div>
   <h3>Weather</h3>
