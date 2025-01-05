@@ -15,9 +15,12 @@
   import { browser } from '$app/environment';
   import Spinner from '$lib/basic/Spinner.svelte';
   import { normalizeDate } from '$lib/helpers/normalizeDate.ts';
+  import { preventDefault } from 'svelte/legacy';
 
   let {
     url,
+    arrival = undefined,
+    leave = undefined,
     nextPage = '>',
     prevPage = '<',
     weekdayLabels = defaultWeekdayLabels,
@@ -25,8 +28,8 @@
     monthHeaderFormat = defaultMonthHeaderFormat,
     numberOfMonth = 2,
     maxDate = DateTime.utc().plus({ years: 2 }),
-    arrival = 'From',
-    leave = 'To',
+    arrivalLabel = 'From',
+    leaveLabel = 'To',
     numberOfNights = 'Nights',
     datePickerDateFormat = 'yyyy-MM-dd',
     showArrival = true,
@@ -44,6 +47,8 @@
     },
   }: OccuplanTranslations & {
     url: string;
+    arrival?: DateTime;
+    leave?: DateTime;
     showArrival?: boolean;
     showLeave?: boolean;
     numberOfMonth?: number;
@@ -72,7 +77,11 @@
 
   let page: number = $state(0);
   let rfMonth: DateTime = $derived(
-    realFirstMonth(minDate.month as MonthNumbers, numberOfMonth, page),
+    realFirstMonth(
+      (arrival?.month ? arrival.month : minDate.month) as MonthNumbers,
+      numberOfMonth,
+      page,
+    ),
   );
   let currentMaxDate = $derived(rfMonth.plus({ month: numberOfMonth }));
 
@@ -98,8 +107,8 @@
     page -= 1;
   };
 
-  let requestStart: DateTime | undefined = $state();
-  let requestEnd: DateTime | undefined = $state();
+  let requestStart: DateTime | undefined = $state(arrival);
+  let requestEnd: DateTime | undefined = $state(leave);
   let earliestStart: DateTime | undefined = $derived(
     occupationState ? occupationState.earliestRequestStart(requestEnd) : undefined,
   );
@@ -198,14 +207,16 @@
     <header class="occupation-plan-header">
       <div class="header-controls">
         {#if rfMonth >= minDate}
-          <Button text={`${prevPage}`} clicked={prevClicked} />
+          <Button text={prevPage} clicked={prevClicked} preventDefault={true} />
         {/if}
       </div>
       <div class="header-text">
-        {#if requestStart}<span class="header-label">{arrival}:</span>
+        {#if requestStart}
+          <span class="header-label">{arrivalLabel}:</span>
           <span>{requestStart.toFormat(datePickerDateFormat)}</span>
         {/if}
-        {#if requestEnd}<span class="header-label">{leave}:</span>
+        {#if requestEnd}
+          <span class="header-label">{leaveLabel}:</span>
           <span>{requestEnd.toFormat(datePickerDateFormat)}</span>
         {/if}
         {#if requestStart && requestEnd}
@@ -214,7 +225,7 @@
       </div>
       <div class="header-controls">
         {#if currentMaxDate <= maxDate}
-          <Button text={`${nextPage}`} clicked={nextClicked} />
+          <Button text={nextPage} clicked={nextClicked} preventDefault={true} />
         {/if}
       </div>
     </header>
@@ -274,7 +285,10 @@
                         class:start={requestStart?.toISO() == d.toISO()}
                         class="request-button"
                         class:request={requestedDays.indexOf(d.toISO() as string) != -1}
-                        onclick={() => requestClicked(d)}>{d.day}</button
+                        onclick={(e: Event) => {
+                          e.preventDefault();
+                          requestClicked(d);
+                        }}>{d.day}</button
                       >
                     {/if}
                   {:else if (earliestStart && earliestStart > d) || (latestEnd && latestEnd < d)}
@@ -287,7 +301,10 @@
                       class="request-button"
                       onmouseover={() => requestHovering(d)}
                       onfocus={() => requestHovering(d)}
-                      onclick={() => requestClicked(d)}>{d.day}</button
+                      onclick={(e: Event) => {
+                        e.preventDefault();
+                        requestClicked(d);
+                      }}>{d.day}</button
                     >
                   {/if}
                 {:else if showLeave && occupationState?.startingOccupation(d) && !occupationState.endingOccupation(d) && requestStart}
@@ -298,7 +315,10 @@
                       class:end={requestEnd?.toISO() == d.toISO()}
                       class:request={requestedDays.includes(d.toISO() as string)}
                       class="request-button"
-                      onclick={() => requestClicked(d)}>{d.day}</button
+                      onclick={(e: Event) => {
+                        e.preventDefault();
+                        requestClicked(d);
+                      }}>{d.day}</button
                     >
                   {/if}
                 {:else}
@@ -348,13 +368,25 @@
       </div>
       <div class="footer-controls">
         <Button
-          clicked="{() => dateSelected(requestStart, requestEnd)};"
+          clicked={(e: Event) => {
+            e.preventDefault();
+            if (requestStart && requestEnd) dateSelected(requestStart, requestEnd);
+          }}
           enabled={!!requestStart && !!requestEnd}
           iconName="save"
           size={2.2}
           stopPropagation={true}
         />
-        <Button clicked={aborted} iconName="abort" size={2.2} stopPropagation={true} />
+        <Button
+          clicked={(e: Event) => {
+            e.preventDefault();
+            console.log('SOMTING');
+            aborted();
+          }}
+          iconName="abort"
+          size={2.2}
+          stopPropagation={true}
+        />
       </div>
     </footer>
   </section>

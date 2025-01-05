@@ -191,8 +191,8 @@ const validDay = (d: DayHelper): boolean => {
 };
 
 export interface OccuplanTranslations {
-  arrival?: string;
-  leave?: string;
+  arrivalLabel?: string;
+  leaveLabel?: string;
   header?: string;
   footer?: string;
   weekendLabel?: string;
@@ -323,7 +323,7 @@ export class OccupationState {
       this.occupiedDays[key] = true;
       cDate = cDate.plus({ days: 1 });
     }
-    console.log(this.occupiedDays);
+    //console.log(this.occupiedDays);
   };
 
   public firstFree = (maxFutureDate: DateTime): DateTime => {
@@ -424,10 +424,7 @@ export class OccupationState {
     return this.occupations.find((o) => o.arrival < startOfDay && o.leave > endOfDay);
   };
 
-  public validRequest = (fromString: string, toString: string) => {
-    const from = DateTime.fromFormat(fromString, 'yyyy-mm-dd');
-    const to = DateTime.fromFormat(toString, 'yyyy-mm-dd');
-
+  public validRequest = (from: DateTime, to: DateTime) => {
     //TODO take min nights into account
     return !this.occupations.find((o) => o.arrival < to && o.leave > from);
   };

@@ -437,10 +437,9 @@
       submitText: brRef3,
       successfullySentText: brRef5,
       sentErroredText: brRef6,
-      fromLabel: brRef7,
-      toLabel: brRef8,
-      numberOfNightsLabel: brRef9,
-      invalidText: brRef10,
+      dateEntryLabel: brRef7,
+      numberOfNightsLabel: brRef8,
+      invalidText: brRef9,
     },
   };
 
