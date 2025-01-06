@@ -84,29 +84,34 @@
   const createRequest = async (e: SubmitEvent) => {
     sending = true;
     e.preventDefault();
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userID: userID,
-        acco: acco.path,
-        guestEmail: email,
-        guestName: name,
-        message: message,
-        arrival: arrival?.toISO(),
-        leave: leave?.toISO(),
-      }),
-    });
-    if (response.status != 201) {
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userID: userID,
+          acco: acco.path,
+          guestEmail: email,
+          guestName: name,
+          message: message,
+          arrival: arrival?.toISO(),
+          leave: leave?.toISO(),
+        }),
+      });
+      if (response.status != 201) {
+        errored = true;
+        console.log('Error sending mail', response.status, response.statusText);
+      } else {
+        successfullySent = true;
+      }
+    } catch (e) {
       errored = true;
-      console.log('Error sending mail', response.status, response.statusText);
-    } else {
-      successfullySent = true;
+      console.log('Error sending request', e);
     }
-    sending = false;
 
+    sending = false;
     setTimeout(() => {
       errored = false;
       successfullySent = false;

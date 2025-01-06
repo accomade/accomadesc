@@ -42,23 +42,29 @@
   const submitMessage = async (e: Event) => {
     sending = true;
     e.preventDefault();
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userID: userID,
-        email: email,
-        name: name,
-        question: question,
-      }),
-    });
-    if (response.status != 201) {
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userID: userID,
+          email: email,
+          name: name,
+          question: question,
+        }),
+      });
+      if (response.status != 201) {
+        errored = true;
+        console.log('Error sending mail', response.status, response.statusText);
+      } else {
+        successfullySent = true;
+      }
+    } catch (e) {
+      console.log('An error occurred:', e);
       errored = true;
-      console.log('Error sending mail', response.status, response.statusText);
-    } else {
-      successfullySent = true;
     }
     sending = false;
 

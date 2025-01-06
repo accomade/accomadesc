@@ -41,7 +41,7 @@
     clicked?: (event: Event) => void;
   } = $props();
 
-  const disabled = $derived(!enabled);
+  let disabled = $derived(!enabled);
 
   const onClick = (event: Event) => {
     if (stopPropagation) {
@@ -50,7 +50,7 @@
     if (enabled) onclicked(event);
   };
 
-  let focussed = false;
+  let focussed = $state(false);
   const focussing = (event: Event) => {
     if (stopPropagation) {
       event.stopPropagation();
@@ -288,6 +288,7 @@
   }
   .button:focus {
     outline-style: none;
+    filter: drop-shadow(0 0 0.75rem var(--focussed-border-color));
   }
 
   .button.danger {
