@@ -4,13 +4,19 @@ import { randomName, randomID } from './names/gen.js';
 import Avatar from './basic/Avatar.svelte';
 import Button from './basic/Button.svelte';
 import Icon from './basic/Icon.svelte';
+import Notes from './basic/Notes.svelte';
 import Spinner from './basic/Spinner.svelte';
 import TextInput from './basic/TextInput.svelte';
 
 import AccoCard from './AccoCard.svelte';
 import AccoDescription from './AccoDescription.svelte';
 import AmenitiesCore from './AmenitiesCore.svelte';
+import BookingRequest from './BookingRequest.svelte';
 import Calendar from './Calendar.svelte';
+import CalendarGrid from './CalendarGrid.svelte';
+import CalendarRows from './CalendarRows.svelte';
+import ContactForm from './ContactForm.svelte';
+
 import CalendarAvailable from './CalendarAvailable.svelte';
 import LeafletMap from './LeafletMap.svelte';
 import Photo from './Photo.svelte';
@@ -29,6 +35,10 @@ export type {
   CalendarContent,
   CalendarAvailable as CalendarAvailableI,
   CalendarAvailableContent,
+  CalendarGrid as CalendarGridI,
+  CalendarGridContent,
+  CalendarRows as CalendarRowsI,
+  CalendarRowsContent,
   Text as TextI,
   TextContent,
   Weather as WeatherI,
@@ -43,21 +53,45 @@ export type {
   PricingShortContent,
   PricingEntry,
   PricingRange,
+  PricingColumn,
   StaticRangeDate,
   StaticPricingRange,
   AmenitiesCore as AmenitiesCoreI,
   AmenitiesCoreContent,
   AccoCard as AccoCardI,
   AccoCardContent,
+  ContactForm as ContactFormI,
+  ContactFormContent,
+  BookingRequest as BookingRequestI,
+  BookingRequestContent,
   CardContent,
   AccoDescription as AccoDescriptionI,
   AccoDescriptionContent,
   Section as SectionI,
   I18nFacade,
+  Block,
   Acco as AccoI,
 } from './types.js';
 
-export { PRICING_COLUMNS } from './types.js';
+export {
+  PRICING_COLUMNS,
+  isAccoCard,
+  isText,
+  isPhoto,
+  isGallery,
+  isLeafletMap,
+  isWeather,
+  isAmenitiesCore,
+  isCalendarAvailable,
+  isCalendar,
+  isCalendarGrid,
+  isCalendarRows,
+  isPricing,
+  isPricingShort,
+  isAccoDescription,
+  isBookingRequest,
+  isContactForm,
+} from './types.js';
 
 export {
   randomID,
@@ -80,4 +114,9 @@ export {
   Section,
   Text,
   Weather,
+  BookingRequest,
+  ContactForm,
+  CalendarRows,
+  CalendarGrid,
+  Notes,
 };

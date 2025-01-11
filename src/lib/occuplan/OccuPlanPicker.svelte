@@ -380,7 +380,6 @@
         <Button
           clicked={(e: Event) => {
             e.preventDefault();
-            console.log('SOMTING');
             aborted();
           }}
           iconName="abort"

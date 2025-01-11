@@ -503,7 +503,7 @@
       <CalendarGrid {...calGrid.content} {...i18n} />
     </div>
   </div>
-  <!--
+
   <h3>Monthly Rows Calendar</h3>
   <div class="component">
     <div class="component-view" style={css}>
@@ -634,7 +634,6 @@
       bind:transition={photo.content.transition}
     />
   </div>
-  -->
 </div>
 
 <style>
