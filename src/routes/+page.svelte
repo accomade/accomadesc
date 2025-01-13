@@ -21,7 +21,6 @@
     type CalendarGrid as CalendarGridBlock,
     type Weather as WeatherBlock,
     type BookingRequest as BookingRequestBlock,
-    type Acco,
   } from '$lib/types.js';
   import Text from '$lib/Text.svelte';
   import Button from '$lib/basic/Button.svelte';
@@ -418,16 +417,12 @@
   const brRef7 = 'brRef7';
   const brRef8 = 'brRef8';
   const brRef9 = 'brRef9';
-  const acco: Acco = {
-    displayName: 'Some Flat',
-    path: 'fd638e66-c3c4-4248-97ce-47d018e79d83',
-  };
 
   const brForm: BookingRequestBlock = {
     id: randomID(),
     kind: 'booking-request',
     content: {
-      acco: acco,
+      accoID: 'fd638e66-c3c4-4248-97ce-47d018e79d83',
       endpoint: 'https://accomade-crenshinibon-my-team-29e99517.vercel.app/request',
       userID: '3726b92f-a33d-4b9d-b5ce-1f45f04c6f6a',
       calUrl:

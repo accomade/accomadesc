@@ -16,6 +16,7 @@ export const calendarTranslations: Record<string, OccuplanTranslations> = {
 };
 
 export class I18n implements I18nFacade {
+  supportedLangs = ['en', 'fr', 'de'];
   translations: Record<string, Record<string, string>> = $state({
     en: {
       textRef: '<h3>HEADER</h3><p>Some english text</p>',

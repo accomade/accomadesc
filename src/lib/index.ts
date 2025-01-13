@@ -70,7 +70,6 @@ export type {
   Section as SectionI,
   I18nFacade,
   Block,
-  Acco as AccoI,
 } from './types.js';
 
 export {

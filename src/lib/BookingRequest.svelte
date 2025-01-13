@@ -12,7 +12,7 @@
 
   const {
     endpoint,
-    acco,
+    accoID,
     messageLabel,
     calUrl,
     userID,
@@ -53,7 +53,7 @@
 
   //https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/050edcb4-680e-4542-96df-3ae4a2af89a5
 
-  const url = calUrl; //`${accomadeBaseUrl}/${userID}/${acco.path}`;
+  const url = calUrl;
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
   let occupationState: OccupationState = $state(getContext(oStateID));
   let invalid = $derived(
@@ -92,7 +92,7 @@
         },
         body: JSON.stringify({
           userID: userID,
-          acco: acco.path,
+          acco: accoID,
           guestEmail: email,
           guestName: name,
           message: message,

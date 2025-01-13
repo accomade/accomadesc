@@ -227,13 +227,6 @@ export interface AmenitiesCoreContent {
   showParking?: boolean;
 }
 
-export interface Acco {
-  path: string;
-  displayName: string;
-  cardContent?: AccoCardContent;
-  siteContent?: Section[];
-}
-
 export interface AccoCard {
   id: string;
   kind: 'acco-card';
@@ -256,6 +249,7 @@ export interface AccoDescription {
   kind: 'acco-description';
   content: AccoDescriptionContent;
 }
+
 export interface AccoDescriptionContent {
   ref: string;
   minHeight?: string;
@@ -291,7 +285,7 @@ export interface BookingRequest {
 export interface BookingRequestContent {
   endpoint: string;
   userID: string;
-  acco: Acco;
+  accoID: string;
   calUrl: string;
   nameLabel: string;
   emailLabel: string;
@@ -325,6 +319,36 @@ export type Block =
   | BookingRequest
   | undefined;
 
+export interface Page {
+  id: string;
+  path: string;
+  nav?: Nav;
+  hero?: Hero;
+  title?: string;
+  slug?: string;
+  header?: string;
+  showFooter?: boolean;
+  content?: Section[];
+}
+
+export interface NavItem {
+  key: string;
+  path?: string;
+  external?: boolean;
+  sub?: boolean;
+}
+
+export interface Nav {
+  main: NavItem[];
+  footer: NavItem[];
+}
+
+export interface Hero {
+  id: string;
+  title: string;
+  photoPath: string;
+}
+
 export interface Section {
   id: string;
   header?: string;
@@ -336,6 +360,7 @@ export interface Section {
 
 export interface I18nFacade {
   currentLang?: string;
+  supportedLangs?: string[];
   calendarTranslation?: I18n;
   translateFunc?: (ref: string) => string;
   formatFunc?: (formatter: string, props: Record<string, any>) => string;
