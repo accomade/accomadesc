@@ -33,9 +33,13 @@
     justify-content: right;
   }
 
+  .content :global(*) {
+    background-color: var(--footer-bg-color);
+    color: var(--footer-font-color);
+  }
+
   .link-wrapper {
     text-decoration: underline;
-    color: var(--nav-font-color);
     font-family: var(--nav-font-family, 'mono');
     font-variant: var(--nav-font-variant, 'normal');
     font-size: 1.4rem;
@@ -61,6 +65,10 @@
     padding-bottom: 1rem;
     padding-left: 2rem;
     padding-right: 2rem;
+    min-height: 5rem;
+    * {
+      color: var(--nav-font-color);
+    }
   }
 
   @media (max-width: 500px) {

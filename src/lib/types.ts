@@ -366,6 +366,7 @@ export interface I18nFacade {
   formatFunc?: (formatter: string, props: Record<string, any>) => string;
   formatMoneyFunc?: (d: Dinero<number> | DineroSnapshot<number>) => string;
   formatDateFunc?: (d: DateTime | string) => string;
+  updateCurrentLang?: (lang: string) => void;
 }
 
 export const isAccoCard = (b: Block): b is AccoCard => {

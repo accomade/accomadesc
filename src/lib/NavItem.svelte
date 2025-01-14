@@ -19,7 +19,7 @@
   {#if n.path}
     {#if n.external}
       <div class="ext-link-wrapper">
-        <a href={path} target="_blank" rel="noreferrer noopener">
+        <a href={n.path} target="_blank" rel="noreferrer noopener">
           {translateFunc ? translateFunc(n.key) : ''}
         </a>
         <div class="link-icon-wrapper">

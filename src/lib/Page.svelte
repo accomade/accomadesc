@@ -18,6 +18,8 @@
     formatMoneyFunc,
     formatDateFunc,
     formatFunc,
+    supportedLangs,
+    updateCurrentLang,
     currentLang,
     calendarTranslation,
   }: Page & I18nFacade = $props();
@@ -51,8 +53,8 @@
   {/if}
 {/if}
 
-{#if content}
-  <main>
+<main>
+  {#if content}
     {#each content as s}
       <div class="section-wrapper">
         <Section
@@ -66,16 +68,18 @@
         />
       </div>
     {/each}
-  </main>
-{/if}
+  {/if}
+</main>
 
 {#if nav && showFooter}
-  <PageFooter {nav} />
+  <div class="footer-wrapper">
+    <PageFooter {nav} {translateFunc} {currentLang} />
+  </div>
 {/if}
 
 {#if nav}
   <div class="ham-wrapper">
-    <Hamburger {nav} />
+    <Hamburger {nav} {translateFunc} {currentLang} {supportedLangs} {updateCurrentLang} />
   </div>
 {/if}
 
@@ -111,6 +115,7 @@
     overflow-y: clip;
 
     width: 100%;
+    min-height: 100%;
 
     margin-top: calc(100vh - 1rem);
     text-align: center;

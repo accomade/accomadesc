@@ -4,11 +4,12 @@
   import type { Nav, I18nFacade } from './types.js';
   import NavItem from './NavItem.svelte';
 
-  let currentPath = $derived($page.url.pathname);
+  let currentPath = $derived(page.url.pathname);
   let {
     nav,
     close,
     translateFunc,
+    updateCurrentLang,
     currentLang,
     supportedLangs,
   }: {
@@ -48,7 +49,13 @@
           <legend>{translateFunc ? translateFunc('lang') : ''}</legend>
 
           {#each allTranslations as langKey}
-            <a class="lang-link" rel="alternate" href={pathForLang(langKey)} hreflang={langKey}>
+            <a
+              class="lang-link"
+              rel="alternate"
+              onclick={() => (updateCurrentLang ? updateCurrentLang(langKey) : '')}
+              href={pathForLang(langKey)}
+              hreflang={langKey}
+            >
               <div class="radio-wrapper">
                 <input
                   type="radio"
@@ -68,12 +75,9 @@
 </nav>
 
 <style>
-  .lang-link {
-    color: var(--nav-font-color);
-  }
-
   fieldset {
     padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   nav {
@@ -93,6 +97,10 @@
 
     overflow-y: auto;
     overflow-x: hidden;
+
+    * {
+      color: var(--nav-font-color);
+    }
   }
 
   .not-nav {
@@ -126,7 +134,7 @@
   }
 
   ul {
-    padding-left: 3rem;
+    padding-left: 1.5rem;
     margin: 0;
   }
 </style>

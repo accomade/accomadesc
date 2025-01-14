@@ -11,12 +11,24 @@
     translateFunc,
     currentLang,
     supportedLangs,
+    updateCurrentLang,
   }: {
     nav: Nav;
   } & I18nFacade = $props();
 
   let isMenuOpen = $state(false);
 </script>
+
+{#if isMenuOpen}
+  <MainNav
+    {nav}
+    {translateFunc}
+    {updateCurrentLang}
+    {currentLang}
+    {supportedLangs}
+    close={() => (isMenuOpen = false)}
+  />
+{/if}
 
 <button
   transition:blur
@@ -32,21 +44,13 @@
   {/if}
 </button>
 
-{#if isMenuOpen}
-  <MainNav
-    {nav}
-    {translateFunc}
-    {currentLang}
-    {supportedLangs}
-    close={() => (isMenuOpen = false)}
-  />
-{/if}
-
 <style>
   button {
     background-color: transparent;
     border: 0;
     width: 3rem;
     height: 3rem;
+    z-index: 999;
+    position: relative;
   }
 </style>
