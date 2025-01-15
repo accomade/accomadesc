@@ -19,12 +19,12 @@
   {#if n.path}
     {#if n.external}
       <div class="ext-link-wrapper">
+        <div class="link-icon-wrapper">
+          <ExtLinkSvg size="1.6rem" />
+        </div>
         <a href={n.path} target="_blank" rel="noreferrer noopener">
           {translateFunc ? translateFunc(n.key) : ''}
         </a>
-        <div class="link-icon-wrapper">
-          <ExtLinkSvg size="2rem" />
-        </div>
       </div>
     {:else}
       <a href={path} {onclick}>
@@ -39,7 +39,7 @@
 <style>
   .sub {
     font-size: 1.2rem;
-    padding-left: 0.4rem;
+    margin-left: 0.4rem;
   }
 
   a {
@@ -47,13 +47,22 @@
     color: var(--nav-font-color);
   }
 
-  .ext-link-wrapper {
-    position: relative;
+  span {
+    color: var(--nav-font-color);
   }
 
   .link-icon-wrapper {
     position: absolute;
-    left: -2.5rem;
-    top: 0;
+    left: -1.8rem;
+    top: 0rem;
+  }
+  .sub .link-icon-wrapper {
+    left: -2.2rem;
+  }
+
+  .ext-link-wrapper {
+    display: flex;
+    position: relative;
+    width: 100%;
   }
 </style>

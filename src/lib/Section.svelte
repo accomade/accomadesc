@@ -11,6 +11,10 @@
   import LeafletMap from './LeafletMap.svelte';
   import AccoCard from './AccoCard.svelte';
   import AccoDescription from './AccoDescription.svelte';
+  import ContactForm from './ContactForm.svelte';
+  import BookingRequest from './BookingRequest.svelte';
+  import CalendarRows from './CalendarRows.svelte';
+  import CalendarGrid from './CalendarGrid.svelte';
 
   import {
     type Section as SectionI,
@@ -27,7 +31,12 @@
     isPricingShort,
     isAccoDescription,
     isAccoCard,
+    isContactForm,
+    isCalendarGrid,
+    isCalendarRows,
+    isBookingRequest,
   } from './types.js';
+  import BedroomSvg from './svg/BedroomSVG.svelte';
 
   let {
     header = undefined,
@@ -101,6 +110,14 @@
           <Text {...block.content} {translateFunc} />
         {:else if isWeather(block)}
           <Weather {...block.content} {translateFunc} {currentLang} />
+        {:else if isBookingRequest(block)}
+          <BookingRequest {...block.content} {translateFunc} {formatDateFunc} />
+        {:else if isCalendarRows(block)}
+          <CalendarRows {...block.content} {translateFunc} />
+        {:else if isCalendarGrid(block)}
+          <CalendarGrid {...block.content} {translateFunc} />
+        {:else if isContactForm(block)}
+          <ContactForm {...block.content} {translateFunc} />
         {:else}
           <div>[UNEXPECTED VALUE]</div>
         {/if}

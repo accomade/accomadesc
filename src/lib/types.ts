@@ -328,6 +328,7 @@ export interface Page {
   slug?: string;
   header?: string;
   showFooter?: boolean;
+  fixedHamburger?: boolean;
   content?: Section[];
 }
 

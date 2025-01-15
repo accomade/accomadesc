@@ -42,42 +42,40 @@
         <NavItem {n} {supportedLangs} {currentLang} {translateFunc} onclick={close} />
       </li>
     {/each}
-
-    {#if allTranslations && allTranslations.length > 1}
-      <li>
-        <fieldset>
-          <legend>{translateFunc ? translateFunc('lang') : ''}</legend>
-
-          {#each allTranslations as langKey}
-            <a
-              class="lang-link"
-              rel="alternate"
-              onclick={() => (updateCurrentLang ? updateCurrentLang(langKey) : '')}
-              href={pathForLang(langKey)}
-              hreflang={langKey}
-            >
-              <div class="radio-wrapper">
-                <input
-                  type="radio"
-                  name="language"
-                  id={langKey}
-                  value={langKey}
-                  checked={langKey === currentLang}
-                />
-                <label for={langKey}>{translateFunc ? translateFunc(langKey) : ''}</label>
-              </div>
-            </a>
-          {/each}
-        </fieldset>
-      </li>
-    {/if}
   </ul>
+  {#if allTranslations && allTranslations.length > 1}
+    <fieldset>
+      <legend>{translateFunc ? translateFunc('lang') : ''}</legend>
+
+      {#each allTranslations as langKey}
+        <a
+          class="lang-link"
+          rel="alternate"
+          onclick={() => (updateCurrentLang ? updateCurrentLang(langKey) : '')}
+          href={pathForLang(langKey)}
+          hreflang={langKey}
+        >
+          <div class="radio-wrapper">
+            <input
+              type="radio"
+              name="language"
+              id={langKey}
+              value={langKey}
+              checked={langKey === currentLang}
+            />
+            <label for={langKey}>{translateFunc ? translateFunc(langKey) : ''}</label>
+          </div>
+        </a>
+      {/each}
+    </fieldset>
+  {/if}
 </nav>
 
 <style>
   fieldset {
     padding-left: 1rem;
     padding-right: 1rem;
+    margin-left: 1rem;
   }
 
   nav {
@@ -134,7 +132,7 @@
   }
 
   ul {
-    padding-left: 1.5rem;
+    padding-left: 2.5rem;
     margin: 0;
   }
 </style>

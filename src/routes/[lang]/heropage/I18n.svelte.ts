@@ -33,6 +33,7 @@ export class I18n implements I18nFacade {
       en: 'English',
       de: 'Deutsch',
       fr: 'Francais',
+      sec_1_header: 'Location',
     },
     de: {
       'hero-title': 'Endlich Urlaub!',
@@ -44,6 +45,7 @@ export class I18n implements I18nFacade {
       en: 'English',
       de: 'Deutsch',
       fr: 'Francais',
+      sec_1_header: 'Lokation',
     },
     fr: {
       'hero-title': 'Enfin en Vacances!',
@@ -55,6 +57,7 @@ export class I18n implements I18nFacade {
       en: 'English',
       de: 'Deutsch',
       fr: 'Francais',
+      sec_1_header: 'Location',
     },
   });
 

@@ -5,7 +5,7 @@
   import type { Hero, Nav, Page as PageI } from '$lib/types.ts';
 
   import Page from '$lib/Page.svelte';
-  import { randomID } from '$lib/index.ts';
+  import { randomID, type LeafletMapI, type SectionI } from '$lib/index.ts';
 
   import { page } from '$app/state';
   let pathLang = page.params['lang'];
@@ -32,8 +32,29 @@
     main: [
       {
         key: 'nav-1',
+      },
+      {
+        key: 'nav-1',
         path: '/',
         external: false,
+        sub: false,
+      },
+      {
+        key: 'nav-3',
+        path: 'https://google.com',
+        external: false,
+        sub: true,
+      },
+      {
+        key: 'nav-3',
+        path: 'https://google.com',
+        external: true,
+        sub: true,
+      },
+      {
+        key: 'nav-3',
+        path: 'https://google.com',
+        external: true,
         sub: false,
       },
     ],
@@ -60,16 +81,39 @@
     photoPath: 'https://accomade.twic.pics/prod/stock/photos/PXL_20220103_114534268.jpg',
   };
 
+  const content: SectionI[] = [];
+  const sec_1: SectionI = {
+    header: 'sec_1_header',
+    columnCount: 1,
+    id: randomID(),
+    padding: '5rem',
+    blocks: [],
+  };
+  const map: LeafletMapI = {
+    id: randomID(),
+    kind: 'leaflet-map',
+    content: {
+      address: 'Somewher nice',
+      lat: 56,
+      long: 13,
+      zoom: 10,
+    },
+  };
+  sec_1.blocks?.push(map);
+  content.push(sec_1);
+
   const p: PageI = {
     id: 'someid',
     path: '/heropage',
     nav,
     hero,
+    content,
     showFooter: true,
+    fixedHamburger: false,
   };
 </script>
 
-<div class="wrapper">
+<div class="showcase-wrapper">
   <h3>
     Colors And Styles &nbsp;{#if styleOpen}<Button
         clicked={() => (styleOpen = !styleOpen)}
@@ -81,8 +125,20 @@
       <CssEditor bind:css />
     </div>
   {/if}
+
+  <div class="page-wrapper" style={css}>
+    <Page {...p} {...i18n} />
+  </div>
 </div>
 
-<div style={css}>
-  <Page {...p} {...i18n} />
-</div>
+<style>
+  .showcase-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .page-wrapper {
+    width: 100%;
+    height: 100vh;
+  }
+</style>

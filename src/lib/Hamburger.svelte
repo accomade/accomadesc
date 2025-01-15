@@ -12,11 +12,11 @@
     currentLang,
     supportedLangs,
     updateCurrentLang,
+    isMenuOpen = $bindable(false),
   }: {
     nav: Nav;
+    isMenuOpen: boolean;
   } & I18nFacade = $props();
-
-  let isMenuOpen = $state(false);
 </script>
 
 {#if isMenuOpen}

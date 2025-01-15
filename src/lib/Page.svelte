@@ -13,7 +13,8 @@
     slug,
     content,
     nav,
-    showFooter,
+    showFooter = true,
+    fixedHamburger = true,
     translateFunc,
     formatMoneyFunc,
     formatDateFunc,
@@ -25,63 +26,74 @@
   }: Page & I18nFacade = $props();
 
   let pageTitle = hero && hero.title ? hero.title : header ? header : null;
+
+  let hamburgerOpen = $state(false);
 </script>
 
 <svelte:head>
   <title
     >{translateFunc && pageTitle
       ? translateFunc(pageTitle)
-      : //default to something here?
+      : //TODO default to something here?
         ''}</title
   >
 </svelte:head>
 
-{#if hero}
-  <header class="header-image">
-    <Photo photoPath={hero.photoPath} alt="Hero Image" eager={true} />
-  </header>
+<div class="page-wrapper">
+  {#if hero}
+    <header class="hero-image">
+      <Photo photoPath={hero.photoPath} alt="Hero Image" eager={true} />
+    </header>
 
-  <div class="floating-title">
-    <h1>{translateFunc ? translateFunc(hero.title) : ''}</h1>
-  </div>
-{:else}
-  {#if title}
-    <PageHeader {title} {slug} />
+    <div class="floating-title">
+      <h1>{translateFunc ? translateFunc(hero.title) : ''}</h1>
+    </div>
+  {:else}
+    {#if title}
+      <PageHeader {title} {slug} />
+    {/if}
+    {#if header}
+      <h1>{@html translateFunc ? translateFunc(header) : ''}</h1>
+    {/if}
   {/if}
-  {#if header}
-    <h1>{@html translateFunc ? translateFunc(header) : ''}</h1>
+
+  <main>
+    {#if content}
+      {#each content as s}
+        <div class="section-wrapper">
+          <Section
+            {...s as SectionI}
+            {translateFunc}
+            {formatMoneyFunc}
+            {formatDateFunc}
+            {formatFunc}
+            {currentLang}
+            {calendarTranslation}
+          />
+        </div>
+      {/each}
+    {/if}
+  </main>
+
+  {#if nav && showFooter}
+    <div class="footer-wrapper">
+      <PageFooter {nav} {translateFunc} {currentLang} />
+    </div>
   {/if}
-{/if}
 
-<main>
-  {#if content}
-    {#each content as s}
-      <div class="section-wrapper">
-        <Section
-          {...s as SectionI}
-          {translateFunc}
-          {formatMoneyFunc}
-          {formatDateFunc}
-          {formatFunc}
-          {currentLang}
-          {calendarTranslation}
-        />
-      </div>
-    {/each}
+  {#if nav}
+    <div class="ham-wrapper" class:fixed={fixedHamburger || hamburgerOpen}>
+      <Hamburger
+        {nav}
+        {translateFunc}
+        {currentLang}
+        {supportedLangs}
+        {updateCurrentLang}
+        bind:isMenuOpen={hamburgerOpen}
+      />
+    </div>
   {/if}
-</main>
-
-{#if nav && showFooter}
-  <div class="footer-wrapper">
-    <PageFooter {nav} {translateFunc} {currentLang} />
-  </div>
-{/if}
-
-{#if nav}
-  <div class="ham-wrapper">
-    <Hamburger {nav} {translateFunc} {currentLang} {supportedLangs} {updateCurrentLang} />
-  </div>
-{/if}
+</div>
 
 <style>
   .section-wrapper {
@@ -152,11 +164,22 @@
   }
 
   .ham-wrapper {
-    position: fixed;
+    position: absolute;
     right: 1rem;
     top: 1rem;
     width: 3rem;
     height: 3rem;
     z-index: 999;
+  }
+
+  .fixed {
+    position: fixed;
+  }
+
+  .page-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
   }
 </style>
