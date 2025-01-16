@@ -11,6 +11,7 @@
     header,
     title,
     slug,
+    logoLink,
     content,
     nav,
     showFooter = true,
@@ -25,7 +26,7 @@
     calendarTranslation,
   }: Page & I18nFacade = $props();
 
-  let pageTitle = hero && hero.title ? hero.title : header ? header : null;
+  let pageTitle = hero && hero.title ? hero.title : header ? header : title;
 
   let hamburgerOpen = $state(false);
 </script>
@@ -50,14 +51,14 @@
     </div>
   {:else}
     {#if title}
-      <PageHeader {title} {slug} />
+      <PageHeader {title} {slug} {logoLink} {translateFunc} />
     {/if}
     {#if header}
       <h1>{@html translateFunc ? translateFunc(header) : ''}</h1>
     {/if}
   {/if}
 
-  <main>
+  <main class:hero-margin={hero}>
     {#if content}
       {#each content as s}
         <div class="section-wrapper">
@@ -129,8 +130,11 @@
     width: 100%;
     min-height: 100%;
 
-    margin-top: calc(100vh - 1rem);
     text-align: center;
+  }
+
+  main.hero-margin {
+    margin-top: calc(100vh - 1rem);
   }
 
   .floating-title {
@@ -181,5 +185,7 @@
     flex-direction: column;
     width: 100%;
     position: relative;
+
+    background-color: var(--main-bg-color);
   }
 </style>

@@ -36,12 +36,12 @@
     isCalendarRows,
     isBookingRequest,
   } from './types.js';
-  import BedroomSvg from './svg/BedroomSVG.svelte';
 
   let {
     header = undefined,
     columnCount = 2,
     padding = $bindable('10vw'),
+    maxWidth,
     blocks = [],
     translateFunc,
     formatMoneyFunc,
@@ -55,6 +55,8 @@
 
   let gridTemplateColumns = $state(`repeat(${columnCount}, 1fr)`);
 
+  let originalPadding = $state(padding);
+
   let clientWidth = $state(Number.MAX_SAFE_INTEGER);
   $effect(() => {
     if (clientWidth < 500) {
@@ -62,17 +64,23 @@
       padding = '0';
     } else if (clientWidth < 800 && clientWidth >= 500 && !!columnCount && columnCount > 2) {
       gridTemplateColumns = '1fr 1fr';
+      padding = originalPadding;
     } else {
       if (!!columnCount && columnCount > 1) {
         gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
       }
+      padding = originalPadding;
     }
   });
+
+  let widthStyle = $derived(
+    maxWidth ? `max-width: ${maxWidth};` : `padding-left: ${padding}; padding-right: ${padding};`,
+  );
 </script>
 
 <svelte:window bind:innerWidth={clientWidth} />
 
-<section style="padding-left: {padding}; padding-right: {padding};">
+<section style={widthStyle}>
   {#if header}
     <h2>{translatedHeader}</h2>
   {/if}

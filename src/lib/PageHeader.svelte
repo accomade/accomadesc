@@ -30,8 +30,10 @@
     justify-content: center;
     margin: 0;
     width: 100%;
-    color: var(--header-font-color);
     background-color: var(--header-bg-color);
+    * {
+      color: var(--header-font-color);
+    }
   }
 
   .text-wrapper {

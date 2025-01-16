@@ -199,9 +199,10 @@ h2 {
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 3.2rem;
   padding-bottom: 0.8rem;
   padding-top: 1.2rem;
+  text-align: center;
 }
 
 

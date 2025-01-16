@@ -79,11 +79,25 @@ export interface Text {
   kind: 'text';
   content: TextContent;
 }
+
+export const DEFAULT_TEXT_FONT_SIZE = '1rem';
+export const DEFAULT_HEADERS_FONT_SIZE = '1.5rem';
+
+export const DEFAULT_EXT_HEADERS_1_FONT_SIZE = '3.2rem';
+export const DEFAULT_EXT_HEADERS_2_FONT_SIZE = '2.2rem';
+export const DEFAULT_EXT_HEADERS_3_FONT_SIZE = '1.8rem';
+export const DEFAULT_EXT_HEADERS_4_FONT_SIZE = '1.2rem';
+
 export interface TextContent {
   ref: string;
   minHeight?: string;
   textFontSize?: string;
   headerFontSize?: string;
+  extendedHeaders?: boolean;
+  extendedHeaders1Size?: string;
+  extendedHeaders2Size?: string;
+  extendedHeaders3Size?: string;
+  extendedHeaders4Size?: string;
 }
 
 export interface Weather {
@@ -255,6 +269,11 @@ export interface AccoDescriptionContent {
   minHeight?: string;
   textFontSize?: string;
   headerFontSize?: string;
+  extendedHeaders?: boolean;
+  extendedHeaders1Size?: string;
+  extendedHeaders2Size?: string;
+  extendedHeaders3Size?: string;
+  extendedHeaders4Size?: string;
 }
 
 export interface ContactForm {
@@ -326,6 +345,7 @@ export interface Page {
   hero?: Hero;
   title?: string;
   slug?: string;
+  logoLink?: string;
   header?: string;
   showFooter?: boolean;
   fixedHamburger?: boolean;
@@ -356,6 +376,7 @@ export interface Section {
   translatedHeader?: string;
   columnCount?: number;
   padding?: string;
+  maxWidth?: string;
   blocks?: Block[];
 }
 
