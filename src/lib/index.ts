@@ -73,6 +73,7 @@ export type {
   I18nFacade,
   Block,
   Page as PageI,
+  Nav as NavI,
 } from './types.js';
 
 export {
