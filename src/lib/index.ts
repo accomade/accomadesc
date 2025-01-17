@@ -27,6 +27,8 @@ import Section from './Section.svelte';
 import Text from './Text.svelte';
 import Weather from './Weather.svelte';
 
+import Page from './Page.svelte';
+
 export type {
   GridPhoto,
   LeafletMap as LeafletMapI,
@@ -70,6 +72,7 @@ export type {
   Section as SectionI,
   I18nFacade,
   Block,
+  Page as PageI,
 } from './types.js';
 
 export {
@@ -118,4 +121,5 @@ export {
   CalendarRows,
   CalendarGrid,
   Notes,
+  Page,
 };
