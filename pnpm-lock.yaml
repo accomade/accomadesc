@@ -29,9 +29,6 @@ importers:
       luxon:
         specifier: ^3.5.0
         version: 3.5.0
-      occuplan:
-        specifier: ^0.3.17
-        version: 0.3.17(svelte@5.18.0)
       squirrelly:
         specifier: ^9.1.0
         version: 9.1.0
@@ -749,12 +746,6 @@ packages:
 
   no-case@3.0.4:
     resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
-
-  occuplan@0.3.17:
-    resolution: {integrity: sha512-Lq1u9z5AI2BYZM0b1LPZ+IoLup804VJ4QV3e4FVzXN23T8SXSkwas9Zs4wCrcZUYrjxQUsHexcjAOsZndusZWw==}
-    engines: {node: '>=20'}
-    peerDependencies:
-      svelte: ^5
 
   package-manager-detector@0.2.8:
     resolution: {integrity: sha512-ts9KSdroZisdvKMWVAVCXiKqnqNfXz4+IbrBG8/BWx/TR5le+jfenvoBuIZ6UWM9nz47W7AbD9qYfAwfWMIwzA==}
@@ -1516,12 +1507,6 @@ snapshots:
     dependencies:
       lower-case: 2.0.2
       tslib: 2.8.1
-
-  occuplan@0.3.17(svelte@5.18.0):
-    dependencies:
-      luxon: 3.5.0
-      squirrelly: 9.1.0
-      svelte: 5.18.0
 
   package-manager-detector@0.2.8: {}
 

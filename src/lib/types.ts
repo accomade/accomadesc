@@ -1,7 +1,25 @@
 import { type Dinero, type DineroSnapshot } from 'dinero.js';
-import type { DateTime } from 'luxon';
-import type { I18n } from 'occuplan';
 import type { FirstMonth } from './occuplan/state.svelte.ts';
+import type { DateTime, MonthNumbers, WeekdayNumbers } from 'luxon';
+
+export type WeekdayLabels = {
+  [key in WeekdayNumbers]: string;
+};
+
+export type MonthLabels = {
+  [key in MonthNumbers]: string;
+};
+
+export interface OccuplanTranslation {
+  weekendLabel?: string;
+  weekdayLabels?: WeekdayLabels;
+  monthLabels?: MonthLabels;
+  monthHeaderFormat?: string;
+  typeNames?: {
+    defaultOccupationTypeName: string;
+    [key: string]: string;
+  };
+}
 
 export interface GridPhoto {
   photo: Photo;
@@ -383,7 +401,7 @@ export interface Section {
 export interface I18nFacade {
   currentLang?: string;
   supportedLangs?: string[];
-  calendarTranslation?: I18n;
+  calendarTranslation?: OccuplanTranslation;
   translateFunc?: (ref: string) => string;
   formatFunc?: (formatter: string, props: Record<string, any>) => string;
   formatMoneyFunc?: (d: Dinero<number> | DineroSnapshot<number>) => string;
