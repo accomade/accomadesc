@@ -71,6 +71,7 @@ export type {
   AccoDescriptionContent,
   Section as SectionI,
   I18nFacade,
+  OccuplanTranslation,
   Block,
   Page as PageI,
   Nav as NavI,
