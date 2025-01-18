@@ -1,8 +1,8 @@
 <script lang="ts">
   import { page } from '$app/state';
   import { fade } from 'svelte/transition';
-  import type { Nav, I18nFacade } from './types.js';
-  import NavItem from './NavItem.svelte';
+  import type { Nav, I18nFacade } from '$lib/types.js';
+  import NavItem from '$lib/NavItem.svelte';
 
   let currentPath = $derived(page.url.pathname);
   let {

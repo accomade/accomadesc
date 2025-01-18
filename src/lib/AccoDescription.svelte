@@ -8,7 +8,7 @@
     DEFAULT_EXT_HEADERS_2_FONT_SIZE,
     DEFAULT_EXT_HEADERS_3_FONT_SIZE,
     DEFAULT_EXT_HEADERS_4_FONT_SIZE,
-  } from './types.js';
+  } from '$lib/types.js';
   let {
     ref,
     minHeight = '100%',

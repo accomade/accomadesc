@@ -7,7 +7,7 @@
     StaticPricingRange,
     PricingEntry,
     PricingColumn,
-  } from './types.js';
+  } from '$lib/types.js';
   import type { Dinero, DineroSnapshot } from 'dinero.js';
 
   let filteredRanges: PricingRange[] = $state([]);

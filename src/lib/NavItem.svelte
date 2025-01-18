@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { NavItem, I18nFacade } from './types.js';
-  import ExtLinkSvg from './svg/ExtLinkSVG.svelte';
+  import type { NavItem, I18nFacade } from '$lib/types.js';
+  import ExtLinkSvg from '$lib/svg/ExtLinkSVG.svelte';
 
   let {
     n,

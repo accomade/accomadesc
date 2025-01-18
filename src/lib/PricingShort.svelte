@@ -2,7 +2,7 @@
   import { DateTime } from 'luxon';
   import { add, allocate, dinero, multiply, greaterThan, lessThan, type Dinero } from 'dinero.js';
   import { EUR } from '@dinero.js/currencies';
-  import type { I18nFacade, PricingShortContent, PricingEntry } from './types.js';
+  import type { I18nFacade, PricingShortContent, PricingEntry } from '$lib/types.js';
 
   let {
     global = undefined,

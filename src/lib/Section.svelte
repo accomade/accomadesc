@@ -1,20 +1,20 @@
 <script lang="ts">
-  import Text from './Text.svelte';
-  import Photo from './Photo.svelte';
-  import PhotoGallery from './PhotoGallery.svelte';
-  import Calendar from './Calendar.svelte';
-  import CalendarAvailable from './CalendarAvailable.svelte';
-  import Pricing from './Pricing.svelte';
-  import PricingShort from './PricingShort.svelte';
-  import AmenitiesCore from './AmenitiesCore.svelte';
-  import Weather from './Weather.svelte';
-  import LeafletMap from './LeafletMap.svelte';
-  import AccoCard from './AccoCard.svelte';
-  import AccoDescription from './AccoDescription.svelte';
-  import ContactForm from './ContactForm.svelte';
-  import BookingRequest from './BookingRequest.svelte';
-  import CalendarRows from './CalendarRows.svelte';
-  import CalendarGrid from './CalendarGrid.svelte';
+  import Text from '$lib/Text.svelte';
+  import Photo from '$lib/Photo.svelte';
+  import PhotoGallery from '$lib/PhotoGallery.svelte';
+  import Calendar from '$lib/Calendar.svelte';
+  import CalendarAvailable from '$lib/CalendarAvailable.svelte';
+  import Pricing from '$lib/Pricing.svelte';
+  import PricingShort from '$lib/PricingShort.svelte';
+  import AmenitiesCore from '$lib/AmenitiesCore.svelte';
+  import Weather from '$lib/Weather.svelte';
+  import LeafletMap from '$lib/LeafletMap.svelte';
+  import AccoCard from '$lib/AccoCard.svelte';
+  import AccoDescription from '$lib/AccoDescription.svelte';
+  import ContactForm from '$lib/ContactForm.svelte';
+  import BookingRequest from '$lib/BookingRequest.svelte';
+  import CalendarRows from '$lib/CalendarRows.svelte';
+  import CalendarGrid from '$lib/CalendarGrid.svelte';
 
   import {
     type Section as SectionI,
@@ -35,7 +35,7 @@
     isCalendarGrid,
     isCalendarRows,
     isBookingRequest,
-  } from './types.js';
+  } from '$lib/types.js';
 
   let {
     header = undefined,

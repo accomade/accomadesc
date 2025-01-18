@@ -1,6 +1,6 @@
 <script lang="ts">
-  import OccuPlanWrapper from './occuplan/OccuPlanWrapper.svelte';
-  import type { CalendarContent, I18nFacade } from './types.js';
+  import OccuPlanWrapper from '$lib/occuplan/OccuPlanWrapper.svelte';
+  import type { CalendarContent, I18nFacade } from '$lib/types.js';
 
   let {
     url,

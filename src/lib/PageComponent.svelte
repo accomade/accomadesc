@@ -1,10 +1,10 @@
 <script lang="ts">
-  import Photo from './Photo.svelte';
-  import Section from './Section.svelte';
-  import Hamburger from './Hamburger.svelte';
-  import PageHeader from './PageHeader.svelte';
-  import PageFooter from './PageFooter.svelte';
-  import type { Page, Section as SectionI, I18nFacade } from './types.ts';
+  import Photo from '$lib/Photo.svelte';
+  import Section from '$lib/Section.svelte';
+  import Hamburger from '$lib/Hamburger.svelte';
+  import PageHeader from '$lib/PageHeader.svelte';
+  import PageFooter from '$lib/PageFooter.svelte';
+  import type { PageProps, Section as SectionI, I18nFacade } from '$lib/types.ts';
 
   let {
     hero,
@@ -24,7 +24,7 @@
     updateCurrentLang,
     currentLang,
     calendarTranslation,
-  }: Page & I18nFacade = $props();
+  }: PageProps & I18nFacade = $props();
 
   let pageTitle = hero && hero.title ? hero.title : header ? header : title;
 

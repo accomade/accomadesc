@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { Nav, I18nFacade } from './types.js';
+  import type { Nav, I18nFacade } from '$lib/types.js';
   import { blur } from 'svelte/transition';
 
-  import MainNav from './MainNav.svelte';
-  import HamburgerSVG from './svg/HamburgerSVG.svelte';
-  import XSVG from './svg/XSVG.svelte';
+  import MainNav from '$lib/MainNav.svelte';
+  import HamburgerSVG from '$lib/svg/HamburgerSVG.svelte';
+  import XSVG from '$lib/svg/XSVG.svelte';
 
   let {
     nav,

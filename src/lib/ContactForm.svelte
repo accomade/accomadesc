@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Spinner from './basic/Spinner.svelte';
-  import Button from './basic/Button.svelte';
-  import TextInput from './basic/TextInput.svelte';
-  import Notes from './basic/Notes.svelte';
-  import type { ContactFormContent, I18nFacade } from './types.js';
+  import Spinner from '$lib/basic/Spinner.svelte';
+  import Button from '$lib/basic/Button.svelte';
+  import TextInput from '$lib/basic/TextInput.svelte';
+  import Notes from '$lib/basic/Notes.svelte';
+  import type { ContactFormContent, I18nFacade } from '$lib/types.js';
 
   const {
     userID,

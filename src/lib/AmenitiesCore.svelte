@@ -1,17 +1,17 @@
 <script lang="ts">
-  import NotSvg from './svg/NotSVG.svelte';
+  import NotSvg from '$lib/svg/NotSVG.svelte';
 
-  import AcSvg from './svg/AcSVG.svelte';
-  import AreaSvg from './svg/AreaSVG.svelte';
-  import BathroomSvg from './svg/BathroomSVG.svelte';
-  import BedroomSvg from './svg/BedroomSVG.svelte';
-  import ParkingSvg from './svg/ParkingSVG.svelte';
-  import PeopleSvg from './svg/PeopleSVG.svelte';
-  import PetsSvg from './svg/PetsSVG.svelte';
-  import SmokingSvg from './svg/SmokingSVG.svelte';
-  import TvSvg from './svg/TvSVG.svelte';
-  import WifiSvg from './svg/WifiSVG.svelte';
-  import type { AmenitiesCoreContent, I18nFacade } from './types.js';
+  import AcSvg from '$lib/svg/AcSVG.svelte';
+  import AreaSvg from '$lib/svg/AreaSVG.svelte';
+  import BathroomSvg from '$lib/svg/BathroomSVG.svelte';
+  import BedroomSvg from '$lib/svg/BedroomSVG.svelte';
+  import ParkingSvg from '$lib/svg/ParkingSVG.svelte';
+  import PeopleSvg from '$lib/svg/PeopleSVG.svelte';
+  import PetsSvg from '$lib/svg/PetsSVG.svelte';
+  import SmokingSvg from '$lib/svg/SmokingSVG.svelte';
+  import TvSvg from '$lib/svg/TvSVG.svelte';
+  import WifiSvg from '$lib/svg/WifiSVG.svelte';
+  import type { AmenitiesCoreContent, I18nFacade } from '$lib/types.js';
 
   let {
     peopleMin,

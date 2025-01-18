@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getIcon } from './icons.js';
+  import { getIcon } from '$lib/basic/icons.js';
   const {
     color,
     iconName,

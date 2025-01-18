@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Button from './basic/Button.svelte';
-  import PhotoComponent from './Photo.svelte';
-  import type { I18nFacade, Photo, PhotoGalleryContent } from './types.js';
+  import Button from '$lib/basic/Button.svelte';
+  import PhotoComponent from '$lib/Photo.svelte';
+  import type { I18nFacade, Photo, PhotoGalleryContent } from '$lib/types.js';
   import { browser } from '$app/environment';
   import { slide } from 'svelte/transition';
 

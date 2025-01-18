@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Nav, I18nFacade } from '$lib/types.js';
-  import NavItem from './NavItem.svelte';
+  import NavItem from '$lib/NavItem.svelte';
 
   let { nav, translateFunc, currentLang }: { nav: Nav } & I18nFacade = $props();
 </script>

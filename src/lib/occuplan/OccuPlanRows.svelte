@@ -11,7 +11,7 @@
     type DayHelper,
     type FirstMonth,
     realFirstMonth,
-  } from './state.svelte.ts';
+  } from '$lib/occuplan/state.svelte.ts';
   import Button from '$lib/basic/Button.svelte';
   import { browser } from '$app/environment';
   import { getContext, setContext } from 'svelte';

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { randomID } from '../names/gen.js';
+  import { randomID } from '$lib/names/gen.js';
 
   let {
     placeholder = '',

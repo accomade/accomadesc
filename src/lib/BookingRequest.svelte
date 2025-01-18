@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { BookingRequestContent, I18nFacade } from '$lib/types.js';
   import { getContext } from 'svelte';
-  import Button from './basic/Button.svelte';
-  import Notes from './basic/Notes.svelte';
-  import Spinner from './basic/Spinner.svelte';
-  import TextInput from './basic/TextInput.svelte';
-  import { OCCUPATION_STATE, OccupationState } from './occuplan/state.svelte.ts';
-  import OccuPlanPicker from './occuplan/OccuPlanPicker.svelte';
+  import Button from '$lib/basic/Button.svelte';
+  import Notes from '$lib/basic/Notes.svelte';
+  import Spinner from '$lib/basic/Spinner.svelte';
+  import TextInput from '$lib/basic/TextInput.svelte';
+  import { OCCUPATION_STATE, OccupationState } from '$lib/occuplan/state.svelte.ts';
+  import OccuPlanPicker from '$lib/occuplan/OccuPlanPicker.svelte';
   import { slide } from 'svelte/transition';
   import type { DateTime } from 'luxon';
 

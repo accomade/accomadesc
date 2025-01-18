@@ -237,16 +237,16 @@ export type FirstMonth = MonthNumbers | NextMonthNumbers | PrevMonthNumbers | 0;
 
 export interface OccuplanMiscProps {
   url: string;
-  gridNumberOfMonths: number;
-  gridFirstMonth: FirstMonth;
-  gridMaxWidth: string;
-  rowsNumberOfMonths: number;
-  rowsFirstMonth: FirstMonth;
-  rowsMaxWidth: string;
-  minDate: DateTime;
-  maxDate: DateTime;
-  toggleGridOffset: number;
-  toggleRowsOffset: number;
+  gridNumberOfMonths?: number;
+  gridFirstMonth?: FirstMonth;
+  gridMaxWidth?: string;
+  rowsNumberOfMonths?: number;
+  rowsFirstMonth?: FirstMonth;
+  rowsMaxWidth?: string;
+  minDate?: DateTime;
+  maxDate?: DateTime;
+  toggleGridOffset?: number;
+  toggleRowsOffset?: number;
 }
 
 export const defaultWeekendLabel = 'Weekend';

@@ -1,8 +1,8 @@
 <script lang="ts">
-  import AmenitiesCore from './AmenitiesCore.svelte';
-  import CalendarAvailable from './CalendarAvailable.svelte';
-  import Photo from './Photo.svelte';
-  import PricingShort from './PricingShort.svelte';
+  import AmenitiesCore from '$lib/AmenitiesCore.svelte';
+  import CalendarAvailable from '$lib/CalendarAvailable.svelte';
+  import Photo from '$lib/Photo.svelte';
+  import PricingShort from '$lib/PricingShort.svelte';
   import {
     isAmenitiesCore,
     isCalendarAvailable,

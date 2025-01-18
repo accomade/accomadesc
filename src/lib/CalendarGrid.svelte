@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { CalendarGridContent, I18nFacade } from './types.js';
-  import OccuPlanGrid from './occuplan/OccuPlanGrid.svelte';
+  import type { CalendarGridContent, I18nFacade } from '$lib/types.js';
+  import OccuPlanGrid from '$lib/occuplan/OccuPlanGrid.svelte';
 
   let { url, calendarTranslation, translateFunc }: CalendarGridContent & I18nFacade = $props();
 </script>
