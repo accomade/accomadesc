@@ -11,7 +11,7 @@
     defaultMonthLabels,
     defaultWeekdayLabels,
     defaultMonthHeaderFormat,
-  } from '$lib/occuplan/state.svelte.ts';
+  } from '$lib/occuplan/state.svelte.js';
   import { DateTime } from 'luxon';
 
   let {
