@@ -9,7 +9,7 @@
     StaticPricingRange,
   } from '$lib/types.js';
   import { dinero, toSnapshot } from 'dinero.js';
-  import type { I18n } from './I18n.svelte.ts';
+  import type { I18n } from './I18n.svelte.js';
   import PricingEntryEditor from './PricingEntryEditor.svelte';
   import { EUR } from '@dinero.js/currencies';
   import { DateTime } from 'luxon';

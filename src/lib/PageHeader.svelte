@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { I18nFacade } from '$lib/types.ts';
+  import type { I18nFacade } from '$lib/types.js';
 
   let {
     logoLink,

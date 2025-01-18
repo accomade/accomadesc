@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { randomID } from '$lib/names/gen.ts';
+  import { randomID } from '$lib/names/gen.js';
 
   let {
     disabled,

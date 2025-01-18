@@ -2,7 +2,7 @@
   import OccuPlanAvailableInfo from '$lib/occuplan/OccuPlanAvailableInfo.svelte';
   import { DateTime } from 'luxon';
   import type { CalendarAvailableContent, I18nFacade } from '$lib/types.js';
-  import { type AvailableSpans } from '$lib/occuplan/state.svelte.ts';
+  import { type AvailableSpans } from '$lib/occuplan/state.svelte.js';
 
   let {
     url,

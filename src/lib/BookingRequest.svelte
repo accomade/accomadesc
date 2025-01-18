@@ -5,7 +5,7 @@
   import Notes from '$lib/basic/Notes.svelte';
   import Spinner from '$lib/basic/Spinner.svelte';
   import TextInput from '$lib/basic/TextInput.svelte';
-  import { OCCUPATION_STATE, OccupationState } from '$lib/occuplan/state.svelte.ts';
+  import { OCCUPATION_STATE, OccupationState } from '$lib/occuplan/state.svelte.js';
   import OccuPlanPicker from '$lib/occuplan/OccuPlanPicker.svelte';
   import { slide } from 'svelte/transition';
   import type { DateTime } from 'luxon';

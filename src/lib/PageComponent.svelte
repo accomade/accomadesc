@@ -4,7 +4,7 @@
   import Hamburger from '$lib/Hamburger.svelte';
   import PageHeader from '$lib/PageHeader.svelte';
   import PageFooter from '$lib/PageFooter.svelte';
-  import type { PageProps, Section as SectionI, I18nFacade } from '$lib/types.ts';
+  import type { PageProps, Section as SectionI, I18nFacade } from '$lib/types.js';
 
   let {
     hero,

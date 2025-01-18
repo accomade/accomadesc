@@ -1,5 +1,5 @@
 import { type Dinero, type DineroSnapshot } from 'dinero.js';
-import type { FirstMonth } from '$lib/occuplan/state.svelte.ts';
+import type { FirstMonth } from '$lib/occuplan/state.svelte.js';
 import type { DateTime, MonthNumbers, WeekdayNumbers } from 'luxon';
 
 export type WeekdayLabels = {

@@ -2,10 +2,10 @@
   import '@fontsource/raleway/500.css';
   import '@fontsource/raleway/700.css';
   import Button from '$lib/basic/Button.svelte';
-  import type { Hero, Nav, PageProps } from '$lib/types.ts';
+  import type { Hero, Nav, PageProps } from '$lib/types.js';
 
   import Page from '$lib/PageComponent.svelte';
-  import { randomID, type LeafletMapI, type SectionI } from '$lib/index.ts';
+  import { randomID, type LeafletMapI, type SectionI } from '$lib/index.js';
 
   import { page } from '$app/state';
   let pathLang = page.params['lang'];

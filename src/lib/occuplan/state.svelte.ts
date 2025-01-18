@@ -1,5 +1,5 @@
-import { normalizeDate } from '$lib/helpers/normalizeDate.ts';
-import { getEvents } from '$lib/helpers/readICS.ts';
+import { normalizeDate } from '$lib/helpers/normalizeDate.js';
+import { getEvents } from '$lib/helpers/readICS.js';
 import { DateTime, type MonthNumbers, type WeekdayNumbers } from 'luxon';
 import { DateTime as luxon } from 'luxon';
 

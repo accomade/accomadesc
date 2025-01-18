@@ -14,7 +14,7 @@
   import Button from '$lib/basic/Button.svelte';
   import { browser } from '$app/environment';
   import Spinner from '$lib/basic/Spinner.svelte';
-  import { normalizeDate } from '$lib/helpers/normalizeDate.ts';
+  import { normalizeDate } from '$lib/helpers/normalizeDate.js';
 
   let {
     url,

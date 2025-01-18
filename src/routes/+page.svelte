@@ -31,7 +31,7 @@
   import TextEditor from './TextEditor.svelte';
   import AmenitiesEditor from './AmenitiesEditor.svelte';
   import MapEditor from './MapEditor.svelte';
-  import { I18n } from './I18n.svelte.ts';
+  import { I18n } from './I18n.svelte.js';
   import LeafletMap from '$lib/LeafletMap.svelte';
   import Photo from '$lib/Photo.svelte';
 
