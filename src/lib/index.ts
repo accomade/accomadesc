@@ -26,7 +26,7 @@ import PricingShort from './PricingShort.svelte';
 import Section from './Section.svelte';
 import Text from './Text.svelte';
 import Weather from './Weather.svelte';
-import PageComponent from './Page.svelte';
+import PageComponent from './PageComponent.svelte';
 
 export type {
   GridPhoto,
