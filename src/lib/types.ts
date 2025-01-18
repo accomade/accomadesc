@@ -359,6 +359,8 @@ export type Block =
 export interface PageProps {
   id: string;
   path: string;
+  lastChange?: string;
+  created?: string;
   nav?: Nav;
   hero?: Hero;
   title?: string;
