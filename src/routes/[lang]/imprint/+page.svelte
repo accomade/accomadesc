@@ -4,8 +4,14 @@
   import Button from '$lib/basic/Button.svelte';
   import type { Nav } from '$lib/types.ts';
 
-  import Page from '$lib/Page.svelte';
-  import { randomID, type LeafletMapI, type SectionI, type TextI, type PageI } from '$lib/index.ts';
+  import Page from '$lib/PageComponent.svelte';
+  import {
+    randomID,
+    type LeafletMapI,
+    type SectionI,
+    type TextI,
+    type PageProps,
+  } from '$lib/index.ts';
 
   import { page } from '$app/state';
   let pathLang = page.params['lang'];
@@ -115,7 +121,7 @@
   sec_2.blocks?.push(map);
   content.push(sec_2);
 
-  const p: PageI = {
+  const p: PageProps = {
     id: 'someid',
     path: '/heropage',
     nav,

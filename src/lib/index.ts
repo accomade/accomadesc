@@ -72,7 +72,7 @@ export type {
   I18nFacade,
   OccuplanTranslation,
   Block,
-  Page as PageI,
+  PageProps,
   Nav as NavI,
 } from './types.js';
 

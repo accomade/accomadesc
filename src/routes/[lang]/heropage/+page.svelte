@@ -2,9 +2,9 @@
   import '@fontsource/raleway/500.css';
   import '@fontsource/raleway/700.css';
   import Button from '$lib/basic/Button.svelte';
-  import type { Hero, Nav, Page as PageI } from '$lib/types.ts';
+  import type { Hero, Nav, PageProps } from '$lib/types.ts';
 
-  import Page from '$lib/Page.svelte';
+  import Page from '$lib/PageComponent.svelte';
   import { randomID, type LeafletMapI, type SectionI } from '$lib/index.ts';
 
   import { page } from '$app/state';
@@ -102,7 +102,7 @@
   sec_1.blocks?.push(map);
   content.push(sec_1);
 
-  const p: PageI = {
+  const p: PageProps = {
     id: 'someid',
     path: '/heropage',
     nav,

@@ -356,7 +356,7 @@ export type Block =
   | BookingRequest
   | undefined;
 
-export interface Page {
+export interface PageProps {
   id: string;
   path: string;
   nav?: Nav;
