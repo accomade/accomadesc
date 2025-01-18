@@ -24,10 +24,6 @@
   import { I18n } from './I18n.svelte.ts';
   const i18n = new I18n(pathLang);
 
-  const ACCOMADE_USER_ID = 'template1';
-  const PUBLIC_SUPABASE_URL = 'https://ipajhcabityibeaqfzju.supabase.co';
-  const logoLink = `${PUBLIC_SUPABASE_URL}/storage/v1/object/public/users/${ACCOMADE_USER_ID}/logo.svg`;
-
   const nav: Nav = {
     main: [
       {
