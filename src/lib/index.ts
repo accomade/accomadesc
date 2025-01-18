@@ -26,8 +26,7 @@ import PricingShort from './PricingShort.svelte';
 import Section from './Section.svelte';
 import Text from './Text.svelte';
 import Weather from './Weather.svelte';
-
-import Page from './Page.svelte';
+import PageComponent from './Page.svelte';
 
 export type {
   GridPhoto,
@@ -123,5 +122,5 @@ export {
   CalendarRows,
   CalendarGrid,
   Notes,
-  Page,
+  PageComponent,
 };
