@@ -5,6 +5,7 @@
   import {
     OCCUPATION_STATE,
     OccupationState,
+    getOccupationState,
     type AvailableSpans,
   } from '$lib/occuplan/state.svelte.js';
   import Spinner from '$lib/basic/Spinner.svelte';
@@ -12,11 +13,13 @@
 
   let {
     url,
+    debug = false,
     search = [3, 7, 14],
     maxFutureDate = normalizeDate(DateTime.utc().plus({ years: 1 })),
     children,
   }: {
     url: string;
+    debug?: boolean;
     search?: number[];
     maxFutureDate?: DateTime;
     children: Snippet<[AvailableSpans]>;
@@ -27,7 +30,7 @@
 
   $effect(() => {
     if (!occupationState && browser) {
-      occupationState = new OccupationState(url);
+      occupationState = getOccupationState(url, debug);
       setContext(oStateID, occupationState);
     }
   });

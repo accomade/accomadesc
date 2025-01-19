@@ -495,7 +495,7 @@
   <h3>Month Grid Calendar</h3>
   <div class="component">
     <div class="component-view" style={css}>
-      <CalendarGrid {...calGrid.content} {...i18n} />
+      <CalendarGrid debug={true} {...calGrid.content} {...i18n} />
     </div>
   </div>
 

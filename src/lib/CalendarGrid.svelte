@@ -2,12 +2,18 @@
   import type { CalendarGridContent, I18nFacade } from '$lib/types.js';
   import OccuPlanGrid from '$lib/occuplan/OccuPlanGrid.svelte';
 
-  let { url, calendarTranslation, translateFunc }: CalendarGridContent & I18nFacade = $props();
+  let {
+    url,
+    debug = false,
+    calendarTranslation,
+    translateFunc,
+  }: CalendarGridContent & I18nFacade & { debug?: boolean } = $props();
 </script>
 
 <div class="cal-wrapper">
   <OccuPlanGrid
     {url}
+    {debug}
     header={translateFunc ? translateFunc('calendarHeader') : ''}
     {...calendarTranslation}
   />

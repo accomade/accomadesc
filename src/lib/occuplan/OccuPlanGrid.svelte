@@ -7,6 +7,7 @@
     defaultWeekdayLabels,
     OCCUPATION_STATE,
     OccupationState,
+    getOccupationState,
     occupationTypeFormatting,
     realFirstMonth,
     type FirstMonth,
@@ -20,6 +21,7 @@
 
   let {
     url,
+    debug = false,
     header = '',
     footer = '',
     nextPage = '>',
@@ -39,6 +41,7 @@
     },
   }: OccuplanTranslations & {
     url: string;
+    debug?: boolean;
     numberOfMonth?: number;
     firstMonth?: FirstMonth;
     minDate?: DateTime;
@@ -50,7 +53,7 @@
   let occupationState: OccupationState = $state(getContext(oStateID));
   $effect(() => {
     if (!occupationState && browser) {
-      occupationState = new OccupationState(url);
+      occupationState = getOccupationState(url, debug);
       setContext(oStateID, occupationState);
     }
   });

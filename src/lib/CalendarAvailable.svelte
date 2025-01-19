@@ -6,11 +6,12 @@
 
   let {
     url,
+    debug = true,
     search = [3, 7, 14],
     maxFutureDate = DateTime.now().plus({ years: 2 }).toISO(),
     formatFunc,
     translateFunc,
-  }: CalendarAvailableContent & I18nFacade = $props();
+  }: CalendarAvailableContent & I18nFacade & { debug?: boolean } = $props();
 
   let availHeader = $derived(translateFunc ? translateFunc('availability') : '[AVAILABILITY]');
 
@@ -32,7 +33,7 @@
 <div class="cal-wrapper">
   <h3>{availHeader}</h3>
 
-  <OccuPlanAvailableInfo {search} {url}>
+  <OccuPlanAvailableInfo {debug} {search} {url}>
     {#snippet children(av: AvailableSpans)}
       <ul>
         {#each search as s}

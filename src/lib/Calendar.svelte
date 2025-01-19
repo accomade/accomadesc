@@ -4,6 +4,7 @@
 
   let {
     url,
+    debug = false,
     calendarTranslation,
     toggleGridOffset,
     gridMonthNumbers,
@@ -14,12 +15,13 @@
     rowsFirstMonth,
     rowsMaxWidth,
     translateFunc,
-  }: CalendarContent & I18nFacade = $props();
+  }: CalendarContent & I18nFacade & { debug?: boolean } = $props();
 </script>
 
 <div class="cal-wrapper">
   <OccuPlanWrapper
     {url}
+    {debug}
     {toggleGridOffset}
     gridNumberOfMonths={gridMonthNumbers}
     {gridFirstMonth}

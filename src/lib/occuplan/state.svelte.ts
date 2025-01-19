@@ -237,6 +237,7 @@ export type FirstMonth = MonthNumbers | NextMonthNumbers | PrevMonthNumbers | 0;
 
 export interface OccuplanMiscProps {
   url: string;
+  debug?: boolean;
   gridNumberOfMonths?: number;
   gridFirstMonth?: FirstMonth;
   gridMaxWidth?: string;
@@ -282,13 +283,17 @@ export class OccupationState {
   public occupiedDays: Record<string, boolean> = $state({});
   public occupations: Occupation[] = $state([]);
   public loading: boolean = $state(false);
+  public debug: boolean = $state(false);
 
-  constructor(iCalURL: string) {
+  constructor(iCalURL: string, debug: boolean = false) {
+    this.debug = debug;
+    if (this.debug) console.log('Constructing OState with CalUrl: ', iCalURL);
     this.iCalURL = iCalURL;
     this.loadOccupations();
   }
 
   private loadOccupations = async () => {
+    if (this.debug) console.log('(Re)Loading Occupations');
     this.loading = true;
     if (this.iCalURL) {
       const eventsResult = await getEvents(this.iCalURL, this.eventsIncomingCallback);
@@ -300,6 +305,8 @@ export class OccupationState {
   };
 
   private eventsIncomingCallback = (o: Occupation) => {
+    if (this.debug) console.log('Occupation incoming: ', o);
+
     this.occupations.push(o);
     this.updateOccupiedDays(o);
   };
@@ -519,11 +526,12 @@ export class OccupationState {
 }
 
 let _instances: Record<string, OccupationState> = {};
-export const getOccupationState = (url: string): OccupationState => {
+export const getOccupationState = (url: string, debug: boolean = false): OccupationState => {
+  if (debug) console.log('Get OState /w url', url);
   const currentInstance = _instances[url];
   if (currentInstance) return currentInstance;
 
-  const newInstance = new OccupationState(url);
+  const newInstance = new OccupationState(url, debug);
   _instances[url] = newInstance;
 
   return _instances[url];

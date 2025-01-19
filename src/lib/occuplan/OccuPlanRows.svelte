@@ -4,6 +4,7 @@
     defaultMonthLabels,
     defaultWeekendLabel,
     OccupationState,
+    getOccupationState,
     occupationTypeFormatting,
     type OccupationType,
     type OccuplanTranslations,
@@ -19,6 +20,7 @@
 
   let {
     url,
+    debug = false,
     header = '',
     footer = '',
     weekendLabel = defaultWeekendLabel,
@@ -35,6 +37,7 @@
     },
   }: OccuplanTranslations & {
     url: string;
+    debug?: boolean;
     numberOfMonth?: number;
     firstMonth?: FirstMonth;
     minDate?: DateTime;
@@ -46,7 +49,7 @@
   let occupationState: OccupationState = $state(getContext(oStateID));
   $effect(() => {
     if (!occupationState && browser) {
-      occupationState = new OccupationState(url);
+      occupationState = getOccupationState(url, debug);
       setContext(oStateID, occupationState);
     }
   });

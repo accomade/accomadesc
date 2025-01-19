@@ -7,6 +7,7 @@
     defaultWeekdayLabels,
     OCCUPATION_STATE,
     OccupationState,
+    getOccupationState,
     realFirstMonth,
     type OccuplanTranslations,
   } from '$lib/occuplan/state.svelte.js';
@@ -18,6 +19,7 @@
 
   let {
     url,
+    debug = false,
     arrival = undefined,
     leave = undefined,
     nextPage = '>',
@@ -46,6 +48,7 @@
     },
   }: OccuplanTranslations & {
     url: string;
+    debug?: boolean;
     arrival?: DateTime;
     leave?: DateTime;
     showArrival?: boolean;
@@ -60,7 +63,7 @@
   let occupationState: OccupationState = $state(getContext(oStateID));
   $effect(() => {
     if (!occupationState && browser) {
-      occupationState = new OccupationState(url);
+      occupationState = getOccupationState(url, debug);
       setContext(oStateID, occupationState);
     }
   });

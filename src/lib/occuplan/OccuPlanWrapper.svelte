@@ -19,6 +19,7 @@
     url,
     header = '',
     footer = '',
+    debug = false,
     weekendLabel = defaultWeekendLabel,
     monthLabels = defaultMonthLabels,
     weekdayLabels = defaultWeekdayLabels,
@@ -41,16 +42,6 @@
       three: 'PERSONAL',
     },
   }: OccuplanTranslations & OccuplanMiscProps = $props();
-
-  /*const oStateID = `i-${url}-${OCCUPATION_STATE}`;
-  let occupationState: OccupationState = getContext(oStateID);
-  $effect(() => {
-    if (browser && !occupationState) {
-      occupationState = new OccupationState(url);
-      setContext(oStateID, occupationState);
-    }
-  });
-  */
 
   /*
     use different component based on different media size.
@@ -76,6 +67,7 @@
 <div class="calendar-wrapper" bind:clientWidth={w}>
   {#if showRows}
     <OccuPlanRows
+      {debug}
       {url}
       {header}
       {footer}
@@ -90,6 +82,7 @@
     />
   {:else if showGrid}
     <OccuPlanGrid
+      {debug}
       {url}
       {header}
       {footer}
