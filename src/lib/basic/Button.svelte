@@ -1,9 +1,11 @@
 <script lang="ts">
   import { getIcon } from '$lib/basic/icons.js';
+  import { randomID } from '$lib/names/gen.ts';
 
   const {
     text = null,
     iconName = '',
+    id = randomID(),
     ariaLabel = text ? text : iconName,
     form = null,
     type = 'button',
@@ -23,6 +25,7 @@
   }: {
     text?: string | null;
     iconName?: string;
+    id?: string;
     ariaLabel?: string;
     form?: string | null;
     type?: 'button' | 'submit' | 'reset';
@@ -165,6 +168,7 @@
 
 {#if showBackdrop}
   <button
+    {id}
     class:pressed
     aria-label={ariaLabel}
     style="
@@ -217,6 +221,7 @@
   </button>
 {:else}
   <button
+    {id}
     aria-label={ariaLabel}
     style="
     height: {size}rem;

@@ -42,7 +42,7 @@
     },
   }: OccuplanTranslations & OccuplanMiscProps = $props();
 
-  const oStateID = `i-${url}-${OCCUPATION_STATE}`;
+  /*const oStateID = `i-${url}-${OCCUPATION_STATE}`;
   let occupationState: OccupationState = getContext(oStateID);
   $effect(() => {
     if (browser && !occupationState) {
@@ -50,6 +50,7 @@
       setContext(oStateID, occupationState);
     }
   });
+  */
 
   /*
     use different component based on different media size.

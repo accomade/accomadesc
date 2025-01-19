@@ -125,43 +125,61 @@
   {#if explainer}
     <div class="explainer">{@html translateFunc ? translateFunc(explainer) : ''}</div>
   {/if}
+
   <form onsubmit={createRequest}>
     <input type="hidden" value={userID} />
-    <label class:disabled>
-      {@html translateFunc ? translateFunc(nameLabel) : 'Name'}:
-      <TextInput type="text" marginForMessage={false} bind:value={name} enabled={!disabled} />
+    <label for="name-input">
+      <span class:disabled>{@html translateFunc ? translateFunc(nameLabel) : 'Name'}:</span>
     </label>
-    <label class:disabled>
-      {@html translateFunc ? translateFunc(emailLabel) : 'Email'}:
-      <TextInput type="email" marginForMessage={false} bind:value={email} enabled={!disabled} />
+    <div class="input-wrapper">
+      <TextInput
+        id="name-input"
+        type="text"
+        marginForMessage={false}
+        bind:value={name}
+        enabled={!disabled}
+      />
+    </div>
+    <label for="email-input">
+      <span class:disabled>{@html translateFunc ? translateFunc(emailLabel) : 'Email'}:</span>
     </label>
-    <div style="display:flex;">
-      <span class:disabled>
-        {@html translateFunc ? translateFunc(dateEntryLabel) : 'Vacation Dates'}:
-      </span>
-      <div class="date-input-wrapper">
-        {#if inputDatesEngaged}
-          <div transition:slide style="min-width: 32rem;" class="picker-wrapper">
-            <OccuPlanPicker {arrival} {leave} {url} aborted={abortDateInput} {dateSelected} />
-          </div>
-        {/if}
-        <div class="date-input-display-wrapper" id="engage-date-buttons">
-          <Button
-            iconName="edit"
-            size={1.8}
-            clicked={engageDateInput}
-            text={arrival && leave && formatDateFunc
-              ? `${formatDateFunc(arrival)} - ${formatDateFunc(leave)}`
-              : ''}
-          />
-          {#if arrival && leave}
-            <Button iconName="delete" size={1.8} clicked={dateDeleted} />
-          {/if}
+    <div class="input-wrapper">
+      <TextInput
+        id="email-input"
+        type="email"
+        marginForMessage={false}
+        bind:value={email}
+        enabled={!disabled}
+      />
+    </div>
+    <label for="date-input">
+      <span class:disabled
+        >{@html translateFunc ? translateFunc(dateEntryLabel) : 'Vacation Dates'}:</span
+      >
+    </label>
+    <div class="input-wrapper" class:disabled>
+      {#if inputDatesEngaged}
+        <div transition:slide style="min-width: 32rem;" class="picker-wrapper">
+          <OccuPlanPicker {arrival} {leave} {url} aborted={abortDateInput} {dateSelected} />
         </div>
+      {/if}
+      <div class="date-input-wrapper" id="engage-date-buttons">
+        <Button
+          id="date-input"
+          iconName="edit"
+          size={1.8}
+          clicked={engageDateInput}
+          text={arrival && leave && formatDateFunc
+            ? `${formatDateFunc(arrival)} - ${formatDateFunc(leave)}`
+            : ''}
+        />
+        {#if arrival && leave}
+          <Button iconName="delete" size={1.8} clicked={dateDeleted} />
+        {/if}
       </div>
     </div>
-    <label class="row-label"
-      ><div class:disabled>
+    <label class="notes-input">
+      <div class:disabled>
         {@html translateFunc
           ? translateFunc(messageLabel)
           : 'Your Message'}{#if showMaxCharsMessage}<span class="max-chars-message"
@@ -171,21 +189,23 @@
       <Notes {disabled} changed={messageChanged} />
     </label>
 
-    {#if successfullySent}
-      <div class="success">
-        {translateFunc ? translateFunc(successfullySentText) : 'Successfully Sent Email'}
-      </div>
-    {/if}
-    {#if errored}
-      <div class="error">
-        {translateFunc ? translateFunc(sentErroredText) : 'Error Occurred Sending Email'}
-      </div>
-    {/if}
-    {#if invalid}
-      <div class="error">
-        {translateFunc ? translateFunc(invalidText) : 'Dates Are Not Available'}
-      </div>
-    {/if}
+    <div class="message-wrapper">
+      {#if successfullySent}
+        <div class="success">
+          {translateFunc ? translateFunc(successfullySentText) : 'Successfully Sent Email'}
+        </div>
+      {/if}
+      {#if errored}
+        <div class="error">
+          {translateFunc ? translateFunc(sentErroredText) : 'Error Occurred Sending Email'}
+        </div>
+      {/if}
+      {#if invalid}
+        <div class="error">
+          {translateFunc ? translateFunc(invalidText) : 'Dates Are Not Available'}
+        </div>
+      {/if}
+    </div>
     <div class="button-wrapper">
       <Button
         enabled={canSubmit && !disabled}
@@ -213,42 +233,54 @@
       color: var(--main-font-color);
     }
   }
-
-  .date-input-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .date-input-display-wrapper {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
-
-  .picker-wrapper {
-    position: absolute;
-    z-index: 9999;
-    background-color: var(--main-bg-color);
-  }
-
   form {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
+    display: grid;
+    grid-template-columns: [start] 1fr [gap-start] 0.5fr [gap-end] 3fr [end];
+    row-gap: 0.5rem;
 
-  label {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    justify-content: space-between;
-  }
+    label {
+      grid-column-start: start;
+      grid-column-end: gap-start;
+    }
 
-  .row-label {
-    flex-direction: column;
-    gap: 0.2rem;
+    label.notes-input {
+      margin-top: 2rem;
+      grid-column-start: start;
+      grid-column-end: end;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .input-wrapper {
+      grid-column-start: gap-end;
+      grid-column-end: end;
+    }
+    .date-input-wrapper {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-start;
+    }
+    .picker-wrapper {
+      position: absolute;
+      z-index: 9999;
+      background-color: var(--main-bg-color);
+    }
+
+    .message-wrapper {
+      margin-top: 1rem;
+      grid-column-start: start;
+      grid-column-end: end;
+      display: flex;
+      justify-content: flex-start;
+    }
+    .button-wrapper {
+      grid-column-start: start;
+      grid-column-end: end;
+      display: flex;
+      justify-content: flex-start;
+    }
   }
 
   .max-chars-message {

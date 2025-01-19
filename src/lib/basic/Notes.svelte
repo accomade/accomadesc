@@ -2,15 +2,16 @@
   import { randomID } from '$lib/names/gen.js';
 
   let {
+    id = randomID(),
     disabled,
     changed,
   }: {
+    id?: string;
     disabled: boolean;
     changed: (value: string) => void;
   } = $props();
 
   let divElement: HTMLDivElement;
-  let id = randomID();
 
   const contentChanged = (e: Event) => {
     const target = e.currentTarget as HTMLDivElement;
