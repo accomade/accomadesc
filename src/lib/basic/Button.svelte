@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getIcon } from '$lib/basic/icons.js';
-  import { randomID } from '$lib/names/gen.ts';
+  import { randomID } from '$lib/names/gen.js';
 
   const {
     text = null,
