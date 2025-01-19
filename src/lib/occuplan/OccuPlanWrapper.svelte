@@ -13,6 +13,7 @@
     defaultMonthHeaderFormat,
   } from '$lib/occuplan/state.svelte.js';
   import { DateTime } from 'luxon';
+  import { browser } from '$app/environment';
 
   let {
     url,
@@ -43,10 +44,12 @@
 
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
   let occupationState: OccupationState = getContext(oStateID);
-  if (!occupationState) {
-    occupationState = new OccupationState(url);
-    setContext(oStateID, occupationState);
-  }
+  $effect(() => {
+    if (browser && !occupationState) {
+      occupationState = new OccupationState(url);
+      setContext(oStateID, occupationState);
+    }
+  });
 
   /*
     use different component based on different media size.
