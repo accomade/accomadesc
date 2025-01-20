@@ -28,6 +28,8 @@ import Text from '$lib/Text.svelte';
 import Weather from '$lib/Weather.svelte';
 import PageComponent from '$lib/PageComponent.svelte';
 
+export type { OccuplanTranslations } from '$lib/occuplan/state.svelte.ts';
+
 export type {
   GridPhoto,
   LeafletMap as LeafletMapI,
@@ -70,10 +72,14 @@ export type {
   AccoDescriptionContent,
   Section as SectionI,
   I18nFacade,
-  OccuplanTranslation,
   Block,
   PageProps,
   Nav as NavI,
+  FormatSpec,
+  FormatTemplateName,
+  SiteConfig,
+  SiteTranslation,
+  FontSpec,
 } from '$lib/types.js';
 
 export {

@@ -1,6 +1,7 @@
 import { type Dinero, type DineroSnapshot } from 'dinero.js';
-import type { FirstMonth } from '$lib/occuplan/state.svelte.js';
+import type { FirstMonth, OccuplanTranslations } from '$lib/occuplan/state.svelte.js';
 import type { DateTime, MonthNumbers, WeekdayNumbers } from 'luxon';
+import type { CookieType, Translation as CookieTranslation } from 'gdpr-cooco-banner';
 
 export type WeekdayLabels = {
   [key in WeekdayNumbers]: string;
@@ -9,17 +10,6 @@ export type WeekdayLabels = {
 export type MonthLabels = {
   [key in MonthNumbers]: string;
 };
-
-export interface OccuplanTranslation {
-  weekendLabel?: string;
-  weekdayLabels?: WeekdayLabels;
-  monthLabels?: MonthLabels;
-  monthHeaderFormat?: string;
-  typeNames?: {
-    defaultOccupationTypeName: string;
-    [key: string]: string;
-  };
-}
 
 export interface GridPhoto {
   photo: Photo;
@@ -356,6 +346,71 @@ export type Block =
   | BookingRequest
   | undefined;
 
+export interface FontSpec {
+  shortName: string;
+  cssName: string;
+  variant: string;
+  fallback: string;
+  fontsource: boolean;
+}
+
+export interface SiteTranslation {
+  calendar: OccuplanTranslations;
+  cookies: CookieTranslation;
+  site: Record<string, string>;
+}
+
+export const FORMAT_TEMPLATE_NAMES = [
+  'dateFormat',
+  'monthHeader',
+  'nothingAvailable',
+  'availableFromFor',
+  'minimumPrice',
+  'maximumPrice',
+  'additionalPersonPrice',
+  'minNumberOfNights',
+  'seating',
+  'numberOf',
+  'size',
+  'bed',
+];
+
+export type FormatTemplateName = (typeof FORMAT_TEMPLATE_NAMES)[number];
+
+export interface FormatSpec {
+  locale: string;
+  [tmpl: TemplateName]: string;
+}
+
+export interface SiteConfig {
+  settings: {
+    ACCOMADE_USER_ID: string;
+    PUBLIC_SUPABASE_URL: string;
+  };
+  cookies: {
+    types: CookieType[];
+    showIcon: boolean;
+  };
+  fonts: {
+    main: FontSpec;
+    nav: FontSpec;
+    pageTitle: FontSpec;
+    landingTitle: FontSpec;
+    header: FontSpec;
+  };
+  nav: Nav;
+  pages: {
+    '/': PageProps;
+    [key: string]: PageProps;
+  };
+  lang: {
+    defaultLang: string;
+    supportedLangs: string[];
+    translations: Record<string, SiteTranslation>;
+    formats: Record<string, FormatSpec>;
+  };
+}
+
 export interface PageProps {
   id: string;
   path: string;
@@ -403,7 +458,7 @@ export interface Section {
 export interface I18nFacade {
   currentLang?: string;
   supportedLangs?: string[];
-  calendarTranslation?: OccuplanTranslation;
+  calendarTranslation?: OccuplanTranslations;
   translateFunc?: (ref: string) => string;
   formatFunc?: (formatter: string, props: Record<string, any>) => string;
   formatMoneyFunc?: (d: Dinero<number> | DineroSnapshot<number>) => string;

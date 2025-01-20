@@ -48,6 +48,9 @@ importers:
       '@types/luxon':
         specifier: ^3.4.2
         version: 3.4.2
+      gdpr-cooco-banner:
+        specifier: ^0.0.11
+        version: 0.0.11(svelte@5.18.0)
       prettier:
         specifier: ^3.4.2
         version: 3.4.2
@@ -693,6 +696,11 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
+  gdpr-cooco-banner@0.0.11:
+    resolution: {integrity: sha512-aY1UCm5OZRt8bY7V96Y1LxQrlv0pbVDgnGKGyNA/BMjwCViQ2PzfoEQ5o6zbYE7Tjo5dk/9BtXggJrTP6inhoA==}
+    peerDependencies:
+      svelte: ^5
+
   globalyzer@0.1.0:
     resolution: {integrity: sha512-40oNTM9UfG6aBmuKxk/giHn5nQ8RVz/SS4Ir6zgzOv9/qC3kKZ9v4etGTcJbEl/NyVQH7FGU7d+X1egr57Md2Q==}
 
@@ -704,6 +712,10 @@ packages:
 
   is-reference@3.0.3:
     resolution: {integrity: sha512-ixkJoqQvAP88E6wLydLGGqCJsrFUnqoH6HnaczB8XmDH1oaWU+xxdptvikTgaEhtZ53Ky6YXiBuUI2WXLMCwjw==}
+
+  js-cookie@3.0.5:
+    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
+    engines: {node: '>=14'}
 
   kleur@4.1.5:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
@@ -1467,6 +1479,11 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
+  gdpr-cooco-banner@0.0.11(svelte@5.18.0):
+    dependencies:
+      js-cookie: 3.0.5
+      svelte: 5.18.0
+
   globalyzer@0.1.0: {}
 
   globrex@0.1.2: {}
@@ -1476,6 +1493,8 @@ snapshots:
   is-reference@3.0.3:
     dependencies:
       '@types/estree': 1.0.6
+
+  js-cookie@3.0.5: {}
 
   kleur@4.1.5: {}
 
