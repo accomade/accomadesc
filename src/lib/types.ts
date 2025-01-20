@@ -379,7 +379,7 @@ export type FormatTemplateName = (typeof FORMAT_TEMPLATE_NAMES)[number];
 
 export interface FormatSpec {
   locale: string;
-  [tmpl: TemplateName]: string;
+  [tmpl: FormatTemplateName]: string;
 }
 
 export interface SiteConfig {
