@@ -4,10 +4,8 @@ export const css = `
   --bg-button-tert-color: #FFFFFF;
   --bg-negative-color: #B01313;
   
-  --focussed-border-color-triplet: 102, 120, 243;
-  --focussed-border-color: rgba(var(--focussed-border-color-triplet), 0.9);
-  --disabled-border-color-triplet: 35, 35, 35;
-  --disabled-border-color: rgba(var(--focussed-border-color-triplet), 0.5);
+  --focussed-border-color: rgba(102, 120, 243, 0.9);
+  --disabled-border-color: rgba(35, 35, 35, 0.5);
 
   --font-disabled-color: rgba(35,35,35, 0.4);
 

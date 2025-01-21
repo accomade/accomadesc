@@ -81,11 +81,11 @@
 
   let shadowColor = $derived.by(() => {
     if (focussed) {
-      return 'var(--focussed-border-color-triplet)';
+      return 'var(--focussed-border-color)';
     } else if (!enabled) {
-      return 'var(--disabled-border-color-triplet)';
+      return 'var(--disabled-border-color)';
     } else {
-      return 'var(--border-color-triplet)';
+      return 'var(--border-color)';
     }
   });
 
@@ -178,8 +178,8 @@
     border: {borderWidth}rem solid {borderColor};
     box-shadow: 
         {inset}
-        0 0 {outerShadowWidth}rem rgba({shadowColor}, 0.5),
-        0 0 {innerShadowWidth}rem rgba({shadowColor}, 0.4)
+        0 0 {outerShadowWidth}rem rgba(from {shadowColor} r g b / 0.5),
+        0 0 {innerShadowWidth}rem rgba(from {shadowColor} r g b / 0.4)
         ;
     font-size: {fontSize};
     "
@@ -230,8 +230,8 @@
     border: 0 solid rgba(0,0,0,0);
     box-shadow: 
         {inset}
-        0 0 {outerShadowWidth}rem rgba({shadowColor}, 0.5),
-        0 0 {innerShadowWidth}rem rgba({shadowColor}, 0.4)
+        0 0 {outerShadowWidth}rem rgba(from {shadowColor} r g b / 0.5),
+        0 0 {innerShadowWidth}rem rgba(from {shadowColor} r g b / 0.4)
         ;
     "
     class="button"
