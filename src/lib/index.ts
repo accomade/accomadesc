@@ -78,6 +78,7 @@ export type {
   FormatSpec,
   FormatTemplateName,
   SiteConfig,
+  SiteFonts,
   SiteTranslation,
   FontSpec,
 } from '$lib/types.js';

@@ -382,6 +382,14 @@ export interface FormatSpec {
   [tmpl: FormatTemplateName]: string;
 }
 
+export interface SiteFonts {
+  main: FontSpec;
+  nav: FontSpec;
+  pageTitle: FontSpec;
+  landingTitle: FontSpec;
+  header: FontSpec;
+}
+
 export interface SiteConfig {
   settings: {
     ACCOMADE_USER_ID: string;
@@ -391,13 +399,7 @@ export interface SiteConfig {
     types: CookieType[];
     showIcon: boolean;
   };
-  fonts: {
-    main: FontSpec;
-    nav: FontSpec;
-    pageTitle: FontSpec;
-    landingTitle: FontSpec;
-    header: FontSpec;
-  };
+  fonts: SiteFonts;
   nav: Nav;
   pages: {
     '/': PageProps;
