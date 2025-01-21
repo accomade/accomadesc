@@ -287,20 +287,21 @@
 
   input:focus {
     outline: none;
-    border: 0.15rem solid var(--focussed-border-color);
-    filter: drop-shadow(0 0 0.75rem var(--focussed-border-color));
+    border: var(--focussed-border);
+    filter: var(--focussed-filter);
   }
 
   input.invalid {
-    border: 0.15rem solid var(--reject-color);
+    border: var(--invalid-border);
   }
 
   input:invalid {
-    border: 0.15rem solid var(--reject-color);
+    border: var(--invalid-border);
   }
 
   input.disabled {
     filter: opacity(0.7);
+    border: var(--disabled-border);
   }
 
   input::placeholder {

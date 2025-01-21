@@ -47,7 +47,8 @@
     border: var(--main-border);
     border-radius: 1rem;
 
-    background-color: var(--longinput-bg-color);
+    background-color: var(--notes-bg-color);
+    color: var(--notes-font-color);
 
     padding-left: 1.3rem;
     padding-right: 1.3rem;
@@ -60,15 +61,15 @@
   }
 
   .question-input.disabled {
-    border-color: var(--disabled-border-color);
-    font: var(--font-disabled-color);
-    background-color: var(--longinput-disabled-bg-color);
+    border: var(--disabled-border);
+    font: var(--notes-disabled-font-color);
+    background-color: var(--notes-disabled-bg-color);
   }
 
   .question-input::after {
     content: '';
     position: absolute;
-    border: var(--dashed-border);
+    border: var(--notes-vert-line);
     right: 1rem;
     top: 0;
     bottom: 0;
@@ -76,7 +77,7 @@
   .question-input::before {
     content: '';
     position: absolute;
-    border: var(--dashed-border);
+    border: var(--notes-vert-line);
     left: 1rem;
     top: 0;
     bottom: 0;

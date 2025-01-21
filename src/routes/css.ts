@@ -1,16 +1,21 @@
 export const css = `
-  --bg-button-prim-color: rgb(234, 250, 255);
-  --bg-button-sec-color: #F2F2F2;
-  --bg-button-tert-color: #FFFFFF;
-  --bg-negative-color: #B01313;
-  
+  --button-font-color: #070707;
+  --button-bg-color: rgb(234, 250, 255);
+
+  --button-danger-font-color: #070707;
+  --button-danger-bg-color: #B01313;
+
+  --gallery-button-bg-color: rgba(242, 242, 242, 0.3);
+  --gallery-button-font-color: rgba(15, 14, 15, 0.6);
+
+ 
   --focussed-border-color: rgba(102, 120, 243, 0.9);
   --disabled-border-color: rgba(35, 35, 35, 0.5);
 
   --font-disabled-color: rgba(35,35,35, 0.4);
 
   --main-border: 1px solid rgb(2, 48, 71);
-  --dashed-border: 0.5px dashed rgba(2, 48, 71, .5);
+  --notes-vert-line: 0.5px dashed rgba(2, 48, 71, .5);
   --main-bg-color: white;
   --main-font-color: #070707;
   --alert-font-color: #c50000;

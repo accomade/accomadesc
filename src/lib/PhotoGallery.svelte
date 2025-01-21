@@ -120,8 +120,8 @@
     right: 1rem;
     top: calc(50% - 1.65rem);
 
-    --bg-button-prim-color: rgba(242, 242, 242, 0.3);
-    --main-font-color: rgba(15, 14, 15, 0.6);
+    --button-font-color: var(--gallery-button-font-color);
+    --button-bg-color: var(--gallery-button-bg-color);
   }
 
   .prev-wrapper {
@@ -129,8 +129,8 @@
     left: 1rem;
     top: calc(50% - 1.65rem);
 
-    --bg-button-prim-color: rgba(242, 242, 242, 0.3);
-    --main-font-color: rgba(15, 14, 15, 0.6);
+    --button-font-color: var(--gallery-button-font-color);
+    --button-bg-color: var(--gallery-button-bg-color);
   }
 
   .complete-row {

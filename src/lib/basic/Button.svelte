@@ -14,7 +14,7 @@
     fontSize = 'inherit',
 
     size = 2,
-    iconColor = 'black',
+    iconColor = 'var(--icon-color)',
     danger = false,
 
     showBackdrop = true,
@@ -161,7 +161,7 @@
     if (enabled) {
       return iconColor;
     } else {
-      return 'var(--font-disabled-color)';
+      return 'var(--icon-disabled-color)';
     }
   });
 </script>
@@ -281,8 +281,8 @@
     justify-content: space-around;
     align-items: center;
 
-    background-color: var(--bg-button-prim-color);
-    color: var(--main-font-color);
+    background-color: var(--button-bg-color);
+    color: var(--button-font-color);
 
     cursor: pointer;
     overflow: hidden;
@@ -297,8 +297,8 @@
   }
 
   .button.danger {
-    background-color: var(--bg-negative-color);
-    color: var(--bg-button-tert-color);
+    background-color: var(--button-danger-bg-color);
+    color: var(--button-danger-font-color);
   }
 
   .button:enabled:active {
@@ -316,14 +316,14 @@
     vertical-align: middle;
     font-variant: small-caps;
 
-    color: var(--main-font-color);
+    color: var(--font-button-main-color);
 
     margin-left: 0.4rem;
     margin-right: 0.4rem;
   }
 
   .button.danger .button-text {
-    color: var(--bg-button-tert-color);
+    color: var(--font-button-danger-color);
   }
 
   .button:disabled {
