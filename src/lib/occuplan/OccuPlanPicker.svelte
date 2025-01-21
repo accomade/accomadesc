@@ -355,7 +355,7 @@
         <span>{typeLabels['three']}</span>
         <div
           class="legend-entry-marker"
-          style="background-color: rgb(from var(--occupation-type-3-bg-color) r g b / 0.2);"
+          style="background-color: rgba(from var(--occupation-type-3-bg-color) r g b / 0.2);"
         >
           &nbsp;
         </div>
@@ -536,9 +536,9 @@
     right: 0;
     bottom: 0;
 
-    background-color: rgb(from var(--occupation-type-3-bg-color) r g b / 0.1);
+    background-color: rgba(from var(--occupation-type-3-bg-color) r g b / 0.1);
     color: var(--occupation-type-3-bg-color);
-    border: 1px solid rgb(from var(--occupation-type-3-font-color) r g b / 0.1);
+    border: 1px solid rgba(from var(--occupation-type-3-font-color) r g b / 0.1);
   }
   .request-button:hover {
     background-color: var(--occupation-type-3-font-color);
