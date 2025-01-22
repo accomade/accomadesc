@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getIcon } from '$lib/basic/icons.js';
   const {
-    color,
+    color = 'var(--icon-color)',
     iconName,
     width,
     height,

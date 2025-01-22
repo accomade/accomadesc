@@ -1,10 +1,7 @@
 <script lang="ts">
   import OccuPlanGrid from '$lib/occuplan/OccuPlanGrid.svelte';
   import OccuPlanRows from '$lib/occuplan/OccuPlanRows.svelte';
-  import { getContext, setContext } from 'svelte';
   import {
-    OCCUPATION_STATE,
-    OccupationState,
     type OccuplanTranslations,
     type OccuplanMiscProps,
     defaultWeekendLabel,
@@ -13,7 +10,6 @@
     defaultMonthHeaderFormat,
   } from '$lib/occuplan/state.svelte.js';
   import { DateTime } from 'luxon';
-  import { browser } from '$app/environment';
 
   let {
     url,

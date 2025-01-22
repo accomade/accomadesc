@@ -280,8 +280,7 @@
     padding-right: 0.5rem;
 
     height: 2rem;
-    border: 0.15rem solid var(--border-color);
-
+    border: var(--main-border);
     border-radius: 0.6rem;
   }
 
@@ -318,7 +317,7 @@
   }
 
   .message {
-    color: var(--font-alert-color);
+    color: var(--alert-font-color);
     font-style: italic;
 
     font-size: 0.9rem;
@@ -326,6 +325,6 @@
   }
 
   .message.valid {
-    color: var(--accept-color);
+    color: var(--accept-font-color);
   }
 </style>

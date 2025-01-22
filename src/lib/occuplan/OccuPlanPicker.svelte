@@ -434,8 +434,8 @@
 
     font-style: italic;
     font-weight: lighter;
-    background-color: var(--occuplan-bg-color-weeknum);
-    color: var(--occuplan-font-color-weeknum);
+    background-color: var(--occuplan-weeknum-bg-color);
+    color: var(--occuplan-weeknum-font-color);
   }
 
   .weekday-header {
@@ -443,8 +443,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--occuplan-bg-color-days-header);
-    color: var(--occuplan-font-color-days-header);
+    background-color: var(--occuplan-days-header-bg-color);
+    color: var(--occuplan-days-header-font-color);
     grid-area: columnLegend / d1 / columnLegend / d1;
   }
 
@@ -470,8 +470,8 @@
     align-items: center;
 
     border: var(--occuplan-main-border);
-    color: var(--occuplan-font-color-main);
-    background-color: var(--occuplan-bg-color-main);
+    color: var(--occuplan-main-font-color);
+    background-color: var(--occuplan-main-bg-color);
   }
 
   main {

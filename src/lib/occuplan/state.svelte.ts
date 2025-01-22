@@ -443,13 +443,13 @@ export class OccupationState {
   ): string => {
     const valid = validDay(d);
     if (!valid) {
-      return 'background-color: var(--occuplan-bg-color-invalid-days);';
+      return 'background-color: var(--occuplan-invalid-days-bg-color);';
     }
 
     const day = luxon.utc(d.year, d.month, d.day);
     const outOfScope = day >= maxDate;
     if (outOfScope) {
-      return 'background-color: var(--occuplan-bg-color-invalid-days);';
+      return 'background-color: var(--occuplan-invalid-days-bg-color);';
     }
 
     const o = this.fullOccupation(day);
@@ -461,7 +461,7 @@ export class OccupationState {
       const f = occupationTypeFormattingByOccupation(o);
       if (highlightWeekend && isWeekend) {
         return `
-          background: radial-gradient(var(--occuplan-bg-color-weekend), ${f.bgColor}, ${f.bgColor});
+          background: radial-gradient(var(--occuplan-weekend-bg-color), ${f.bgColor}, ${f.bgColor});
         `;
       }
 
@@ -476,7 +476,7 @@ export class OccupationState {
 
       if (isWeekend && highlightWeekend) {
         return `
-          background: radial-gradient(var(--occuplan-bg-color-weekend), var(--occuplan-bg-color-main), var(--occuplan-bg-color-main)), linear-gradient(90deg, ${ef.bgColor}, ${sf.bgColor});
+          background: radial-gradient(var(--occuplan-weekend-bg-color), var(--occuplan-main-bg-color), var(--occuplan-main-bg-color)), linear-gradient(90deg, ${ef.bgColor}, ${sf.bgColor});
           `;
       }
 
@@ -490,12 +490,12 @@ export class OccupationState {
 
       if (isWeekend && highlightWeekend) {
         return `
-        background: radial-gradient( var(--occuplan-bg-color-weekend), var(--occuplan-bg-color-main), var(--occuplan-bg-color-main)), linear-gradient(90deg, var(--occuplan-bg-color-main), ${sf.bgColor});
+        background: radial-gradient( var(--occuplan--weekend-bg-color), var(--occuplan-main-bg-color), var(--occuplan-main-bg-color)), linear-gradient(90deg, var(--occuplan-main-bg-color), ${sf.bgColor});
         `;
       }
 
       return `
-        background: linear-gradient(90deg, var(--occuplan-bg-color-main), ${sf.bgColor});
+        background: linear-gradient(90deg, var(--occuplan-main-bg-color), ${sf.bgColor});
         `;
     }
 
@@ -504,23 +504,23 @@ export class OccupationState {
 
       if (isWeekend && highlightWeekend) {
         return `
-        background: radial-gradient( var(--occuplan-bg-color-weekend), var(--occuplan-bg-color-main), var(--occuplan-bg-color-main)), linear-gradient(90deg, ${ef.bgColor}, var(--occuplan-bg-color-main));
+        background: radial-gradient( var(--occuplan-weekend-bg-color), var(--occuplan-main-bg-color), var(--occuplan-main-bg-color)), linear-gradient(90deg, ${ef.bgColor}, var(--occuplan-main-bg-color));
         `;
       }
 
       return `
-        background: linear-gradient(90deg, ${ef.bgColor}, var(--occuplan-bg-color-main));
+        background: linear-gradient(90deg, ${ef.bgColor}, var(--occuplan-main-bg-color));
         `;
     }
 
     if (isWeekend && highlightWeekend) {
       return `
-        background: radial-gradient(var(--occuplan-bg-color-weekend), var(--occuplan-bg-color-main), var(--occuplan-bg-color-main));
+        background: radial-gradient(var(--occuplan-weekend-bg-color), var(--occuplan-main-bg-color), var(--occuplan-main-bg-color));
       `;
     }
 
     return `
-        background-color: var(--occuplan-bg-color-main);
+        background-color: var(--occuplan-main-bg-color);
       `;
   };
 }

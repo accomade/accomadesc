@@ -86,14 +86,14 @@
     border-radius: 2rem;
     box-shadow: var(--acco-card-shadow);
 
-    background-color: var(--acco-card-bg);
-    color: var(--acco-card-font);
+    background-color: var(--acco-card-bg-color);
+    color: var(--acco-card-font-color);
 
     * {
       --main-font-color: var(--acco-card-font);
-      --main-bg-color: var(--acco-card-bg);
-      background-color: var(--acco-card-bg);
-      color: var(--acco-card-font);
+      --main-bg-color: var(--acco-card-bg-color);
+      background-color: var(--acco-card-bg-color);
+      color: var(--acco-card-font-color);
     }
   }
 

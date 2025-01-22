@@ -162,7 +162,7 @@
       class="corner"
       style="
         grid-area: columnLegend / rowLegend / columnLegend / rowLegend;
-        background-color: var(--occuplan-bg-color-main);"
+        background-color: var(--occuplan-main-bg-color);"
     >
       &nbsp;
     </div>
@@ -213,7 +213,7 @@
         class="legend-entry-marker"
         style="
             outline: var(--occuplan-grid-border);
-            background: radial-gradient(var(--occuplan-bg-color-weekend), var(--occuplan-bg-color-main), var(--occuplan-bg-color-main));
+            background: radial-gradient(var(--occuplan-weekend-bg-color), var(--occuplan-main-bg-color), var(--occuplan-main-bg-color));
             "
       >
         &nbsp;
@@ -268,8 +268,8 @@
     align-items: center;
     border-bottom: var(--occuplan-grid-border);
     border-top: var(--occuplan-grid-border);
-    color: var(--occuplan-font-color-months);
-    background-color: var(--occuplan-bg-color-months);
+    color: var(--occuplan-months-font-color);
+    background-color: var(--occuplan-months-bg-color);
     container-type: size;
     container-name: month-label;
     padding-left: 0.3rem;
@@ -287,8 +287,8 @@
     display: inline-grid;
     align-content: center;
     outline: var(--occuplan-grid-border);
-    background-color: var(--occuplan-bg-color-days-header);
-    color: var(--occuplan-font-color-days-header);
+    background-color: var(--occuplan--days-header-bg-color);
+    color: var(--occuplan-days-header-font-color);
     container-type: size;
     container-name: month-header;
   }
@@ -333,8 +333,8 @@
     align-items: center;
 
     border: var(--occuplan-main-border);
-    color: var(--occuplan-font-color-main);
-    background-color: var(--occuplan-bg-color-main);
+    color: var(--occuplan-main-font-color);
+    background-color: var(--occuplan-main-bg-color);
   }
 
   footer {

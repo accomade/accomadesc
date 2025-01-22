@@ -488,20 +488,20 @@
   }
 
   tbody tr:nth-child(odd) {
-    background-color: var(--table-bg-color-odd, white);
-    color: var(--table-font-color-odd, black);
+    background-color: var(--table-odd-bg-color, white);
+    color: var(--table-odd-font-color, black);
     :global(*) {
-      background-color: var(--table-bg-color-odd, white);
-      color: var(--table-font-color-odd, black);
+      background-color: var(--table-odd-bg-color, white);
+      color: var(--table-odd-font-color, black);
     }
   }
 
   tbody tr:nth-child(even) {
-    background-color: var(--table-bg-color-even, black);
-    color: var(--table-font-color-even, white);
+    background-color: var(--table-even-bg-color, black);
+    color: var(--table-even-font-color, white);
     :global(*) {
-      background-color: var(--table-bg-color-even, black);
-      color: var(--table-font-color-even, white);
+      background-color: var(--table-even-bg-color, black);
+      color: var(--table-even-font-color, white);
     }
   }
 

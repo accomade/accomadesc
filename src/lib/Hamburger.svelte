@@ -46,10 +46,12 @@
 
 <style>
   button {
-    background-color: transparent;
+    background-color: var(--hamburger-bg-color);
+    padding: 0.5rem;
     border: 0;
-    width: 3rem;
-    height: 3rem;
+    border-radius: 0.2rem;
+    width: 4rem;
+    height: 4rem;
     z-index: 999;
     position: relative;
   }

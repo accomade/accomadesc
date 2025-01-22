@@ -66,6 +66,7 @@
     padding-left: 2rem;
     padding-right: 2rem;
     min-height: 5rem;
+
     * {
       color: var(--nav-font-color);
     }

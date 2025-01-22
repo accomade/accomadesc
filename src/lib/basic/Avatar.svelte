@@ -46,7 +46,7 @@
 
 <style>
   .avatar-container {
-    border: 2px solid;
+    border: var(--avatar-border);
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;

@@ -299,6 +299,6 @@
   }
 
   .disabled {
-    color: var(--font-disabled-color);
+    color: var(--disabled-font-color);
   }
 </style>

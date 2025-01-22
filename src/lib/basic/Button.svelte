@@ -75,7 +75,7 @@
     } else if (!enabled) {
       return 'var(--disabled-border-color)';
     } else {
-      return 'var(--border-color)';
+      return 'var(--main-border-color)';
     }
   });
 
@@ -85,7 +85,7 @@
     } else if (!enabled) {
       return 'var(--disabled-border-color)';
     } else {
-      return 'var(--border-color)';
+      return 'var(--main-border-color)';
     }
   });
 
@@ -293,7 +293,7 @@
   }
   .button:focus {
     outline-style: none;
-    filter: drop-shadow(0 0 0.75rem var(--focussed-border-color));
+    filter: var(--button-focus-filter);
   }
 
   .button.danger {
@@ -316,14 +316,14 @@
     vertical-align: middle;
     font-variant: small-caps;
 
-    color: var(--font-button-main-color);
+    color: var(--button-font-color);
 
     margin-left: 0.4rem;
     margin-right: 0.4rem;
   }
 
   .button.danger .button-text {
-    color: var(--font-button-danger-color);
+    color: var(--button-danger-font-color);
   }
 
   .button:disabled {

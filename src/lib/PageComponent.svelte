@@ -158,7 +158,7 @@
     font-family: var(--landing-title-font-family, 'sans-serif');
     font-variant: var(--landing-title-font-variant, 'small-caps');
     color: var(--title-font-color);
-    filter: drop-shadow(0.2rem 0.3rem 0.2rem black);
+    filter: var(--title-filter);
   }
 
   @media (max-width: 300px) {

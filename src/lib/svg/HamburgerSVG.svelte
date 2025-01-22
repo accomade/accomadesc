@@ -5,16 +5,16 @@
       clip-rule: evenodd;
       stroke-linejoin: round;
       stroke-miterlimit: 2;
-      filter: drop-shadow( 0.2rem 0.2rem 0.2rem white)
-    "
+      filter: var(--hamburger-filter);
+      "
 >
   <g>
-    <rect x="0" y="6" width="60" height="9" fill="var(--main-font-color)" />
+    <rect x="0" y="6" width="60" height="9" fill="var(--hamburger-color)" />
   </g>
   <g>
-    <rect x="0" y="46" width="60" height="9" fill="var(--main-font-color)" />
+    <rect x="0" y="46" width="60" height="9" fill="var(--hamburger-color)" />
   </g>
   <g>
-    <rect x="0" y="26" width="60" height="9" fill="var(--main-font-color)" />
+    <rect x="0" y="26" width="60" height="9" fill="var(--hamburger-color)" />
   </g>
 </svg>
