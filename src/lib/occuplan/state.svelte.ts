@@ -490,7 +490,7 @@ export class OccupationState {
 
       if (isWeekend && highlightWeekend) {
         return `
-        background: radial-gradient( var(--occuplan--weekend-bg-color), var(--occuplan-main-bg-color), var(--occuplan-main-bg-color)), linear-gradient(90deg, var(--occuplan-main-bg-color), ${sf.bgColor});
+        background: radial-gradient( var(--occuplan-weekend-bg-color), var(--occuplan-main-bg-color), var(--occuplan-main-bg-color)), linear-gradient(90deg, var(--occuplan-main-bg-color), ${sf.bgColor});
         `;
       }
 

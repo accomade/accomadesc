@@ -88,15 +88,16 @@ export const css = `
   --occuplan-main-border: 1px solid rgb(2, 48, 71);
   --occuplan-grid-border: 0.2px solid rgba(2, 48, 71, 0.2);
   --occuplan-main-font-color: rgb(2, 48, 71);
-  --occuplan-days-font-color: rgb(2, 48, 71);
-  --occuplan-days-header-font-color: rgb(2, 48, 71);
-  --occuplan-weeknum-font-color: rgba(2, 48, 71, 0.5);
-  --occuplan-month-font-color: rgb(2, 48, 71);
-  --occuplan-invalid-days-font-color: rgb(25, 25, 25);
-  --occuplan-days-header-bg-color: rgb(142, 202, 230);
-  --occuplan-weeknum-bg-color: transparent;
-  --occuplan-months-bg-color: rgb(142, 202, 230);
   --occuplan-main-bg-color: transparent;
+  --occuplan-days-font-color: rgb(2, 48, 71);
+  --occuplan-days-bg-color: transparent;
+  --occuplan-days-header-font-color: rgb(2, 48, 71);
+  --occuplan-days-header-bg-color: rgb(142, 202, 230);
+  --occuplan-weeknum-font-color: rgba(2, 48, 71, 0.5);
+  --occuplan-weeknum-bg-color: transparent;
+  --occuplan-months-font-color: rgb(2, 48, 71);
+  --occuplan-months-bg-color: rgb(142, 202, 230);
+  --occuplan-invalid-days-font-color: rgb(25, 25, 25);
   --occuplan-invalid-days-bg-color: rgba(110,110,110,0.6);
   --occuplan-weekend-bg-color: rgb(2, 48, 71);
 
@@ -106,7 +107,6 @@ export const css = `
   --occupation-type-2-bg-color: #f970f9;
   --occupation-type-3-font-color: yellow;
   --occupation-type-3-bg-color: #007017;
-
 
   --notes-vert-line: 0.5px dashed rgba(2, 48, 71, .5);
   --notes-font-color: #160067;

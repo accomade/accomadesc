@@ -287,7 +287,7 @@
     display: inline-grid;
     align-content: center;
     outline: var(--occuplan-grid-border);
-    background-color: var(--occuplan--days-header-bg-color);
+    background-color: var(--occuplan-days-header-bg-color);
     color: var(--occuplan-days-header-font-color);
     container-type: size;
     container-name: month-header;
