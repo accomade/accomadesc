@@ -18,7 +18,6 @@
   } & I18nFacade = $props();
 
   let allTranslations = $state(supportedLangs);
-
   const pathForLang = (lang: string) => {
     const pathElements = currentPath.split('/');
     //initial slash results in empty string real first element

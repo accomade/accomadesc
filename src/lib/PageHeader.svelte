@@ -37,7 +37,7 @@
   }
 
   .text-wrapper {
-    min-height: 12rem;
+    min-height: 10rem;
     display: flex;
     flex-direction: column;
     align-items: center;

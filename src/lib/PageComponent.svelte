@@ -1,10 +1,14 @@
 <script lang="ts">
   import Photo from '$lib/Photo.svelte';
+  import Button from '$lib/basic/Button.svelte';
   import Section from '$lib/Section.svelte';
   import Hamburger from '$lib/Hamburger.svelte';
   import PageHeader from '$lib/PageHeader.svelte';
   import PageFooter from '$lib/PageFooter.svelte';
-  import type { PageProps, Section as SectionI, I18nFacade } from '$lib/types.js';
+  import { type PageProps, type Section as SectionI, type I18nFacade } from '$lib/types.js';
+  import NavItem from './NavItem.svelte';
+  import { fade } from 'svelte/transition';
+  import Icon from './basic/Icon.svelte';
 
   let {
     hero,
@@ -16,6 +20,7 @@
     nav,
     showFooter = true,
     fixedHamburger = true,
+    navbarOverHamburger = true,
     translateFunc,
     formatMoneyFunc,
     formatDateFunc,
@@ -28,7 +33,23 @@
 
   let pageTitle = hero && hero.title ? hero.title : header ? header : title;
 
+  let langSelectorOpen = $state(false);
+  let allTranslations = $state(supportedLangs);
+  const pathForLang = (currentPath: string, lang: string) => {
+    const pathElements = currentPath.split('/');
+    //initial slash results in empty string real first element
+    if (pathElements.length == 1) return `/${lang}`;
+
+    const firstElement = pathElements[1];
+    if (allTranslations?.includes(firstElement)) {
+      return ['', lang, ...pathElements.slice(2)].join('/');
+    } else {
+      return ['', lang, ...pathElements.slice(1)].join('/');
+    }
+  };
+
   let hamburgerOpen = $state(false);
+  let pageWidth = $state(0);
 </script>
 
 <svelte:head>
@@ -40,7 +61,7 @@
   >
 </svelte:head>
 
-<div class="page-wrapper">
+<div class="page-wrapper" bind:clientWidth={pageWidth}>
   {#if hero}
     <header class="hero-image">
       <Photo photoPath={hero.photoPath} alt="Hero Image" eager={true} />
@@ -52,6 +73,26 @@
   {:else}
     {#if title}
       <PageHeader {title} {slug} {logoLink} {translateFunc} />
+    {/if}
+    {#if nav && navbarOverHamburger && pageWidth > 799}
+      <div class="nav" transition:fade>
+        {#each nav.main as n}
+          {#if n.path && !n.sub}
+            <div class="link-wrapper">
+              <NavItem {n} {currentLang} {translateFunc} />
+            </div>
+          {/if}
+        {/each}
+        {#if supportedLangs && supportedLangs.length > 1}
+          <div class="langs-switcher" style="display:flex; gap: 0.2rem;">
+            {#each supportedLangs as l}
+              <div class="flag-wrapper">
+                <a href="/{l}"><Icon iconName={l} height="1.5rem" width="1.5rem" /></a>
+              </div>
+            {/each}
+          </div>
+        {/if}
+      </div>
     {/if}
     {#if header}
       <h1>{@html translateFunc ? translateFunc(header) : ''}</h1>
@@ -83,16 +124,45 @@
   {/if}
 
   {#if nav}
-    <div class="ham-wrapper" class:fixed={fixedHamburger || hamburgerOpen}>
-      <Hamburger
-        {nav}
-        {translateFunc}
-        {currentLang}
-        {supportedLangs}
-        {updateCurrentLang}
-        bind:isMenuOpen={hamburgerOpen}
-      />
-    </div>
+    {#if !navbarOverHamburger || pageWidth < 800}
+      <div class="ham-wrapper" class:fixed={fixedHamburger || hamburgerOpen}>
+        <Hamburger
+          {nav}
+          {translateFunc}
+          {currentLang}
+          {supportedLangs}
+          {updateCurrentLang}
+          bind:isMenuOpen={hamburgerOpen}
+        />
+      </div>
+    {/if}
+  {/if}
+
+  {#if langSelectorOpen}
+    <fieldset class="lang-selector" transition:fade>
+      <legend>{translateFunc ? translateFunc('lang') : ''}</legend>
+
+      {#each allTranslations as langKey}
+        <a
+          class="lang-link"
+          rel="alternate"
+          onclick={() => (updateCurrentLang ? updateCurrentLang(langKey) : '')}
+          href={pathForLang(langKey)}
+          hreflang={langKey}
+        >
+          <div class="radio-wrapper">
+            <input
+              type="radio"
+              name="language"
+              id={langKey}
+              value={langKey}
+              checked={langKey === currentLang}
+            />
+            <label for={langKey}>{translateFunc ? translateFunc(langKey) : ''}</label>
+          </div>
+        </a>
+      {/each}
+    </fieldset>
   {/if}
 </div>
 
@@ -178,6 +248,21 @@
 
   .fixed {
     position: fixed;
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-grow: 3;
+    background-color: var(--footer-bg-color);
+    padding-bottom: 1rem;
+  }
+
+  .nav :global(*) {
+    background-color: var(--footer-bg-color);
+    color: var(--footer-font-color);
   }
 
   .page-wrapper {
