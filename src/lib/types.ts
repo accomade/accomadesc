@@ -411,6 +411,7 @@ export interface SiteConfig {
     translations: Record<string, SiteTranslation>;
     formats: Record<string, FormatSpec>;
   };
+  css: string;
 }
 
 export interface PageProps {
