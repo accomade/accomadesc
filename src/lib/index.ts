@@ -81,6 +81,7 @@ export type {
   SiteFonts,
   SiteTranslation,
   FontSpec,
+  Hero,
 } from '$lib/types.js';
 
 export {
