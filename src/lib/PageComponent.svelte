@@ -1,14 +1,19 @@
 <script lang="ts">
   import Photo from '$lib/Photo.svelte';
-  import Button from '$lib/basic/Button.svelte';
   import Section from '$lib/Section.svelte';
   import Hamburger from '$lib/Hamburger.svelte';
   import PageHeader from '$lib/PageHeader.svelte';
   import PageFooter from '$lib/PageFooter.svelte';
-  import { type PageProps, type Section as SectionI, type I18nFacade } from '$lib/types.js';
+  import {
+    type Nav,
+    type PageProps,
+    type Section as SectionI,
+    type I18nFacade,
+  } from '$lib/types.js';
   import NavItem from './NavItem.svelte';
   import { fade } from 'svelte/transition';
   import Icon from './basic/Icon.svelte';
+  import { page } from '$app/state';
 
   let {
     hero,
@@ -35,7 +40,9 @@
 
   let langSelectorOpen = $state(false);
   let allTranslations = $state(supportedLangs);
-  const pathForLang = (currentPath: string, lang: string) => {
+
+  let currentPath = $derived(page.url.pathname);
+  const pathForLang = (lang: string) => {
     const pathElements = currentPath.split('/');
     //initial slash results in empty string real first element
     if (pathElements.length == 1) return `/${lang}`;
@@ -61,10 +68,47 @@
   >
 </svelte:head>
 
+{#snippet navbar(nav: Nav)}
+  <div class="nav" transition:fade>
+    {#each nav.main as n}
+      {#if n.path && !n.sub}
+        <div class="link-wrapper">
+          <NavItem {n} {currentLang} {translateFunc} />
+        </div>
+      {/if}
+    {/each}
+    {#if supportedLangs && supportedLangs.length > 1}
+      <div class="langs-switcher" style="display:flex; gap: 0.2rem;">
+        {#each supportedLangs as l}
+          {#if l == currentLang}
+            <div class="flag-wrapper disabled">
+              <Icon iconName={l} height="1.5rem" width="1.5rem" />
+            </div>
+          {:else}
+            <div class="flag-wrapper">
+              <a
+                onclick={() => (updateCurrentLang ? updateCurrentLang(l) : '')}
+                href={pathForLang(l)}
+              >
+                <Icon iconName={l} height="1.5rem" width="1.5rem" />
+              </a>
+            </div>
+          {/if}
+        {/each}
+      </div>
+    {/if}
+  </div>
+{/snippet}
+
 <div class="page-wrapper" bind:clientWidth={pageWidth}>
   {#if hero}
     <header class="hero-image">
       <Photo photoPath={hero.photoPath} alt="Hero Image" eager={true} />
+      {#if nav && navbarOverHamburger && pageWidth > 799}
+        <div class="hero-nav-wrapper">
+          {@render navbar(nav)}
+        </div>
+      {/if}
     </header>
 
     <div class="floating-title">
@@ -75,24 +119,7 @@
       <PageHeader {title} {slug} {logoLink} {translateFunc} />
     {/if}
     {#if nav && navbarOverHamburger && pageWidth > 799}
-      <div class="nav" transition:fade>
-        {#each nav.main as n}
-          {#if n.path && !n.sub}
-            <div class="link-wrapper">
-              <NavItem {n} {currentLang} {translateFunc} />
-            </div>
-          {/if}
-        {/each}
-        {#if supportedLangs && supportedLangs.length > 1}
-          <div class="langs-switcher" style="display:flex; gap: 0.2rem;">
-            {#each supportedLangs as l}
-              <div class="flag-wrapper">
-                <a href="/{l}"><Icon iconName={l} height="1.5rem" width="1.5rem" /></a>
-              </div>
-            {/each}
-          </div>
-        {/if}
-      </div>
+      {@render navbar(nav)}
     {/if}
     {#if header}
       <h1>{@html translateFunc ? translateFunc(header) : ''}</h1>
@@ -138,7 +165,7 @@
     {/if}
   {/if}
 
-  {#if langSelectorOpen}
+  {#if langSelectorOpen && allTranslations && allTranslations.length > 1}
     <fieldset class="lang-selector" transition:fade>
       <legend>{translateFunc ? translateFunc('lang') : ''}</legend>
 
@@ -256,12 +283,12 @@
     justify-content: space-around;
     flex-wrap: wrap;
     flex-grow: 3;
-    background-color: var(--footer-bg-color);
+    background-color: var(--header-bg-color);
     padding-bottom: 1rem;
   }
 
   .nav :global(*) {
-    background-color: var(--footer-bg-color);
+    background-color: var(--header-bg-color);
     color: var(--footer-font-color);
   }
 
@@ -272,5 +299,18 @@
     position: relative;
 
     background-color: var(--main-bg-color);
+  }
+
+  .disabled {
+    filter: grayscale();
+  }
+
+  .hero-nav-wrapper {
+    position: absolute;
+    right: 0;
+    left: 0;
+    padding-top: 1rem;
+    background-color: var(--header-bg-color);
+    bottom: -3rem;
   }
 </style>
