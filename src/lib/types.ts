@@ -360,6 +360,13 @@ export interface SiteTranslation {
   site: Record<string, string>;
 }
 
+export interface LangConfig {
+  defaultLang: string;
+  supportedLangs: string[];
+  translations: Record<string, SiteTranslation>;
+  formats: Record<string, FormatSpec>;
+}
+
 export const FORMAT_TEMPLATE_NAMES = [
   'dateFormat',
   'monthHeader',
@@ -405,12 +412,7 @@ export interface SiteConfig {
     '/': PageProps;
     [key: string]: PageProps;
   };
-  lang: {
-    defaultLang: string;
-    supportedLangs: string[];
-    translations: Record<string, SiteTranslation>;
-    formats: Record<string, FormatSpec>;
-  };
+  lang: LangConfig;
   css: string;
 }
 

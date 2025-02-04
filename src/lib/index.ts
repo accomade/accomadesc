@@ -78,6 +78,7 @@ export type {
   FormatSpec,
   FormatTemplateName,
   SiteConfig,
+  LangConfig,
   SiteFonts,
   SiteTranslation,
   FontSpec,
