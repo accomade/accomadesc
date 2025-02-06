@@ -24,6 +24,7 @@
     content,
     nav,
     showFooter = true,
+    footerRef = 'footer_html',
     fixedHamburger = true,
     navbarOverHamburger = true,
     translateFunc,
@@ -146,7 +147,7 @@
 
   {#if nav && showFooter}
     <div class="footer-wrapper">
-      <PageFooter {nav} {translateFunc} {currentLang} />
+      <PageFooter {nav} ref={footerRef} {translateFunc} {currentLang} />
     </div>
   {/if}
 

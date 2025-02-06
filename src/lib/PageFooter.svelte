@@ -2,7 +2,9 @@
   import type { Nav, I18nFacade } from '$lib/types.js';
   import NavItem from '$lib/NavItem.svelte';
 
-  let { nav, translateFunc, currentLang }: { nav: Nav } & I18nFacade = $props();
+  let { nav, ref, translateFunc, currentLang }: { nav: Nav; ref?: string } & I18nFacade = $props();
+
+  const contentRef = ref ?? 'footer_html';
 </script>
 
 <footer>
@@ -14,7 +16,7 @@
     {/each}
   </div>
   <div class="content">
-    {@html translateFunc ? translateFunc('footer_html') : ''}
+    {@html translateFunc ? translateFunc(contentRef) : ''}
   </div>
 </footer>
 

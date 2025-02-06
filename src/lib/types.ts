@@ -428,6 +428,7 @@ export interface PageProps {
   logoLink?: string;
   header?: string;
   showFooter?: boolean;
+  footerRef?: string;
   fixedHamburger?: boolean;
   navbarOverHamburger?: boolean;
   content?: Section[];
