@@ -397,15 +397,17 @@ export interface SiteFonts {
   header: FontSpec;
 }
 
+export interface CookieConfig {
+  types: CookieType[];
+  showIcon: boolean;
+}
+
 export interface SiteConfig {
   settings: {
     ACCOMADE_USER_ID: string;
     PUBLIC_SUPABASE_URL: string;
   };
-  cookies: {
-    types: CookieType[];
-    showIcon: boolean;
-  };
+  cookies: CookieConfig;
   fonts: SiteFonts;
   nav: Nav;
   pages: {

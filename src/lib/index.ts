@@ -79,6 +79,7 @@ export type {
   FormatTemplateName,
   SiteConfig,
   LangConfig,
+  CookieConfig,
   SiteFonts,
   SiteTranslation,
   FontSpec,
