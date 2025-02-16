@@ -286,6 +286,7 @@
     flex-grow: 3;
     background-color: var(--header-bg-color);
     padding-bottom: 1rem;
+    padding-top: 0.5rem;
   }
 
   .nav :global(*) {
