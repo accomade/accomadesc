@@ -456,6 +456,7 @@ export interface Hero {
 
 export interface Section {
   id: string;
+  name?: string;
   header?: string;
   columnCount?: number;
   padding?: string;
