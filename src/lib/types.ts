@@ -525,6 +525,25 @@ export const Languages: Record<string, Lang> = {
   },
 };
 
+export const BLOCK_KINDS = [
+  'acco-card',
+  'text',
+  'photo',
+  'gallery',
+  'leaflet-map',
+  'weather',
+  'amenities-core',
+  'calendar-available',
+  'calendar',
+  'calendar-grid',
+  'calendar-rows',
+  'pricing',
+  'pricing-short',
+  'acco-description',
+  'contact-form',
+  'booking-request',
+];
+
 export const isAccoCard = (b: Block): b is AccoCard => {
   if (!b) return false;
   return b.kind === 'acco-card';

@@ -88,6 +88,7 @@ export type {
 
 export {
   PRICING_COLUMNS,
+  BLOCK_KINDS,
   isAccoCard,
   isText,
   isPhoto,
