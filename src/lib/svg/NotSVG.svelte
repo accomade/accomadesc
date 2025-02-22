@@ -23,7 +23,7 @@
       y1="13.2106"
       x2="48.8669"
       y2="50.2106"
-      stroke="var(--icon-cnot-color, 'red')"
+      stroke="var(--icon-not-color, 'red')"
       stroke-width="8"
     />
   </svg>
