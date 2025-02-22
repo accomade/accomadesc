@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
   import type { I18nFacade, WeatherContent } from '$lib/types.js';
+  import { randomID } from './names/gen.ts';
 
   let { header1, header2, location, translateFunc, currentLang }: WeatherContent & I18nFacade =
     $props();
@@ -18,13 +19,15 @@
     load(callback);
   });
 
+  const id = `weatherwidget-io-js-${randomID()}`;
+
   const load = (callback: VoidFunction) => {
     if (browser) {
-      const existing = document.getElementById('weatherwidget-io-js');
+      const existing = document.getElementById(id);
       if (!existing) {
         const tag = document.createElement('script');
         tag.src = 'https://weatherwidget.io/js/widget.min.js';
-        tag.id = 'weatherwidget-io-js';
+        tag.id = id;
         tag.defer = true;
         tag.async = true;
         tag.onload = callback;
@@ -40,9 +43,10 @@
 
   $effect(() => {
     if (initialLoadDone) {
+      console.log('Translation changed, reloading');
       translatedHeader1 = translateFunc ? translateFunc(header1) : '';
       translatedHeader2 = translateFunc ? translateFunc(header2) : '';
-      document.getElementById('weatherwidget-io-js')?.remove();
+      document.getElementById(id)?.remove();
       load(callback);
     }
   });
