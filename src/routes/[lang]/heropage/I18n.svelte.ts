@@ -71,8 +71,7 @@ export class I18n implements I18nFacade {
       availableFromFor: (props: Record<string, any>) =>
         `Min. ${props.forDays} days from ${props.from}`,
 
-      additionalPersonPrice: (props: Record<string, any>) =>
-        `${this.formatMoneyFunc(props.price)} for ${props.terms}`,
+      additionalPersonPrice: (props: Record<string, any>) => `${props.price} for ${props.terms}`,
       minNumberOfNights: (props: Record<string, any>) => `${props.num} nights`,
       numberOfGuests: (props: Record<string, any>) => {
         if (!props.base && !props.max) return '';
@@ -120,8 +119,7 @@ export class I18n implements I18nFacade {
       nothingAvailable: (props: Record<string, any>) => `${JSON.stringify(props)}`,
       availableFromFor: (props: Record<string, any>) => `${JSON.stringify(props)}`,
 
-      additionalPersonPrice: (props: Record<string, any>) =>
-        `${this.formatMoneyFunc(props.price)} e ${props.terms}`,
+      additionalPersonPrice: (props: Record<string, any>) => `${props.price} e ${props.terms}`,
       minNumberOfNights: (props: Record<string, any>) => `${props.num} nuits`,
       numberOfGuests: (props: Record<string, any>) => {
         if (!props.base && !props.max) return '';
