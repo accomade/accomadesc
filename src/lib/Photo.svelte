@@ -31,9 +31,10 @@
       class={className}
       src={photoPath}
       alt={altTranslation}
-      {ratio}
       mode="cover"
       {eager}
+      {ratio}
+      position="center"
       {transition}
     />
   </div>
@@ -53,7 +54,7 @@
       style="width: {width}; height: {height};"
       href={link}
       target="_blank"
-      rel="noreferrer noopener"
+      rel="noreferrer noopener nofollow"
     >
       {@render twic()}
       <div class="link-icon-wrapper"><ExtLinkSvg size="1.8rem" /></div>
@@ -107,6 +108,7 @@
     flex-direction: column;
     position: absolute;
     padding-bottom: 0.2rem;
+    padding-right: 0.3rem;
     top: 0;
     left: 0;
     width: 100%;

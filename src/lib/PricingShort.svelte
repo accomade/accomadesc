@@ -11,6 +11,7 @@
     staticRanges = [],
     showMaximum = true,
     showMinimum = true,
+    formatMoneyFunc,
     translateFunc,
     formatFunc,
   }: PricingShortContent & I18nFacade = $props();
@@ -26,7 +27,7 @@
     });
   });
 
-  let calculatedMinium = $state(dinero({ amount: Number.MAX_SAFE_INTEGER, currency: EUR }));
+  let calculatedMinimum = $state(dinero({ amount: Number.MAX_SAFE_INTEGER, currency: EUR }));
   let calculatedMaximum = $state(dinero({ amount: 0, currency: EUR }));
 
   const calcAverage = (entry: PricingEntry): Dinero<number> | undefined => {
@@ -58,8 +59,8 @@
         if (greaterThan(avg, calculatedMaximum)) {
           calculatedMaximum = avg;
         }
-        if (lessThan(avg, calculatedMinium)) {
-          calculatedMinium = avg;
+        if (lessThan(avg, calculatedMinimum)) {
+          calculatedMinimum = avg;
         }
       }
     });
@@ -70,22 +71,29 @@
         if (greaterThan(globalAvg, calculatedMaximum)) {
           calculatedMaximum = globalAvg;
         }
-        if (lessThan(globalAvg, calculatedMinium)) {
-          calculatedMinium = globalAvg;
+        if (lessThan(globalAvg, calculatedMinimum)) {
+          calculatedMinimum = globalAvg;
         }
       }
     }
   });
+
+  let formattedMax: string | undefined = $derived(
+    formatMoneyFunc && formatMoneyFunc(calculatedMaximum),
+  );
+  let formattedMin: string | undefined = $derived(
+    formatMoneyFunc && formatMoneyFunc(calculatedMinimum),
+  );
 </script>
 
 <div class="pricing-short-wrapper">
   <h3>
     {translateFunc ? translateFunc('shortPriceLabel') : 'shortPriceLabel'}
     {#if showMinimum}<span
-        >{formatFunc ? formatFunc('minimumPrice', { min: calculatedMinium }) : ''}</span
+        >{formatFunc ? formatFunc('minimumPrice', { min: formattedMin }) : ''}</span
       >{/if}
     {#if showMaximum}<span
-        >{formatFunc ? formatFunc('maximumPrice', { max: calculatedMaximum }) : ''}</span
+        >{formatFunc ? formatFunc('maximumPrice', { max: formattedMax }) : ''}</span
       >{/if}
   </h3>
 </div>

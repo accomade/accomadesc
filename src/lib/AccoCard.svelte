@@ -11,8 +11,14 @@
     type I18nFacade,
   } from './types.js';
 
-  let { cardContent, displayName, translateFunc, formatFunc }: AccoCardContent & I18nFacade =
-    $props();
+  let {
+    cardContent,
+    displayName,
+    translateFunc,
+    formatFunc,
+    formatMoneyFunc,
+    formatDateFunc,
+  }: AccoCardContent & I18nFacade = $props();
   let translatedSlug = $derived(
     translateFunc && cardContent.slug ? translateFunc(cardContent.slug) : '',
   );
@@ -35,11 +41,23 @@
       {#each cardContent.blocks as b, i}
         <div class="block-container-{i}">
           {#if isAmenitiesCore(b)}
-            <AmenitiesCore {...b.content} {formatFunc} />
+            <AmenitiesCore {...b.content} {formatFunc} {formatMoneyFunc} {formatDateFunc} />
           {:else if isPricingShort(b)}
-            <PricingShort {...b.content} {translateFunc} {formatFunc} />
+            <PricingShort
+              {...b.content}
+              {translateFunc}
+              {formatFunc}
+              {formatMoneyFunc}
+              {formatDateFunc}
+            />
           {:else if isCalendarAvailable(b)}
-            <CalendarAvailable {...b.content} {translateFunc} {formatFunc} />
+            <CalendarAvailable
+              {...b.content}
+              {translateFunc}
+              {formatFunc}
+              {formatMoneyFunc}
+              {formatDateFunc}
+            />
           {:else}
             <span>Unsupported</span>
           {/if}
@@ -90,7 +108,7 @@
     color: var(--acco-card-font-color);
 
     * {
-      --main-font-color: var(--acco-card-font);
+      --main-font-color: var(--acco-card-font-color);
       --main-bg-color: var(--acco-card-bg-color);
       background-color: var(--acco-card-bg-color);
       color: var(--acco-card-font-color);

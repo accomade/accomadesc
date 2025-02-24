@@ -125,57 +125,47 @@ export class I18n implements I18nFacade {
   formats: Record<string, Record<string, any>> = $state({
     en: {
       size: (props: Record<string, any>) => `${props.size} m<sup>2</sup>`,
-      minimumPrice: (props: Record<string, any>) => `From ${this.formatMoneyFunc(props.min)}`,
-      maximumPrice: (props: Record<string, any>) => `To ${this.formatMoneyFunc(props.max)}`,
+      minimumPrice: (props: Record<string, any>) => `From ${props.min}`,
+      maximumPrice: (props: Record<string, any>) => `To ${props.max}`,
       nothingAvailable: (props: Record<string, any>) =>
-        `Not Available for ${props.forDays} days before ${this.formatDateFunc(props.maxFutureDate)}`,
+        `Not Available for ${props.forDays} days before ${props.maxFutureDate}`,
       availableFromFor: (props: Record<string, any>) =>
-        `Min. ${props.forDays} days from ${this.formatDateFunc(props.from)}`,
+        `Min. ${props.forDays} days from ${props.from}`,
 
-      additionalPersonPrice: (props: Record<string, any>) =>
-        `${this.formatMoneyFunc(props.price)} for ${props.terms}`,
+      additionalPersonPrice: (props: Record<string, any>) => `${props.price} for ${props.terms}`,
       minNumberOfNights: (props: Record<string, any>) => `${props.num} nights`,
       numberOfGuests: (props: Record<string, any>) => {
         if (!props.base && !props.max) return '';
         if (props.base && !props.max) return `${props.base}`;
         return `${props.base}-${props.max}`;
       },
-      rangeFromTo: (props: Record<string, any>) =>
-        `${this.formatDateFunc(props.from)} => ${this.formatDateFunc(props.to)}`,
-      rangeFrom: (props: Record<string, any>) => `${this.formatDateFunc(props.from)} => ???`,
-      rangeTo: (props: Record<string, any>) => `??? => ${this.formatDateFunc(props.to)}`,
-      staticRangeFromTo: (props: Record<string, any>) =>
-        `${props.from.day ?? 1}.${props.from.month}. => ${props.to.day ?? '28/29/30/31'}.${props.to.month}.`,
-      staticRangeFrom: (props: Record<string, any>) =>
-        `${props.from.day ?? 1}.${props.from.month}. => ???`,
-      staticRangeTo: (props: Record<string, any>) =>
-        `??? => ${props.to.day ?? '28/29/30/31'}.${props.to.month}.`,
+      rangeFromTo: (props: Record<string, any>) => `${props.from} => ${props.to}`,
+      rangeFrom: (props: Record<string, any>) => `${props.from} => ???`,
+      rangeTo: (props: Record<string, any>) => `??? => ${props.to}`,
+      staticRangeFromTo: (props: Record<string, any>) => `${props.fromMonth} => ${props.toMonth}`,
+      staticRangeFrom: (props: Record<string, any>) => `${props.fromMonth} => ???`,
+      staticRangeTo: (props: Record<string, any>) => `??? => ${props.toMonth}`,
     },
     de: {
       size: (props: Record<string, any>) => `${props.size} p<sup>3</sup>`,
-      minimumPrice: (props: Record<string, any>) => `Von: ${this.formatMoneyFunc(props.min)}`,
-      maximumPrice: (props: Record<string, any>) => `Bis: ${this.formatMoneyFunc(props.max)}`,
+      minimumPrice: (props: Record<string, any>) => `Von: ${props.min}`,
+      maximumPrice: (props: Record<string, any>) => `Bis: ${props.max}`,
       nothingAvailable: (props: Record<string, any>) => `${JSON.stringify(props)}`,
       availableFromFor: (props: Record<string, any>) => `${JSON.stringify(props)}`,
 
-      additionalPersonPrice: (props: Record<string, any>) =>
-        `${this.formatMoneyFunc(props.price)} für ${props.terms}`,
+      additionalPersonPrice: (props: Record<string, any>) => `${props.price} für ${props.terms}`,
       minNumberOfNights: (props: Record<string, any>) => `${props.num} Nächte`,
       numberOfGuests: (props: Record<string, any>) => {
         if (!props.base && !props.max) return '';
         if (props.base && !props.max) return `${props.base}`;
         return `${props.base}-${props.max}`;
       },
-      rangeFromTo: (props: Record<string, any>) =>
-        `${this.formatDateFunc(props.from)} => ${this.formatDateFunc(props.to)}`,
-      rangeFrom: (props: Record<string, any>) => `${this.formatDateFunc(props.from)} => ???`,
-      rangeTo: (props: Record<string, any>) => `??? => ${this.formatDateFunc(props.to)}`,
-      staticRangeFromTo: (props: Record<string, any>) =>
-        `${props.from.day ?? 1}.${props.from.month}. => ${props.to.day ?? '28/29/30/31'}.${props.to.month}.`,
-      staticRangeFrom: (props: Record<string, any>) =>
-        `${props.from.day ?? 1}.${props.from.month}. => ???`,
-      staticRangeTo: (props: Record<string, any>) =>
-        `??? => ${props.to.day ?? '28/29/30/31'}.${props.to.month}.`,
+      rangeFromTo: (props: Record<string, any>) => `${props.from} => ${props.to}`,
+      rangeFrom: (props: Record<string, any>) => `${props.from} => ???`,
+      rangeTo: (props: Record<string, any>) => `??? => ${props.to}`,
+      staticRangeFromTo: (props: Record<string, any>) => `${props.fromMonth} => ${props.toMonth}`,
+      staticRangeFrom: (props: Record<string, any>) => `${props.fromMonth}. => ???`,
+      staticRangeTo: (props: Record<string, any>) => `??? => ${props.toMonth}`,
     },
     fr: {
       size: (props: Record<string, any>) => `${props.size} f<sup>2</sup>`,
@@ -184,24 +174,19 @@ export class I18n implements I18nFacade {
       nothingAvailable: (props: Record<string, any>) => `${JSON.stringify(props)}`,
       availableFromFor: (props: Record<string, any>) => `${JSON.stringify(props)}`,
 
-      additionalPersonPrice: (props: Record<string, any>) =>
-        `${this.formatMoneyFunc(props.price)} e ${props.terms}`,
+      additionalPersonPrice: (props: Record<string, any>) => `${props.price} e ${props.terms}`,
       minNumberOfNights: (props: Record<string, any>) => `${props.num} nuits`,
       numberOfGuests: (props: Record<string, any>) => {
         if (!props.base && !props.max) return '';
         if (props.base && !props.max) return `${props.base}`;
         return `${props.base}-${props.max}`;
       },
-      rangeFromTo: (props: Record<string, any>) =>
-        `${this.formatDateFunc(props.from)} => ${this.formatDateFunc(props.to)}`,
-      rangeFrom: (props: Record<string, any>) => `${this.formatDateFunc(props.from)} => ???`,
-      rangeTo: (props: Record<string, any>) => `??? => ${this.formatDateFunc(props.to)}`,
-      staticRangeFromTo: (props: Record<string, any>) =>
-        `${props.from.day ?? 1}.${props.from.month}. => ${props.to.day ?? '28/29/30/31'}.${props.to.month}.`,
-      staticRangeFrom: (props: Record<string, any>) =>
-        `${props.from.day ?? 1}.${props.from.month}. => ???`,
-      staticRangeTo: (props: Record<string, any>) =>
-        `??? => ${props.to.day ?? '28/29/30/31'}.${props.to.month}.`,
+      rangeFromTo: (props: Record<string, any>) => `${props.from} => ${props.to}`,
+      rangeFrom: (props: Record<string, any>) => `${props.from} => ???`,
+      rangeTo: (props: Record<string, any>) => `??? => ${props.to}`,
+      staticRangeFromTo: (props: Record<string, any>) => `${props.fromMonth} => ${props.toMonth}`,
+      staticRangeFrom: (props: Record<string, any>) => `${props.fromMonth} => ???`,
+      staticRangeTo: (props: Record<string, any>) => `??? => ${props.toMonth}`,
     },
   });
 

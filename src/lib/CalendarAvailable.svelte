@@ -9,6 +9,7 @@
     debug = true,
     search = [3, 7, 14],
     maxFutureDate = DateTime.now().plus({ years: 2 }).toISO(),
+    formatDateFunc,
     formatFunc,
     translateFunc,
   }: CalendarAvailableContent & I18nFacade & { debug?: boolean } = $props();
@@ -16,15 +17,17 @@
   let availHeader = $derived(translateFunc ? translateFunc('availability') : '[AVAILABILITY]');
 
   const formatAvailability = (from: DateTime | null, forDays: number): string => {
-    if (!formatFunc) return '';
+    if (!formatFunc || !formatDateFunc) return '';
     if (from == null) {
+      const formattedFutureDate = formatDateFunc(maxFutureDate);
       return formatFunc('nothingAvailable', {
         forDays,
-        maxFutureDate,
+        maxFutureDate: formattedFutureDate,
       });
     }
+    const formattedFrom = formatDateFunc(from);
     return formatFunc('availableFromFor', {
-      from,
+      from: formattedFrom,
       forDays,
     });
   };

@@ -88,21 +88,39 @@
     {#each blocks as block}
       <div class="block-container">
         {#if isAccoCard(block)}
-          <AccoCard {...block.content} {translateFunc} {formatFunc} />
+          <AccoCard
+            {...block.content}
+            {translateFunc}
+            {formatFunc}
+            {formatDateFunc}
+            {formatMoneyFunc}
+          />
         {:else if isAccoDescription(block)}
-          <AccoDescription {...block.content} {translateFunc} />
+          <AccoDescription {...block.content} {translateFunc} {formatDateFunc} {formatMoneyFunc} />
         {:else if isAmenitiesCore(block)}
-          <AmenitiesCore {...block.content} {formatFunc} />
+          <AmenitiesCore {...block.content} {formatFunc} {formatDateFunc} {formatMoneyFunc} />
         {:else if isCalendar(block)}
-          <Calendar {...block.content} {translateFunc} {calendarTranslation} />
+          <Calendar
+            {...block.content}
+            {translateFunc}
+            {calendarTranslation}
+            {formatDateFunc}
+            {formatMoneyFunc}
+          />
         {:else if isCalendarAvailable(block)}
-          <CalendarAvailable {...block.content} {formatFunc} {translateFunc} />
+          <CalendarAvailable
+            {...block.content}
+            {formatFunc}
+            {translateFunc}
+            {formatDateFunc}
+            {formatMoneyFunc}
+          />
         {:else if isLeafletMap(block)}
           <LeafletMap {...block.content} />
         {:else if isPhoto(block)}
-          <Photo {...block.content} {translateFunc} />
+          <Photo {...block.content} {translateFunc} {formatDateFunc} {formatMoneyFunc} />
         {:else if isGallery(block)}
-          <PhotoGallery {...block.content} {translateFunc} />
+          <PhotoGallery {...block.content} {translateFunc} {formatDateFunc} {formatMoneyFunc} />
         {:else if isPricing(block)}
           <Pricing
             {...block.content}
@@ -113,19 +131,31 @@
             {currentLang}
           />
         {:else if isPricingShort(block)}
-          <PricingShort {...block.content} {translateFunc} {formatFunc} />
+          <PricingShort
+            {...block.content}
+            {translateFunc}
+            {formatFunc}
+            {formatDateFunc}
+            {formatMoneyFunc}
+          />
         {:else if isText(block)}
-          <Text {...block.content} {translateFunc} />
+          <Text {...block.content} {translateFunc} {formatDateFunc} {formatMoneyFunc} />
         {:else if isWeather(block)}
-          <Weather {...block.content} {translateFunc} {currentLang} />
+          <Weather
+            {...block.content}
+            {translateFunc}
+            {currentLang}
+            {formatDateFunc}
+            {formatMoneyFunc}
+          />
         {:else if isBookingRequest(block)}
-          <BookingRequest {...block.content} {translateFunc} {formatDateFunc} />
+          <BookingRequest {...block.content} {translateFunc} {formatDateFunc} {formatMoneyFunc} />
         {:else if isCalendarRows(block)}
-          <CalendarRows {...block.content} {translateFunc} />
+          <CalendarRows {...block.content} {translateFunc} {formatDateFunc} {formatMoneyFunc} />
         {:else if isCalendarGrid(block)}
-          <CalendarGrid {...block.content} {translateFunc} />
+          <CalendarGrid {...block.content} {translateFunc} {formatDateFunc} {formatMoneyFunc} />
         {:else if isContactForm(block)}
-          <ContactForm {...block.content} {translateFunc} />
+          <ContactForm {...block.content} {translateFunc} {formatDateFunc} {formatMoneyFunc} />
         {:else}
           <div>[UNEXPECTED VALUE]</div>
         {/if}

@@ -9,23 +9,23 @@ export const css = `
   --accept-font-color: #0D9D00;
 
   --avatar-border: 0.15rem solid rgba(7, 7, 7, 0.9);
-
+  
   --hamburger-color: rgb(7, 7, 7);
   --hamburger-bg-color: transparent;
   --hamburger-filter: drop-shadow( 0.2rem 0.2rem 0.2rem white);
-
+  
   --gallery-button-bg-color: rgba(242, 242, 242, 0.3);
   --gallery-button-font-color: rgba(15, 14, 15, 0.6);
-
+  
   --button-font-color: #070707;
   --button-bg-color: rgb(234, 250, 255);
   --button-danger-font-color: #070707;
   --button-danger-bg-color: #B01313;
   --button-focus-filter: drop-shadow(0 0 0.75rem rgba(102, 120, 243, 0.9));
-  --button-focussed-border-color:;
-  --button-disabled-border-color:;
-  --button-border-color:;
-
+  --button-focussed-border-color: blue;
+  --button-disabled-border-color: blue;
+  --button-border-color: blue;
+  
   --focussed-border-color: rgba(102, 120, 243, 0.9);
   --focussed-border: 0.15rem solid var(--focussed-border-color); 
   --focussed-filter: drop-shadow(0 0 0.75rem rgba(102, 120, 243, 0.9));
@@ -34,11 +34,8 @@ export const css = `
   --invalid-border-color: #B01313;
   --invalid-border: 0.15rem solid var(--invalid-border-color);
 
-  --icon-not-color: #c50000;
-  --icon-color: black;
-  --icon-disabled-color: rgba(35,35,35, 0.4);
 
-  --table-odd-bg-color: rgb(243, 243, 243);
+    --table-odd-bg-color: rgb(243, 243, 243);
   --table-even-bg-color: rgb(226, 226, 226);
   --table-odd-font-color: black;
   --table-even-font-color: black;
@@ -59,8 +56,9 @@ export const css = `
       0px 8.9px 17.9px rgba(0, 0, 0, 0.042),
       0px 16.7px 33.4px rgba(0, 0, 0, 0.05),
       0px 40px 80px rgba(0, 0, 0, 0.07);
-  
- 
+
+
+
   --nav-bg-color: rgba(7,7,7, 0.8);
   --nav-font-color: white; 
 
@@ -84,6 +82,7 @@ export const css = `
       19px 60px 80px rgba(0, 0, 0, 0.07);
   --acco-card-font-color: black;
   --acco-card-bg-color: white;
+
 
   --occuplan-main-border: 1px solid rgb(2, 48, 71);
   --occuplan-grid-border: 0.2px solid rgba(2, 48, 71, 0.2);
@@ -113,4 +112,8 @@ export const css = `
   --notes-bg-color: #fff7dd;
   --notes-disabled-font-color: #160067;
   --notes-disabled-bg-color: #eeefde;
+  --icon-not-color: #c50000;
+  --icon-color: black;
+  --icon-disabled-color: rgba(35,35,35, 0.4);
+
 `;

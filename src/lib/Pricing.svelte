@@ -54,8 +54,9 @@
     if (formatFunc && translateFunc) {
       let terms = '';
       if (termsRef) terms = translateFunc(termsRef);
+      let formattedPrice = formatMoneyFunc?.(price);
       return formatFunc('additionalPersonPrice', {
-        price,
+        price: formattedPrice,
         terms,
       });
     }
@@ -66,11 +67,15 @@
     let result = '';
     if (!formatFunc) return result;
     if (range.from && range.to) {
-      result = formatFunc('rangeFromTo', { from: range.from, to: range.to });
+      const formattedFrom = formatDateFunc?.(range.from);
+      const formattedTo = formatDateFunc?.(range.to);
+      result = formatFunc('rangeFromTo', { from: formattedFrom, to: formattedTo });
     } else if (range.from) {
-      result = formatFunc('rangeFrom', { from: range.from });
+      const formattedFrom = formatDateFunc?.(range.from);
+      result = formatFunc('rangeFrom', { from: formattedFrom });
     } else if (range.to) {
-      result = formatFunc('rangeTo', { to: range.to });
+      const formattedTo = formatDateFunc?.(range.to);
+      result = formatFunc('rangeTo', { to: formattedTo });
     }
     return result;
   };
@@ -80,11 +85,22 @@
     if (!formatFunc) return result;
 
     if (range.from && range.to) {
-      result = formatFunc('staticRangeFromTo', { from: range.from, to: range.to });
+      result = formatFunc('staticRangeFromTo', {
+        fromMonth: range.from.month,
+        fromDay: range.from.day,
+        toMonth: range.to.month,
+        toDay: range.to.day,
+      });
     } else if (range.from) {
-      result = formatFunc('staticRangeFrom', { from: range.from });
+      result = formatFunc('staticRangeFrom', {
+        fromMonth: range.from.month,
+        fromDay: range.from.day,
+      });
     } else if (range.to) {
-      result = formatFunc('staticRangeTo', { to: range.to });
+      result = formatFunc('staticRangeTo', {
+        toMonth: range.to.month,
+        toDay: range.to.day,
+      });
     }
 
     return result;
