@@ -7,8 +7,8 @@
     url,
     debug,
     calendarTranslation,
-    minYear = DateTime.utc().year,
-    maxYear = DateTime.utc().plus({ year: 2 }).year,
+    maxPastYears = 0,
+    maxFutureYears = 2,
     translateFunc,
   }: CalendarRowsContent & I18nFacade & { debug?: boolean } = $props();
 </script>
@@ -17,8 +17,8 @@
   <OccuPlanRows
     {url}
     {debug}
-    minDate={DateTime.utc().set({ day: 1, month: 1, year: minYear })}
-    maxDate={DateTime.utc().set({ day: 31, month: 12, year: maxYear })}
+    minDate={DateTime.utc().set({ day: 1, month: 1 }).minus({ years: maxPastYears })}
+    maxDate={DateTime.utc().set({ day: 31, month: 12 }).plus({ years: maxFutureYears })}
     header={translateFunc ? translateFunc('calendarHeader') : ''}
     {...calendarTranslation}
   />

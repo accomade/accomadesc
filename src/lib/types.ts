@@ -45,8 +45,8 @@ export interface CalendarContent {
   rowsMonthNumbers?: number;
   rowsFirstMonth?: FirstMonth;
   rowsMaxWidth?: string;
-  maxYear?: number;
-  minYear?: number;
+  maxFutureYears?: number;
+  maxPastYears?: number;
 }
 
 export interface CalendarAvailable {
@@ -57,7 +57,7 @@ export interface CalendarAvailable {
 export interface CalendarAvailableContent {
   url: string;
   search: number[];
-  maxFutureDate?: string;
+  maxFutureYears?: number;
 }
 
 export interface CalendarGrid {
@@ -68,8 +68,8 @@ export interface CalendarGrid {
 
 export interface CalendarGridContent {
   url: string;
-  maxYear?: number;
-  minYear?: number;
+  maxFutureYears?: number;
+  maxPastYears?: number;
 }
 
 export interface CalendarRows {
@@ -80,8 +80,8 @@ export interface CalendarRows {
 
 export interface CalendarRowsContent {
   url: string;
-  maxYear?: number;
-  minYear?: number;
+  maxFutureYears?: number;
+  maxPastYears?: number;
 }
 
 export interface Text {
