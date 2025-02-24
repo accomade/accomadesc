@@ -45,6 +45,8 @@ export interface CalendarContent {
   rowsMonthNumbers?: number;
   rowsFirstMonth?: FirstMonth;
   rowsMaxWidth?: string;
+  maxYear?: number;
+  minYear?: number;
 }
 
 export interface CalendarAvailable {
