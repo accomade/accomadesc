@@ -70,6 +70,9 @@ export interface CalendarGridContent {
   url: string;
   maxFutureYears?: number;
   maxPastYears?: number;
+  monthNumbers?: number;
+  firstMonth?: FirstMonth;
+  maxWidth?: string;
 }
 
 export interface CalendarRows {
@@ -82,6 +85,9 @@ export interface CalendarRowsContent {
   url: string;
   maxFutureYears?: number;
   maxPastYears?: number;
+  monthNumbers?: number;
+  firstMonth?: FirstMonth;
+  maxWidth?: string;
 }
 
 export interface Text {

@@ -9,6 +9,9 @@
     calendarTranslation,
     maxPastYears = 0,
     maxFutureYears = 2,
+    maxWidth = '1200px',
+    firstMonth = 0,
+    monthNumbers = 12,
     translateFunc,
   }: CalendarGridContent & I18nFacade & { debug?: boolean } = $props();
 
@@ -22,6 +25,9 @@
     {debug}
     {minDate}
     {maxDate}
+    numberOfMonth={monthNumbers}
+    {maxWidth}
+    {firstMonth}
     header={translateFunc ? translateFunc('calendarHeader') : ''}
     {...calendarTranslation}
   />

@@ -9,6 +9,9 @@
     calendarTranslation,
     maxPastYears = 0,
     maxFutureYears = 2,
+    maxWidth = '1200px',
+    firstMonth = 0,
+    monthNumbers = 12,
     translateFunc,
   }: CalendarRowsContent & I18nFacade & { debug?: boolean } = $props();
   let minDate = $derived(DateTime.utc().minus({ year: maxPastYears }));
@@ -18,6 +21,9 @@
 <div class="cal-wrapper">
   <OccuPlanRows
     {url}
+    {maxWidth}
+    {firstMonth}
+    numberOfMonth={monthNumbers}
     {debug}
     {maxDate}
     {minDate}
