@@ -16,7 +16,9 @@
 
   let availHeader = $derived(translateFunc ? translateFunc('availability') : '[AVAILABILITY]');
 
-  const maxFutureDate = DateTime.utc().set({ day: 31, month: 12 }).plus({ years: maxFutureYears });
+  let maxFutureDate = $derived(
+    DateTime.utc().set({ day: 31, month: 12 }).plus({ years: maxFutureYears }),
+  );
 
   const formatAvailability = (from: DateTime | null, forDays: number): string => {
     if (!formatFunc || !formatDateFunc) return '';

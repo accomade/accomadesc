@@ -11,14 +11,16 @@
     maxFutureYears = 2,
     translateFunc,
   }: CalendarRowsContent & I18nFacade & { debug?: boolean } = $props();
+  let minDate = $derived(DateTime.utc().minus({ year: maxPastYears }));
+  let maxDate = $derived(DateTime.utc().plus({ year: maxFutureYears }));
 </script>
 
 <div class="cal-wrapper">
   <OccuPlanRows
     {url}
     {debug}
-    minDate={DateTime.utc().set({ day: 1, month: 1 }).minus({ years: maxPastYears })}
-    maxDate={DateTime.utc().set({ day: 31, month: 12 }).plus({ years: maxFutureYears })}
+    {maxDate}
+    {minDate}
     header={translateFunc ? translateFunc('calendarHeader') : ''}
     {...calendarTranslation}
   />

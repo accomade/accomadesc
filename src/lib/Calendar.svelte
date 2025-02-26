@@ -19,12 +19,15 @@
     maxFutureYears = 2,
     translateFunc,
   }: CalendarContent & I18nFacade & { debug?: boolean } = $props();
+
+  let minDate = $derived(DateTime.utc().minus({ year: maxPastYears }));
+  let maxDate = $derived(DateTime.utc().plus({ year: maxFutureYears }));
 </script>
 
 <div class="cal-wrapper">
   <OccuPlanWrapper
-    minDate={DateTime.utc().set({ day: 1, month: 1 }).minus({ year: maxPastYears })}
-    maxDate={DateTime.utc().set({ day: 31, month: 12 }).plus({ year: maxFutureYears })}
+    {minDate}
+    {maxDate}
     {url}
     {debug}
     {toggleGridOffset}

@@ -388,6 +388,8 @@
       rowsMonthNumbers: 12,
       rowsFirstMonth: 1,
       rowsMaxWidth: '1200px',
+      maxFutureYears: 2,
+      maxPastYears: 0,
     },
     kind: 'calendar',
   });
@@ -519,6 +521,8 @@
       bind:rowsMonthNumbers={cal.content.rowsMonthNumbers}
       bind:rowsFirstMonth={cal.content.rowsFirstMonth}
       bind:rowsMaxWidth={cal.content.rowsMaxWidth}
+      bind:maxFutureYears={cal.content.maxFutureYears}
+      bind:maxPastYears={cal.content.maxPastYears}
     />
   </div>
   <h3>Calendar Available</h3>

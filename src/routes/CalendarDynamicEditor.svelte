@@ -11,6 +11,8 @@
     rowsMonthNumbers = $bindable(12),
     rowsFirstMonth = $bindable(0),
     rowsMaxWidth = $bindable('1200px'),
+    maxFutureYears = $bindable(2),
+    maxPastYears = $bindable(0),
   }: {
     toggleGridOffset?: number;
     gridMonthNumbers?: number;
@@ -20,6 +22,8 @@
     rowsMonthNumbers?: number;
     rowsFirstMonth?: FirstMonth;
     rowsMaxWidth?: string;
+    maxFutureYears?: number;
+    maxPastYears?: number;
   } = $props();
 
   const gridFirstMonthChanged = (valid: boolean, _: string, value: string | number) => {
@@ -86,6 +90,14 @@
     <label>
       Rows Max Width:
       <TextInput type="text" bind:value={rowsMaxWidth} />
+    </label>
+    <label>
+      MaxFutureYears:
+      <TextInput type="number" bind:value={maxFutureYears} />
+    </label>
+    <label>
+      MaxPastYears:
+      <TextInput type="number" bind:value={maxPastYears} />
     </label>
   </div>
 </div>
