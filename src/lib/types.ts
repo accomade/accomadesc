@@ -223,7 +223,7 @@ export interface PricingShort {
 }
 
 export interface PricingShortContent {
-  global?: PricingEntry;
+  global: PricingEntry;
   entries?: PricingRange[];
   ranges?: PricingRange[]; // is the same
   staticRanges?: StaticPricingRange[];

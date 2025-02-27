@@ -10,6 +10,7 @@
     type Photo as PhotoBlock,
     type PhotoGallery as PhotoGalleryBlock,
     type Pricing as PricingBlock,
+    type PricingShort as PricingShortBlock,
     type PricingColumn,
     type PricingRange,
     type StaticPricingRange,
@@ -55,6 +56,7 @@
   import CalendarDynamicEditor from './CalendarDynamicEditor.svelte';
   import BookingRequest from '$lib/BookingRequest.svelte';
   import OccuPlanPicker from '$lib/occuplan/OccuPlanPicker.svelte';
+  import PricingShort from '$lib/PricingShort.svelte';
 
   let css = $state(initialCss);
   let styleOpen = $state(false);
@@ -135,6 +137,47 @@
     id: randomID(),
     kind: 'pricing',
     content: {
+      global: {
+        firstNightPrice: {
+          scale: 2,
+          amount: 12000,
+          currency: { code: 'EUR', base: 10, exponent: 2 },
+        },
+        perNightPrice: { scale: 2, amount: 8000, currency: { code: 'EUR', base: 10, exponent: 2 } },
+        minNumberOfNights: 4,
+        additionalPersonText1: 'priceGAdd1',
+        additionalPersonText2: 'priceGAdd2',
+        additionalPersonText3: 'priceGAdd3',
+        additionalPersonPrice1: {
+          scale: 2,
+          amount: 1500,
+          currency: { code: 'EUR', base: 10, exponent: 2 },
+        },
+        additionalPersonPrice2: {
+          scale: 2,
+          amount: 3500,
+          currency: { code: 'EUR', base: 10, exponent: 2 },
+        },
+        additionalPersonPrice3: {
+          scale: 2,
+          amount: 0,
+          currency: { code: 'EUR', base: 10, exponent: 2 },
+        },
+      },
+      staticRanges: [],
+      ranges: [],
+      entries: [],
+      columns: [...PRICING_COLUMNS],
+      footnote: 'priceGFoot',
+    },
+  });
+
+  let pricingShort: PricingShortBlock = $state({
+    id: randomID(),
+    kind: 'pricing-short',
+    content: {
+      showMaximum: true,
+      showMinimum: true,
       global: {
         firstNightPrice: {
           scale: 2,
@@ -561,6 +604,21 @@
       bind:staticRanges={pricing.content.staticRanges as StaticPricingRange[]}
       bind:columns={pricing.content.columns as PricingColumn[]}
       bind:footnoteText={i18n.translations[i18n.currentLang].priceGFoot}
+      {i18n}
+    />
+  </div>
+
+  <h3>Pricing Short</h3>
+  <div class="component">
+    <div class="component-view" style={css}>
+      <PricingShort {...pricingShort.content} {...i18n} />
+    </div>
+    <PricingEditor
+      bind:global={pricingShort.content.global}
+      bind:ranges={pricingShort.content.ranges as PricingRange[]}
+      bind:staticRanges={pricingShort.content.staticRanges as StaticPricingRange[]}
+      bind:footnoteText={i18n.translations[i18n.currentLang].priceGFoot}
+      useColumns={false}
       {i18n}
     />
   </div>

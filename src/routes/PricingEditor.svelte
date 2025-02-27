@@ -18,14 +18,16 @@
     global = $bindable(),
     staticRanges = $bindable(),
     ranges = $bindable(),
-    columns = $bindable(),
+    columns = $bindable([]),
+    useColumns = true,
     footnoteText = $bindable(),
     i18n,
   }: {
     global: PricingEntry;
     staticRanges: StaticPricingRange[];
     ranges: PricingRange[];
-    columns: PricingColumn[];
+    columns?: PricingColumn[];
+    useColumns?: boolean;
     footnoteText: string;
     i18n: I18n;
   } = $props();
@@ -94,15 +96,21 @@
       Footnote
       <TextInput marginForMessage={false} type="text" bind:value={footnoteText} />
     </label>
-    <div class="pricing-columns">
-      <h4>Columns to display</h4>
-      {#each PRICING_COLUMNS as pc}
-        <label
-          >{pc}
-          <input type="checkbox" checked={columns.includes(pc)} oninput={() => toggleColumn(pc)} />
-        </label>
-      {/each}
-    </div>
+    {#if useColumns}
+      <div class="pricing-columns">
+        <h4>Columns to display</h4>
+        {#each PRICING_COLUMNS as pc}
+          <label
+            >{pc}
+            <input
+              type="checkbox"
+              checked={columns.includes(pc)}
+              oninput={() => toggleColumn(pc)}
+            />
+          </label>
+        {/each}
+      </div>
+    {/if}
     <h4>Global</h4>
     <PricingEntryEditor bind:pricingEntry={global} {i18n} />
   </div>
