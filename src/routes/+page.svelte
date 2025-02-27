@@ -395,6 +395,7 @@
   const cfRef4 = 'cfRef4';
   const cfRef5 = 'cfRef5';
   const cfRef6 = 'cfRef6';
+  const cfRef7 = 'cfRef7';
   const cForm: ContactFormBlock = {
     id: randomID(),
     kind: 'contact-form',
@@ -407,6 +408,7 @@
       submitText: cfRef3,
       successfullySentText: cfRef5,
       sentErroredText: cfRef6,
+      explainer: cfRef7,
     },
   };
 
@@ -481,6 +483,7 @@
       dateEntryLabel: brRef7,
       numberOfNightsLabel: brRef8,
       invalidText: brRef9,
+      explainer: 'brRef10',
     },
   };
 

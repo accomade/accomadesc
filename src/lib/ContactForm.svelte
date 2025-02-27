@@ -126,12 +126,18 @@
 </div>
 
 <style>
+  .explainer {
+    margin-bottom: 1rem;
+  }
+
   .wrapper {
     background-color: var(--main-bg-color);
     color: var(--main-font-color);
 
     width: 100%;
     display: flex;
+    flex-direction: column;
+    align-items: center;
 
     padding: 1rem;
     margin: 1rem;
@@ -141,9 +147,9 @@
   }
 
   form {
-    width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: stretch;
     gap: 0.5rem;
   }
 

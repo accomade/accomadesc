@@ -220,12 +220,18 @@
 </div>
 
 <style>
+  .explainer {
+    margin-bottom: 1rem;
+  }
+
   .wrapper {
     background-color: var(--main-bg-color);
     color: var(--main-font-color);
 
     width: 100%;
     display: flex;
+    flex-direction: column;
+    align-items: center;
 
     padding: 1rem;
     margin: 1rem;
@@ -234,7 +240,6 @@
     }
   }
   form {
-    width: 100%;
     display: grid;
     grid-template-columns: [start] 1fr [gap-start] 0.5fr [gap-end] 3fr [end];
     row-gap: 0.5rem;

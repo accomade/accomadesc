@@ -41,6 +41,7 @@ export class I18n implements I18nFacade {
       cfRef4: 'Your Message',
       cfRef5: 'Successfully Sent!',
       cfRef6: 'An error occurred!',
+      cfRef7: '<p>Please feel free to send us a message if you have any questions.</p>',
       brRef1: 'Name',
       brRef2: 'Email',
       brRef3: 'Submit',
@@ -49,6 +50,9 @@ export class I18n implements I18nFacade {
       brRef6: 'An error occurred!',
       brRef7: 'Vacation Dates',
       brRef8: 'Number of Nights',
+      brRef9: 'Hallo',
+      brRef10:
+        '<p>Booking requests will be responded upon as soon as possible. Please be patient. Only our confirmation makes a booking binding.</p>',
       availability: 'Availability',
       calendarHeader: 'Calendar',
     },
