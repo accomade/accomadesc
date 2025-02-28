@@ -353,6 +353,7 @@
     container-type: size;
     container-name: year-label;
     text-decoration: underline;
+    height: 100%;
   }
 
   @container year-label (min-width: 0) {
