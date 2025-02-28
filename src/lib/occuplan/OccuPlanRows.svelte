@@ -89,6 +89,7 @@
     const ldays: DayHelper[] = [];
     if (!browser) return ldays;
     if (!occupationState || occupationState.loading) return ldays;
+
     for (const m of months) {
       for (let d: DayNumbers = 1; d <= 31; d++) {
         const day: DayHelper = {
@@ -130,15 +131,13 @@
         }, [] as OccupationType[])
       : [],
   );
-
-  let width = $state(0);
 </script>
 
 {#if !occupationState || occupationState.loading}
   <Spinner />
 {/if}
 
-<section class="occuplan-wrapper" bind:clientWidth={width} style="max-width: {maxWidth};">
+<section class="occuplan-wrapper" style="max-width: {maxWidth};">
   <header class="occupation-plan-header">
     <div class="header-controls">
       {#if rfMonth >= minDate}
