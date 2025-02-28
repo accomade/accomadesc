@@ -272,6 +272,7 @@
     container-type: size;
     container-name: month-label;
     padding-left: 0.3rem;
+    height: 100%;
   }
 
   @container month-label (min-height: 0) {
