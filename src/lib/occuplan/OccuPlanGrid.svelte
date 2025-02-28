@@ -18,6 +18,7 @@
   import Button from '$lib/basic/Button.svelte';
   import { browser } from '$app/environment';
   import Spinner from '$lib/basic/Spinner.svelte';
+  import { randomID } from '$lib/names/gen.ts';
 
   let {
     url,
@@ -48,6 +49,8 @@
     maxDate?: DateTime;
     maxWidth?: string;
   } = $props();
+
+  const id = randomID();
 
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
   let occupationState: OccupationState = $state(getContext(oStateID));
@@ -172,6 +175,7 @@
       <div class="month">
         <header class="month-header">{monthHeader(m.month as MonthNumbers, m.year)}</header>
         <div
+          id={`${m.year}-${m.month}-${id}`}
           style="
             grid-template-columns: {monthGridTemplateColumns};
             grid-template-rows: {monthGridTemplateRows(m)};
@@ -202,6 +206,7 @@
 
           {#each days(m) as d (`${d.year}-${d.month}-${d.day}`)}
             <div
+              id={`${m.year}-${m.month}-${m.day}-${id}`}
               class:weekend={[6, 7].includes(d.weekday)}
               class:other-month={m.month !== d.month}
               class="day"
@@ -220,6 +225,7 @@
 
           {#each weeks(m) as w (`${w.year}-${w.month}-${w.weekNumber}`)}
             <div
+              id={`${w.year}-${w.month}-${w.weekNumber}-${id}`}
               class:hidden={hiddenWeekNum(m, w)}
               class="week-number"
               style="grid-area: w{w.weekNumber} / rowLegend / w{w.weekNumber} / rowLegend;"
