@@ -17,6 +17,7 @@
   import { browser } from '$app/environment';
   import { getContext, setContext } from 'svelte';
   import Spinner from '$lib/basic/Spinner.svelte';
+  import { randomID } from '$lib/names/gen.ts';
 
   let {
     url,
@@ -44,6 +45,8 @@
     maxDate?: DateTime;
     maxWidth?: string;
   } = $props();
+
+  const id = randomID();
 
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
   let occupationState: OccupationState = $state(getContext(oStateID));
@@ -182,6 +185,7 @@
         </div>
       {/if}
       <div
+        id={`${m.year}-${m.month}-${id}`}
         class="month-label"
         style="grid-area: m{m.month}y{m.year} / rowLegend / m{m.month}y{m.year} / rowLegend;"
       >
@@ -192,6 +196,7 @@
     {#if occupationState}
       {#each days as d (`${d.year}-${d.month}-${d.day}`)}
         <div
+          id={`${d.year}-${d.month}-${d.day}-${id}`}
           class="day"
           style="
             outline: var(--occuplan-grid-border);
