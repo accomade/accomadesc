@@ -17,7 +17,7 @@
   import { browser } from '$app/environment';
   import { getContext, setContext } from 'svelte';
   import Spinner from '$lib/basic/Spinner.svelte';
-  import { randomID } from '$lib/names/gen.ts';
+  import { randomID } from '$lib/names/gen.js';
 
   let {
     url,
