@@ -149,7 +149,7 @@
   form {
     display: flex;
     flex-direction: column;
-    justify-content: stretch;
+    width: 100%;
     gap: 0.5rem;
   }
 

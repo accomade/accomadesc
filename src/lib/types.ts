@@ -2,6 +2,7 @@ import { type Dinero, type DineroSnapshot } from 'dinero.js';
 import type { FirstMonth, OccuplanTranslations } from '$lib/occuplan/state.svelte.js';
 import type { DateTime, MonthNumbers, WeekdayNumbers } from 'luxon';
 import type { CookieType, Translation as CookieTranslation } from 'gdpr-cooco-banner';
+import type { CalendarAvailableI } from './index.ts';
 
 export type WeekdayLabels = {
   [key in WeekdayNumbers]: string;
@@ -264,14 +265,12 @@ export interface AccoCard {
 }
 
 export interface AccoCardContent {
-  cardContent: CardContent;
   displayName: string;
-}
-
-export interface CardContent {
   coverPhoto: PhotoContent;
   slug?: string;
-  blocks: Block[];
+  pricing: PricingShort;
+  avail: CalendarAvailable;
+  amenities: AmenitiesCore;
 }
 
 export interface AccoDescription {

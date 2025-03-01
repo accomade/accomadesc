@@ -3,67 +3,62 @@
   import CalendarAvailable from '$lib/CalendarAvailable.svelte';
   import Photo from '$lib/Photo.svelte';
   import PricingShort from '$lib/PricingShort.svelte';
-  import {
-    isAmenitiesCore,
-    isCalendarAvailable,
-    isPricingShort,
-    type AccoCardContent,
-    type I18nFacade,
-  } from './types.js';
+  import { type AccoCardContent, type I18nFacade } from './types.js';
 
   let {
-    cardContent,
     displayName,
+    coverPhoto,
+    slug,
+    pricing,
+    avail,
+    amenities,
     translateFunc,
     formatFunc,
     formatMoneyFunc,
     formatDateFunc,
   }: AccoCardContent & I18nFacade = $props();
-  let translatedSlug = $derived(
-    translateFunc && cardContent.slug ? translateFunc(cardContent.slug) : '',
-  );
+
+  let translatedSlug = $derived(translateFunc && slug ? translateFunc(slug) : '');
 </script>
 
 <div class="accocard-wrapper">
-  {#if cardContent}
-    <div class="title-with-slug">
-      <h2>{displayName}</h2>
-      {#if cardContent.slug}
-        <div class="slug">{@html translatedSlug}</div>
-      {/if}
+  <div class="title-with-slug">
+    <h2>{displayName}</h2>
+    {#if slug}
+      <div class="slug">{@html translatedSlug}</div>
+    {/if}
+  </div>
+  {#if coverPhoto}
+    <div class="photo">
+      <Photo {...coverPhoto} {translateFunc} />
     </div>
-    {#if cardContent.coverPhoto}
-      <div class="photo">
-        <Photo {...cardContent.coverPhoto} {translateFunc} />
-      </div>
-    {/if}
-    {#if cardContent.blocks}
-      {#each cardContent.blocks as b, i}
-        <div class="block-container-{i}">
-          {#if isAmenitiesCore(b)}
-            <AmenitiesCore {...b.content} {formatFunc} {formatMoneyFunc} {formatDateFunc} />
-          {:else if isPricingShort(b)}
-            <PricingShort
-              {...b.content}
-              {translateFunc}
-              {formatFunc}
-              {formatMoneyFunc}
-              {formatDateFunc}
-            />
-          {:else if isCalendarAvailable(b)}
-            <CalendarAvailable
-              {...b.content}
-              {translateFunc}
-              {formatFunc}
-              {formatMoneyFunc}
-              {formatDateFunc}
-            />
-          {:else}
-            <span>Unsupported</span>
-          {/if}
-        </div>
-      {/each}
-    {/if}
+  {/if}
+  {#if amenities}
+    <div class="amenities-container">
+      <AmenitiesCore {...amenities.content} {formatFunc} {formatMoneyFunc} {formatDateFunc} />
+    </div>
+  {/if}
+  {#if pricing}
+    <div class="pricing-container">
+      <PricingShort
+        {...pricing.content}
+        {translateFunc}
+        {formatFunc}
+        {formatMoneyFunc}
+        {formatDateFunc}
+      />
+    </div>
+  {/if}
+  {#if avail}
+    <div class="calendar-container">
+      <CalendarAvailable
+        {...avail.content}
+        {translateFunc}
+        {formatFunc}
+        {formatMoneyFunc}
+        {formatDateFunc}
+      />
+    </div>
   {/if}
 </div>
 
@@ -76,17 +71,17 @@
     grid-area: first-row-line / start-line / fifth-row-line / middle-line;
   }
 
-  .block-container-0 {
+  .amenities-container {
     grid-area: second-row-line / middle-line / third-row-line / end-line;
     position: relative;
   }
 
-  .block-container-1 {
+  .pricing-container {
     grid-area: third-row-line / middle-line / fourth-row-line / end-line;
     position: relative;
   }
 
-  .block-container-2 {
+  .calendar-container {
     grid-area: fourth-row-line / middle-line / fifth-row-line / end-line;
     position: relative;
   }
@@ -169,17 +164,17 @@
       grid-column: 1;
     }
 
-    .block-container-0 {
+    .amenities-container {
       grid-row: auto;
       grid-column: 1;
     }
 
-    .block-container-1 {
+    .pricing-container {
       grid-row: auto;
       grid-column: 1;
     }
 
-    .block-container-2 {
+    .calendar-container {
       grid-row: auto;
       grid-column: 1;
     }
