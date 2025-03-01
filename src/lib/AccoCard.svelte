@@ -135,15 +135,15 @@
       grid-area: first-row-line / start-line / third-row-line / middle-line;
     }
 
-    .block-container-0 {
+    .amenities-container {
       grid-area: second-row-line / middle-line / third-row-line / end-line;
     }
 
-    .block-container-1 {
+    .pricing-container {
       grid-area: third-row-line / start-line / fourth-row-line / middle-line;
     }
 
-    .block-container-2 {
+    .calendar-container {
       grid-area: third-row-line / middle-line / fourth-row-line / end-line;
     }
   }
