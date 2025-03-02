@@ -4,7 +4,7 @@
   import TextInput from '$lib/basic/TextInput.svelte';
   import Notes from '$lib/basic/Notes.svelte';
   import type { ContactFormContent, I18nFacade } from '$lib/types.js';
-  import { randomID } from './names/gen.ts';
+  import { randomID } from './names/gen.js';
 
   const {
     userID,
