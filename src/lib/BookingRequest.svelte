@@ -25,6 +25,7 @@
     submitText,
     invalidText,
     maxCharsAllowed = 300,
+    preview = false,
     translateFunc,
     formatDateFunc,
   }: BookingRequestContent & I18nFacade = $props();
@@ -34,7 +35,6 @@
   let message = $state('');
   let arrival: DateTime | undefined = $state();
   let leave: DateTime | undefined = $state();
-  let disabled = $state(false);
   let inputDatesEngaged = $state(false);
 
   let currentCharsCount = $derived(message.length);
@@ -50,8 +50,7 @@
   let errored = $state(false);
   let successfullySent = $state(false);
   let sending = $state(false);
-
-  //https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/050edcb4-680e-4542-96df-3ae4a2af89a5
+  let disabled = $derived(preview || errored || successfullySent);
 
   const url = calUrl;
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
@@ -165,6 +164,7 @@
       {/if}
       <div class="date-input-wrapper" id="engage-date-buttons">
         <Button
+          enabled={!disabled}
           id="date-input"
           iconName="edit"
           size={1.8}
@@ -190,18 +190,19 @@
     </label>
 
     <div class="message-wrapper">
-      {#if successfullySent}
-        <div class="success">
+      {#if preview}<div>[PREVIEW]</div>{/if}
+      {#if successfullySent || preview}
+        <div class="messsage success">
           {translateFunc ? translateFunc(successfullySentText) : 'Successfully Sent Email'}
         </div>
       {/if}
-      {#if errored}
-        <div class="error">
+      {#if errored || preview}
+        <div class="message error">
           {translateFunc ? translateFunc(sentErroredText) : 'Error Occurred Sending Email'}
         </div>
       {/if}
-      {#if invalid}
-        <div class="error">
+      {#if invalid || preview}
+        <div class="message error">
           {translateFunc ? translateFunc(invalidText) : 'Dates Are Not Available'}
         </div>
       {/if}
@@ -278,7 +279,7 @@
       grid-column-start: start;
       grid-column-end: end;
       display: flex;
-      justify-content: flex-start;
+      justify-content: space-between;
     }
     .button-wrapper {
       grid-column-start: start;
@@ -291,6 +292,11 @@
   .max-chars-message {
     font-weight: bolder;
     color: var(--alert-font-color);
+  }
+
+  .message {
+    display: flex;
+    justify-content: space-between;
   }
 
   .success {

@@ -524,6 +524,12 @@
       <BookingRequest {...brForm.content} {...i18n} />
     </div>
   </div>
+  <h3>Booking Request - PREVIEW</h3>
+  <div class="component">
+    <div class="component-view" style={css}>
+      <BookingRequest {...brForm.content} {...i18n} preview={true} />
+    </div>
+  </div>
   <h3>Date Picker</h3>
   <div class="component">
     <div class="component-view" style={css}>
@@ -534,6 +540,12 @@
   <div class="component">
     <div class="compontent-view" style={css}>
       <ContactForm {...cForm.content} {...i18n} />
+    </div>
+  </div>
+  <h3>Contact Form - PREVIEW</h3>
+  <div class="component">
+    <div class="compontent-view" style={css}>
+      <ContactForm {...cForm.content} {...i18n} preview={true} />
     </div>
   </div>
   <h3>Month Grid Calendar</h3>

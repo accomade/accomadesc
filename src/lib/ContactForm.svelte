@@ -16,6 +16,7 @@
     successfullySentText,
     sentErroredText,
     maxCharsAllowed = 300,
+    preview = false,
     translateFunc,
   }: ContactFormContent & I18nFacade = $props();
 
@@ -33,7 +34,8 @@
   let currentCharsCount = $derived(question.length);
   let showMaxCharsMessage = $derived(currentCharsCount > maxCharsAllowed - 50);
   let canSubmit: boolean = $derived(
-    name.length > 0 &&
+    !preview &&
+      name.length > 0 &&
       email.length > 0 &&
       question.length > 0 &&
       question.length <= maxCharsAllowed,
@@ -74,7 +76,7 @@
     }, 15000);
   };
 
-  let disabled = $derived(errored || successfullySent);
+  let disabled = $derived(preview || errored || successfullySent);
 </script>
 
 <div class="wrapper">
@@ -102,16 +104,19 @@
 
       <Notes {disabled} changed={questionChanged} />
     </label>
-    {#if successfullySent}
-      <div class="success">
-        {translateFunc ? translateFunc(successfullySentText) : 'Successfully Sent Email'}
-      </div>
-    {/if}
-    {#if errored}
-      <div class="error">
-        {translateFunc ? translateFunc(sentErroredText) : 'Error Occurred Sending Email'}
-      </div>
-    {/if}
+    <div class="message-wrapper">
+      {#if preview}<div>[PREVIEW]</div>{/if}
+      {#if successfullySent || preview}
+        <div class="success">
+          {translateFunc ? translateFunc(successfullySentText) : 'Successfully Sent Email'}
+        </div>
+      {/if}
+      {#if errored || preview}
+        <div class="error">
+          {translateFunc ? translateFunc(sentErroredText) : 'Error Occurred Sending Email'}
+        </div>
+      {/if}
+    </div>
     <div class="button-wrapper">
       <Button
         enabled={canSubmit && !disabled}
@@ -144,6 +149,11 @@
     :global(*) {
       color: var(--main-font-color);
     }
+  }
+
+  .message-wrapper {
+    display: flex;
+    justify-content: space-between;
   }
 
   form {

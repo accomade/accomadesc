@@ -308,6 +308,7 @@ export interface ContactFormContent {
   sentErroredText: string;
   maxCharsAllowed?: number;
   explainer?: string;
+  preview?: boolean;
 }
 
 export interface BookingRequest {
@@ -332,6 +333,7 @@ export interface BookingRequestContent {
   numberOfNightsLabel: string;
   maxCharsAllowed?: number;
   explainer?: string;
+  preview?: boolean;
 }
 
 export type Block =
