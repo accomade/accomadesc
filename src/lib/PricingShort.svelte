@@ -5,7 +5,7 @@
   import type { I18nFacade, PricingShortContent, PricingEntry } from '$lib/types.js';
 
   let {
-    global = undefined,
+    global,
     entries = [],
     ranges = [],
     staticRanges = [],

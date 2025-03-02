@@ -4,6 +4,7 @@
   import TextInput from '$lib/basic/TextInput.svelte';
   import Notes from '$lib/basic/Notes.svelte';
   import type { ContactFormContent, I18nFacade } from '$lib/types.js';
+  import { randomID } from './names/gen.ts';
 
   const {
     userID,
@@ -19,6 +20,8 @@
     preview = false,
     translateFunc,
   }: ContactFormContent & I18nFacade = $props();
+
+  const id = randomID();
 
   let name = $state('');
   let email = $state('');
@@ -83,17 +86,36 @@
   {#if explainer}
     <div class="explainer">{@html translateFunc ? translateFunc(explainer) : ''}</div>
   {/if}
+
   <form onsubmit={submitMessage}>
     <input type="hidden" value={userID} />
-    <label class:disabled>
-      {@html translateFunc ? translateFunc(nameLabel) : 'Name'}:
-      <TextInput type="text" marginForMessage={false} bind:value={name} enabled={!disabled} />
+    <label for={`${id}-name`}>
+      <span class:disabled>{@html translateFunc ? translateFunc(nameLabel) : 'Name'}:</span>
     </label>
-    <label class:disabled>
-      {@html translateFunc ? translateFunc(emailLabel) : 'Email'}:
-      <TextInput type="email" marginForMessage={false} bind:value={email} enabled={!disabled} />
+    <div class="input-wrapper">
+      <TextInput
+        id={`${id}-name`}
+        type="text"
+        marginForMessage={false}
+        bind:value={name}
+        enabled={!disabled}
+      />
+    </div>
+    <label for={`${id}-email`}>
+      <span class:disabled>{@html translateFunc ? translateFunc(emailLabel) : 'Email'}:</span>
     </label>
-    <label class="row-label"
+
+    <div class="input-wrapper">
+      <TextInput
+        id={`${id}-email`}
+        type="email"
+        marginForMessage={false}
+        bind:value={email}
+        enabled={!disabled}
+      />
+    </div>
+
+    <label class="notes-input"
       ><div class:disabled>
         {@html translateFunc
           ? translateFunc(questionLabel)
@@ -101,9 +123,9 @@
             >&nbsp;({currentCharsCount}/{maxCharsAllowed})</span
           >{/if}:
       </div>
-
-      <Notes {disabled} changed={questionChanged} />
+      <Notes id={`${id}-notes`} {disabled} changed={questionChanged} />
     </label>
+
     <div class="message-wrapper">
       {#if preview}<div>[PREVIEW]</div>{/if}
       {#if successfullySent || preview}
@@ -133,13 +155,13 @@
 <style>
   .explainer {
     margin-bottom: 1rem;
+    grid-column: span 2;
   }
 
   .wrapper {
     background-color: var(--main-bg-color);
     color: var(--main-font-color);
 
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -151,28 +173,43 @@
     }
   }
 
-  .message-wrapper {
-    display: flex;
-    justify-content: space-between;
-  }
-
   form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 0.5rem;
-  }
+    display: grid;
+    grid-template-columns: [start] 1fr [gap-start] 0.5fr [gap-end] 3fr [end];
+    row-gap: 0.5rem;
 
-  label {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    justify-content: space-between;
-  }
+    label {
+      align-content: center;
+      grid-column-start: start;
+      grid-column-end: gap-start;
+    }
 
-  .row-label {
-    flex-direction: column;
-    gap: 0.2rem;
+    .message-wrapper {
+      margin-top: 1rem;
+      grid-column-start: start;
+      grid-column-end: end;
+      display: flex;
+      justify-content: space-between;
+    }
+    .button-wrapper {
+      grid-column-start: start;
+      grid-column-end: end;
+      display: flex;
+      justify-content: flex-start;
+    }
+    .input-wrapper {
+      grid-column-start: gap-end;
+      grid-column-end: end;
+    }
+
+    .notes-input {
+      margin-top: 2rem;
+      grid-column-start: start;
+      grid-column-end: end;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 
   .max-chars-message {

@@ -458,7 +458,6 @@
   const brRef5 = 'brRef5';
   const brRef6 = 'brRef6';
   const brRef7 = 'brRef7';
-  const brRef8 = 'brRef8';
   const brRef9 = 'brRef9';
 
   const brForm: BookingRequestBlock = {
@@ -477,7 +476,6 @@
       successfullySentText: brRef5,
       sentErroredText: brRef6,
       dateEntryLabel: brRef7,
-      numberOfNightsLabel: brRef8,
       invalidText: brRef9,
       explainer: 'brRef10',
     },
@@ -538,13 +536,13 @@
   </div>
   <h3>Contact Form</h3>
   <div class="component">
-    <div class="compontent-view" style={css}>
+    <div class="component-view" style={css}>
       <ContactForm {...cForm.content} {...i18n} />
     </div>
   </div>
   <h3>Contact Form - PREVIEW</h3>
   <div class="component">
-    <div class="compontent-view" style={css}>
+    <div class="component-view" style={css}>
       <ContactForm {...cForm.content} {...i18n} preview={true} />
     </div>
   </div>

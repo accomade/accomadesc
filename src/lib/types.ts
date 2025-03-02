@@ -330,7 +330,6 @@ export interface BookingRequestContent {
   sentErroredText: string;
   invalidText: string;
   messageLabel: string;
-  numberOfNightsLabel: string;
   maxCharsAllowed?: number;
   explainer?: string;
   preview?: boolean;

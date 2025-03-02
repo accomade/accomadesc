@@ -9,6 +9,7 @@
   import OccuPlanPicker from '$lib/occuplan/OccuPlanPicker.svelte';
   import { slide } from 'svelte/transition';
   import type { DateTime } from 'luxon';
+  import { randomID } from './names/gen.ts';
 
   const {
     endpoint,
@@ -29,6 +30,8 @@
     translateFunc,
     formatDateFunc,
   }: BookingRequestContent & I18nFacade = $props();
+
+  const id = randomID();
 
   let name = $state('');
   let email = $state('');
@@ -127,31 +130,31 @@
 
   <form onsubmit={createRequest}>
     <input type="hidden" value={userID} />
-    <label for="name-input">
+    <label for={`${id}-name-input`}>
       <span class:disabled>{@html translateFunc ? translateFunc(nameLabel) : 'Name'}:</span>
     </label>
     <div class="input-wrapper">
       <TextInput
-        id="name-input"
+        id={`${id}name-input`}
         type="text"
         marginForMessage={false}
         bind:value={name}
         enabled={!disabled}
       />
     </div>
-    <label for="email-input">
+    <label for={`${id}-email-input`}>
       <span class:disabled>{@html translateFunc ? translateFunc(emailLabel) : 'Email'}:</span>
     </label>
     <div class="input-wrapper">
       <TextInput
-        id="email-input"
+        id={`${id}-email-input`}
         type="email"
         marginForMessage={false}
         bind:value={email}
         enabled={!disabled}
       />
     </div>
-    <label for="date-input">
+    <label for={`${id}-date-input`}>
       <span class:disabled
         >{@html translateFunc ? translateFunc(dateEntryLabel) : 'Vacation Dates'}:</span
       >
@@ -165,7 +168,7 @@
       <div class="date-input-wrapper" id="engage-date-buttons">
         <Button
           enabled={!disabled}
-          id="date-input"
+          id={`${id}-date-input`}
           iconName="edit"
           size={1.8}
           clicked={engageDateInput}
@@ -229,7 +232,6 @@
     background-color: var(--main-bg-color);
     color: var(--main-font-color);
 
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -246,6 +248,7 @@
     row-gap: 0.5rem;
 
     label {
+      align-content: center;
       grid-column-start: start;
       grid-column-end: gap-start;
     }
