@@ -9,7 +9,7 @@
   import OccuPlanPicker from '$lib/occuplan/OccuPlanPicker.svelte';
   import { slide } from 'svelte/transition';
   import type { DateTime } from 'luxon';
-  import { randomID } from './names/gen.ts';
+  import { randomID } from './names/gen.js';
 
   const {
     endpoint,
