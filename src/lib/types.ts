@@ -306,8 +306,8 @@ export interface ContactFormContent {
   submitText: string;
   successfullySentText: string;
   sentErroredText: string;
+  explainer: string;
   maxCharsAllowed?: number;
-  explainer?: string;
   preview?: boolean;
 }
 
@@ -330,8 +330,8 @@ export interface BookingRequestContent {
   sentErroredText: string;
   invalidText: string;
   messageLabel: string;
+  explainer: string;
   maxCharsAllowed?: number;
-  explainer?: string;
   preview?: boolean;
 }
 
