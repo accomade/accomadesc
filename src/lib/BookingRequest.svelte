@@ -135,7 +135,7 @@
     </label>
     <div class="input-wrapper">
       <TextInput
-        id={`${id}name-input`}
+        id={`${id}-name-input`}
         type="text"
         marginForMessage={false}
         bind:value={name}
