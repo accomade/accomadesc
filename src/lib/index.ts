@@ -67,7 +67,6 @@ export type {
   ContactFormContent,
   BookingRequest as BookingRequestI,
   BookingRequestContent,
-  CardContent,
   AccoDescription as AccoDescriptionI,
   AccoDescriptionContent,
   Section as SectionI,

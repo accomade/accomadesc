@@ -99,6 +99,8 @@
 
 <style>
   .calendar-wrapper {
+    display: flex;
+    justify-content: center;
     min-width: 210px;
     max-width: 110rem;
     width: 100%;

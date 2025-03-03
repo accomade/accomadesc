@@ -9,6 +9,7 @@
   import OccuPlanPicker from '$lib/occuplan/OccuPlanPicker.svelte';
   import { slide } from 'svelte/transition';
   import type { DateTime } from 'luxon';
+  import { randomID } from './names/gen.js';
 
   const {
     endpoint,
@@ -25,16 +26,18 @@
     submitText,
     invalidText,
     maxCharsAllowed = 300,
+    preview = false,
     translateFunc,
     formatDateFunc,
   }: BookingRequestContent & I18nFacade = $props();
+
+  const id = randomID();
 
   let name = $state('');
   let email = $state('');
   let message = $state('');
   let arrival: DateTime | undefined = $state();
   let leave: DateTime | undefined = $state();
-  let disabled = $state(false);
   let inputDatesEngaged = $state(false);
 
   let currentCharsCount = $derived(message.length);
@@ -50,8 +53,7 @@
   let errored = $state(false);
   let successfullySent = $state(false);
   let sending = $state(false);
-
-  //https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/050edcb4-680e-4542-96df-3ae4a2af89a5
+  let disabled = $derived(preview || errored || successfullySent);
 
   const url = calUrl;
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
@@ -128,31 +130,31 @@
 
   <form onsubmit={createRequest}>
     <input type="hidden" value={userID} />
-    <label for="name-input">
+    <label for={`${id}-name-input`}>
       <span class:disabled>{@html translateFunc ? translateFunc(nameLabel) : 'Name'}:</span>
     </label>
     <div class="input-wrapper">
       <TextInput
-        id="name-input"
+        id={`${id}name-input`}
         type="text"
         marginForMessage={false}
         bind:value={name}
         enabled={!disabled}
       />
     </div>
-    <label for="email-input">
+    <label for={`${id}-email-input`}>
       <span class:disabled>{@html translateFunc ? translateFunc(emailLabel) : 'Email'}:</span>
     </label>
     <div class="input-wrapper">
       <TextInput
-        id="email-input"
+        id={`${id}-email-input`}
         type="email"
         marginForMessage={false}
         bind:value={email}
         enabled={!disabled}
       />
     </div>
-    <label for="date-input">
+    <label for={`${id}-date-input`}>
       <span class:disabled
         >{@html translateFunc ? translateFunc(dateEntryLabel) : 'Vacation Dates'}:</span
       >
@@ -165,7 +167,8 @@
       {/if}
       <div class="date-input-wrapper" id="engage-date-buttons">
         <Button
-          id="date-input"
+          enabled={!disabled}
+          id={`${id}-date-input`}
           iconName="edit"
           size={1.8}
           clicked={engageDateInput}
@@ -190,18 +193,19 @@
     </label>
 
     <div class="message-wrapper">
-      {#if successfullySent}
-        <div class="success">
+      {#if preview}<div>[PREVIEW]</div>{/if}
+      {#if successfullySent || preview}
+        <div class="messsage success">
           {translateFunc ? translateFunc(successfullySentText) : 'Successfully Sent Email'}
         </div>
       {/if}
-      {#if errored}
-        <div class="error">
+      {#if errored || preview}
+        <div class="message error">
           {translateFunc ? translateFunc(sentErroredText) : 'Error Occurred Sending Email'}
         </div>
       {/if}
-      {#if invalid}
-        <div class="error">
+      {#if invalid || preview}
+        <div class="message error">
           {translateFunc ? translateFunc(invalidText) : 'Dates Are Not Available'}
         </div>
       {/if}
@@ -228,7 +232,6 @@
     background-color: var(--main-bg-color);
     color: var(--main-font-color);
 
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -245,6 +248,7 @@
     row-gap: 0.5rem;
 
     label {
+      align-content: center;
       grid-column-start: start;
       grid-column-end: gap-start;
     }
@@ -278,7 +282,7 @@
       grid-column-start: start;
       grid-column-end: end;
       display: flex;
-      justify-content: flex-start;
+      justify-content: space-between;
     }
     .button-wrapper {
       grid-column-start: start;
@@ -291,6 +295,11 @@
   .max-chars-message {
     font-weight: bolder;
     color: var(--alert-font-color);
+  }
+
+  .message {
+    display: flex;
+    justify-content: space-between;
   }
 
   .success {

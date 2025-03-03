@@ -218,126 +218,122 @@
     kind: 'acco-card',
     content: {
       displayName: 'A beautiful Apartment',
-      cardContent: {
-        coverPhoto: {
-          photoPath: photos[1],
-          alt: 'accoCCCalt',
+      coverPhoto: {
+        photoPath: photos[1],
+        alt: 'accoCCCalt',
+      },
+      amenities: {
+        id: randomID(),
+        kind: 'amenities-core',
+        content: {
+          peopleMin: 2,
+          peopleMax: 4,
+          size: 55,
+          bedRooms: 2,
+          bathRooms: 1,
+          pets: true,
+          wifi: true,
+          smoking: false,
+          ac: false,
+          tv: true,
+          parking: true,
+          showPets: true,
+          showWifi: true,
+          showSmoking: true,
+          showAc: false,
+          showTv: true,
+          showParking: true,
         },
-        blocks: [
-          {
-            id: randomID(),
-            kind: 'amenities-core',
-            content: {
-              peopleMin: 2,
-              peopleMax: 4,
-              size: 55,
-              bedRooms: 2,
-              bathRooms: 1,
-              pets: true,
-              wifi: true,
-              smoking: false,
-              ac: false,
-              tv: true,
-              parking: true,
-              showPets: true,
-              showWifi: true,
-              showSmoking: true,
-              showAc: false,
-              showTv: true,
-              showParking: true,
-            },
-          },
-          {
-            id: randomID(),
-            content: {
-              showMaximum: true,
-              showMinimum: true,
-              footnote: 'promising-tassel-weed',
-              entries: [
-                {
-                  from: '2024-09-01T02:00:00.000+02:00',
-                  to: '2025-06-30T00:00:00.000Z',
-                  entry: {
-                    perNightPrice: {
-                      scale: 2,
-                      amount: 5000,
-                      currency: {
-                        code: 'EUR',
-                        base: 10,
-                        exponent: 2,
-                      },
-                    },
-                    minNumberOfNights: 3,
-                    firstNightPrice: {
-                      scale: 2,
-                      amount: 8000,
-                      currency: {
-                        code: 'EUR',
-                        base: 10,
-                        exponent: 2,
-                      },
-                    },
-                  },
-                },
-                {
-                  from: '2025-09-01T02:00:00.000+02:00',
-                  to: '2026-06-30T00:00:00.000Z',
-                  entry: {
-                    perNightPrice: {
-                      amount: 5000,
-                      scale: 2,
-                      currency: {
-                        code: 'EUR',
-                        base: 10,
-                        exponent: 2,
-                      },
-                    },
-                    minNumberOfNights: 3,
-                    firstNightPrice: {
-                      amount: 8000,
-                      scale: 2,
-                      currency: {
-                        code: 'EUR',
-                        base: 10,
-                        exponent: 2,
-                      },
-                    },
-                  },
-                },
-              ],
-              global: {
+      },
+      pricing: {
+        id: randomID(),
+        content: {
+          showMaximum: true,
+          showMinimum: true,
+          footnote: 'promising-tassel-weed',
+          entries: [
+            {
+              from: '2024-09-01T02:00:00.000+02:00',
+              to: '2025-06-30T00:00:00.000Z',
+              entry: {
                 perNightPrice: {
-                  amount: 7000,
+                  scale: 2,
+                  amount: 5000,
                   currency: {
                     code: 'EUR',
                     base: 10,
                     exponent: 2,
                   },
-                  scale: 2,
                 },
-                minNumberOfNights: 5,
+                minNumberOfNights: 3,
                 firstNightPrice: {
-                  amount: 10000,
+                  scale: 2,
+                  amount: 8000,
                   currency: {
                     code: 'EUR',
                     base: 10,
                     exponent: 2,
                   },
-                  scale: 2,
                 },
               },
             },
-            kind: 'pricing-short',
-          },
-          {
-            id: randomID(),
-            content: {
-              url: 'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/050edcb4-680e-4542-96df-3ae4a2af89a5',
-              search: [3, 7, 14],
+            {
+              from: '2025-09-01T02:00:00.000+02:00',
+              to: '2026-06-30T00:00:00.000Z',
+              entry: {
+                perNightPrice: {
+                  amount: 5000,
+                  scale: 2,
+                  currency: {
+                    code: 'EUR',
+                    base: 10,
+                    exponent: 2,
+                  },
+                },
+                minNumberOfNights: 3,
+                firstNightPrice: {
+                  amount: 8000,
+                  scale: 2,
+                  currency: {
+                    code: 'EUR',
+                    base: 10,
+                    exponent: 2,
+                  },
+                },
+              },
             },
-            kind: 'calendar-available',
+          ],
+          global: {
+            perNightPrice: {
+              amount: 7000,
+              currency: {
+                code: 'EUR',
+                base: 10,
+                exponent: 2,
+              },
+              scale: 2,
+            },
+            minNumberOfNights: 5,
+            firstNightPrice: {
+              amount: 10000,
+              currency: {
+                code: 'EUR',
+                base: 10,
+                exponent: 2,
+              },
+              scale: 2,
+            },
           },
-        ],
+        },
+        kind: 'pricing-short',
+      },
+      avail: {
+        id: randomID(),
+        content: {
+          url: 'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/050edcb4-680e-4542-96df-3ae4a2af89a5',
+          search: [3, 7, 14],
+        },
+        kind: 'calendar-available',
       },
     },
   };
@@ -462,7 +458,6 @@
   const brRef5 = 'brRef5';
   const brRef6 = 'brRef6';
   const brRef7 = 'brRef7';
-  const brRef8 = 'brRef8';
   const brRef9 = 'brRef9';
 
   const brForm: BookingRequestBlock = {
@@ -481,7 +476,6 @@
       successfullySentText: brRef5,
       sentErroredText: brRef6,
       dateEntryLabel: brRef7,
-      numberOfNightsLabel: brRef8,
       invalidText: brRef9,
       explainer: 'brRef10',
     },
@@ -528,6 +522,12 @@
       <BookingRequest {...brForm.content} {...i18n} />
     </div>
   </div>
+  <h3>Booking Request - PREVIEW</h3>
+  <div class="component">
+    <div class="component-view" style={css}>
+      <BookingRequest {...brForm.content} {...i18n} preview={true} />
+    </div>
+  </div>
   <h3>Date Picker</h3>
   <div class="component">
     <div class="component-view" style={css}>
@@ -536,8 +536,14 @@
   </div>
   <h3>Contact Form</h3>
   <div class="component">
-    <div class="compontent-view" style={css}>
+    <div class="component-view" style={css}>
       <ContactForm {...cForm.content} {...i18n} />
+    </div>
+  </div>
+  <h3>Contact Form - PREVIEW</h3>
+  <div class="component">
+    <div class="component-view" style={css}>
+      <ContactForm {...cForm.content} {...i18n} preview={true} />
     </div>
   </div>
   <h3>Month Grid Calendar</h3>

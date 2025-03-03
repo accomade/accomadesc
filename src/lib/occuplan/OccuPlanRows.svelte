@@ -17,6 +17,7 @@
   import { browser } from '$app/environment';
   import { getContext, setContext } from 'svelte';
   import Spinner from '$lib/basic/Spinner.svelte';
+  import { randomID } from '$lib/names/gen.js';
 
   let {
     url,
@@ -44,6 +45,8 @@
     maxDate?: DateTime;
     maxWidth?: string;
   } = $props();
+
+  const id = randomID();
 
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
   let occupationState: OccupationState = $state(getContext(oStateID));
@@ -89,6 +92,7 @@
     const ldays: DayHelper[] = [];
     if (!browser) return ldays;
     if (!occupationState || occupationState.loading) return ldays;
+
     for (const m of months) {
       for (let d: DayNumbers = 1; d <= 31; d++) {
         const day: DayHelper = {
@@ -130,15 +134,13 @@
         }, [] as OccupationType[])
       : [],
   );
-
-  let width = $state(0);
 </script>
 
 {#if !occupationState || occupationState.loading}
   <Spinner />
 {/if}
 
-<section class="occuplan-wrapper" bind:clientWidth={width} style="max-width: {maxWidth};">
+<section class="occuplan-wrapper" style="max-width: {maxWidth};">
   <header class="occupation-plan-header">
     <div class="header-controls">
       {#if rfMonth >= minDate}
@@ -183,6 +185,7 @@
         </div>
       {/if}
       <div
+        id={`${m.year}-${m.month}-${id}`}
         class="month-label"
         style="grid-area: m{m.month}y{m.year} / rowLegend / m{m.month}y{m.year} / rowLegend;"
       >
@@ -193,6 +196,7 @@
     {#if occupationState}
       {#each days as d (`${d.year}-${d.month}-${d.day}`)}
         <div
+          id={`${d.year}-${d.month}-${d.day}-${id}`}
           class="day"
           style="
             outline: var(--occuplan-grid-border);
@@ -273,6 +277,7 @@
     container-type: size;
     container-name: month-label;
     padding-left: 0.3rem;
+    height: 100%;
   }
 
   @container month-label (min-height: 0) {
@@ -353,6 +358,7 @@
     container-type: size;
     container-name: year-label;
     text-decoration: underline;
+    height: 100%;
   }
 
   @container year-label (min-width: 0) {
