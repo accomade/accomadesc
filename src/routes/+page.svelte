@@ -218,7 +218,9 @@
     kind: 'acco-card',
     content: {
       displayName: 'A beautiful Apartment',
+      slug: 'accRef',
       coverPhoto: {
+        attribution: 'Something',
         photoPath: photos[1],
         alt: 'accoCCCalt',
       },

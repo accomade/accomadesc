@@ -19,6 +19,7 @@ export class I18n implements I18nFacade {
   supportedLangs = ['en', 'fr', 'de'];
   translations: Record<string, Record<string, string>> = $state({
     en: {
+      accRef: 'Some subtitle with <i>formatting</i>',
       textRef: '<h3>HEADER</h3><p>Some english text</p>',
       photoAlt: 'A Lake',
       priceGAdd1: 'Kids',

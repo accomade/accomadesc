@@ -69,6 +69,7 @@
 
   .photo {
     grid-area: first-row-line / start-line / fifth-row-line / middle-line;
+    position: relative;
   }
 
   .amenities-container {
@@ -118,7 +119,6 @@
 
   .slug {
     text-align: right;
-    font-style: italic;
     margin-bottom: 1rem;
   }
 
