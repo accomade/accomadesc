@@ -267,7 +267,7 @@ export interface AccoCard {
 export interface AccoCardContent {
   displayName: string;
   coverPhoto: PhotoContent;
-  slug?: string;
+  slug: string;
   pricing: PricingShort;
   avail: CalendarAvailable;
   amenities: AmenitiesCore;
