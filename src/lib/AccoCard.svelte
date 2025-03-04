@@ -63,31 +63,31 @@
 </div>
 
 <style>
-  .title-with-slug {
+  div.title-with-slug {
     grid-area: first-row-line / middle-line / second-row-line / end-line;
   }
 
-  .photo {
+  div.photo {
     grid-area: first-row-line / start-line / fifth-row-line / middle-line;
     position: relative;
   }
 
-  .amenities-container {
+  div.amenities-container {
     grid-area: second-row-line / middle-line / third-row-line / end-line;
     position: relative;
   }
 
-  .pricing-container {
+  div.pricing-container {
     grid-area: third-row-line / middle-line / fourth-row-line / end-line;
     position: relative;
   }
 
-  .calendar-container {
+  div.calendar-container {
     grid-area: fourth-row-line / middle-line / fifth-row-line / end-line;
     position: relative;
   }
 
-  .accocard-wrapper {
+  div.accocard-wrapper {
     width: calc(100% - 8rem);
     position: relative;
     display: grid;
@@ -111,85 +111,85 @@
     }
   }
 
-  .accocard-wrapper h2 {
+  div.accocard-wrapper h2 {
     margin-top: 0;
     margin-bottom: 0;
     text-align: right;
   }
 
-  .slug {
+  div.slug {
     text-align: right;
     margin-bottom: 1rem;
   }
 
   @media (max-width: 999px) {
-    .accocard-wrapper {
+    div.accocard-wrapper {
       grid-template-rows: [first-row-line] auto [second-row-line] auto [third-row-line] auto [fourth-row-line];
     }
 
-    .title-with-slug {
+    div.title-with-slug {
       grid-area: first-row-line / middle-line / second-row-line / end-line;
     }
 
-    .photo {
+    div.photo {
       grid-area: first-row-line / start-line / third-row-line / middle-line;
     }
 
-    .amenities-container {
+    div.amenities-container {
       grid-area: second-row-line / middle-line / third-row-line / end-line;
     }
 
-    .pricing-container {
+    div.pricing-container {
       grid-area: third-row-line / start-line / fourth-row-line / middle-line;
     }
 
-    .calendar-container {
+    div.calendar-container {
       grid-area: third-row-line / middle-line / fourth-row-line / end-line;
     }
   }
 
   @media (max-width: 750px) {
-    .accocard-wrapper {
+    div.accocard-wrapper {
       grid-template-rows: repeat(auto);
       grid-template-columns: 1fr;
     }
 
-    .title-with-slug {
+    div.title-with-slug {
       grid-row: auto;
       grid-column: 1;
     }
 
-    .photo {
+    div.photo {
       grid-row: auto;
       grid-column: 1;
     }
 
-    .amenities-container {
+    div.amenities-container {
       grid-row: auto;
       grid-column: 1;
     }
 
-    .pricing-container {
+    div.pricing-container {
       grid-row: auto;
       grid-column: 1;
     }
 
-    .calendar-container {
+    div.calendar-container {
       grid-row: auto;
       grid-column: 1;
     }
 
-    .accocard-wrapper h2 {
+    div.accocard-wrapper h2 {
       text-align: center;
     }
 
-    .slug {
+    div.slug {
       text-align: center;
     }
   }
 
   @media (max-width: 750px) {
-    .accocard-wrapper {
+    div.accocard-wrapper {
       width: calc(100% - 2rem);
 
       gap: 0.5rem;

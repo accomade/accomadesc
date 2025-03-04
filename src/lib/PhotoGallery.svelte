@@ -115,7 +115,7 @@
 </div>
 
 <style>
-  .next-wrapper {
+  div.next-wrapper {
     position: absolute;
     right: 1rem;
     top: calc(50% - 1.65rem);
@@ -124,7 +124,7 @@
     --button-bg-color: var(--gallery-button-bg-color);
   }
 
-  .prev-wrapper {
+  div.prev-wrapper {
     position: absolute;
     left: 1rem;
     top: calc(50% - 1.65rem);
@@ -133,12 +133,12 @@
     --button-bg-color: var(--gallery-button-bg-color);
   }
 
-  .complete-row {
+  div.complete-row {
     grid-column-start: firstLine;
     grid-column-end: lastLine;
   }
 
-  .photo-container {
+  div.photo-container {
     padding: 0;
     border: 0;
     cursor: pointer;
@@ -147,7 +147,7 @@
     position: relative;
   }
 
-  .grid-container {
+  div.grid-container {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

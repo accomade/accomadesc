@@ -82,7 +82,7 @@
     position: relative;
   }
 
-  .link-icon-wrapper {
+  div.link-icon-wrapper {
     position: absolute;
     top: -0.4rem;
     right: -0.4rem;
@@ -91,7 +91,7 @@
     border-radius: 1rem;
   }
 
-  .attribution-wrapper {
+  div.attribution-wrapper {
     color: var(--attribution-font-color);
     background-color: var(--attribution-bg-color);
     font-size: 0.7rem;
@@ -101,7 +101,7 @@
     border-radius: 1rem;
   }
 
-  .attribution-container {
+  div.attribution-container {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
@@ -114,12 +114,12 @@
     width: 100%;
   }
 
-  .no-frame {
+  div.no-frame {
     width: 100%;
     height: 100%;
   }
 
-  .frame {
+  div.frame {
     width: 100%;
     height: 100%;
     padding: 0.3rem;

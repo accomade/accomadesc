@@ -18,9 +18,7 @@
     const data = encoder.encode(lowerCased);
     const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
     const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
-    const hashed = hashArray
-      .map((b) => b.toString(16).padStart(2, '0'))
-      .join('');
+    const hashed = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
     return hashed;
   };
 
@@ -45,7 +43,7 @@
 </div>
 
 <style>
-  .avatar-container {
+  div.avatar-container {
     border: var(--avatar-border);
     border-radius: 50%;
     overflow: hidden;

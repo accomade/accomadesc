@@ -44,7 +44,7 @@
 </div>
 
 <style>
-  .cal-wrapper {
+  div.cal-wrapper {
     position: relative;
     display: flex;
     justify-content: center;

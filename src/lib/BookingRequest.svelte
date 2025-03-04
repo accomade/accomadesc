@@ -224,11 +224,11 @@
 </div>
 
 <style>
-  .explainer {
+  div.explainer {
     margin-bottom: 1rem;
   }
 
-  .wrapper {
+  div.wrapper {
     background-color: var(--main-bg-color);
     color: var(--main-font-color);
 
@@ -262,29 +262,29 @@
       gap: 1rem;
     }
 
-    .input-wrapper {
+    div.input-wrapper {
       grid-column-start: gap-end;
       grid-column-end: end;
     }
-    .date-input-wrapper {
+    div.date-input-wrapper {
       display: flex;
       gap: 1rem;
       justify-content: flex-start;
     }
-    .picker-wrapper {
+    div.picker-wrapper {
       position: absolute;
       z-index: 9999;
       background-color: var(--main-bg-color);
     }
 
-    .message-wrapper {
+    div.message-wrapper {
       margin-top: 1rem;
       grid-column-start: start;
       grid-column-end: end;
       display: flex;
       justify-content: space-between;
     }
-    .button-wrapper {
+    div.button-wrapper {
       grid-column-start: start;
       grid-column-end: end;
       display: flex;
@@ -292,27 +292,28 @@
     }
   }
 
-  .max-chars-message {
+  span.max-chars-message {
     font-weight: bolder;
     color: var(--alert-font-color);
   }
 
-  .message {
+  div.message {
     display: flex;
     justify-content: space-between;
   }
 
-  .success {
+  div.success {
     color: var(--accept-font-color);
     font-weight: bolder;
   }
 
-  .error {
+  div.error {
     color: var(--alert-font-color);
     font-weight: bolder;
   }
 
-  .disabled {
+  div.disabled,
+  span.disabled {
     color: var(--disabled-font-color);
   }
 </style>

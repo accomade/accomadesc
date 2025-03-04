@@ -52,7 +52,7 @@
 </div>
 
 <style>
-  .cal-wrapper {
+  div.cal-wrapper {
     color: var(--main-font-color);
     background-color: var(--main-bg-color);
     position: relative;

@@ -35,7 +35,7 @@
 ></div>
 
 <style>
-  .question-input {
+  div.question-input {
     position: relative;
 
     min-width: 400px;
@@ -60,13 +60,13 @@
     background-repeat: repeat;
   }
 
-  .question-input.disabled {
+  div.question-input.disabled {
     border: var(--disabled-border);
     font: var(--notes-disabled-font-color);
     background-color: var(--notes-disabled-bg-color);
   }
 
-  .question-input::after {
+  div.question-input::after {
     content: '';
     position: absolute;
     border: var(--notes-vert-line);
@@ -74,7 +74,7 @@
     top: 0;
     bottom: 0;
   }
-  .question-input::before {
+  div.question-input::before {
     content: '';
     position: absolute;
     border: var(--notes-vert-line);

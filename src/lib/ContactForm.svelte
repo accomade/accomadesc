@@ -153,12 +153,12 @@
 </div>
 
 <style>
-  .explainer {
+  div.explainer {
     margin-bottom: 1rem;
     grid-column: span 2;
   }
 
-  .wrapper {
+  div.wrapper {
     background-color: var(--main-bg-color);
     color: var(--main-font-color);
 
@@ -184,25 +184,25 @@
       grid-column-end: gap-start;
     }
 
-    .message-wrapper {
+    div.message-wrapper {
       margin-top: 1rem;
       grid-column-start: start;
       grid-column-end: end;
       display: flex;
       justify-content: space-between;
     }
-    .button-wrapper {
+    div.button-wrapper {
       grid-column-start: start;
       grid-column-end: end;
       display: flex;
       justify-content: flex-start;
     }
-    .input-wrapper {
+    div.input-wrapper {
       grid-column-start: gap-end;
       grid-column-end: end;
     }
 
-    .notes-input {
+    label.notes-input {
       margin-top: 2rem;
       grid-column-start: start;
       grid-column-end: end;
@@ -212,22 +212,23 @@
     }
   }
 
-  .max-chars-message {
+  span.max-chars-message {
     font-weight: bolder;
     color: var(--alert-font-color);
   }
 
-  .success {
+  div.success {
     color: var(--accept-font-color);
     font-weight: bolder;
   }
 
-  .error {
+  div.error {
     color: var(--alert-font-color);
     font-weight: bolder;
   }
 
-  .disabled {
+  div.disabled,
+  span.disabled {
     color: var(--disabled-font-color);
   }
 </style>

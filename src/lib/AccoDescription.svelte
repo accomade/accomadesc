@@ -45,12 +45,12 @@
 </div>
 
 <style>
-  .container {
+  div.container {
     position: relative;
     height: 100%;
     width: 100%;
 
-    .content {
+    div.content {
       width: 100%;
       height: 100%;
 
@@ -68,7 +68,7 @@
       }
     }
 
-    .content.extended {
+    div.content.extended {
       :global(h1) {
         font-size: var(--font-size-header-1);
         text-align: left;

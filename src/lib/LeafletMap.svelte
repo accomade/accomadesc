@@ -57,12 +57,12 @@
 </div>
 
 <style>
-  .wrapper {
+  div.wrapper {
     width: 100%;
     position: relative;
     background-color: var(--main-bg-color);
   }
-  .nav-floater {
+  div.nav-floater {
     position: absolute;
     top: 0;
     right: 0;
@@ -74,7 +74,7 @@
   a {
     color: var(--picture-link-font-color);
   }
-  .map {
+  div.map {
     width: 100%;
     min-height: 60vh;
   }

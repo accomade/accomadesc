@@ -99,7 +99,7 @@
 </div>
 
 <style>
-  .pricing-short-wrapper {
+  div.pricing-short-wrapper {
     color: var(--main-font-color);
     background-color: var(--main-bg-color);
 
@@ -113,7 +113,7 @@
     }
   }
 
-  .pricing-short-wrapper h3 {
+  div.pricing-short-wrapper h3 {
     margin-top: 0;
     margin-bottom: 0;
   }

@@ -49,7 +49,7 @@
 </svelte:head>
 
 <style>
-  .background {
+  div.background {
     height: 100vh;
     width: 100vw;
     background-color: rgba(245, 245, 245, 0.7);
@@ -64,4 +64,3 @@
     align-items: center;
   }
 </style>
-

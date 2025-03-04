@@ -261,15 +261,15 @@
 {/if}
 
 <style>
-  .disabled {
+  button.disabled {
     filter: grayscale(1) opacity(0.5);
   }
 
-  .pressed {
+  button.pressed {
     filter: hue-rotate(120deg);
   }
 
-  .button {
+  button.button {
     box-sizing: content-box;
 
     font-size: 100%;
@@ -291,25 +291,25 @@
 
     -webkit-tap-highlight-color: transparent;
   }
-  .button:focus {
+  button.button:focus {
     outline-style: none;
     filter: var(--button-focus-filter);
   }
 
-  .button.danger {
+  button.button.danger {
     background-color: var(--button-danger-bg-color);
     color: var(--button-danger-font-color);
   }
 
-  .button:enabled:active {
+  button.button:enabled:active {
     filter: blur(0.1rem);
   }
 
-  .button .button-icon {
+  button.button .button-icon {
     display: inline-block;
   }
 
-  .button .button-text {
+  button.button .button-text {
     display: inline-block;
     font-weight: bold;
     user-select: none;
@@ -322,11 +322,11 @@
     margin-right: 0.4rem;
   }
 
-  .button.danger .button-text {
+  button.button.danger .button-text {
     color: var(--button-danger-font-color);
   }
 
-  .button:disabled {
+  button.button:disabled {
     cursor: default;
   }
 </style>

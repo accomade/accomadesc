@@ -456,7 +456,7 @@
     border-collapse: collapse;
   }
 
-  .pricing-table-global td {
+  table.pricing-table-global td {
     padding: 1.5rem;
   }
 
@@ -521,7 +521,7 @@
     }
   }
 
-  .main-header {
+  th.main-header {
     font-weight: bolder;
   }
 </style>

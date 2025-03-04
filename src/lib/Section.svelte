@@ -80,7 +80,7 @@
 
 <svelte:window bind:innerWidth={clientWidth} />
 
-<section style={widthStyle}>
+<section class="wrapper" style={widthStyle}>
   {#if header}
     <h2>{translatedHeader}</h2>
   {/if}
@@ -165,11 +165,11 @@
 </section>
 
 <style>
-  .block-container {
+  div.block-container {
     position: relative;
   }
 
-  section {
+  section.wrapper {
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
     display: flex;
@@ -177,7 +177,7 @@
     width: 100%;
   }
 
-  .content {
+  div.content {
     display: grid;
     width: 100%;
     gap: 1rem;

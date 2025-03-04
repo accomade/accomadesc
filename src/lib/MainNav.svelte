@@ -77,7 +77,7 @@
     margin-left: 1rem;
   }
 
-  nav {
+  nav.main-nav {
     z-index: 998;
     position: fixed;
     padding-right: 1rem;
@@ -100,7 +100,7 @@
     }
   }
 
-  .not-nav {
+  button.not-nav {
     border: none;
     position: fixed;
     top: 0;
@@ -117,7 +117,7 @@
     margin-bottom: 1rem;
   }
 
-  .radio-wrapper {
+  div.radio-wrapper {
     font-family: var(--nav-font-family);
     font-variant: var(--nav-font-variant);
     font-size: 1.6rem;

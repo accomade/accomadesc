@@ -151,7 +151,7 @@
 </div>
 
 <style>
-  .amenities-wrapper {
+  div.amenities-wrapper {
     background-color: var(--main-bg-color);
     color: var(--main-font-color);
 
@@ -166,25 +166,25 @@
     }
   }
 
-  .element-wrapper {
+  div.element-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .bool-element-wrapper {
+  div.bool-element-wrapper {
     position: relative;
     width: 2.2rem;
     height: 2.2rem;
   }
 
-  .main-icon-container {
+  div.main-icon-container {
     position: absolute;
     top: 0.3rem;
     left: 0.3rem;
   }
 
-  .not-icon-container {
+  div.not-icon-container {
     position: absolute;
     top: 0;
     left: 0;

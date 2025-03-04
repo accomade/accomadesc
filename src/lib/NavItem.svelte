@@ -37,7 +37,7 @@
 </div>
 
 <style>
-  .sub {
+  div.sub {
     font-size: 1.2rem;
     margin-left: 0.4rem;
   }
@@ -51,16 +51,16 @@
     color: var(--nav-font-color);
   }
 
-  .link-icon-wrapper {
+  div.link-icon-wrapper {
     position: absolute;
     left: -1.8rem;
     top: 0rem;
   }
-  .sub .link-icon-wrapper {
+  div.sub div.link-icon-wrapper {
     left: -2.2rem;
   }
 
-  .ext-link-wrapper {
+  div.ext-link-wrapper {
     display: flex;
     position: relative;
     width: 100%;

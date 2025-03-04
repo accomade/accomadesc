@@ -46,13 +46,13 @@
 </div>
 
 <style>
-  .container {
+  div.container {
     position: relative;
     height: 100%;
     width: 100%;
     background-color: var(--main-bg-color);
 
-    .content {
+    div.content {
       width: 100%;
       height: 100%;
 
@@ -69,7 +69,7 @@
         text-align: left;
       }
     }
-    .extended {
+    div.content.extended {
       :global(h1) {
         font-size: var(--font-size-header-1);
         text-align: left;

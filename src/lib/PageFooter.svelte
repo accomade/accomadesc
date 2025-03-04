@@ -21,26 +21,26 @@
 </footer>
 
 <style>
-  .nav {
+  div.nav {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;
     flex-grow: 3;
   }
-  .content {
+  div.content {
     flex-grow: 1;
     display: flex;
     flex-direction: row;
     justify-content: right;
   }
 
-  .content :global(*) {
+  div.content :global(*) {
     background-color: var(--footer-bg-color);
     color: var(--footer-font-color);
   }
 
-  .link-wrapper {
+  div.link-wrapper {
     text-decoration: underline;
     font-family: var(--nav-font-family, 'mono');
     font-variant: var(--nav-font-variant, 'normal');
@@ -75,7 +75,7 @@
   }
 
   @media (max-width: 500px) {
-    .nav {
+    div.nav {
       flex-direction: row;
       justify-content: left;
     }

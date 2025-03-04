@@ -255,20 +255,20 @@
 </div>
 
 <style>
-  .translating {
+  input.translating {
     filter: drop-shadow(0 0 1rem #baa5c3);
     border-color: #3d704d;
     box-shadow: 0 0 0.5rem #baa5c3;
   }
 
-  .input-wrapper {
+  div.input-wrapper {
     display: flex;
     flex-direction: column;
     position: relative;
     align-self: flex-start;
   }
 
-  .margin-for-message {
+  div.margin-for-message {
     margin-top: 1rem;
   }
 
@@ -310,13 +310,13 @@
     position: absolute;
   }
 
-  .message-wrapper {
+  div.message-wrapper {
     height: 1rem;
     top: -1rem;
     position: absolute;
   }
 
-  .message {
+  span.message {
     color: var(--alert-font-color);
     font-style: italic;
 
@@ -324,7 +324,7 @@
     white-space: nowrap;
   }
 
-  .message.valid {
+  span.message.valid {
     color: var(--accept-font-color);
   }
 </style>

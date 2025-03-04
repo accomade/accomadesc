@@ -195,7 +195,7 @@
 </div>
 
 <style>
-  .section-wrapper {
+  div.section-wrapper {
     margin-bottom: 2rem;
     width: 100%;
     overflow-y: clip;
@@ -235,7 +235,7 @@
     margin-top: calc(100vh - 1rem);
   }
 
-  .floating-title {
+  div.floating-title {
     width: 100%;
     height: calc(100vh - 2rem);
     position: absolute;
@@ -250,7 +250,7 @@
     text-align: center;
   }
 
-  .floating-title h1 {
+  div.floating-title h1 {
     font-weight: bolder;
     font-size: 2.8rem;
     font-family: var(--landing-title-font-family, 'sans-serif');
@@ -260,12 +260,12 @@
   }
 
   @media (max-width: 300px) {
-    .floating-title h1 {
+    div.floating-title h1 {
       font-size: 1.6rem;
     }
   }
 
-  .ham-wrapper {
+  div.ham-wrapper {
     position: absolute;
     right: 1rem;
     top: 1rem;
@@ -274,11 +274,11 @@
     z-index: 999;
   }
 
-  .fixed {
+  div.fixed {
     position: fixed;
   }
 
-  .nav {
+  div.nav {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -289,12 +289,12 @@
     padding-top: 0.5rem;
   }
 
-  .nav :global(*) {
+  div.nav :global(*) {
     background-color: var(--header-bg-color);
     color: var(--footer-font-color);
   }
 
-  .page-wrapper {
+  div.page-wrapper {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -303,11 +303,11 @@
     background-color: var(--main-bg-color);
   }
 
-  .disabled {
+  div.disabled {
     filter: grayscale();
   }
 
-  .hero-nav-wrapper {
+  div.hero-nav-wrapper {
     position: absolute;
     right: 0;
     left: 0;
