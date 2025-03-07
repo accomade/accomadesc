@@ -418,12 +418,14 @@ export interface SiteConfig {
   cookies: CookieConfig;
   fonts: SiteFonts;
   nav: Nav;
-  pages: {
-    '/': PageProps;
-    [key: string]: PageProps;
-  };
+  pages: PageConfig;
   lang: LangConfig;
   css: string;
+}
+
+export interface PageConfig {
+    '/': PageProps;
+    [key: string]: PageProps;
 }
 
 export interface PageProps {

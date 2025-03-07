@@ -73,6 +73,7 @@ export type {
   I18nFacade,
   Block,
   PageProps,
+  PageConfig,
   Nav as NavI,
   FormatSpec,
   FormatTemplateName,
