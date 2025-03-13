@@ -44,8 +44,9 @@
     min-height: 5rem;
     height: 100%;
 
-    border: var(--main-border);
-    border-radius: 1rem;
+    border: none;
+    /*border: var(--main-border);*/
+    /*border-radius: 1rem;*/
 
     background-color: var(--notes-bg-color);
     color: var(--notes-font-color);
@@ -61,7 +62,8 @@
   }
 
   div.question-input.disabled {
-    border: var(--disabled-border);
+    border: none;
+    /*var(--disabled-border);*/
     font: var(--notes-disabled-font-color);
     background-color: var(--notes-disabled-bg-color);
   }
