@@ -38,7 +38,6 @@
   div.question-input {
     position: relative;
 
-    min-width: 400px;
     width: 100%;
     max-width: 800px;
     min-height: 5rem;
