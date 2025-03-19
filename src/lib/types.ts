@@ -2,7 +2,6 @@ import { type Dinero, type DineroSnapshot } from 'dinero.js';
 import type { FirstMonth, OccuplanTranslations } from '$lib/occuplan/state.svelte.js';
 import type { DateTime, MonthNumbers, WeekdayNumbers } from 'luxon';
 import type { CookieType, Translation as CookieTranslation } from 'gdpr-cooco-banner';
-import type { CalendarAvailableI } from './index.ts';
 
 export type WeekdayLabels = {
   [key in WeekdayNumbers]: string;
@@ -11,6 +10,10 @@ export type WeekdayLabels = {
 export type MonthLabels = {
   [key in MonthNumbers]: string;
 };
+
+export interface AccoBlock {
+  acco?: string | undefined;
+}
 
 export interface GridPhoto {
   photo: Photo;
@@ -31,7 +34,7 @@ export interface LeafletMapContent {
   zoom: number;
 }
 
-export interface Calendar {
+export interface Calendar extends AccoBlock {
   id: string;
   kind: 'calendar';
   content: CalendarContent;
@@ -50,7 +53,7 @@ export interface CalendarContent {
   maxPastYears?: number;
 }
 
-export interface CalendarAvailable {
+export interface CalendarAvailable extends AccoBlock {
   id: string;
   kind: 'calendar-available';
   content: CalendarAvailableContent;
@@ -61,7 +64,7 @@ export interface CalendarAvailableContent {
   maxFutureYears?: number;
 }
 
-export interface CalendarGrid {
+export interface CalendarGrid extends AccoBlock {
   id: string;
   kind: 'calendar-grid';
   content: CalendarGridContent;
@@ -76,7 +79,7 @@ export interface CalendarGridContent {
   maxWidth?: string;
 }
 
-export interface CalendarRows {
+export interface CalendarRows extends AccoBlock {
   id: string;
   kind: 'calendar-rows';
   content: CalendarRowsContent;
@@ -157,7 +160,7 @@ export interface PhotoGalleryContent {
   photos: Photo[];
 }
 
-export interface Pricing {
+export interface Pricing extends AccoBlock {
   id: string;
   kind: 'pricing';
   content: PricingContent;
@@ -217,7 +220,7 @@ export interface PricingEntry {
   additionalPersonText3?: string;
 }
 
-export interface PricingShort {
+export interface PricingShort extends AccoBlock {
   id: string;
   kind: 'pricing-short';
   content: PricingShortContent;
@@ -233,7 +236,7 @@ export interface PricingShortContent {
   footnote?: string;
 }
 
-export interface AmenitiesCore {
+export interface AmenitiesCore extends AccoBlock {
   id: string;
   kind: 'amenities-core';
   content: AmenitiesCoreContent;
@@ -258,7 +261,7 @@ export interface AmenitiesCoreContent {
   showParking?: boolean;
 }
 
-export interface AccoCard {
+export interface AccoCard extends AccoBlock {
   id: string;
   kind: 'acco-card';
   content: AccoCardContent;
@@ -273,7 +276,7 @@ export interface AccoCardContent {
   amenities: AmenitiesCore;
 }
 
-export interface AccoDescription {
+export interface AccoDescription extends AccoBlock {
   id: string;
   kind: 'acco-description';
   content: AccoDescriptionContent;
@@ -311,7 +314,7 @@ export interface ContactFormContent {
   preview?: boolean;
 }
 
-export interface BookingRequest {
+export interface BookingRequest extends AccoBlock {
   id: string;
   kind: 'booking-request';
   content: BookingRequestContent;
@@ -351,8 +354,7 @@ export type Block =
   | AccoCard
   | AccoDescription
   | ContactForm
-  | BookingRequest
-  | undefined;
+  | BookingRequest;
 
 export interface FontSpec {
   shortName: string;
@@ -424,8 +426,8 @@ export interface SiteConfig {
 }
 
 export interface PageConfig {
-    '/': PageProps;
-    [key: string]: PageProps;
+  '/': PageProps;
+  [key: string]: PageProps;
 }
 
 export interface PageProps {
