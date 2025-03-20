@@ -71,6 +71,7 @@ export type {
   AccoDescriptionContent,
   Section as SectionI,
   I18nFacade,
+  AccoBlock,
   Block,
   PageProps,
   PageConfig,
