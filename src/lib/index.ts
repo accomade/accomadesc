@@ -106,6 +106,7 @@ export {
   isAccoDescription,
   isBookingRequest,
   isContactForm,
+  isAccoBlock,
 } from '$lib/types.js';
 
 export {

@@ -556,6 +556,24 @@ export const BLOCK_KINDS = [
   'booking-request',
 ];
 
+export const ACCO_BLOCK_KINDS = [
+  'acco-card',
+  'amenities-core',
+  'calendar-available',
+  'calendar',
+  'calendar-grid',
+  'calendar-rows',
+  'pricing',
+  'pricing-short',
+  'acco-description',
+  'booking-request',
+];
+
+export const isAccoBlock = (b: Block): b is AccoBlock & Block => {
+  if (!b) return false;
+  return ACCO_BLOCK_KINDS.includes(b.kind);
+};
+
 export const isAccoCard = (b: Block): b is AccoCard => {
   if (!b) return false;
   return b.kind === 'acco-card';
