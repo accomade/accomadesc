@@ -453,6 +453,8 @@
     kind: 'calendar-grid',
   };
 
+  let calExpanded = $state(true);
+
   const brRef1 = 'brRef1'; //randomID();
   const brRef2 = 'brRef2';
   const brRef3 = 'brRef3';
@@ -561,24 +563,33 @@
       <CalendarRows {...calRows.content} {...i18n} />
     </div>
   </div>
-  <h3>Dynamic Calendar</h3>
-  <div class="component">
-    <div class="component-view" style={css}>
-      <Calendar {...cal.content} {...i18n} />
-    </div>
-    <CalendarDynamicEditor
-      bind:toggleRowsOffset={cal.content.toggleRowsOffset}
-      bind:gridMonthNumbers={cal.content.gridMonthNumbers}
-      bind:gridFirstMonth={cal.content.gridFirstMonth}
-      bind:gridMaxWidth={cal.content.gridMaxWidth}
-      bind:toggleGridOffset={cal.content.toggleGridOffset}
-      bind:rowsMonthNumbers={cal.content.rowsMonthNumbers}
-      bind:rowsFirstMonth={cal.content.rowsFirstMonth}
-      bind:rowsMaxWidth={cal.content.rowsMaxWidth}
-      bind:maxFutureYears={cal.content.maxFutureYears}
-      bind:maxPastYears={cal.content.maxPastYears}
+  <h3>
+    Dynamic Calendar <Button
+      text={calExpanded ? 'collapse' : 'expanded'}
+      clicked={() => (calExpanded = !calExpanded)}
     />
-  </div>
+  </h3>
+  {#if calExpanded}
+    <div class="component">
+      <div class="component-view" style={css}>
+        <Calendar {...cal.content} {...i18n} />
+      </div>
+      <CalendarDynamicEditor
+        bind:toggleRowsOffset={cal.content.toggleRowsOffset}
+        bind:gridMonthNumbers={cal.content.gridMonthNumbers}
+        bind:gridFirstMonth={cal.content.gridFirstMonth}
+        bind:gridMaxWidth={cal.content.gridMaxWidth}
+        bind:toggleGridOffset={cal.content.toggleGridOffset}
+        bind:rowsMonthNumbers={cal.content.rowsMonthNumbers}
+        bind:rowsFirstMonth={cal.content.rowsFirstMonth}
+        bind:rowsMaxWidth={cal.content.rowsMaxWidth}
+        bind:maxFutureYears={cal.content.maxFutureYears}
+        bind:maxPastYears={cal.content.maxPastYears}
+      />
+    </div>
+  {:else}
+    <div class="component">Nothing to show yet</div>
+  {/if}
   <h3>Calendar Available</h3>
   <div class="component">
     <div class="component-view" style={css}>
