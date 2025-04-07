@@ -25,7 +25,7 @@
     currentLang,
   }: PricingContent & I18nFacade = $props();
 
-  if (!ranges && entries) {
+  if (!ranges || (ranges.length == 0 && entries)) {
     ranges = entries;
   }
 
