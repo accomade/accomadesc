@@ -476,7 +476,8 @@ export class OccupationState {
 
       if (isWeekend && highlightWeekend) {
         return `
-          background: radial-gradient(var(--occuplan-weekend-bg-color), var(--occuplan-main-bg-color), var(--occuplan-main-bg-color)), linear-gradient(90deg, ${ef.bgColor}, ${sf.bgColor});
+          background: radial-gradient(var(--occuplan-weekend-bg-color), transparent, transparent), 
+            linear-gradient(90deg, ${ef.bgColor}, ${sf.bgColor});
           `;
       }
 
@@ -490,7 +491,9 @@ export class OccupationState {
 
       if (isWeekend && highlightWeekend) {
         return `
-        background: radial-gradient( var(--occuplan-weekend-bg-color), var(--occuplan-main-bg-color), var(--occuplan-main-bg-color)), linear-gradient(90deg, var(--occuplan-main-bg-color), ${sf.bgColor});
+        background: 
+          radial-gradient(var(--occuplan-weekend-bg-color), transparent, transparent), 
+          linear-gradient(90deg, var(--occuplan-main-bg-color), ${sf.bgColor});
         `;
       }
 
@@ -504,7 +507,10 @@ export class OccupationState {
 
       if (isWeekend && highlightWeekend) {
         return `
-        background: radial-gradient( var(--occuplan-weekend-bg-color), var(--occuplan-main-bg-color), var(--occuplan-main-bg-color)), linear-gradient(90deg, ${ef.bgColor}, var(--occuplan-main-bg-color));
+        background: 
+          radial-gradient(
+            var(--occuplan-weekend-bg-color), transparent, transparent), 
+          linear-gradient(90deg, ${ef.bgColor}, var(--occuplan-main-bg-color));
         `;
       }
 

@@ -253,6 +253,10 @@
     column-gap: 1rem;
     text-transform: capitalize;
     font-variant: small-caps;
+
+    span {
+      color: var(--occuplan-main-font-color);
+    }
   }
 
   .legend-entry-marker {
@@ -320,6 +324,7 @@
     h3 {
       padding-top: 0;
       padding-bottom: 0.2rem;
+      color: var(--occuplan-main-font-color);
     }
   }
 
@@ -359,6 +364,9 @@
     container-name: year-label;
     text-decoration: underline;
     height: 100%;
+    span {
+      color: var(--occuplan-main-font-color);
+    }
   }
 
   @container year-label (min-width: 0) {

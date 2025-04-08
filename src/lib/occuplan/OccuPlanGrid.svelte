@@ -270,6 +270,7 @@
 
   .month-header {
     text-align: center;
+    color: var(--occuplan-main-font-color);
   }
 
   .hidden {
@@ -306,6 +307,7 @@
 
   .day {
     text-align: center;
+    color: var(--occuplan-main-font-color);
   }
 
   .weekend {
@@ -358,6 +360,10 @@
     column-gap: 1rem;
     text-transform: capitalize;
     font-variant: small-caps;
+
+    span {
+      color: var(--occuplan-main-font-color);
+    }
   }
   .header-controls {
     width: 2rem;

@@ -414,6 +414,7 @@
 
   .month-header {
     text-align: center;
+    color: var(--occuplan-main-font-color);
   }
 
   .hidden {
@@ -453,6 +454,7 @@
     position: relative;
     font-size: 1.15rem;
     padding: 0.2rem;
+    color: var(--occuplan-main-font-color);
   }
 
   .weekend {
@@ -506,6 +508,9 @@
     column-gap: 1rem;
     text-transform: capitalize;
     font-variant: small-caps;
+    span {
+      color: var(--occuplan-main-font-color);
+    }
   }
   .header-controls {
     width: 2rem;
@@ -517,6 +522,9 @@
     align-items: center;
     font-size: 1.05rem;
     font-weight: bold;
+    span {
+      color: var(--occuplan-main-font-color);
+    }
   }
 
   .header-label {
