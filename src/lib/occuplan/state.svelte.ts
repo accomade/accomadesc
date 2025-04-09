@@ -443,13 +443,13 @@ export class OccupationState {
   ): string => {
     const valid = validDay(d);
     if (!valid) {
-      return 'background-color: var(--occuplan-invalid-days-bg-color);';
+      return 'background-color: var(--occuplan-invalid-days-bg-color); color: var(--occuplan-invalid-days-font-color);';
     }
 
     const day = luxon.utc(d.year, d.month, d.day);
     const outOfScope = day >= maxDate;
     if (outOfScope) {
-      return 'background-color: var(--occuplan-invalid-days-bg-color);';
+      return 'background-color: var(--occuplan-invalid-days-bg-color); color: var(--occuplan-invalid-days-font-color);';
     }
 
     const o = this.fullOccupation(day);
