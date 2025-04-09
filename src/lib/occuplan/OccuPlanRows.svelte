@@ -282,6 +282,10 @@
     container-name: month-label;
     padding-left: 0.3rem;
     height: 100%;
+
+    span {
+      color: var(--occuplan-months-font-color);
+    }
   }
 
   @container month-label (min-height: 0) {
@@ -300,6 +304,10 @@
     color: var(--occuplan-days-header-font-color);
     container-type: size;
     container-name: month-header;
+
+    span {
+      color: var(--occuplan-days-header-font-color);
+    }
   }
 
   @container month-header (min-width: 0) {
