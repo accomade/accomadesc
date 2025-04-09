@@ -35,37 +35,37 @@ importers:
     devDependencies:
       '@sveltejs/adapter-auto':
         specifier: ^3.3.1
-        version: 3.3.1(@sveltejs/kit@2.20.4(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.7)(vite@6.2.5))(svelte@5.25.7)(vite@6.2.5))
+        version: 3.3.1(@sveltejs/kit@2.20.5(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.10)(vite@6.2.5))(svelte@5.25.10)(vite@6.2.5))
       '@sveltejs/kit':
-        specifier: ^2.20.4
-        version: 2.20.4(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.7)(vite@6.2.5))(svelte@5.25.7)(vite@6.2.5)
+        specifier: ^2.20.5
+        version: 2.20.5(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.10)(vite@6.2.5))(svelte@5.25.10)(vite@6.2.5)
       '@sveltejs/package':
         specifier: ^2.3.10
-        version: 2.3.10(svelte@5.25.7)(typescript@5.8.3)
+        version: 2.3.10(svelte@5.25.10)(typescript@5.8.3)
       '@sveltejs/vite-plugin-svelte':
         specifier: ^5.0.3
-        version: 5.0.3(svelte@5.25.7)(vite@6.2.5)
+        version: 5.0.3(svelte@5.25.10)(vite@6.2.5)
       '@types/luxon':
         specifier: ^3.6.2
         version: 3.6.2
       gdpr-cooco-banner:
         specifier: ^0.0.11
-        version: 0.0.11(svelte@5.25.7)
+        version: 0.0.11(svelte@5.25.10)
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
       prettier-plugin-svelte:
         specifier: ^3.3.3
-        version: 3.3.3(prettier@3.5.3)(svelte@5.25.7)
+        version: 3.3.3(prettier@3.5.3)(svelte@5.25.10)
       publint:
         specifier: ^0.3.10
         version: 0.3.10
       svelte:
-        specifier: ^5.25.7
-        version: 5.25.7
+        specifier: ^5.25.10
+        version: 5.25.10
       svelte-check:
         specifier: ^4.1.5
-        version: 4.1.5(svelte@5.25.7)(typescript@5.8.3)
+        version: 4.1.5(svelte@5.25.10)(typescript@5.8.3)
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -259,8 +259,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@polka/url@1.0.0-next.28':
-    resolution: {integrity: sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==}
+  '@polka/url@1.0.0-next.29':
+    resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
 
   '@publint/pack@0.1.2':
     resolution: {integrity: sha512-S+9ANAvUmjutrshV4jZjaiG8XQyuJIZ8a4utWmN/vW1sgQ9IfBnPndwkmQYw53QmouOIytT874u65HEmu6H5jw==}
@@ -376,8 +376,8 @@ packages:
     peerDependencies:
       '@sveltejs/kit': ^2.0.0
 
-  '@sveltejs/kit@2.20.4':
-    resolution: {integrity: sha512-B3Y1mb1Qjt57zXLVch5tfqsK/ebHe6uYTcFSnGFNwRpId3+fplLgQK6Z2zhDVBezSsPuhDq6Pry+9PA88ocN6Q==}
+  '@sveltejs/kit@2.20.5':
+    resolution: {integrity: sha512-zT/97KvVUo19jEGZa972ls7KICjPCB53j54TVxnEFT5VEwL16G+YFqRVwJbfxh7AmS7/Ptr1rKF7Qt4FBMDNlw==}
     engines: {node: '>=18.13'}
     hasBin: true
     peerDependencies:
@@ -626,8 +626,8 @@ packages:
       svelte: ^3.55 || ^4.0.0-next.0 || ^4.0 || ^5.0.0-next.0
       typescript: ^4.9.4 || ^5.0.0
 
-  svelte@5.25.7:
-    resolution: {integrity: sha512-0fzXbXaKfSvFUs6Wxev2h4CoEhexZotbTF9EJ4+Cg7MHW64ZnZ9+xUedZyEpgj0Tt9HrYGv9aASHkqjn9b/cPw==}
+  svelte@5.25.10:
+    resolution: {integrity: sha512-tOUlvm3goAhmELYKWYX3SchYeqlVlIcUfKA4qIgd6Urm7qDw3KiZP/wJtoRv3ZeRUHPorM9f6+lOlbFxUN8QoA==}
     engines: {node: '>=18'}
 
   totalist@3.0.1:
@@ -804,7 +804,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@polka/url@1.0.0-next.28': {}
+  '@polka/url@1.0.0-next.29': {}
 
   '@publint/pack@0.1.2': {}
 
@@ -872,14 +872,14 @@ snapshots:
     dependencies:
       acorn: 8.14.1
 
-  '@sveltejs/adapter-auto@3.3.1(@sveltejs/kit@2.20.4(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.7)(vite@6.2.5))(svelte@5.25.7)(vite@6.2.5))':
+  '@sveltejs/adapter-auto@3.3.1(@sveltejs/kit@2.20.5(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.10)(vite@6.2.5))(svelte@5.25.10)(vite@6.2.5))':
     dependencies:
-      '@sveltejs/kit': 2.20.4(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.7)(vite@6.2.5))(svelte@5.25.7)(vite@6.2.5)
+      '@sveltejs/kit': 2.20.5(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.10)(vite@6.2.5))(svelte@5.25.10)(vite@6.2.5)
       import-meta-resolve: 4.1.0
 
-  '@sveltejs/kit@2.20.4(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.7)(vite@6.2.5))(svelte@5.25.7)(vite@6.2.5)':
+  '@sveltejs/kit@2.20.5(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.10)(vite@6.2.5))(svelte@5.25.10)(vite@6.2.5)':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 5.0.3(svelte@5.25.7)(vite@6.2.5)
+      '@sveltejs/vite-plugin-svelte': 5.0.3(svelte@5.25.10)(vite@6.2.5)
       '@types/cookie': 0.6.0
       cookie: 0.6.0
       devalue: 5.1.1
@@ -891,37 +891,37 @@ snapshots:
       sade: 1.8.1
       set-cookie-parser: 2.7.1
       sirv: 3.0.1
-      svelte: 5.25.7
+      svelte: 5.25.10
       vite: 6.2.5
 
-  '@sveltejs/package@2.3.10(svelte@5.25.7)(typescript@5.8.3)':
+  '@sveltejs/package@2.3.10(svelte@5.25.10)(typescript@5.8.3)':
     dependencies:
       chokidar: 4.0.3
       kleur: 4.1.5
       sade: 1.8.1
       semver: 7.7.1
-      svelte: 5.25.7
-      svelte2tsx: 0.7.35(svelte@5.25.7)(typescript@5.8.3)
+      svelte: 5.25.10
+      svelte2tsx: 0.7.35(svelte@5.25.10)(typescript@5.8.3)
     transitivePeerDependencies:
       - typescript
 
-  '@sveltejs/vite-plugin-svelte-inspector@4.0.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.7)(vite@6.2.5))(svelte@5.25.7)(vite@6.2.5)':
+  '@sveltejs/vite-plugin-svelte-inspector@4.0.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.10)(vite@6.2.5))(svelte@5.25.10)(vite@6.2.5)':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 5.0.3(svelte@5.25.7)(vite@6.2.5)
+      '@sveltejs/vite-plugin-svelte': 5.0.3(svelte@5.25.10)(vite@6.2.5)
       debug: 4.4.0
-      svelte: 5.25.7
+      svelte: 5.25.10
       vite: 6.2.5
     transitivePeerDependencies:
       - supports-color
 
-  '@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.7)(vite@6.2.5)':
+  '@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.10)(vite@6.2.5)':
     dependencies:
-      '@sveltejs/vite-plugin-svelte-inspector': 4.0.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.7)(vite@6.2.5))(svelte@5.25.7)(vite@6.2.5)
+      '@sveltejs/vite-plugin-svelte-inspector': 4.0.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.10)(vite@6.2.5))(svelte@5.25.10)(vite@6.2.5)
       debug: 4.4.0
       deepmerge: 4.3.1
       kleur: 4.1.5
       magic-string: 0.30.17
-      svelte: 5.25.7
+      svelte: 5.25.10
       vite: 6.2.5
       vitefu: 1.0.6(vite@6.2.5)
     transitivePeerDependencies:
@@ -1010,10 +1010,10 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
-  gdpr-cooco-banner@0.0.11(svelte@5.25.7):
+  gdpr-cooco-banner@0.0.11(svelte@5.25.10):
     dependencies:
       js-cookie: 3.0.5
-      svelte: 5.25.7
+      svelte: 5.25.10
 
   import-meta-resolve@4.1.0: {}
 
@@ -1067,10 +1067,10 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  prettier-plugin-svelte@3.3.3(prettier@3.5.3)(svelte@5.25.7):
+  prettier-plugin-svelte@3.3.3(prettier@3.5.3)(svelte@5.25.10):
     dependencies:
       prettier: 3.5.3
-      svelte: 5.25.7
+      svelte: 5.25.10
 
   prettier@3.5.3: {}
 
@@ -1119,7 +1119,7 @@ snapshots:
 
   sirv@3.0.1:
     dependencies:
-      '@polka/url': 1.0.0-next.28
+      '@polka/url': 1.0.0-next.29
       mrmime: 2.0.1
       totalist: 3.0.1
 
@@ -1127,26 +1127,26 @@ snapshots:
 
   squirrelly@9.1.0: {}
 
-  svelte-check@4.1.5(svelte@5.25.7)(typescript@5.8.3):
+  svelte-check@4.1.5(svelte@5.25.10)(typescript@5.8.3):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       chokidar: 4.0.3
       fdir: 6.4.3
       picocolors: 1.1.1
       sade: 1.8.1
-      svelte: 5.25.7
+      svelte: 5.25.10
       typescript: 5.8.3
     transitivePeerDependencies:
       - picomatch
 
-  svelte2tsx@0.7.35(svelte@5.25.7)(typescript@5.8.3):
+  svelte2tsx@0.7.35(svelte@5.25.10)(typescript@5.8.3):
     dependencies:
       dedent-js: 1.0.1
       pascal-case: 3.1.2
-      svelte: 5.25.7
+      svelte: 5.25.10
       typescript: 5.8.3
 
-  svelte@5.25.7:
+  svelte@5.25.10:
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@jridgewell/sourcemap-codec': 1.5.0

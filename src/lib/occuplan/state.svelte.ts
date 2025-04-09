@@ -462,11 +462,13 @@ export class OccupationState {
       if (highlightWeekend && isWeekend) {
         return `
           background: radial-gradient(var(--occuplan-weekend-bg-color), ${f.bgColor}, ${f.bgColor});
+          color: ${f.fontColor};
         `;
       }
 
       return `
         background-color: ${f.bgColor};
+        color: ${f.fontColor};
       `;
     }
 
@@ -476,13 +478,14 @@ export class OccupationState {
 
       if (isWeekend && highlightWeekend) {
         return `
-          background: radial-gradient(var(--occuplan-weekend-bg-color), transparent, transparent), 
-            linear-gradient(90deg, ${ef.bgColor}, ${sf.bgColor});
+          color: ${ef.fontColor};
+          background: radial-gradient(var(--occuplan-weekend-bg-color), transparent, transparent), linear-gradient(90deg, ${ef.bgColor}, ${sf.bgColor});
           `;
       }
 
       return `
         background: linear-gradient(90deg, ${ef.bgColor}, ${sf.bgColor});
+        color: ${ef.fontColor};
         `;
     }
 
@@ -491,14 +494,15 @@ export class OccupationState {
 
       if (isWeekend && highlightWeekend) {
         return `
-        background: 
-          radial-gradient(var(--occuplan-weekend-bg-color), transparent, transparent), 
-          linear-gradient(90deg, var(--occuplan-main-bg-color), ${sf.bgColor});
-        `;
+          color: var(--occuplan-main-font-color);
+          background: 
+            radial-gradient(var(--occuplan-weekend-bg-color), transparent, transparent), linear-gradient(90deg, var(--occuplan-main-bg-color), ${sf.bgColor});
+          `;
       }
 
       return `
         background: linear-gradient(90deg, var(--occuplan-main-bg-color), ${sf.bgColor});
+        color: var(--occuplan-main-font-color);
         `;
     }
 
@@ -508,25 +512,27 @@ export class OccupationState {
       if (isWeekend && highlightWeekend) {
         return `
         background: 
-          radial-gradient(
-            var(--occuplan-weekend-bg-color), transparent, transparent), 
-          linear-gradient(90deg, ${ef.bgColor}, var(--occuplan-main-bg-color));
+          radial-gradient(var(--occuplan-weekend-bg-color), transparent, transparent), linear-gradient(90deg, ${ef.bgColor}, var(--occuplan-main-bg-color));
+        color: ${ef.fontColor};
         `;
       }
 
       return `
         background: linear-gradient(90deg, ${ef.bgColor}, var(--occuplan-main-bg-color));
+        color: ${ef.fontColor};
         `;
     }
 
     if (isWeekend && highlightWeekend) {
       return `
         background: radial-gradient(var(--occuplan-weekend-bg-color), var(--occuplan-main-bg-color), var(--occuplan-main-bg-color));
+        color: var(--occuplan-main-font-color);
       `;
     }
 
     return `
         background-color: var(--occuplan-main-bg-color);
+        color: var(--occuplan-main-font-color);
       `;
   };
 }
