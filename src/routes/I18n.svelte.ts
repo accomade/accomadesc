@@ -203,6 +203,23 @@ export class I18n implements I18nFacade {
   currentLang = $state('en');
   calendarTranslation = $derived(calendarTranslations[this.currentLang]);
 
+  moneyFormats: Record<string, Intl.NumberFormat> = $state({
+    en: new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'EUR',
+    }),
+    de: new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency: 'EUR',
+    }),
+    fr: new Intl.NumberFormat('fr-FR', {
+      style: 'currency',
+      currency: 'EUR',
+    }),
+  });
+
+  moneyFormat = $derived(this.moneyFormats[this.currentLang]);
+
   public translateFunc = (ref: string): string => {
     return this.translations[this.currentLang][ref];
   };
@@ -218,7 +235,8 @@ export class I18n implements I18nFacade {
 
   public formatMoneyFunc = (value: number): string => {
     const locale = this.formats[this.currentLang].locale;
-    return new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(value);
+    const scaled = value / 100.0;
+    return this.moneyFormat.format(scaled);
   };
 
   public formatDateFunc = (d: string | DateTime<boolean>): string => {

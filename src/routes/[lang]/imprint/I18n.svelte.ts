@@ -1,6 +1,5 @@
 import type { OccuplanTranslations } from '$lib/occuplan/state.svelte.ts';
 import type { I18nFacade } from '$lib/types.js';
-import { dinero, toDecimal, type Dinero, type DineroSnapshot } from 'dinero.js';
 import { DateTime as luxon, type DateTime } from 'luxon';
 
 export const calendarTranslations: Record<string, OccuplanTranslations> = {
@@ -148,14 +147,6 @@ export class I18n implements I18nFacade {
 
   currentLang = $state('en');
   calendarTranslation = $derived(calendarTranslations[this.currentLang]);
-
-  isDinero(d: Dinero<number> | DineroSnapshot<number>): d is Dinero<number> {
-    if ('calculator' in d) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   public translateFunc = (ref: string): string => {
     const translation = this.translations[this.currentLang];

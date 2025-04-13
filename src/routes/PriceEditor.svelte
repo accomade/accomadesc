@@ -1,6 +1,5 @@
 <script lang="ts">
   import TextInput from '$lib/basic/TextInput.svelte';
-  import { dinero, toSnapshot, type DineroSnapshot } from 'dinero.js';
 
   let {
     price = $bindable(),
