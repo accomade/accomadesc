@@ -1,16 +1,16 @@
 <script lang="ts">
   import '@fontsource/raleway/500.css';
   import '@fontsource/raleway/700.css';
-  import Button from '$lib/basic/Button.svelte';
-  import type { Nav } from '$lib/types.ts';
 
-  import Page from '$lib/PageComponent.svelte';
   import {
+    Button,
+    PageComponent,
     randomID,
     type LeafletMapI,
     type SectionI,
     type TextI,
     type PageProps,
+    type NavI,
   } from '$lib/index.ts';
 
   import { page } from '$app/state';
@@ -21,11 +21,13 @@
   let css = $state(initialCss);
   let styleOpen = $state(false);
 
+  /*
   import { installTwicPics } from '@twicpics/components/sveltekit';
   import '@twicpics/components/style.css';
   installTwicPics({
     domain: `https://accomade.twic.pics`,
   });
+  */
 
   import { I18n } from './I18n.svelte.ts';
   const i18n = new I18n(pathLang);
@@ -34,7 +36,7 @@
   const PUBLIC_SUPABASE_URL = 'https://ipajhcabityibeaqfzju.supabase.co';
   const logoLink = `${PUBLIC_SUPABASE_URL}/storage/v1/object/public/users/${ACCOMADE_USER_ID}/logo.svg`;
 
-  const nav: Nav = {
+  const nav: NavI = {
     main: [
       {
         key: 'nav-1',
@@ -149,7 +151,7 @@
   {/if}
 
   <div class="page-wrapper" style={css}>
-    <Page {...p} {...i18n} />
+    <!--PageComponent {...p} {...i18n} /-->
   </div>
 </div>
 

@@ -1,6 +1,5 @@
 <script lang="ts">
   import { DateTime, type MonthNumbers } from 'luxon';
-  import * as Sqrl from 'squirrelly';
   import {
     defaultMonthHeaderFormat,
     defaultMonthLabels,
@@ -61,10 +60,14 @@
     }
   });
 
-  let formatFun = $derived(Sqrl.compile(monthHeaderFormat, { useWith: true }));
+  //let formatFun = $derived(Sqrl.compile(monthHeaderFormat, { useWith: true }));
   const monthHeader = (monthNum: MonthNumbers, year: number): string => {
     const monthLabel = monthLabels[monthNum];
-    return formatFun({ month: monthLabel, year }, Sqrl.defaultConfig);
+
+    let formatted = monthHeaderFormat.replace('{{month}}', monthLabel);
+    formatted = formatted.replace('{{year}}', `${year}`);
+
+    return formatted;
   };
 
   let page: number = $state(0);

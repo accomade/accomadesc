@@ -115,5 +115,4 @@ export const css = `
   --icon-not-color: #c50000;
   --icon-color: black;
   --icon-disabled-color: rgba(35,35,35, 0.4);
-
 `;

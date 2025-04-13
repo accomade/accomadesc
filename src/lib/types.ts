@@ -422,7 +422,15 @@ export interface SiteConfig {
   nav: Nav;
   pages: PageConfig;
   lang: LangConfig;
-  css: string;
+  css: Style;
+}
+
+export interface Style {
+  base: string;
+  themes: {
+    light: string;
+    dark: string;
+  };
 }
 
 export interface PageConfig {

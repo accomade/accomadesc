@@ -1,73 +1,70 @@
 :root {
+  color-theme: light;
+
   --bg-base: transparent;
-  --bg-prim-color: #FFFFFF;
+  --bg-prim-color: #ffffff;
   --bg-sec-color: rgba(197, 235, 248, 0.4);
-  --bg-tert-color: #95C0CE;
+  --bg-tert-color: #95c0ce;
 
   --bg-prim-past-color: #968f8f;
   --bg-sec-past-color: #777070;
-  
-  
-  --bg-button-prim-color: rgb(234, 250, 255);
-  --bg-button-sec-color: #F2F2F2;
-  --bg-button-tert-color: #FFFFFF;
 
-  --bg-note-color: #FFF510;
+  --bg-button-prim-color: rgb(234, 250, 255);
+  --bg-button-sec-color: #f2f2f2;
+  --bg-button-tert-color: #ffffff;
+
+  --bg-note-color: #fff510;
   --bg-note-inactive-color: #fffee4;
-  --bg-negative-color: #B01313;
-  
+  --bg-negative-color: #b01313;
+
   --cal-booking-bg: rgb(2, 73, 97);
   --cal-booking-font: rgb(239, 251, 255);
   --cal-booking-selected-bg: rgb(239, 251, 255);
   --cal-booking-selected-font: rgb(2, 73, 97);
-  --cal-booking-editing-bg: #FFF510;
+  --cal-booking-editing-bg: #fff510;
   --cal-booking-editing-font: #000000;
   --cal-booking-new-bg: rgba(2, 50, 66, 0.4);
   --cal-booking-new-font: rgb(239, 251, 255);
-  
+
   --font-prim-color: #000000;
-  --font-inverse-color: #FFFFFF;
+  --font-inverse-color: #ffffff;
   --font-select-color: #777777;
-  --font-alert-color: #B01313;
+  --font-alert-color: #b01313;
   --font-highlight-color: #00a5c3;
-  --font-disabled-color: rgba(35,35,35, 0.4);
-  
-  --accept-color: #0D9D00;
-  --reject-color: #B01313;
-  --delete-color: #B01313;
+  --font-disabled-color: rgba(35, 35, 35, 0.4);
 
-  --reset-color: #FFFBA0;
+  --accept-color: #0d9d00;
+  --reject-color: #b01313;
+  --delete-color: #b01313;
 
-  --negative-color: #B01313;
-  --positive-color: #B2EA8F;
+  --reset-color: #fffba0;
 
-  --new-star-color: #FEFFC1;
+  --negative-color: #b01313;
+  --positive-color: #b2ea8f;
+
+  --new-star-color: #feffc1;
 
   --upcoming-color: #5f6f3b;
-  --past-color: #E67C00;
+  --past-color: #e67c00;
   --current-color: #5468e7;
 
-  --default-count-color: #FFFFFF;
+  --default-count-color: #ffffff;
 
   --border-color: rgba(14, 14, 14, 0.7);
   --focussed-border-color: rgba(102, 120, 243, 0.9);
   --disabled-border-color: rgba(35, 35, 35, 0.5);
 
   --note-exists-color: #000000;
-  --note-doesnt-exist-color: rgba(0, 0, 0, .2);
- 
+  --note-doesnt-exist-color: rgba(0, 0, 0, 0.2);
+
   --missing-color: #888888;
   --loading-color: #888888;
 
-  --acco-card-shadow:  
-      -1.2px -3.7px 4.5px rgba(0, 0, 0, 0.017),
-      -1.4px -4.4px 8.9px rgba(0, 0, 0, 0.024),
-      -0.4px -1.3px 13.3px rgba(0, 0, 0, 0.03),
-      1.7px 5.5px 17.9px rgba(0, 0, 0, 0.035),
-      4.9px 15.5px 23.3px rgba(0, 0, 0, 0.04),
-      8.9px 28.2px 30.7px rgba(0, 0, 0, 0.046),
-      13.7px 43.1px 43.8px rgba(0, 0, 0, 0.053),
-      19px 60px 80px rgba(0, 0, 0, 0.07);
+  --acco-card-shadow:
+    -1.2px -3.7px 4.5px rgba(0, 0, 0, 0.017), -1.4px -4.4px 8.9px rgba(0, 0, 0, 0.024),
+    -0.4px -1.3px 13.3px rgba(0, 0, 0, 0.03), 1.7px 5.5px 17.9px rgba(0, 0, 0, 0.035),
+    4.9px 15.5px 23.3px rgba(0, 0, 0, 0.04), 8.9px 28.2px 30.7px rgba(0, 0, 0, 0.046),
+    13.7px 43.1px 43.8px rgba(0, 0, 0, 0.053), 19px 60px 80px rgba(0, 0, 0, 0.07);
   --acco-card-font: white;
   --acco-card-bg: black;
 }
@@ -96,7 +93,8 @@ input {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 
@@ -105,7 +103,7 @@ html, body {
 }
 
 input {
-  font-family: 'Raleway';  
+  font-family: 'Raleway';
 }
 
 input:focus {
@@ -119,7 +117,7 @@ input:focus {
     0px 0px 80px rgba(0, 0, 0, 0.07);
 }
 
-input[type="radio"]:focus {
+input[type='radio']:focus {
   outline: none;
   box-shadow: none;
 }
@@ -201,5 +199,3 @@ h1 {
   padding-top: 1.2rem;
   text-align: center;
 }
-
-
