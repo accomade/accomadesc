@@ -29,9 +29,6 @@ importers:
       luxon:
         specifier: ^3.6.1
         version: 3.6.1
-      squirrelly:
-        specifier: ^9.1.0
-        version: 9.1.0
     devDependencies:
       '@sveltejs/adapter-auto':
         specifier: ^3.3.1
@@ -616,10 +613,6 @@ packages:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
 
-  squirrelly@9.1.0:
-    resolution: {integrity: sha512-kvjFqb7qzC4gX4lkqSaU8QPvUHhDLMiDpxpz7a66vjTH0JtjLJqAXbPrc7ST61EefuuuW05sne2rjGskunrF2A==}
-    engines: {node: '>=6.0.0'}
-
   svelte-check@4.1.6:
     resolution: {integrity: sha512-P7w/6tdSfk3zEVvfsgrp3h3DFC75jCdZjTQvgGJtjPORs1n7/v2VMPIoty3PWv7jnfEm3x0G/p9wH4pecTb0Wg==}
     engines: {node: '>= 18.0.0'}
@@ -1136,8 +1129,6 @@ snapshots:
       totalist: 3.0.1
 
   source-map-js@1.2.1: {}
-
-  squirrelly@9.1.0: {}
 
   svelte-check@4.1.6(svelte@5.26.2)(typescript@5.8.3):
     dependencies:

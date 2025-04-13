@@ -152,7 +152,7 @@ export class I18n implements I18nFacade {
       staticRangeTo: (props: Record<string, any>) => `??? => ${props.toMonth}`,
     },
     de: {
-      size: (props: Record<string, any>) => `${props.size} p<sup>3</sup>`,
+      size: (props: Record<string, any>) => `${props.size} m<sup>2</sup>`,
       minimumPrice: (props: Record<string, any>) => `Von: ${props.min}`,
       maximumPrice: (props: Record<string, any>) => `Bis: ${props.max}`,
       nothingAvailable: (props: Record<string, any>) => `${JSON.stringify(props)}`,
@@ -173,7 +173,7 @@ export class I18n implements I18nFacade {
       staticRangeTo: (props: Record<string, any>) => `??? => ${props.toMonth}`,
     },
     fr: {
-      size: (props: Record<string, any>) => `${props.size} f<sup>2</sup>`,
+      size: (props: Record<string, any>) => `${props.size} m<sup>2</sup>`,
       minimumPrice: (props: Record<string, any>) => `${JSON.stringify(props)}`,
       maximumPrice: (props: Record<string, any>) => `${JSON.stringify(props)}`,
       nothingAvailable: (props: Record<string, any>) => `${JSON.stringify(props)}`,
