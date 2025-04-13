@@ -5,29 +5,26 @@
   let {
     price = $bindable(),
   }: {
-    price?: DineroSnapshot<number>;
+    price?: number;
   } = $props();
 
-  if (!price)
-    price = toSnapshot(
-      dinero({
-        amount: 0,
-        currency: { code: 'EUR', base: 10, exponent: 2 },
-        scale: 2,
-      }),
-    );
+  if (!price) price = 0;
 
   const changed = (valid: boolean, name: string, value: string | number) => {
     console.log(valid, name, value);
-    if (valid && value) {
-      if (price) {
-        const d = dinero({ ...price, amount: value as number });
-        price = toSnapshot(d);
-      }
+    if (valid && value && typeof value == 'string') {
+      price = parseInt(value) * 100;
+    } else if (valid && value && typeof value == 'number') {
+      price = value * 100;
     }
   };
 </script>
 
 {#if price}
-  <TextInput type="number" marginForMessage={false} value={price.amount} valueChanged={changed} />
+  <TextInput
+    type="number"
+    marginForMessage={false}
+    value={Math.round(price / 100)}
+    valueChanged={changed}
+  />
 {/if}

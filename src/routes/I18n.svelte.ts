@@ -1,6 +1,5 @@
 import type { OccuplanTranslations } from '$lib/occuplan/state.svelte.ts';
 import type { I18nFacade } from '$lib/types.js';
-import { dinero, toDecimal, type Dinero, type DineroSnapshot } from 'dinero.js';
 import { DateTime as luxon, type DateTime } from 'luxon';
 
 export const calendarTranslations: Record<string, OccuplanTranslations> = {
@@ -129,6 +128,8 @@ export class I18n implements I18nFacade {
 
   formats: Record<string, Record<string, any>> = $state({
     en: {
+      locale: 'en-US',
+      dateFormat: 'MM/dd/yyyy',
       size: (props: Record<string, any>) => `${props.size} m<sup>2</sup>`,
       minimumPrice: (props: Record<string, any>) => `From ${props.min}`,
       maximumPrice: (props: Record<string, any>) => `To ${props.max}`,
@@ -152,6 +153,8 @@ export class I18n implements I18nFacade {
       staticRangeTo: (props: Record<string, any>) => `??? => ${props.toMonth}`,
     },
     de: {
+      locle: 'de-DE',
+      dateFormat: 'yyyy-MM-dd',
       size: (props: Record<string, any>) => `${props.size} m<sup>2</sup>`,
       minimumPrice: (props: Record<string, any>) => `Von: ${props.min}`,
       maximumPrice: (props: Record<string, any>) => `Bis: ${props.max}`,
@@ -173,6 +176,8 @@ export class I18n implements I18nFacade {
       staticRangeTo: (props: Record<string, any>) => `??? => ${props.toMonth}`,
     },
     fr: {
+      locale: 'fr-FR',
+      dateFormat: 'yyyy-MM-dd',
       size: (props: Record<string, any>) => `${props.size} m<sup>2</sup>`,
       minimumPrice: (props: Record<string, any>) => `${JSON.stringify(props)}`,
       maximumPrice: (props: Record<string, any>) => `${JSON.stringify(props)}`,
@@ -198,17 +203,10 @@ export class I18n implements I18nFacade {
   currentLang = $state('en');
   calendarTranslation = $derived(calendarTranslations[this.currentLang]);
 
-  isDinero(d: Dinero<number> | DineroSnapshot<number>): d is Dinero<number> {
-    if ('calculator' in d) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   public translateFunc = (ref: string): string => {
     return this.translations[this.currentLang][ref];
   };
+
   public formatFunc = (ref: string, props: Record<string, any>): string => {
     if (!this.formats[this.currentLang][ref]) {
       console.log('missing formatFunc', ref);
@@ -217,14 +215,17 @@ export class I18n implements I18nFacade {
       return this.formats[this.currentLang][ref](props);
     }
   };
-  public formatMoneyFunc = (d: Dinero<number> | DineroSnapshot<number>): string => {
-    if (!this.isDinero(d)) d = dinero(d);
-    return toDecimal(d, ({ value, currency }) => `${value} ${currency.code}`);
+
+  public formatMoneyFunc = (value: number): string => {
+    const locale = this.formats[this.currentLang].locale;
+    return new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(value);
   };
+
   public formatDateFunc = (d: string | DateTime<boolean>): string => {
     if (typeof d === 'string') {
       d = luxon.fromISO(d);
     }
-    return d.toFormat('d. MMMM yy');
+    const dFormat = this.formats[this.currentLang].dateFormat;
+    return d.toFormat(dFormat);
   };
 }

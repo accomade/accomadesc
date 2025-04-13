@@ -152,7 +152,7 @@
     }
   });
 
-  const requestHovering = (d: DateTime) => {};
+  const requestHovering = (_: DateTime) => {};
 
   let monthGridTemplateColumns = `[rowLegend] 1fr [d1] 1fr [d2] 1fr [d3] 1fr [d4] 1fr [d5] 1fr [d6] 1fr [d7] 1fr`;
 

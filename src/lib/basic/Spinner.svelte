@@ -38,16 +38,6 @@
   </div>
 </div>
 
-<svelte:head>
-  {#if !inline}
-    <style>
-      body {
-        overflow: hidden;
-      }
-    </style>
-  {/if}
-</svelte:head>
-
 <style>
   div.background {
     height: 100vh;

@@ -21,13 +21,11 @@
   let css = $state(initialCss);
   let styleOpen = $state(false);
 
-  /*
   import { installTwicPics } from '@twicpics/components/sveltekit';
   import '@twicpics/components/style.css';
   installTwicPics({
     domain: `https://accomade.twic.pics`,
   });
-  */
 
   import { I18n } from './I18n.svelte.ts';
   const i18n = new I18n(pathLang);
@@ -151,7 +149,7 @@
   {/if}
 
   <div class="page-wrapper" style={css}>
-    <!--PageComponent {...p} {...i18n} /-->
+    <PageComponent {...p} {...i18n} />
   </div>
 </div>
 

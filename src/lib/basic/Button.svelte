@@ -119,7 +119,7 @@
         event.preventDefault();
       }
 
-      if (event.keyCode === 13 || event.keyCode === 32) {
+      if (event.key == ' ' || event.key == 'Enter') {
         activated = false;
       }
     }
@@ -132,7 +132,7 @@
       if (preventDefault) {
         event.preventDefault();
       }
-      if (event.keyCode === 13 || event.keyCode === 32) {
+      if (event.key == ' ' || event.key == 'Return') {
         activated = true;
       }
     }

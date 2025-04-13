@@ -169,9 +169,9 @@ export class I18n implements I18nFacade {
     }
   };
 
-  public formatMoneyFunc = (d: Dinero<number> | DineroSnapshot<number>): string => {
-    if (!this.isDinero(d)) d = dinero(d);
-    return toDecimal(d, ({ value, currency }) => `${value} ${currency.code}`);
+  public formatMoneyFunc = (value: number): string => {
+    const locale = this.formats[this.currentLang].locale;
+    return new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(value);
   };
 
   public formatDateFunc = (d: string | DateTime<boolean>): string => {

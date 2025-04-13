@@ -82,6 +82,10 @@
   let disabled = $derived(preview || errored || successfullySent);
 </script>
 
+{#if sending}
+  <Spinner />
+{/if}
+
 <div class="wrapper">
   {#if explainer}
     <div class="explainer">{@html translateFunc ? translateFunc(explainer) : ''}</div>
@@ -147,9 +151,6 @@
       />
     </div>
   </form>
-  {#if sending}
-    <Spinner />
-  {/if}
 </div>
 
 <style>

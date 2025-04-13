@@ -1,7 +1,5 @@
 <script lang="ts">
   import { DateTime } from 'luxon';
-  import { add, allocate, dinero, multiply, greaterThan, lessThan, type Dinero } from 'dinero.js';
-  import { EUR } from '@dinero.js/currencies';
   import type { I18nFacade, PricingShortContent, PricingEntry } from '$lib/types.js';
 
   let {
@@ -27,39 +25,34 @@
     });
   });
 
-  let calculatedMinimum = $state(dinero({ amount: Number.MAX_SAFE_INTEGER, currency: EUR }));
-  let calculatedMaximum = $state(dinero({ amount: 0, currency: EUR }));
+  let calculatedMinimum = $state(Number.MAX_SAFE_INTEGER);
+  let calculatedMaximum = $state(0);
 
-  const calcAverage = (entry: PricingEntry): Dinero<number> | undefined => {
-    let avg: Dinero<number> | undefined;
+  const calcAverage = (entry: PricingEntry): number | undefined => {
     if (entry && entry.firstNightPrice && entry.perNightPrice && entry.minNumberOfNights) {
-      const fnp = dinero(entry.firstNightPrice);
-      const pnp = dinero(entry.perNightPrice);
-
-      [avg] = allocate(
-        add(multiply(pnp, entry.minNumberOfNights - 1), fnp),
-        new Array(entry.minNumberOfNights).fill(1),
-      );
+      const fnp = entry.firstNightPrice;
+      const pnp = entry.perNightPrice;
+      const oda = (entry.minNumberOfNights - 1) * pnp;
+      const avg = (oda + fnp) / entry.minNumberOfNights;
+      return Math.round(avg);
     } else if (entry && entry.firstNightPrice && entry.perNightPrice) {
-      const fnp = dinero(entry.firstNightPrice);
-      const pnp = dinero(entry.perNightPrice);
-
-      [avg] = allocate(add(pnp, fnp), [1, 1]);
+      const avg = (entry.firstNightPrice + entry.perNightPrice) / 2;
+      return Math.round(avg);
     } else if (entry && entry.perNightPrice) {
-      avg = dinero(entry.perNightPrice);
+      return entry.perNightPrice;
     }
-    return avg;
+    return;
   };
 
   $effect(() => {
     [...filteredEntries, ...staticRanges].forEach((fe) => {
       let entry = fe.entry;
-      let avg: Dinero<number> | undefined = calcAverage(entry);
+      let avg: number | undefined = calcAverage(entry);
       if (avg) {
-        if (greaterThan(avg, calculatedMaximum)) {
+        if (avg > calculatedMaximum) {
           calculatedMaximum = avg;
         }
-        if (lessThan(avg, calculatedMinimum)) {
+        if (avg < calculatedMinimum) {
           calculatedMinimum = avg;
         }
       }
@@ -68,10 +61,10 @@
     if (global) {
       let globalAvg = calcAverage(global);
       if (globalAvg) {
-        if (greaterThan(globalAvg, calculatedMaximum)) {
+        if (globalAvg > calculatedMaximum) {
           calculatedMaximum = globalAvg;
         }
-        if (lessThan(globalAvg, calculatedMinimum)) {
+        if (globalAvg < calculatedMinimum) {
           calculatedMinimum = globalAvg;
         }
       }

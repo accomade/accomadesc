@@ -1,4 +1,3 @@
-import { type Dinero, type DineroSnapshot } from 'dinero.js';
 import type { FirstMonth, OccuplanTranslations } from '$lib/occuplan/state.svelte.js';
 import type { DateTime, MonthNumbers, WeekdayNumbers } from 'luxon';
 import type { CookieType, Translation as CookieTranslation } from 'gdpr-cooco-banner';
@@ -204,16 +203,16 @@ export interface StaticPricingRange {
 }
 
 export interface PricingEntry {
-  firstNightPrice?: DineroSnapshot<number>;
-  perNightPrice: DineroSnapshot<number>;
+  firstNightPrice?: number; // DineroSnapshot<number>;
+  perNightPrice: number; // DineroSnapshot<number>;
 
   numberOfGuestsBase?: number;
   numberOfGuestsMax?: number;
   minNumberOfNights?: number;
 
-  additionalPersonPrice1?: DineroSnapshot<number>;
-  additionalPersonPrice2?: DineroSnapshot<number>;
-  additionalPersonPrice3?: DineroSnapshot<number>;
+  additionalPersonPrice1?: number; // DineroSnapshot<number>;
+  additionalPersonPrice2?: number; //DineroSnapshot<number>;
+  additionalPersonPrice3?: number; // DineroSnapshot<number>;
 
   additionalPersonText1?: string;
   additionalPersonText2?: string;
@@ -378,6 +377,7 @@ export interface LangConfig {
 }
 
 export const FORMAT_TEMPLATE_NAMES = [
+  'locale',
   'dateFormat',
   'monthHeader',
   'nothingAvailable',
@@ -490,7 +490,7 @@ export interface I18nFacade {
   calendarTranslation?: OccuplanTranslations;
   translateFunc?: (ref: string) => string;
   formatFunc?: (formatter: string, props: Record<string, any>) => string;
-  formatMoneyFunc?: (d: Dinero<number> | DineroSnapshot<number>) => string;
+  formatMoneyFunc?: (d: number) => string;
   formatDateFunc?: (d: DateTime | string) => string;
   updateCurrentLang?: (lang: string) => void;
 }

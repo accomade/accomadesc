@@ -138,31 +138,15 @@
     kind: 'pricing',
     content: {
       global: {
-        firstNightPrice: {
-          scale: 2,
-          amount: 12000,
-          currency: { code: 'EUR', base: 10, exponent: 2 },
-        },
-        perNightPrice: { scale: 2, amount: 8000, currency: { code: 'EUR', base: 10, exponent: 2 } },
+        firstNightPrice: 12000,
+        perNightPrice: 8000,
         minNumberOfNights: 4,
         additionalPersonText1: 'priceGAdd1',
         additionalPersonText2: 'priceGAdd2',
         additionalPersonText3: 'priceGAdd3',
-        additionalPersonPrice1: {
-          scale: 2,
-          amount: 1500,
-          currency: { code: 'EUR', base: 10, exponent: 2 },
-        },
-        additionalPersonPrice2: {
-          scale: 2,
-          amount: 3500,
-          currency: { code: 'EUR', base: 10, exponent: 2 },
-        },
-        additionalPersonPrice3: {
-          scale: 2,
-          amount: 0,
-          currency: { code: 'EUR', base: 10, exponent: 2 },
-        },
+        additionalPersonPrice1: 1500,
+        additionalPersonPrice2: 3500,
+        additionalPersonPrice3: 0,
       },
       staticRanges: [],
       ranges: [],
@@ -179,31 +163,15 @@
       showMaximum: true,
       showMinimum: true,
       global: {
-        firstNightPrice: {
-          scale: 2,
-          amount: 12000,
-          currency: { code: 'EUR', base: 10, exponent: 2 },
-        },
-        perNightPrice: { scale: 2, amount: 8000, currency: { code: 'EUR', base: 10, exponent: 2 } },
+        firstNightPrice: 12000,
+        perNightPrice: 8000,
         minNumberOfNights: 4,
         additionalPersonText1: 'priceGAdd1',
         additionalPersonText2: 'priceGAdd2',
         additionalPersonText3: 'priceGAdd3',
-        additionalPersonPrice1: {
-          scale: 2,
-          amount: 1500,
-          currency: { code: 'EUR', base: 10, exponent: 2 },
-        },
-        additionalPersonPrice2: {
-          scale: 2,
-          amount: 3500,
-          currency: { code: 'EUR', base: 10, exponent: 2 },
-        },
-        additionalPersonPrice3: {
-          scale: 2,
-          amount: 0,
-          currency: { code: 'EUR', base: 10, exponent: 2 },
-        },
+        additionalPersonPrice1: 1500,
+        additionalPersonPrice2: 3500,
+        additionalPersonPrice3: 0,
       },
       staticRanges: [],
       ranges: [],
@@ -258,73 +226,25 @@
               from: '2024-09-01T02:00:00.000+02:00',
               to: '2025-06-30T00:00:00.000Z',
               entry: {
-                perNightPrice: {
-                  scale: 2,
-                  amount: 5000,
-                  currency: {
-                    code: 'EUR',
-                    base: 10,
-                    exponent: 2,
-                  },
-                },
+                perNightPrice: 5000,
                 minNumberOfNights: 3,
-                firstNightPrice: {
-                  scale: 2,
-                  amount: 8000,
-                  currency: {
-                    code: 'EUR',
-                    base: 10,
-                    exponent: 2,
-                  },
-                },
+                firstNightPrice: 8000,
               },
             },
             {
               from: '2025-09-01T02:00:00.000+02:00',
               to: '2026-06-30T00:00:00.000Z',
               entry: {
-                perNightPrice: {
-                  amount: 5000,
-                  scale: 2,
-                  currency: {
-                    code: 'EUR',
-                    base: 10,
-                    exponent: 2,
-                  },
-                },
+                perNightPrice: 5000,
                 minNumberOfNights: 3,
-                firstNightPrice: {
-                  amount: 8000,
-                  scale: 2,
-                  currency: {
-                    code: 'EUR',
-                    base: 10,
-                    exponent: 2,
-                  },
-                },
+                firstNightPrice: 8000,
               },
             },
           ],
           global: {
-            perNightPrice: {
-              amount: 7000,
-              currency: {
-                code: 'EUR',
-                base: 10,
-                exponent: 2,
-              },
-              scale: 2,
-            },
+            perNightPrice: 7000,
             minNumberOfNights: 5,
-            firstNightPrice: {
-              amount: 10000,
-              currency: {
-                code: 'EUR',
-                base: 10,
-                exponent: 2,
-              },
-              scale: 2,
-            },
+            firstNightPrice: 10000,
           },
         },
         kind: 'pricing-short',

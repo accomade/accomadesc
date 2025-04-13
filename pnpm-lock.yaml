@@ -20,9 +20,6 @@ importers:
       '@types/leaflet':
         specifier: ^1.9.17
         version: 1.9.17
-      dinero.js:
-        specifier: 2.0.0-alpha.14
-        version: 2.0.0-alpha.14
       leaflet:
         specifier: ^1.9.4
         version: 1.9.4
@@ -78,12 +75,6 @@ packages:
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
-
-  '@dinero.js/calculator-number@2.0.0-alpha.14':
-    resolution: {integrity: sha512-Vmlu6eXNtkFU2cqlrpqfq8KQP9onALf8Es2d34liVa3k3RHjuhizgFUU3V3/tsjOu5WekZq+gYPOr58XVTkB7A==}
-
-  '@dinero.js/core@2.0.0-alpha.14':
-    resolution: {integrity: sha512-CtKELJ783joUbaU62fRM2xDXb4XYSy0MgOuIkPWgVOS3SYKKb6+2Ec9bNlvrW8lsPROz/RsvCuYVTphrZ79twg==}
 
   '@dinero.js/currencies@2.0.0-alpha.14':
     resolution: {integrity: sha512-Ck5ZLjRI7Pl7Y4VkeOst4WEwiN5vZezv8GHcXWsVLUfTNsmkV37VeLYDRAuTUP4akEJyIry+1o1qHYNtLq3eNw==}
@@ -474,9 +465,6 @@ packages:
   devalue@5.1.1:
     resolution: {integrity: sha512-maua5KUiapvEwiEAe+XnlZ3Rh0GD+qI1J/nb9vrJc3muPXvcF/8gXYTWF76+5DAqHyDUtOIImEuo0YKE9mshVw==}
 
-  dinero.js@2.0.0-alpha.14:
-    resolution: {integrity: sha512-dkURHd9P+2TjuSTMUAnvrB7SsL4GbBYG/WPtIBV8M+L7Xf80x84sJcUUTxIS33S4AlkIbVANlaL86w2g5zdrmg==}
-
   esbuild@0.25.2:
     resolution: {integrity: sha512-16854zccKPnC+toMywC+uKNeYSv+/eXkevRAfwRD/G9Cleq66m8XFIrigkbvauLLlCfDL45Q2cWegSg53gGBnQ==}
     engines: {node: '>=18'}
@@ -700,14 +688,6 @@ snapshots:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
-
-  '@dinero.js/calculator-number@2.0.0-alpha.14':
-    dependencies:
-      '@dinero.js/core': 2.0.0-alpha.14
-
-  '@dinero.js/core@2.0.0-alpha.14':
-    dependencies:
-      '@dinero.js/currencies': 2.0.0-alpha.14
 
   '@dinero.js/currencies@2.0.0-alpha.14': {}
 
@@ -969,12 +949,6 @@ snapshots:
   deepmerge@4.3.1: {}
 
   devalue@5.1.1: {}
-
-  dinero.js@2.0.0-alpha.14:
-    dependencies:
-      '@dinero.js/calculator-number': 2.0.0-alpha.14
-      '@dinero.js/core': 2.0.0-alpha.14
-      '@dinero.js/currencies': 2.0.0-alpha.14
 
   esbuild@0.25.2:
     optionalDependencies:

@@ -8,7 +8,6 @@
     PricingEntry,
     PricingColumn,
   } from '$lib/types.js';
-  import type { Dinero, DineroSnapshot } from 'dinero.js';
 
   let filteredRanges: PricingRange[] = $state([]);
   let {
@@ -47,10 +46,7 @@
     minNumNights: 'text-align:right;',
   };
 
-  const formatAdditionalPersonPrice = (
-    price: Dinero<number> | DineroSnapshot<number>,
-    termsRef: string | undefined,
-  ): string => {
+  const formatAdditionalPersonPrice = (price: number, termsRef: string | undefined): string => {
     if (formatFunc && translateFunc) {
       let terms = '';
       if (termsRef) terms = translateFunc(termsRef);
