@@ -14,6 +14,8 @@
   import { fade } from 'svelte/transition';
   import Icon from './basic/Icon.svelte';
   import { page } from '$app/state';
+  import Button from './basic/Button.svelte';
+  import { onMount } from 'svelte';
 
   let {
     hero,
@@ -56,17 +58,22 @@
     }
   };
 
+  let theme = $state('light');
+  onMount(() => {
+    if (window) {
+      const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+      if (prefersDarkMode) {
+        theme = 'dark';
+      }
+    }
+  });
+
   let hamburgerOpen = $state(false);
   let pageWidth = $state(0);
 </script>
 
 <svelte:head>
-  <title
-    >{translateFunc && pageTitle
-      ? translateFunc(pageTitle)
-      : //TODO default to something here?
-        ''}</title
-  >
+  <title>{translateFunc && pageTitle ? translateFunc(pageTitle) : ''}</title>
 </svelte:head>
 
 {#snippet navbar(nav: Nav)}
@@ -101,7 +108,22 @@
   </div>
 {/snippet}
 
-<div class="page-wrapper" bind:clientWidth={pageWidth}>
+{#snippet themeswitcher()}
+  <div class="theme" class:hero={!!hero}>
+    {#if theme == 'light'}
+      <Button iconName="moon" clicked={() => (theme = 'dark')} />
+    {:else}
+      <Button iconName="sun" clicked={() => (theme = 'light')} />
+    {/if}
+  </div>
+{/snippet}
+
+<div
+  class="page-wrapper"
+  bind:clientWidth={pageWidth}
+  class:light={theme == 'light'}
+  class:dark={theme == 'dark'}
+>
   {#if hero}
     <header class="hero-image">
       <Photo photoPath={hero.photoPath} alt="Hero Image" eager={true} />
@@ -192,9 +214,20 @@
       {/each}
     </fieldset>
   {/if}
+  {@render themeswitcher()}
 </div>
 
 <style>
+  .theme {
+    position: absolute;
+    top: 7rem;
+    right: 0.5rem;
+  }
+
+  .theme.hero {
+    top: 0.5rem;
+  }
+
   div.section-wrapper {
     margin-bottom: 2rem;
     width: 100%;

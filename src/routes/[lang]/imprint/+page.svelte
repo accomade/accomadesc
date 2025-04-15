@@ -131,6 +131,7 @@
     title: 'page-title',
     slug: 'page-slug',
     showFooter: true,
+    navbarOverHamburger: false,
     fixedHamburger: false,
   };
 </script>
