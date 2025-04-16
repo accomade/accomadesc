@@ -1,7 +1,7 @@
 // Reexport your entry components here
 import { randomName, randomID } from '$lib/names/gen.js';
-import { format } from '$lib/helpers/format.ts';
-import { MoneyFormats } from '$lib/helpers/moneyFormats.ts';
+import { format } from '$lib/helpers/format.js';
+import { MoneyFormats } from '$lib/helpers/moneyFormats.js';
 
 import Avatar from '$lib/basic/Avatar.svelte';
 import Button from '$lib/basic/Button.svelte';
