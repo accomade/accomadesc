@@ -1,3 +1,4 @@
+import { MoneyFormats } from '$lib/index.ts';
 import type { OccuplanTranslations } from '$lib/occuplan/state.svelte.ts';
 import type { I18nFacade } from '$lib/types.js';
 import { DateTime as luxon, type DateTime } from 'luxon';
@@ -203,23 +204,6 @@ export class I18n implements I18nFacade {
   currentLang = $state('en');
   calendarTranslation = $derived(calendarTranslations[this.currentLang]);
 
-  moneyFormats: Record<string, Intl.NumberFormat> = $state({
-    en: new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'EUR',
-    }),
-    de: new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      currency: 'EUR',
-    }),
-    fr: new Intl.NumberFormat('fr-FR', {
-      style: 'currency',
-      currency: 'EUR',
-    }),
-  });
-
-  moneyFormat = $derived(this.moneyFormats[this.currentLang]);
-
   public translateFunc = (ref: string): string => {
     return this.translations[this.currentLang][ref];
   };
@@ -233,8 +217,8 @@ export class I18n implements I18nFacade {
     }
   };
 
+  moneyFormat = $derived(MoneyFormats[this.currentLang]);
   public formatMoneyFunc = (value: number): string => {
-    const locale = this.formats[this.currentLang].locale;
     const scaled = value / 100.0;
     return this.moneyFormat.format(scaled);
   };
