@@ -291,6 +291,10 @@
     text-transform: capitalize;
     font-weight: bold;
     font-variant: small-caps;
+
+    h3 {
+      color: var(--occuplan-main-font-color);
+    }
   }
 
   .week-number {
