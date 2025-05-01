@@ -52,6 +52,11 @@
     width: 100%;
     background-color: var(--main-bg-color);
 
+    :global(*) {
+      color: var(--main-font-color);
+      font-size: var(--font-size-text);
+    }
+
     div.content {
       width: 100%;
       height: 100%;
@@ -60,10 +65,6 @@
       margin-left: 0.2rem;
       margin-right: 0.2rem;
 
-      :global(*) {
-        color: var(--main-font-color);
-        font-size: var(--font-size-text);
-      }
       :global(h3) {
         font-size: var(--font-size-header);
         text-align: left;

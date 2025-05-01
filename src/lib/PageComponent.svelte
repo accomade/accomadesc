@@ -16,6 +16,7 @@
   import { page } from '$app/state';
   import Button from './basic/Button.svelte';
   import { onMount } from 'svelte';
+  import { fallbackCSS } from './style';
 
   let {
     hero,
@@ -69,7 +70,14 @@
     }
   });
 
-  let theme = $derived(selectedTheme == 'light' ? css?.themes.light : css?.themes.dark);
+  let theme = $state(fallbackCSS);
+  $effect(() => {
+    if (selectedTheme == 'light') {
+      theme = css?.themes.light;
+    } else if (selectedTheme == 'dark') {
+      theme = css?.themes.dark;
+    }
+  });
 
   let hamburgerOpen = $state(false);
   let pageWidth = $state(0);
@@ -112,7 +120,7 @@
 {/snippet}
 
 {#snippet themeswitcher()}
-  <div class="theme" class:hero={!!hero}>
+  <div class="theme" class:hero={!!hero} class:ham={!!hero && !navbarOverHamburger}>
     {#if selectedTheme == 'light'}
       <Button iconName="moon" clicked={() => (selectedTheme = 'dark')} />
     {:else}
@@ -224,6 +232,10 @@
 
   .theme.hero {
     top: 0.5rem;
+  }
+
+  .theme.hero.ham {
+    left: 0.5rem;
   }
 
   div.section-wrapper {
