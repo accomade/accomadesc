@@ -35,7 +35,7 @@ export const css = `
   --invalid-border: 0.15rem solid var(--invalid-border-color);
 
 
-    --table-odd-bg-color: rgb(243, 243, 243);
+  --table-odd-bg-color: rgb(243, 243, 243);
   --table-even-bg-color: rgb(226, 226, 226);
   --table-odd-font-color: black;
   --table-even-font-color: black;

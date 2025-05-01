@@ -25,6 +25,7 @@
     logoLink,
     content,
     nav,
+    css,
     showFooter = true,
     footerRef = 'footer_html',
     fixedHamburger = true,
@@ -58,7 +59,7 @@
     }
   };
 
-  let theme = $state('light');
+  let selectedTheme = $state('light');
   onMount(() => {
     if (window) {
       const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
@@ -67,6 +68,8 @@
       }
     }
   });
+
+  let theme = $derived(selectedTheme == 'light' ? css?.themes.light : css?.themes.dark);
 
   let hamburgerOpen = $state(false);
   let pageWidth = $state(0);
@@ -110,20 +113,15 @@
 
 {#snippet themeswitcher()}
   <div class="theme" class:hero={!!hero}>
-    {#if theme == 'light'}
-      <Button iconName="moon" clicked={() => (theme = 'dark')} />
+    {#if selectedTheme == 'light'}
+      <Button iconName="moon" clicked={() => (selectedTheme = 'dark')} />
     {:else}
-      <Button iconName="sun" clicked={() => (theme = 'light')} />
+      <Button iconName="sun" clicked={() => (selectedTheme = 'light')} />
     {/if}
   </div>
 {/snippet}
 
-<div
-  class="page-wrapper"
-  bind:clientWidth={pageWidth}
-  class:light={theme == 'light'}
-  class:dark={theme == 'dark'}
->
+<div class="page-wrapper" bind:clientWidth={pageWidth} style={theme}>
   {#if hero}
     <header class="hero-image">
       <Photo photoPath={hero.photoPath} alt="Hero Image" eager={true} />
@@ -283,17 +281,17 @@
     text-align: center;
   }
 
-  div.floating-title h1 {
+  h1 {
+    color: var(--main-font-color);
     font-weight: bolder;
     font-size: 2.8rem;
     font-family: var(--landing-title-font-family, 'sans-serif');
     font-variant: var(--landing-title-font-variant, 'small-caps');
-    color: var(--title-font-color);
     filter: var(--title-filter);
   }
 
   @media (max-width: 300px) {
-    div.floating-title h1 {
+    h1 {
       font-size: 1.6rem;
     }
   }

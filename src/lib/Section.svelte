@@ -190,5 +190,7 @@
     font-size: 2.2rem;
     font-variant: small-caps;
     margin-bottom: 0.8rem;
+
+    color: var(--main-font-color);
   }
 </style>

@@ -444,6 +444,7 @@ export interface PageProps {
   lastChange?: string;
   created?: string;
   nav?: Nav;
+  css?: Style;
   hero?: Hero;
   title?: string;
   slug?: string;

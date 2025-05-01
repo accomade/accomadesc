@@ -31,9 +31,6 @@
     margin: 0;
     width: 100%;
     background-color: var(--header-bg-color);
-    * {
-      color: var(--header-font-color);
-    }
   }
 
   div.text-wrapper {
@@ -51,6 +48,7 @@
     font-family: var(--header-font-family, 'sans-serif');
     font-variant: var(--header-font-variant, 'small-caps');
     margin-bottom: 1rem;
+    color: var(--header-font-color);
   }
 
   div.header h1 {
@@ -58,6 +56,7 @@
     margin-bottom: 0.3rem;
     font-family: var(--page-title-font-family, 'sans-serif');
     font-variant: var(--page-title-font-variant, 'small-caps');
+    color: var(--header-font-color);
   }
 
   object.logo {

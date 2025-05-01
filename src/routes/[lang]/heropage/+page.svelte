@@ -1,7 +1,6 @@
 <script lang="ts">
   import '@fontsource/raleway/500.css';
   import '@fontsource/raleway/700.css';
-  import Button from '$lib/basic/Button.svelte';
   import type { Hero, Nav, PageProps } from '$lib/types.js';
 
   import Page from '$lib/PageComponent.svelte';
@@ -10,11 +9,7 @@
   import { page } from '$app/state';
   let pathLang = page.params['lang'];
 
-  import { css as initialCss } from '../../css.ts';
-  import CssEditor from '../../CssEditor.svelte';
-  let css = $state(initialCss);
-  let styleOpen = $state(false);
-
+  import { css } from './style.ts';
   import { installTwicPics } from '@twicpics/components/sveltekit';
   import '@twicpics/components/style.css';
   installTwicPics({
@@ -110,21 +105,7 @@
 </script>
 
 <div class="showcase-wrapper">
-  <h3>
-    Colors And Styles &nbsp;{#if styleOpen}<Button
-        clicked={() => (styleOpen = !styleOpen)}
-        text="Close"
-      />{:else}<Button clicked={() => (styleOpen = !styleOpen)} text="Show" />{/if}
-  </h3>
-  {#if styleOpen}
-    <div>
-      <CssEditor bind:css />
-    </div>
-  {/if}
-
-  <div class="page-wrapper" style={css}>
-    <Page {...p} {...i18n} />
-  </div>
+  <Page {...p} {...i18n} {css} />
 </div>
 
 <style>
@@ -132,9 +113,5 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-  }
-  .page-wrapper {
-    width: 100%;
-    height: 100vh;
   }
 </style>
