@@ -61,15 +61,6 @@
     }
   };
 
-  onMount(() => {
-    if (window) {
-      const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
-      if (prefersDarkMode) {
-        selectedTheme = 'dark';
-      }
-    }
-  });
-
   let theme = $state(fallbackCSS.themes.light);
   $effect(() => {
     if (!!css && selectedTheme == 'light') {
