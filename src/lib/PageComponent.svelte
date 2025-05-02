@@ -16,7 +16,7 @@
   import { page } from '$app/state';
   import Button from './basic/Button.svelte';
   import { onMount } from 'svelte';
-  import { fallbackCSS } from './style';
+  import { fallbackCSS } from './style.js';
 
   let {
     hero,
@@ -27,6 +27,7 @@
     content,
     nav,
     css,
+    selectedTheme = $bindable('light'),
     showFooter = true,
     footerRef = 'footer_html',
     fixedHamburger = true,
@@ -60,21 +61,20 @@
     }
   };
 
-  let selectedTheme = $state('light');
   onMount(() => {
     if (window) {
       const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
       if (prefersDarkMode) {
-        theme = 'dark';
+        selectedTheme = 'dark';
       }
     }
   });
 
-  let theme = $state(fallbackCSS);
+  let theme = $state(fallbackCSS.themes.light);
   $effect(() => {
-    if (selectedTheme == 'light') {
+    if (!!css && selectedTheme == 'light') {
       theme = css?.themes.light;
-    } else if (selectedTheme == 'dark') {
+    } else if (!!css && selectedTheme == 'dark') {
       theme = css?.themes.dark;
     }
   });
