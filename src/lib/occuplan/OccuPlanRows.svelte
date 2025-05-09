@@ -310,7 +310,7 @@
     }
   }
 
-  @container month-header (min-width: 0) {
+  @container month-header (min-height: 0) {
     .monthday-header span {
       font-size: 55cqh;
     }
