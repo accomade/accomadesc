@@ -78,6 +78,7 @@ export type {
   PageProps,
   PageConfig,
   Nav as NavI,
+  NavItem,
   FormatSpec,
   FormatTemplateName,
   SiteConfig,
