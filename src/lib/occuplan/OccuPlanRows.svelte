@@ -284,13 +284,8 @@
     height: 100%;
 
     span {
+      font-size: clamp(0.9rem, 55cqh, 2rem);
       color: var(--occuplan-months-font-color);
-    }
-  }
-
-  @container month-label (min-height: 0) {
-    .month-label span {
-      font-size: 55cqh;
     }
   }
 
@@ -307,12 +302,7 @@
 
     span {
       color: var(--occuplan-days-header-font-color);
-    }
-  }
-
-  @container month-header (min-height: 0) {
-    .monthday-header span {
-      font-size: 55cqh;
+      font-size: clamp(0.9rem, 55cqh, 2rem);
     }
   }
 
@@ -374,12 +364,7 @@
     height: 100%;
     span {
       color: var(--occuplan-main-font-color);
-    }
-  }
-
-  @container year-label (min-width: 0) {
-    .year-label span {
-      font-size: 65cqh;
+      font-size: clamp(1rem, 55cqh, 2rem);
     }
   }
 </style>
