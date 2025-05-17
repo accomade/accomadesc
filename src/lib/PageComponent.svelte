@@ -15,7 +15,6 @@
   import Icon from './basic/Icon.svelte';
   import { page } from '$app/state';
   import Button from './basic/Button.svelte';
-  import { onMount } from 'svelte';
   import { fallbackCSS } from './style.js';
 
   let {
