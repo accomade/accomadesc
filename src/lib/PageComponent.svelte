@@ -283,6 +283,7 @@
   }
 
   h1 {
+    margin-left: 1rem;
     color: var(--main-font-color);
     font-weight: bolder;
     font-size: 2.8rem;
@@ -299,7 +300,7 @@
 
   div.ham-wrapper {
     position: absolute;
-    right: 1rem;
+    right: 2rem;
     top: 1rem;
     width: 3rem;
     height: 3rem;

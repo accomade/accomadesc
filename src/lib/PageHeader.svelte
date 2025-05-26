@@ -66,7 +66,7 @@
 
     margin-left: 0.6rem;
     margin-top: 0.6rem;
-    width: 10rem;
+    width: 8.5rem;
   }
 
   @media (max-width: 550px) {
@@ -86,7 +86,7 @@
       display: none;
     }
     object.logo {
-      width: 5rem;
+      width: 4.5rem;
     }
     div.header h1 {
       font-size: 2.2rem;
