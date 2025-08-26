@@ -95,7 +95,7 @@
             </div>
           {:else}
             <div class="flag-wrapper">
-              <a
+              <a data-sveltekit-keepfocus data-sveltekit-noscroll
                 onclick={() => (updateCurrentLang ? updateCurrentLang(l) : '')}
                 href={pathForLang(l)}
               >

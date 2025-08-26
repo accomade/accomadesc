@@ -48,6 +48,8 @@
 
       {#each allTranslations as langKey}
         <a
+          data-sveltekit-keepfocus
+          data-sveltekit-noscroll
           class="lang-link"
           rel="alternate"
           onclick={() => (updateCurrentLang ? updateCurrentLang(langKey) : '')}

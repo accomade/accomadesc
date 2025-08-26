@@ -22,12 +22,12 @@
         <div class="link-icon-wrapper">
           <ExtLinkSvg size="1.6rem" />
         </div>
-        <a href={n.path} target="_blank" rel="noreferrer noopener">
+        <a href={n.path} target="_blank" rel="noreferrer noopener nofollow">
           {translateFunc ? translateFunc(n.key) : ''}
         </a>
       </div>
     {:else}
-      <a href={path} {onclick}>
+      <a href={path} {onclick} data-sveltekit-keepfocus data-sveltekit-noscroll>
         {translateFunc ? translateFunc(n.key) : ''}
       </a>
     {/if}
