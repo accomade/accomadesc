@@ -355,26 +355,10 @@
     * {
       font-family: var(--main-font-family);
       font-variant: var(--main-font-variant);
-
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     *::selection {
       background-color: var(--font-select-color);
-    }
-
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    *::before {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     hr {
