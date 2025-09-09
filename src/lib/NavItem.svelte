@@ -45,9 +45,13 @@
   a {
     text-decoration: underline;
     color: var(--nav-font-color);
+    font-family: var(--nav-font-family);
+    font-variant: var(--nav-font-variant);
   }
 
   span {
+    font-family: var(--nav-font-family);
+    font-variant: var(--nav-font-variant);
     color: var(--nav-font-color);
   }
 
