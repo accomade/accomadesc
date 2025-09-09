@@ -351,7 +351,7 @@
     bottom: -3rem;
   }
 
-  :global(*) {
+  div.page-wrapper :global {
     * {
       font-family: var(--main-font-family);
       font-variant: var(--main-font-variant);
@@ -376,59 +376,59 @@
       margin: 0;
       padding: 0;
     }
-  }
 
-  :global(hr) {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
+    hr {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
 
-  :global(h4) {
-    font-family: var(--header-font-family);
-    font-variant: var(--header-font-variant);
-    font-size: 1.2rem;
-    text-align: center;
-    margin-bottom: 0.2rem;
-    margin-top: 0.4rem;
-  }
+    h4 {
+      font-family: var(--header-font-family);
+      font-variant: var(--header-font-variant);
+      font-size: 1.2rem;
+      text-align: center;
+      margin-bottom: 0.2rem;
+      margin-top: 0.4rem;
+    }
 
-  :global(h3) {
-    font-family: var(--header-font-family);
-    font-variant: var(--header-font-variant);
-    text-align: center;
-    font-size: 1.8rem;
-    margin-bottom: 0.6rem;
-    margin-top: 1rem;
-  }
+    h3 {
+      font-family: var(--header-font-family);
+      font-variant: var(--header-font-variant);
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 0.6rem;
+      margin-top: 1rem;
+    }
 
-  :global(h2) {
-    font-family: var(--header-font-family);
-    font-variant: var(--header-font-variant);
-    font-size: 2.2rem;
-    margin-bottom: 0.8rem;
-    margin-top: 1.2rem;
-  }
+    h2 {
+      font-family: var(--header-font-family);
+      font-variant: var(--header-font-variant);
+      font-size: 2.2rem;
+      margin-bottom: 0.8rem;
+      margin-top: 1.2rem;
+    }
 
-  :global(h1) {
-    font-family: var(--header-font-family);
-    font-variant: var(--header-font-variant);
-    font-size: 3.2rem;
-    margin-bottom: 0.8rem;
-    margin-top: 1.2rem;
-  }
+    h1 {
+      font-family: var(--header-font-family);
+      font-variant: var(--header-font-variant);
+      font-size: 3.2rem;
+      margin-bottom: 0.8rem;
+      margin-top: 1.2rem;
+    }
 
-  :global(ol) {
-    padding-left: 0.5rem;
-    margin: 1rem;
-  }
+    ol {
+      padding-left: 0.5rem;
+      margin: 1rem;
+    }
 
-  :global(ul) {
-    margin-left: 1rem;
-    padding-left: 0.2rem;
-  }
+    ul {
+      margin-left: 1rem;
+      padding-left: 0.2rem;
+    }
 
-  :global(input) {
-    background-color: var(--main-bg-color);
-    color: var(--main-font-color);
+    input {
+      background-color: var(--main-bg-color);
+      color: var(--main-font-color);
+    }
   }
 </style>
