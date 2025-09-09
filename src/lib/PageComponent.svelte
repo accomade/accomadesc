@@ -133,7 +133,7 @@
     </header>
 
     <div class="floating-title">
-      <h1>{translateFunc ? translateFunc(hero.title) : ''}</h1>
+      <h1 id="hero-title">{translateFunc ? translateFunc(hero.title) : ''}</h1>
     </div>
   {:else}
     {#if title}
@@ -282,16 +282,16 @@
     justify-content: center;
     /* mix-blend-mode: difference; */
     text-align: center;
-  }
 
-  h1 {
-    margin-left: 1rem;
-    color: var(--main-font-color);
-    font-weight: bolder;
-    font-size: 2.8rem;
-    font-family: var(--landing-title-font-family, 'sans-serif');
-    font-variant: var(--landing-title-font-variant, 'small-caps');
-    filter: var(--title-filter);
+    h1#hero-title {
+      margin-left: 1rem;
+      color: var(--main-font-color);
+      font-weight: bolder;
+      font-size: 2.8rem;
+      font-family: var(--landing-title-font-family, 'sans-serif');
+      font-variant: var(--landing-title-font-variant, 'small-caps');
+      filter: var(--title-filter);
+    }
   }
 
   @media (max-width: 300px) {
