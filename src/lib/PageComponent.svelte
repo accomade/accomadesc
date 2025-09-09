@@ -355,8 +355,6 @@
     * {
       font-family: var(--main-font-family);
       font-variant: var(--main-font-variant);
-      background-color: var(--main-bg-color);
-      color: var(--main-font-color);
 
       box-sizing: border-box;
       margin: 0;
