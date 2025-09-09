@@ -1,6 +1,6 @@
 {
 	"name": "accomadesc",
-	"version": "0.3.21",
+	"version": "0.3.22",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build --minify false && npm run package",
