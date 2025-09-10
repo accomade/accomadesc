@@ -3,6 +3,8 @@
   import { fade } from 'svelte/transition';
   import type { Nav, I18nFacade } from '$lib/types.js';
   import NavItem from '$lib/NavItem.svelte';
+  import { getContext } from 'svelte';
+  import { GLOBAL_STATE, GlobalState } from './state.svelte.ts';
 
   let currentPath = $derived(page.url.pathname);
   let {
@@ -30,6 +32,8 @@
       return ['', lang, ...pathElements.slice(1)].join('/');
     }
   };
+
+  const gs: GlobalState = getContext(GLOBAL_STATE);
 </script>
 
 <button class="not-nav" onclick={close} aria-label="close" transition:fade|global></button>
@@ -50,7 +54,7 @@
         <a
           data-sveltekit-keepfocus
           data-sveltekit-noscroll
-          class="lang-link"
+          class={{ 'lang-link': true, disabled: gs.disableLinks }}
           rel="alternate"
           onclick={() => (updateCurrentLang ? updateCurrentLang(langKey) : '')}
           href={pathForLang(langKey)}
@@ -135,5 +139,9 @@
   ul {
     padding-left: 2.5rem;
     margin: 0;
+  }
+
+  .disabled {
+    pointer-events: none;
   }
 </style>

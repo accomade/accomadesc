@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { NavItem, I18nFacade } from '$lib/types.js';
   import ExtLinkSvg from '$lib/svg/ExtLinkSVG.svelte';
+  import { getContext } from 'svelte';
+  import { GLOBAL_STATE, GlobalState } from './state.svelte.ts';
 
   let {
     n,
@@ -13,6 +15,8 @@
   } & I18nFacade = $props();
 
   const path = $derived(`/${currentLang}${n.path}`);
+
+  const gs: GlobalState = getContext(GLOBAL_STATE);
 </script>
 
 <div class="wrapper" class:sub={n.sub}>
@@ -22,12 +26,23 @@
         <div class="link-icon-wrapper">
           <ExtLinkSvg size="1.6rem" />
         </div>
-        <a href={n.path} target="_blank" rel="noreferrer noopener nofollow">
+        <a
+          href={n.path}
+          target="_blank"
+          rel="noreferrer noopener nofollow"
+          class:disabled={gs.disableLinks}
+        >
           {translateFunc ? translateFunc(n.key) : ''}
         </a>
       </div>
     {:else}
-      <a href={path} {onclick} data-sveltekit-keepfocus data-sveltekit-noscroll>
+      <a
+        href={path}
+        {onclick}
+        data-sveltekit-keepfocus
+        data-sveltekit-noscroll
+        class:disabled={gs.disableLinks}
+      >
         {translateFunc ? translateFunc(n.key) : ''}
       </a>
     {/if}
@@ -68,5 +83,9 @@
     display: flex;
     position: relative;
     width: 100%;
+  }
+
+  .disabled {
+    pointer-events: none;
   }
 </style>

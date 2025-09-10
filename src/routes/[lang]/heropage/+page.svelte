@@ -17,7 +17,7 @@
   });
 
   import { I18n } from './I18n.svelte.ts';
-  const i18n = new I18n(pathLang);
+  const i18n = new I18n(pathLang ?? 'en');
 
   const nav: Nav = {
     main: [
@@ -101,6 +101,8 @@
     content,
     showFooter: true,
     fixedHamburger: false,
+    navbarOverHamburger: false,
+    disableLinks: true,
   };
 </script>
 

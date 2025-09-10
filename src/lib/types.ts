@@ -454,6 +454,7 @@ export interface PageProps {
   footerRef?: string;
   fixedHamburger?: boolean;
   navbarOverHamburger?: boolean;
+  disableLinks?: boolean;
   selectedTheme?: 'light' | 'dark';
   content?: Section[];
 }

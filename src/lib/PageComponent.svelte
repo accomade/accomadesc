@@ -16,6 +16,8 @@
   import { page } from '$app/state';
   import Button from './basic/Button.svelte';
   import { fallbackCSS } from './style.js';
+  import { GLOBAL_STATE, GlobalState } from './state.svelte.ts';
+  import { setContext } from 'svelte';
 
   let {
     hero,
@@ -31,6 +33,7 @@
     footerRef = 'footer_html',
     fixedHamburger = true,
     navbarOverHamburger = true,
+    disableLinks = false,
     translateFunc,
     formatMoneyFunc,
     formatDateFunc,
@@ -40,6 +43,8 @@
     currentLang,
     calendarTranslation,
   }: PageProps & I18nFacade = $props();
+
+  setContext(GLOBAL_STATE, new GlobalState(disableLinks));
 
   let pageTitle = hero && hero.title ? hero.title : header ? header : title;
 
@@ -100,6 +105,7 @@
                 data-sveltekit-noscroll
                 onclick={() => (updateCurrentLang ? updateCurrentLang(l) : '')}
                 href={pathForLang(l)}
+                class:disabled={disableLinks}
               >
                 <Icon iconName={l} height="1.5rem" width="1.5rem" />
               </a>
@@ -192,7 +198,10 @@
 
       {#each allTranslations as langKey}
         <a
-          class="lang-link"
+          class={{
+            'lang-link': true,
+            disabled: disableLinks,
+          }}
           rel="alternate"
           onclick={() => (updateCurrentLang ? updateCurrentLang(langKey) : '')}
           href={pathForLang(langKey)}
@@ -406,7 +415,7 @@
     }
 
     ul {
-      margin-left: 1rem;
+      margin-left: 2rem;
       padding-left: 0.2rem;
     }
 
@@ -414,5 +423,9 @@
       background-color: var(--main-bg-color);
       color: var(--main-font-color);
     }
+  }
+
+  .disabled {
+    pointer-events: none;
   }
 </style>
