@@ -2,7 +2,7 @@
   import type { NavItem, I18nFacade } from '$lib/types.js';
   import ExtLinkSvg from '$lib/svg/ExtLinkSVG.svelte';
   import { getContext } from 'svelte';
-  import { GLOBAL_STATE, GlobalState } from './state.svelte.ts';
+  import { GLOBAL_STATE, GlobalState } from './state.svelte';
 
   let {
     n,

@@ -16,7 +16,7 @@
   import { page } from '$app/state';
   import Button from './basic/Button.svelte';
   import { fallbackCSS } from './style.js';
-  import { GLOBAL_STATE, GlobalState } from './state.svelte.ts';
+  import { GLOBAL_STATE, GlobalState } from './state.svelte';
   import { setContext } from 'svelte';
 
   let {

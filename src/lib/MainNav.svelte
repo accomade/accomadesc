@@ -4,7 +4,7 @@
   import type { Nav, I18nFacade } from '$lib/types.js';
   import NavItem from '$lib/NavItem.svelte';
   import { getContext } from 'svelte';
-  import { GLOBAL_STATE, GlobalState } from './state.svelte.ts';
+  import { GLOBAL_STATE, GlobalState } from './state.svelte';
 
   let currentPath = $derived(page.url.pathname);
   let {
