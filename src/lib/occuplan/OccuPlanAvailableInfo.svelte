@@ -1,7 +1,7 @@
 <script lang="ts">
   import { DateTime } from 'luxon';
   import { normalizeDate } from '$lib/helpers/normalizeDate.js';
-  import { getContext, setContext, type Snippet } from 'svelte';
+  import { getContext, onMount, setContext, type Snippet } from 'svelte';
   import {
     OCCUPATION_STATE,
     OccupationState,
@@ -27,13 +27,13 @@
 
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
   let occupationState: OccupationState = $state(getContext(oStateID));
-
-  $effect(() => {
+  onMount(() => {
     if (!occupationState && browser) {
       occupationState = getOccupationState(url, debug);
       setContext(oStateID, occupationState);
     }
   });
+
   let av = $derived(occupationState ? occupationState.calcAvailability(search, maxFutureDate) : {});
 </script>
 

@@ -15,7 +15,7 @@
   } from '$lib/occuplan/state.svelte.js';
   import Button from '$lib/basic/Button.svelte';
   import { browser } from '$app/environment';
-  import { getContext, setContext } from 'svelte';
+  import { getContext, onMount, setContext } from 'svelte';
   import Spinner from '$lib/basic/Spinner.svelte';
   import { randomID } from '$lib/names/gen.js';
 
@@ -50,7 +50,7 @@
 
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
   let occupationState: OccupationState = $state(getContext(oStateID));
-  $effect(() => {
+  onMount(() => {
     if (!occupationState && browser) {
       occupationState = getOccupationState(url, debug);
       setContext(oStateID, occupationState);

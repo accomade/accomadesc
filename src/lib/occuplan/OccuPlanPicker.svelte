@@ -10,7 +10,7 @@
     realFirstMonth,
     type OccuplanTranslations,
   } from '$lib/occuplan/state.svelte.js';
-  import { getContext, setContext, untrack } from 'svelte';
+  import { getContext, onMount, setContext, untrack } from 'svelte';
   import Button from '$lib/basic/Button.svelte';
   import { browser } from '$app/environment';
   import Spinner from '$lib/basic/Spinner.svelte';
@@ -60,7 +60,7 @@
 
   const oStateID = `i-${url}-${OCCUPATION_STATE}`;
   let occupationState: OccupationState = $state(getContext(oStateID));
-  $effect(() => {
+  onMount(() => {
     if (!occupationState && browser) {
       occupationState = getOccupationState(url, debug);
       setContext(oStateID, occupationState);
