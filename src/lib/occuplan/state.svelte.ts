@@ -2,6 +2,7 @@ import { normalizeDate } from '$lib/helpers/normalizeDate.js';
 import { getEvents } from '$lib/helpers/readICS.js';
 import { DateTime, type MonthNumbers, type WeekdayNumbers } from 'luxon';
 import { DateTime as luxon } from 'luxon';
+import { getContext, setContext } from 'svelte';
 
 export interface AvailableSpans {
   [key: number]: DateTime | null;
@@ -289,10 +290,10 @@ export class OccupationState {
     this.debug = debug;
     if (this.debug) console.log('Constructing OState with CalUrl: ', iCalURL);
     this.iCalURL = iCalURL;
-    this.loadOccupations();
+    //this.loadOccupations();
   }
 
-  private loadOccupations = async () => {
+  public loadOccupations = async () => {
     if (this.debug) console.log('(Re)Loading Occupations');
     this.loading = true;
     if (this.iCalURL) {
@@ -537,14 +538,13 @@ export class OccupationState {
   };
 }
 
-let _instances: Record<string, OccupationState> = {};
 export const getOccupationState = (url: string, debug: boolean = false): OccupationState => {
   if (debug) console.log('Get OState /w url', url);
-  const currentInstance = _instances[url];
-  if (currentInstance) return currentInstance;
+  const stateID = `i-${url}-${OCCUPATION_STATE}`;
+  let _instance: OccupationState = getContext(stateID);
+  if (_instance) return _instance;
 
-  const newInstance = new OccupationState(url, debug);
-  _instances[url] = newInstance;
+  setContext(stateID, new OccupationState(url, debug));
 
-  return _instances[url];
+  return getContext(stateID);
 };

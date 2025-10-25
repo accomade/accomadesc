@@ -4,7 +4,6 @@
     defaultMonthHeaderFormat,
     defaultMonthLabels,
     defaultWeekdayLabels,
-    OCCUPATION_STATE,
     OccupationState,
     getOccupationState,
     occupationTypeFormatting,
@@ -13,11 +12,10 @@
     type OccupationType,
     type OccuplanTranslations,
   } from './state.svelte.js';
-  import { getContext, onMount, setContext } from 'svelte';
   import Button from '$lib/basic/Button.svelte';
-  import { browser } from '$app/environment';
   import Spinner from '$lib/basic/Spinner.svelte';
   import { randomID } from '$lib/names/gen.js';
+  import { onMount } from 'svelte';
 
   let {
     url,
@@ -51,14 +49,7 @@
 
   const id = randomID();
 
-  const oStateID = `i-${url}-${OCCUPATION_STATE}`;
-  let occupationState: OccupationState = $state(getContext(oStateID));
-  onMount(() => {
-    if (!occupationState && browser) {
-      occupationState = getOccupationState(url, debug);
-      setContext(oStateID, occupationState);
-    }
-  });
+  let occupationState: OccupationState = getOccupationState(url, debug);
 
   //let formatFun = $derived(Sqrl.compile(monthHeaderFormat, { useWith: true }));
   const monthHeader = (monthNum: MonthNumbers, year: number): string => {
@@ -153,6 +144,10 @@
       return res;
     }, [] as OccupationType[]),
   );
+
+  onMount(() => {
+    occupationState.loadOccupations();
+  });
 </script>
 
 {#if !occupationState || occupationState.loading}

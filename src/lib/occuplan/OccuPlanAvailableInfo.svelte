@@ -1,15 +1,13 @@
 <script lang="ts">
   import { DateTime } from 'luxon';
   import { normalizeDate } from '$lib/helpers/normalizeDate.js';
-  import { getContext, onMount, setContext, type Snippet } from 'svelte';
+  import { onMount, type Snippet } from 'svelte';
   import {
-    OCCUPATION_STATE,
     OccupationState,
     getOccupationState,
     type AvailableSpans,
   } from '$lib/occuplan/state.svelte.js';
   import Spinner from '$lib/basic/Spinner.svelte';
-  import { browser } from '$app/environment';
 
   let {
     url,
@@ -25,16 +23,13 @@
     children: Snippet<[AvailableSpans]>;
   } = $props();
 
-  const oStateID = `i-${url}-${OCCUPATION_STATE}`;
-  let occupationState: OccupationState = $state(getContext(oStateID));
-  onMount(() => {
-    if (!occupationState && browser) {
-      occupationState = getOccupationState(url, debug);
-      setContext(oStateID, occupationState);
-    }
-  });
+  let occupationState: OccupationState = getOccupationState(url, debug);
 
   let av = $derived(occupationState ? occupationState.calcAvailability(search, maxFutureDate) : {});
+
+  onMount(() => {
+    occupationState.loadOccupations();
+  });
 </script>
 
 {#if !occupationState || occupationState.loading}

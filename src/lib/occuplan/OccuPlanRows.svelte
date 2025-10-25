@@ -8,16 +8,15 @@
     occupationTypeFormatting,
     type OccupationType,
     type OccuplanTranslations,
-    OCCUPATION_STATE,
     type DayHelper,
     type FirstMonth,
     realFirstMonth,
   } from '$lib/occuplan/state.svelte.js';
   import Button from '$lib/basic/Button.svelte';
   import { browser } from '$app/environment';
-  import { getContext, onMount, setContext } from 'svelte';
   import Spinner from '$lib/basic/Spinner.svelte';
   import { randomID } from '$lib/names/gen.js';
+  import { onMount } from 'svelte';
 
   let {
     url,
@@ -48,14 +47,7 @@
 
   const id = randomID();
 
-  const oStateID = `i-${url}-${OCCUPATION_STATE}`;
-  let occupationState: OccupationState = $state(getContext(oStateID));
-  onMount(() => {
-    if (!occupationState && browser) {
-      occupationState = getOccupationState(url, debug);
-      setContext(oStateID, occupationState);
-    }
-  });
+  let occupationState: OccupationState = getOccupationState(url, debug);
 
   let page: number = $state(0);
   let rfMonth: number | DateTime = $derived(realFirstMonth(firstMonth, numberOfMonth, page));
@@ -134,6 +126,10 @@
         }, [] as OccupationType[])
       : [],
   );
+
+  onMount(() => {
+    occupationState.loadOccupations();
+  });
 </script>
 
 {#if !occupationState || occupationState.loading}

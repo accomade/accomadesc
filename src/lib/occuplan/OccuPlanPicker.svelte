@@ -4,15 +4,13 @@
     defaultMonthHeaderFormat,
     defaultMonthLabels,
     defaultWeekdayLabels,
-    OCCUPATION_STATE,
     OccupationState,
     getOccupationState,
     realFirstMonth,
     type OccuplanTranslations,
   } from '$lib/occuplan/state.svelte.js';
-  import { getContext, onMount, setContext, untrack } from 'svelte';
+  import { onMount, untrack } from 'svelte';
   import Button from '$lib/basic/Button.svelte';
-  import { browser } from '$app/environment';
   import Spinner from '$lib/basic/Spinner.svelte';
   import { normalizeDate } from '$lib/helpers/normalizeDate.js';
 
@@ -58,14 +56,7 @@
     dateSelected?: (arrival: DateTime, leave: DateTime) => void;
   } = $props();
 
-  const oStateID = `i-${url}-${OCCUPATION_STATE}`;
-  let occupationState: OccupationState = $state(getContext(oStateID));
-  onMount(() => {
-    if (!occupationState && browser) {
-      occupationState = getOccupationState(url, debug);
-      setContext(oStateID, occupationState);
-    }
-  });
+  let occupationState: OccupationState = getOccupationState(url, debug);
 
   const monthHeader = (monthNum: MonthNumbers, year: number): string => {
     const monthLabel = monthLabels[monthNum];
@@ -200,6 +191,10 @@
     let firstDayOfWeek = w.startOf('week');
     return lastDayOfMonth < firstDayOfWeek;
   };
+
+  onMount(() => {
+    occupationState.loadOccupations();
+  });
 </script>
 
 {#if !occupationState || occupationState.loading}
