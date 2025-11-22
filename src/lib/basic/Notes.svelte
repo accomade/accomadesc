@@ -40,7 +40,7 @@
 
     width: 100%;
     max-width: 800px;
-    min-height: 5rem;
+    min-height: 8rem;
     height: 100%;
 
     border: none;

@@ -62,7 +62,9 @@
   };
 
   let page: number = $state(0);
-  let rfMonth: DateTime = $derived(realFirstMonth(firstMonth, numberOfMonth, page));
+  let rfMonth: DateTime = $derived(
+    realFirstMonth(firstMonth, DateTime.utc().get('year'), numberOfMonth, page),
+  );
 
   let currentMaxDate = $derived(rfMonth.plus({ month: numberOfMonth }));
 

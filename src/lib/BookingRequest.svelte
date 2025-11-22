@@ -5,9 +5,9 @@
   import Notes from '$lib/basic/Notes.svelte';
   import Spinner from '$lib/basic/Spinner.svelte';
   import TextInput from '$lib/basic/TextInput.svelte';
-  import { OCCUPATION_STATE, OccupationState } from '$lib/occuplan/state.svelte.js';
+  import { getOccupationState, OccupationState } from '$lib/occuplan/state.svelte.js';
   import OccuPlanPicker from '$lib/occuplan/OccuPlanPicker.svelte';
-  import { slide } from 'svelte/transition';
+  import { fade } from 'svelte/transition';
   import type { DateTime } from 'luxon';
   import { randomID } from './names/gen.js';
 
@@ -55,9 +55,7 @@
   let sending = $state(false);
   let disabled = $derived(preview || errored || successfullySent);
 
-  const url = calUrl;
-  const oStateID = `i-${url}-${OCCUPATION_STATE}`;
-  let occupationState: OccupationState = $state(getContext(oStateID));
+  let occupationState: OccupationState = getOccupationState(calUrl);
   let invalid = $derived(
     occupationState && arrival && leave ? occupationState.validRequest(arrival, leave) : false,
   );
@@ -161,8 +159,8 @@
     </label>
     <div class="input-wrapper" class:disabled>
       {#if inputDatesEngaged}
-        <div transition:slide style="min-width: 32rem;" class="picker-wrapper">
-          <OccuPlanPicker {arrival} {leave} {url} aborted={abortDateInput} {dateSelected} />
+        <div transition:fade style="min-width: 32rem;" class="picker-wrapper">
+          <OccuPlanPicker {arrival} {leave} url={calUrl} aborted={abortDateInput} {dateSelected} />
         </div>
       {/if}
       <div class="date-input-wrapper" id="engage-date-buttons">
@@ -243,9 +241,10 @@
     }
   }
   form {
+    position: relative;
     display: grid;
     grid-template-columns: [start] 1fr [gap-start] 0.5fr [gap-end] 3fr [end];
-    row-gap: 0.5rem;
+    row-gap: 1rem;
 
     label {
       align-content: center;
@@ -272,6 +271,8 @@
       justify-content: flex-start;
     }
     div.picker-wrapper {
+      bottom: 2rem;
+      right: -3rem;
       position: absolute;
       z-index: 9999;
       background-color: var(--main-bg-color);

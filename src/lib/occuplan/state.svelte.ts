@@ -110,18 +110,22 @@ export const firstMonthValid = (value: string | number): boolean => {
 
 export const realFirstMonth = (
   firstMonth: FirstMonth,
+  firstMonthYear: number,
   numberOfMonth: number,
   page: number,
 ): DateTime => {
   const monthToAdd = page * numberOfMonth;
 
+  console.log(firstMonth, firstMonthYear, numberOfMonth, page)
   if (typeof firstMonth === 'number') {
     const intValue = firstMonth as number;
     if (intValue >= 1 && intValue <= 12) {
       const tDate = normalizeDate(DateTime.utc())
-        .set({ month: intValue })
+        .set({ month: intValue, year: firstMonthYear })
         .plus({ month: monthToAdd });
       return tDate;
+    } else {
+      return normalizeDate(DateTime.utc()).plus(monthToAdd)
     }
   } else if (typeof firstMonth === 'string' && firstMonth.length > 1) {
     //check + sign
@@ -131,11 +135,15 @@ export const realFirstMonth = (
         const intValue = parseInt(toParse);
         if (intValue >= 1 && intValue <= 12) {
           const tDate = normalizeDate(DateTime.utc())
+            .set({ year: firstMonthYear })
             .plus({ month: intValue })
             .plus({ month: monthToAdd });
 
           return tDate;
+        } else {
+          return normalizeDate(DateTime.utc()).plus(monthToAdd)
         }
+
       } catch (e) {
         console.log('casting error', e);
       }
@@ -146,10 +154,14 @@ export const realFirstMonth = (
         const intValue = parseInt(toParse);
         if (intValue >= 0 && intValue <= 12) {
           const tDate = normalizeDate(DateTime.utc())
+            .set({ year: firstMonthYear })
             .minus({ month: intValue })
             .plus({ month: monthToAdd });
           return tDate;
+        } else {
+          return normalizeDate(DateTime.utc()).plus(monthToAdd)
         }
+
       } catch (e) {
         console.log('casting error', e);
       }
@@ -162,7 +174,7 @@ export const realFirstMonth = (
 
       //current dynamic month
       if (intValue == 0) {
-        return normalizeDate(DateTime.utc()).plus({ month: monthToAdd });
+        return normalizeDate(DateTime.utc()).set({ year: firstMonthYear }).plus({ month: monthToAdd });
       }
 
       //static month of current year
@@ -171,14 +183,17 @@ export const realFirstMonth = (
           .set({ month: intValue })
           .plus({ month: monthToAdd });
         return tDate;
+      } else {
+        return normalizeDate(DateTime.utc()).set({ year: firstMonthYear }).plus(monthToAdd)
       }
+
     } catch (e) {
       console.log('casting error', e);
     }
   }
 
   //first month of current year ... default
-  return normalizeDate(DateTime.utc()).set({ month: 1 }).plus({ month: monthToAdd });
+  return normalizeDate(DateTime.utc()).set({ month: 1, year: firstMonthYear }).plus({ month: monthToAdd });
 };
 
 const validDay = (d: DayHelper): boolean => {
