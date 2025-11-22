@@ -205,7 +205,6 @@
 <div class="wrapper">
   <section class="occuplan-wrapper" style="max-width: {maxWidth}; width: 100%;">
     <header class="occupation-plan-header">
-      {rfMonth}
       <div class="header-controls">
         {#if rfMonth >= minDate}
           <Button text={prevPage} clicked={prevClicked} preventDefault={true} />

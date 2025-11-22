@@ -116,7 +116,6 @@ export const realFirstMonth = (
 ): DateTime => {
   const monthToAdd = page * numberOfMonth;
 
-  console.log(firstMonth, firstMonthYear, numberOfMonth, page)
   if (typeof firstMonth === 'number') {
     const intValue = firstMonth as number;
     if (intValue >= 1 && intValue <= 12) {

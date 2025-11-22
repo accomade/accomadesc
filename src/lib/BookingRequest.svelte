@@ -10,6 +10,7 @@
   import { fade } from 'svelte/transition';
   import type { DateTime } from 'luxon';
   import { randomID } from './names/gen.js';
+  import { format } from './helpers/format.ts';
 
   const {
     endpoint,
@@ -81,6 +82,20 @@
     inputDatesEngaged = false;
   };
 
+  let travelDates = $derived.by(() => {
+    if (arrival && leave) {
+      if (formatDateFunc) {
+        return `${formatDateFunc(arrival)} - ${formatDateFunc(leave)}`;
+      } else {
+        const formattedArrival = arrival.toFormat('yyyy-MM-dd');
+        const formattedLeave = leave.toFormat('yyyy-MM-dd');
+        return `${formattedArrival} - ${formattedLeave}`;
+      }
+    } else {
+      return '';
+    }
+  });
+
   const createRequest = async (e: SubmitEvent) => {
     sending = true;
     e.preventDefault();
@@ -111,7 +126,11 @@
       console.log('Error sending request', e);
     }
 
+    arrival = undefined;
+    leave = undefined;
+    inputDatesEngaged = false;
     sending = false;
+
     setTimeout(() => {
       errored = false;
       successfullySent = false;
@@ -170,9 +189,7 @@
           iconName="edit"
           size={1.8}
           clicked={engageDateInput}
-          text={arrival && leave && formatDateFunc
-            ? `${formatDateFunc(arrival)} - ${formatDateFunc(leave)}`
-            : ''}
+          text={travelDates}
         />
         {#if arrival && leave}
           <Button iconName="delete" size={1.8} clicked={dateDeleted} />
