@@ -10,7 +10,6 @@
   import { fade } from 'svelte/transition';
   import type { DateTime } from 'luxon';
   import { randomID } from './names/gen.js';
-  import { format } from './helpers/format.ts';
 
   const {
     endpoint,
