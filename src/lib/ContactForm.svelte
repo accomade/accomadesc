@@ -72,6 +72,9 @@
       errored = true;
     }
     sending = false;
+    email = '';
+    name = '';
+    question = '';
 
     setTimeout(() => {
       errored = false;

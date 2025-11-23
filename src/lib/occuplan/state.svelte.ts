@@ -448,8 +448,9 @@ export class OccupationState {
 
   public validRequest = (from: DateTime, to: DateTime) => {
     //TODO take min nights into account
-    return !this.occupations.find((o) => o.arrival < to && o.leave > from);
-  };
+    const found = this.occupations.find((o) => o.arrival < to && o.leave > from);
+    return !found;
+  }
 
   public occupationStyle = (
     d: DayHelper,

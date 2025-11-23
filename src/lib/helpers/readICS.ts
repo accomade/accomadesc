@@ -98,20 +98,28 @@ const getDate = (icsLine: string): DateTime => {
   const [typePart, valuePart] = icsLine.split('=');
 
   const dateString = valuePart.split(':')[1];
-  let rawDateTime = lx.fromISO(dateString);
+  //console.log(dateString);
+  const year = parseInt(dateString.slice(0, 4));
+  const month = parseInt(dateString.slice(4, 6));
+  const day = parseInt(dateString.slice(6, 8));
+  let rawDateTime = lx.utc().set({
+    year: year, month: month, day: day,
+    hour: 12, minute: 0, second: 0, millisecond: 0
+  })
+  return rawDateTime;
 
   //end date has to be moved back when whole day ending
-  if (/^DTEND;VALUE$/.test(typePart)) {
-    if (
-      rawDateTime.hour == 0 &&
-      rawDateTime.minute == 0 &&
-      rawDateTime.second == 0 &&
-      rawDateTime.millisecond == 0
-    ) {
-      rawDateTime = rawDateTime.plus({ hour: 12 });
-    }
-  }
+  //if (/^DTEND;VALUE$/.test(typePart)) {
+  //  if (
+  //    rawDateTime.hour == 0 &&
+  //    rawDateTime.minute == 0 &&
+  //    rawDateTime.second == 0 &&
+  //    rawDateTime.millisecond == 0
+  //  ) {
+  //    rawDateTime = rawDateTime.plus({ hour: 12 });
+  //  }
+  //}
 
-  //normalize to noon
-  return rawDateTime.set({ hour: 12, minute: 0, second: 0, millisecond: 0 });
+  ////normalize to noon
+  //return rawDateTime.set({ hour: 12, minute: 0, second: 0, millisecond: 0 });
 };

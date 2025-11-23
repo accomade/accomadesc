@@ -388,9 +388,9 @@
     id: randomID(),
     kind: 'booking-request',
     content: {
-      accoID: 'fd638e66-c3c4-4248-97ce-47d018e79d83',
-      endpoint: 'https://accomade-crenshinibon-my-team-29e99517.vercel.app/request',
-      userID: '3726b92f-a33d-4b9d-b5ce-1f45f04c6f6a',
+      accoID: '7d001d03-9c67-4723-90ae-ab09f236eeac',
+      endpoint: 'http://localhost:4173/request',
+      userID: 'c2884529-cc53-44e7-b8dd-35c7ecada546',
       calUrl:
         'https://popnapdkcdnabruxkjti.supabase.co/storage/v1/object/public/ical/81e66599-ac3c-4ad6-b261-fceeb784f9e9/83cd06fd-858d-4e21-994f-325778812713',
       nameLabel: brRef1,

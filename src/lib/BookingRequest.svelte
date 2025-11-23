@@ -57,7 +57,7 @@
 
   let occupationState: OccupationState = getOccupationState(calUrl);
   let invalid = $derived(
-    occupationState && arrival && leave ? occupationState.validRequest(arrival, leave) : false,
+    occupationState && arrival && leave ? !occupationState.validRequest(arrival, leave) : false,
   );
   const messageChanged = (value: string) => {
     message = value;
@@ -127,6 +127,9 @@
 
     arrival = undefined;
     leave = undefined;
+    email = '';
+    name = '';
+    message = '';
     inputDatesEngaged = false;
     sending = false;
 
