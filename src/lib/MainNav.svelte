@@ -19,14 +19,13 @@
     close: () => void;
   } & I18nFacade = $props();
 
-  let allTranslations = $state(supportedLangs);
   const pathForLang = (lang: string) => {
     const pathElements = currentPath.split('/');
     //initial slash results in empty string real first element
     if (pathElements.length == 1) return `/${lang}`;
 
     const firstElement = pathElements[1];
-    if (allTranslations?.includes(firstElement)) {
+    if (supportedLangs?.includes(firstElement)) {
       return ['', lang, ...pathElements.slice(2)].join('/');
     } else {
       return ['', lang, ...pathElements.slice(1)].join('/');
@@ -46,11 +45,11 @@
       </li>
     {/each}
   </ul>
-  {#if allTranslations && allTranslations.length > 1}
+  {#if supportedLangs && supportedLangs.length > 1}
     <fieldset>
       <legend>{translateFunc ? translateFunc('lang') : ''}</legend>
 
-      {#each allTranslations as langKey}
+      {#each supportedLangs as langKey}
         <a
           data-sveltekit-keepfocus
           data-sveltekit-noscroll

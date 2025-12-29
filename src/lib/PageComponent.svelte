@@ -17,7 +17,7 @@
   import Button from './basic/Button.svelte';
   import { fallbackCSS } from './style.js';
   import { GLOBAL_STATE, GlobalState } from './state.svelte';
-  import { setContext } from 'svelte';
+  import { setContext, untrack } from 'svelte';
 
   let {
     hero,
@@ -44,12 +44,11 @@
     calendarTranslation,
   }: PageProps & I18nFacade = $props();
 
-  setContext(GLOBAL_STATE, new GlobalState(disableLinks));
+  // initialize global state, use the initial value of disableLinks
+  setContext(GLOBAL_STATE, new GlobalState(untrack(() => disableLinks)));
 
-  let pageTitle = hero && hero.title ? hero.title : header ? header : title;
-
+  let pageTitle = $derived(hero && hero.title ? hero.title : header ? header : title);
   let langSelectorOpen = $state(false);
-  let allTranslations = $state(supportedLangs);
 
   let currentPath = $derived(page.url.pathname);
   const pathForLang = (lang: string) => {
@@ -58,7 +57,7 @@
     if (pathElements.length == 1) return `/${lang}`;
 
     const firstElement = pathElements[1];
-    if (allTranslations?.includes(firstElement)) {
+    if (supportedLangs?.includes(firstElement)) {
       return ['', lang, ...pathElements.slice(2)].join('/');
     } else {
       return ['', lang, ...pathElements.slice(1)].join('/');
@@ -192,11 +191,11 @@
     {/if}
   {/if}
 
-  {#if langSelectorOpen && allTranslations && allTranslations.length > 1}
+  {#if langSelectorOpen && supportedLangs && supportedLangs.length > 1}
     <fieldset class="lang-selector" transition:fade>
       <legend>{translateFunc ? translateFunc('lang') : ''}</legend>
 
-      {#each allTranslations as langKey}
+      {#each supportedLangs as langKey}
         <a
           class={{
             'lang-link': true,
