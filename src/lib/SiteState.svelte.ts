@@ -1,7 +1,8 @@
-import { format, type I18nFacade, type OccuplanTranslations } from 'accomadesc';
 import type { CookieSelection, Translation as CookieTranslation } from 'gdpr-cooco-banner';
 import { DateTime } from 'luxon';
-import type { SiteConfig } from './types.ts';
+import type { FormatSpec, I18nFacade, SiteConfig } from './types.ts';
+import type { OccuplanTranslations } from './occuplan/state.svelte.ts';
+import { format } from './helpers/format.ts';
 
 interface FullTranslation {
   calendar: OccuplanTranslations;
@@ -10,57 +11,77 @@ interface FullTranslation {
 }
 
 export class SiteState implements I18nFacade {
+  _getSiteConfigFn: () => SiteConfig;
 
-  fullTranslations: Record<string, FullTranslation> = {}
-  calendarTranslations: Record<string, OccuplanTranslations> = {};
-  cookieTranslations: Record<string, CookieTranslation> = {};
-  siteTranslations: Record<string, Record<string, string>> = {};
+  //fullTranslations: Record<string, FullTranslation> = $derived(this._getSiteConfigFn().lang.translations);
+  get fullTranslations(): Record<string, FullTranslation> {
+    return this._getSiteConfigFn().lang.translations;
+  }
 
-  supportedLangs: string[] = $state(['en']);
-  isMenuOpen = $state(false);
+  get calendarTranslations(): Record<string, OccuplanTranslations> {
+    return Object.entries(this.fullTranslations).reduce((s, e) => {
+      s[e[0]] = e[1].calendar;
+      return s;
+    }, {} as Record<string, OccuplanTranslations>)
+  };
+
+  get cookieTranslations(): Record<string, CookieTranslation> {
+    return Object.entries(this.fullTranslations).reduce((s, e) => {
+      s[e[0]] = e[1].cookies;
+      return s;
+    }, {} as Record<string, CookieTranslation>)
+  }
+
+  get siteTranslations(): Record<string, Record<string, string>> {
+    return Object.entries(this.fullTranslations).reduce((s, e) => {
+      s[e[0]] = e[1].site;
+      return s;
+    }, {} as Record<string, Record<string, string>>)
+  }
+
+  get supportedLangs(): string[] {
+    return this._getSiteConfigFn().lang.supportedLangs
+  }
+
   cookieSelection: CookieSelection = $state({
     analytics: false,
     marketing: false,
     preferences: false,
     necessary: true,
   });
+
   currentLang: string = $state('en');
-  translations: Record<string, Record<string, string>> = $state(this.siteTranslations);
 
-  calendarTranslation: OccuplanTranslations = $derived(this.calendarTranslations[this.currentLang]);
-  cookieTranslation: CookieTranslation = $state(this.cookieTranslations[this.currentLang]);
+  get translations(): Record<string, Record<string, string>> {
+    return this.siteTranslations;
+  }
+  get calendarTranslation(): OccuplanTranslations {
+    return this.calendarTranslations[this.currentLang];
+  }
+  get cookieTranslation(): CookieTranslation {
+    return this.cookieTranslations[this.currentLang]
+  }
 
-  formats: Record<string, Record<string, any>> = $state({});
+  get formats(): Record<string, FormatSpec> {
+    return this._getSiteConfigFn().lang.formats;
+  }
+
   selectedTheme: 'light' | 'dark' = $state('light');
   selectedThemeInitialized: boolean = $state(false);
 
-  constructor(siteConfig: SiteConfig, lang: string | undefined) {
-
-    if (!lang || !siteConfig.lang.supportedLangs.includes(lang)) {
-      this.currentLang = siteConfig.lang.defaultLang;
+  constructor(getSiteConfig: () => SiteConfig, lang: string | undefined) {
+    this._getSiteConfigFn = getSiteConfig;
+    if (!lang || !getSiteConfig().lang.supportedLangs.includes(lang)) {
+      this.currentLang = getSiteConfig().lang.defaultLang;
     } else {
       this.currentLang = lang;
     }
-
-    this.fullTranslations = siteConfig.lang.translations as Record<
-      string,
-      FullTranslation
-    >;
-
-    for (const lang in this.fullTranslations) {
-      this.calendarTranslations[lang] = this.fullTranslations[lang].calendar;
-      this.siteTranslations[lang] = this.fullTranslations[lang].site;
-      this.cookieTranslations[lang] = this.fullTranslations[lang].cookies;
-    }
-
-    this.supportedLangs = siteConfig.lang.supportedLangs;
-    this.formats = siteConfig.lang.formats;
   }
 
   public updateCurrentLang = (lang: string) => (this.currentLang = lang);
 
   public translateFunc = (ref: string): string => {
-    if (!ref) return 'UNDEF';
+    if (!ref) return '[UNDEF]';
 
     const current = this.translations[this.currentLang];
     if (!current[ref]) return '';
@@ -71,8 +92,8 @@ export class SiteState implements I18nFacade {
   public formatFunc = (ref: string, props: Record<string, any>): string => {
     const fString = this.formats[this.currentLang][ref];
     if (!fString) {
-      console.log('missing formatFunc', ref);
-      return '';
+      console.warn(`[Missing formatFunc: ${ref}]`);
+      return '[UNDEF]';
     }
 
     let formatted = format(fString, props);
@@ -80,16 +101,40 @@ export class SiteState implements I18nFacade {
   };
 
   public formatDateFunc = (d: DateTime | string) => {
+    if (!d) return this.translateFunc("invalid")
 
+    const formatSpecs = this.formats[this.currentLang];
     let f = 'yyyy-MM-dd';
-    if (this.formats[this.currentLang]?.dateFormat) {
-      f = this.formats[this.currentLang].dateFormat;
+    if (formatSpecs?.dateFormat) {
+      f = formatSpecs.dateFormat;
     }
 
     let date: DateTime;
     if (typeof d === 'string') date = DateTime.fromISO(d);
     else date = d;
 
-    return date.toFormat(f);
+    // if d was invalid to begin with or 
+    // translformation from ISO didn't yield a valid DateTime object
+    if (date.isValid) return this.translateFunc("invalid")
+
+    return date.setLocale(formatSpecs.locale).toFormat(f);
   };
+
+
+  public translateWithLangFunc = (ref: string, lang: string): string => {
+    const translation = this.translations[lang];
+    if (!translation) {
+      console.error(`[Tried to access unknown translation: ${lang}]`)
+      return "[UNDEF]"
+    }
+
+    const res = translation[ref];
+    if (res === undefined) {
+      console.warn(`[Missing Translation for: ${ref}]`);
+      return '[UNDEF]';
+    } else {
+      return res;
+    }
+  };
+
 }

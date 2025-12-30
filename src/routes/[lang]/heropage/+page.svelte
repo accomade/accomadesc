@@ -102,7 +102,7 @@
     showFooter: true,
     fixedHamburger: false,
     navbarOverHamburger: false,
-    disableLinks: true,
+    disableLinks: false,
   };
 </script>
 

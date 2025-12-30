@@ -492,6 +492,7 @@ export interface I18nFacade {
   supportedLangs?: string[];
   calendarTranslation?: OccuplanTranslations;
   translateFunc?: (ref: string) => string;
+  translateWithLangFunc?: (ref: string, lang: string) => string;
   formatFunc?: (formatter: string, props: Record<string, any>) => string;
   formatMoneyFunc?: (d: number) => string;
   formatDateFunc?: (d: DateTime | string) => string;

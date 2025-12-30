@@ -46,8 +46,8 @@ importers:
         specifier: ^3.7.1
         version: 3.7.1
       gdpr-cooco-banner:
-        specifier: ^0.0.11
-        version: 0.0.11(svelte@5.46.1)
+        specifier: ^0.0.12
+        version: 0.0.12(svelte@5.46.1)
       prettier:
         specifier: ^3.7.4
         version: 3.7.4
@@ -511,8 +511,8 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
-  gdpr-cooco-banner@0.0.11:
-    resolution: {integrity: sha512-aY1UCm5OZRt8bY7V96Y1LxQrlv0pbVDgnGKGyNA/BMjwCViQ2PzfoEQ5o6zbYE7Tjo5dk/9BtXggJrTP6inhoA==}
+  gdpr-cooco-banner@0.0.12:
+    resolution: {integrity: sha512-gctOyT+J+SQcmyJgF1hvieN7TsU3qs+wNRV7sJ3cRPOv0BfH8ZIPmnfW5Z+ZIcdLXGDfasSkjb7biorjvMqa0Q==}
     peerDependencies:
       svelte: ^5
 
@@ -1031,7 +1031,7 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
-  gdpr-cooco-banner@0.0.11(svelte@5.46.1):
+  gdpr-cooco-banner@0.0.12(svelte@5.46.1):
     dependencies:
       js-cookie: 3.0.5
       svelte: 5.46.1

@@ -208,6 +208,10 @@ export class I18n implements I18nFacade {
     return this.translations[this.currentLang][ref];
   };
 
+  public translateWithLangFunc = (ref: string, lang: string): string => {
+    return this.translations[lang][ref];
+  };
+
   public formatFunc = (ref: string, props: Record<string, any>): string => {
     if (!this.formats[this.currentLang][ref]) {
       console.log('missing formatFunc', ref);

@@ -66,7 +66,7 @@
       gridTemplateColumns = '1fr 1fr';
       padding = originalPadding;
     } else {
-      if (!!columnCount && columnCount > 1) {
+      if (!!columnCount) {
         gridTemplateColumns = `repeat(${columnCount}, 1fr)`;
       }
       padding = originalPadding;

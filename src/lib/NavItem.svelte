@@ -36,13 +36,7 @@
         </a>
       </div>
     {:else}
-      <a
-        href={path}
-        {onclick}
-        data-sveltekit-keepfocus
-        data-sveltekit-noscroll
-        class:disabled={gs.disableLinks}
-      >
+      <a href={path} {onclick} class:disabled={gs.disableLinks}>
         {translateFunc ? translateFunc(n.key) : ''}
       </a>
     {/if}

@@ -45,7 +45,7 @@
 		"@sveltejs/package": "^2.5.7",
 		"@sveltejs/vite-plugin-svelte": "^5.1.1",
 		"@types/luxon": "^3.7.1",
-		"gdpr-cooco-banner": "^0.0.11",
+		"gdpr-cooco-banner": "^0.0.12",
 		"prettier": "^3.7.4",
 		"prettier-plugin-svelte": "^3.4.1",
 		"publint": "^0.3.16",
