@@ -141,7 +141,7 @@
   let innerShadowWidth = $derived(activated ? size / 16 : size / 8);
   let outerShadowWidth = $derived(activated ? size / 8 : size / 4);
 
-  const borderRadius = $state(size / 1.8);
+  const borderRadius = $derived(size / 1.8);
 
   let buttonWidth = $derived.by(() => {
     if (iconName && !text) {

@@ -56,7 +56,7 @@
     dateSelected?: (arrival: DateTime, leave: DateTime) => void;
   } = $props();
 
-  let occupationState: OccupationState = getOccupationState(url, debug);
+  let occupationState: OccupationState = $derived(getOccupationState(url, debug));
 
   const monthHeader = (monthNum: MonthNumbers, year: number): string => {
     const monthLabel = monthLabels[monthNum];
@@ -103,8 +103,17 @@
     page -= 1;
   };
 
-  let requestStart: DateTime | undefined = $state(arrival);
-  let requestEnd: DateTime | undefined = $state(leave);
+  let requestStart: DateTime | undefined = $state();
+  let requestEnd: DateTime | undefined = $state();
+
+  $effect(() => {
+    requestStart = arrival;
+  });
+
+  $effect(() => {
+    requestEnd = leave;
+  });
+
   let earliestStart: DateTime | undefined = $derived(
     occupationState ? occupationState.earliestRequestStart(requestEnd) : undefined,
   );

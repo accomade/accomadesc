@@ -4,7 +4,7 @@
 
   let { nav, ref, translateFunc, currentLang }: { nav: Nav; ref?: string } & I18nFacade = $props();
 
-  const contentRef = ref ?? 'footer_html';
+  const contentRef = $derived(ref ?? 'footer_html');
 </script>
 
 <footer>

@@ -47,7 +47,7 @@
 
   const id = randomID();
 
-  let occupationState: OccupationState = getOccupationState(url, debug);
+  let occupationState: OccupationState = $derived(getOccupationState(url, debug));
 
   let page: number = $state(0);
   let rfMonth: number | DateTime = $derived(

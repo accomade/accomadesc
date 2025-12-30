@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { BookingRequestContent, I18nFacade } from '$lib/types.js';
-  import { getContext } from 'svelte';
   import Button from '$lib/basic/Button.svelte';
   import Notes from '$lib/basic/Notes.svelte';
   import Spinner from '$lib/basic/Spinner.svelte';
@@ -55,7 +54,7 @@
   let sending = $state(false);
   let disabled = $derived(preview || errored || successfullySent);
 
-  let occupationState: OccupationState = getOccupationState(calUrl);
+  let occupationState: OccupationState = $derived(getOccupationState(calUrl));
   let invalid = $derived(
     occupationState && arrival && leave ? !occupationState.validRequest(arrival, leave) : false,
   );

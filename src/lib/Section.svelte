@@ -53,7 +53,7 @@
 
   let translatedHeader = $derived(header && translateFunc ? translateFunc(header) : '');
 
-  let gridTemplateColumns = $state(`repeat(${columnCount}, 1fr)`);
+  let gridTemplateColumns = $state(`repeat(2, 1fr)`);
 
   let originalPadding = $state(padding);
 

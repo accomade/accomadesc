@@ -23,8 +23,7 @@
     children: Snippet<[AvailableSpans]>;
   } = $props();
 
-  let occupationState: OccupationState = getOccupationState(url, debug);
-
+  let occupationState: OccupationState = $derived(getOccupationState(url, debug));
   let av = $derived(occupationState ? occupationState.calcAvailability(search, maxFutureDate) : {});
 
   onMount(() => {

@@ -14,7 +14,10 @@
     formatFunc,
   }: PricingShortContent & I18nFacade = $props();
 
-  if (!ranges && entries) ranges = entries;
+  $effect(() => {
+    //unclear if this is even needed and working as expected
+    if (!ranges && entries) ranges = entries;
+  });
 
   let filteredEntries = $derived.by(() => {
     let now = DateTime.now();

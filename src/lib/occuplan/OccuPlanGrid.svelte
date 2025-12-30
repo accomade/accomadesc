@@ -49,7 +49,7 @@
 
   const id = randomID();
 
-  let occupationState: OccupationState = getOccupationState(url, debug);
+  let occupationState: OccupationState = $derived(getOccupationState(url, debug));
 
   //let formatFun = $derived(Sqrl.compile(monthHeaderFormat, { useWith: true }));
   const monthHeader = (monthNum: MonthNumbers, year: number): string => {

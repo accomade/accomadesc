@@ -24,9 +24,9 @@
     currentLang,
   }: PricingContent & I18nFacade = $props();
 
-  if (!ranges || (ranges.length == 0 && entries)) {
-    ranges = entries;
-  }
+  $effect(() => {
+    if (!ranges || (ranges.length == 0 && entries)) ranges = entries;
+  });
 
   const colHeaderStyle: Record<PricingColumn, string> = {
     timeRange: 'width: 20%;',
