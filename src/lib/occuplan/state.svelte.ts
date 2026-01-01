@@ -555,7 +555,7 @@ export class OccupationState {
 
 export const getOccupationState = (url: string, debug: boolean = false): OccupationState => {
   if (debug) console.log('Get OState /w url', url);
-  const stateID = Symbol(`i-${url}-${OCCUPATION_STATE}`);
+  const stateID = `i-${url}-${OCCUPATION_STATE}`;
   let _instance: OccupationState = getContext(stateID);
   if (_instance) return _instance;
 
