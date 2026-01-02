@@ -1,8 +1,8 @@
 import type { CookieSelection, Translation as CookieTranslation } from 'gdpr-cooco-banner';
 import { DateTime } from 'luxon';
-import type { FormatSpec, I18nFacade, SiteConfig } from './types.ts';
-import type { OccuplanTranslations } from './occuplan/state.svelte.ts';
-import { format } from './helpers/format.ts';
+import type { FormatSpec, I18nFacade, SiteConfig } from './types.js';
+import type { OccuplanTranslations } from './occuplan/state.svelte.js';
+import { format } from './helpers/format.js';
 
 interface FullTranslation {
   calendar: OccuplanTranslations;
