@@ -159,8 +159,8 @@ export class I18n implements I18nFacade {
   };
 
   public translateWitthLangFunc = (ref: string, lang: string) => {
-    return this.translations[lang][ref]
-  }
+    return this.translations[lang][ref];
+  };
 
   public formatFunc = (ref: string, props: Record<string, any>): string => {
     if (!this.formats[this.currentLang][ref]) {

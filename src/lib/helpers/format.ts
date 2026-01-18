@@ -2,7 +2,8 @@ export const format = (formatString: string, subst: Record<string, string>): str
   let result = formatString;
 
   for (const [key, value] of Object.entries(subst)) {
-    result = result.replace(`{{${key}}}`, value);
+    const regex = new RegExp(`{{${key}}}`, 'g');
+    result = result.replace(regex, value);
   }
 
   return result;

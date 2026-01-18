@@ -124,7 +124,7 @@ export const realFirstMonth = (
         .plus({ month: monthToAdd });
       return tDate;
     } else {
-      return normalizeDate(DateTime.utc()).plus(monthToAdd)
+      return normalizeDate(DateTime.utc()).plus(monthToAdd);
     }
   } else if (typeof firstMonth === 'string' && firstMonth.length > 1) {
     //check + sign
@@ -140,9 +140,8 @@ export const realFirstMonth = (
 
           return tDate;
         } else {
-          return normalizeDate(DateTime.utc()).plus(monthToAdd)
+          return normalizeDate(DateTime.utc()).plus(monthToAdd);
         }
-
       } catch (e) {
         console.log('casting error', e);
       }
@@ -158,9 +157,8 @@ export const realFirstMonth = (
             .plus({ month: monthToAdd });
           return tDate;
         } else {
-          return normalizeDate(DateTime.utc()).plus(monthToAdd)
+          return normalizeDate(DateTime.utc()).plus(monthToAdd);
         }
-
       } catch (e) {
         console.log('casting error', e);
       }
@@ -173,7 +171,9 @@ export const realFirstMonth = (
 
       //current dynamic month
       if (intValue == 0) {
-        return normalizeDate(DateTime.utc()).set({ year: firstMonthYear }).plus({ month: monthToAdd });
+        return normalizeDate(DateTime.utc())
+          .set({ year: firstMonthYear })
+          .plus({ month: monthToAdd });
       }
 
       //static month of current year
@@ -183,16 +183,17 @@ export const realFirstMonth = (
           .plus({ month: monthToAdd });
         return tDate;
       } else {
-        return normalizeDate(DateTime.utc()).set({ year: firstMonthYear }).plus(monthToAdd)
+        return normalizeDate(DateTime.utc()).set({ year: firstMonthYear }).plus(monthToAdd);
       }
-
     } catch (e) {
       console.log('casting error', e);
     }
   }
 
   //first month of current year ... default
-  return normalizeDate(DateTime.utc()).set({ month: 1, year: firstMonthYear }).plus({ month: monthToAdd });
+  return normalizeDate(DateTime.utc())
+    .set({ month: 1, year: firstMonthYear })
+    .plus({ month: monthToAdd });
 };
 
 const validDay = (d: DayHelper): boolean => {
@@ -450,7 +451,7 @@ export class OccupationState {
     //TODO take min nights into account
     const found = this.occupations.find((o) => o.arrival < to && o.leave > from);
     return !found;
-  }
+  };
 
   public occupationStyle = (
     d: DayHelper,

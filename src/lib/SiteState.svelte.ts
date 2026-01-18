@@ -19,28 +19,37 @@ export class SiteState implements I18nFacade {
   }
 
   get calendarTranslations(): Record<string, OccuplanTranslations> {
-    return Object.entries(this.fullTranslations).reduce((s, e) => {
-      s[e[0]] = e[1].calendar;
-      return s;
-    }, {} as Record<string, OccuplanTranslations>)
-  };
+    return Object.entries(this.fullTranslations).reduce(
+      (s, e) => {
+        s[e[0]] = e[1].calendar;
+        return s;
+      },
+      {} as Record<string, OccuplanTranslations>,
+    );
+  }
 
   get cookieTranslations(): Record<string, CookieTranslation> {
-    return Object.entries(this.fullTranslations).reduce((s, e) => {
-      s[e[0]] = e[1].cookies;
-      return s;
-    }, {} as Record<string, CookieTranslation>)
+    return Object.entries(this.fullTranslations).reduce(
+      (s, e) => {
+        s[e[0]] = e[1].cookies;
+        return s;
+      },
+      {} as Record<string, CookieTranslation>,
+    );
   }
 
   get siteTranslations(): Record<string, Record<string, string>> {
-    return Object.entries(this.fullTranslations).reduce((s, e) => {
-      s[e[0]] = e[1].site;
-      return s;
-    }, {} as Record<string, Record<string, string>>)
+    return Object.entries(this.fullTranslations).reduce(
+      (s, e) => {
+        s[e[0]] = e[1].site;
+        return s;
+      },
+      {} as Record<string, Record<string, string>>,
+    );
   }
 
   get supportedLangs(): string[] {
-    return this._getSiteConfigFn().lang.supportedLangs
+    return this._getSiteConfigFn().lang.supportedLangs;
   }
 
   cookieSelection: CookieSelection = $state({
@@ -59,7 +68,7 @@ export class SiteState implements I18nFacade {
     return this.calendarTranslations[this.currentLang];
   }
   get cookieTranslation(): CookieTranslation {
-    return this.cookieTranslations[this.currentLang]
+    return this.cookieTranslations[this.currentLang];
   }
 
   get formats(): Record<string, FormatSpec> {
@@ -101,7 +110,7 @@ export class SiteState implements I18nFacade {
   };
 
   public formatDateFunc = (d: DateTime | string) => {
-    if (!d) return this.translateFunc("invalid")
+    if (!d) return this.translateFunc('invalid');
 
     const formatSpecs = this.formats[this.currentLang];
     let f = 'yyyy-MM-dd';
@@ -113,19 +122,18 @@ export class SiteState implements I18nFacade {
     if (typeof d === 'string') date = DateTime.fromISO(d);
     else date = d;
 
-    // if d was invalid to begin with or 
+    // if d was invalid to begin with or
     // translformation from ISO didn't yield a valid DateTime object
-    if (date.isValid) return this.translateFunc("invalid")
+    if (date.isValid) return this.translateFunc('invalid');
 
     return date.setLocale(formatSpecs.locale).toFormat(f);
   };
 
-
   public translateWithLangFunc = (ref: string, lang: string): string => {
     const translation = this.translations[lang];
     if (!translation) {
-      console.error(`[Tried to access unknown translation: ${lang}]`)
-      return "[UNDEF]"
+      console.error(`[Tried to access unknown translation: ${lang}]`);
+      return '[UNDEF]';
     }
 
     const res = translation[ref];
@@ -136,5 +144,4 @@ export class SiteState implements I18nFacade {
       return res;
     }
   };
-
 }

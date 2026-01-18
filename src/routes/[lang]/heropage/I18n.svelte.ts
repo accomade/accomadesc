@@ -152,8 +152,8 @@ export class I18n implements I18nFacade {
   };
 
   public translateWithLangFunc = (ref: string, lang: string): string => {
-    return this.translations[lang][ref]
-  }
+    return this.translations[lang][ref];
+  };
 
   public formatFunc = (ref: string, props: Record<string, any>): string => {
     if (!this.formats[this.currentLang][ref]) {

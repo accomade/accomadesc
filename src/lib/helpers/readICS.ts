@@ -103,9 +103,14 @@ const getDate = (icsLine: string): DateTime => {
   const month = parseInt(dateString.slice(4, 6));
   const day = parseInt(dateString.slice(6, 8));
   let rawDateTime = lx.utc().set({
-    year: year, month: month, day: day,
-    hour: 12, minute: 0, second: 0, millisecond: 0
-  })
+    year: year,
+    month: month,
+    day: day,
+    hour: 12,
+    minute: 0,
+    second: 0,
+    millisecond: 0,
+  });
   return rawDateTime;
 
   //end date has to be moved back when whole day ending

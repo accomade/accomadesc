@@ -13,7 +13,15 @@ const config = {
     // See https://svelte.dev/docs/kit/adapters for more information about adapters.
     adapter: adapter(),
     prerender: {
-      entries: ['*', '/de/heropage', '/en/heropage', '/de/imprint', '/en/imprint', '/en/heropage_ham', '/de/heropage_ham'],
+      entries: [
+        '*',
+        '/de/heropage',
+        '/en/heropage',
+        '/de/imprint',
+        '/en/imprint',
+        '/en/heropage_ham',
+        '/de/heropage_ham',
+      ],
       origin: 'http://localhost',
       handleHttpError: 'ignore',
     },

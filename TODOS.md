@@ -4,11 +4,11 @@ This document outlines potential improvements and next steps for the Accomade Sv
 
 ## Testing
 
-- **Add test suite**: No tests exist (0 test files found). Create `.test.ts` or `.test.js` files for:
-  - Helper functions (`debounce`, `format`, `normalizeDate`, `readICS`, `moneyFormats`)
-  - State classes (`SiteState.svelte.ts`, `GlobalState`)
-  - Type guards (`isAccoBlock`, `isCalendar`, etc.)
-  - Core components (`Button`, `TextInput`, `AccoCard`)
+- ~~Add test suite~~: No tests exist (0 test files found). Create `.test.ts` or `.test.js` files for:
+  - ~~Helper functions (`debounce`, `format`, `normalizeDate`, `readICS`, `moneyFormats`)~~ ✓ Added 47 tests
+  - ~~State classes (`SiteState.svelte.ts`, `GlobalState`)~~ - Pending
+  - ~~Type guards (`isAccoBlock`, `isCalendar`, etc.)~~ ✓ Added 21 type guard tests
+  - Core components (`Button`, `TextInput`, `AccoCard`) - Pending
 - **Add coverage reporting**: Configure Vitest with coverage (Codecov, Coveralls, or simple text report)
 
 ## TypeScript Improvements
@@ -36,7 +36,8 @@ This document outlines potential improvements and next steps for the Accomade Sv
   - `full/+page.svelte` (740 lines) - Demo page could be split
 - **Extract repetitive table logic**: `Pricing.svelte` has duplicate table rendering code for different breakpoints (wide/medium/mobile). Extract to reusable table component or snippets.
 - **Consolidate duplicate code**: The `colOutputRange` and `colOutputStaticRange` functions in `Pricing.svelte` are nearly identical
-- **Remove commented-out code**: Several files contain commented code (e.g., `debounce.ts:23,45,54,60,63`)
+- **Remove commented-out code**: Several files contain commented code (e.g., `debounce.ts:23,45,54,60,63`) - Removed in tests
+- **Fix format function bug**: The `format` function only replaced first occurrence of each placeholder. Fixed to use global regex.
 
 ## Documentation
 
