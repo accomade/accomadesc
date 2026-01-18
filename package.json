@@ -41,15 +41,15 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.3.1",
 		"@sveltejs/adapter-static": "^3.0.10",
-		"@sveltejs/kit": "^2.49.2",
+		"@sveltejs/kit": "^2.50.0",
 		"@sveltejs/package": "^2.5.7",
 		"@sveltejs/vite-plugin-svelte": "^5.1.1",
 		"@types/luxon": "^3.7.1",
 		"gdpr-cooco-banner": "^0.0.13",
-		"prettier": "^3.7.4",
+		"prettier": "^3.8.0",
 		"prettier-plugin-svelte": "^3.4.1",
 		"publint": "^0.3.16",
-		"svelte": "^5.46.1",
+		"svelte": "^5.46.4",
 		"svelte-check": "^4.3.5",
 		"typescript": "^5.9.3",
 		"vite": "^6.4.1"
