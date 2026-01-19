@@ -1,62 +1,160 @@
-# asc (Accomade Svelte Components)
+# accomadesc (Accomade Svelte Components)
 
-This project is a collection of Svelte 5 components used throughout the different products and websites that are made with https://accoma.de.
+A collection of Svelte 5 components used throughout Accomade products and websites. Provides reusable UI components for accommodation listings including calendars, pricing displays, photo galleries, booking forms, and more.
 
-# INITIAL README - create-svelte
-
-Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
-
-Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
+## Installation
 
 ```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+npm install accomadesc
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Peer dependencies (must be installed separately):
 
 ```bash
+npm install svelte @sveltejs/kit
+```
+
+## Quick Start
+
+```svelte
+<script>
+  import { Button, AccoCard } from 'accomadesc';
+
+  const card = {
+    id: '1',
+    kind: 'acco-card',
+    content: {
+      title: 'Beach House',
+      photos: [{ url: '/house.jpg', alt: 'Beach house' }],
+      prices: { from: 150, to: 300, currency: 'EUR' },
+      amenities: ['wifi', 'parking'],
+      url: '/beach-house',
+    },
+  };
+</script>
+
+<AccoCard {...card} />
+<Button variant="primary">Book Now</Button>
+```
+
+## Block System
+
+The library uses a block-based content system. Each block has:
+
+- `id: string` - Unique identifier
+- `kind: string` - Block type discriminator
+- `content: T` - Block-specific content
+
+Use type guards for type narrowing:
+
+```typescript
+import { isBookingRequest, type AccoBlock } from 'accomadesc';
+
+function processBlock(block: AccoBlock) {
+  if (isBookingRequest(block)) {
+    // TypeScript knows block is BookingRequest
+  }
+}
+```
+
+## Core Components
+
+### Basic UI
+
+- `Button` - Multi-variant button component
+- `TextInput` - Form text input with validation
+- `Icon` - SVG icon renderer
+- `Avatar` - User avatar display
+- `Spinner` - Loading indicator
+- `Notes` - Annotations and notes
+
+### Content Display
+
+- `AccoCard` - Accommodation summary card
+- `AccoDescription` - Property description
+- `AmenitiesCore` - Amenities display
+- `Photo` / `PhotoGallery` - Image handling
+- `Section` / `Text` - Content sections
+- `LeafletMap` - Location map
+- `Weather` - Weather information
+
+### Booking & Calendar
+
+- `Calendar` - Availability calendar
+- `CalendarGrid` - Grid-based calendar view
+- `CalendarRows` - Row-based calendar view
+- `CalendarAvailable` - Availability summary
+- `BookingRequest` - Booking request form
+- `ContactForm` - Contact form
+
+### Pricing
+
+- `Pricing` - Detailed pricing table
+- `PricingShort` - Compact pricing display
+
+### Layout
+
+- `PageComponent` - Full page wrapper
+- `PageHeader` / `PageFooter` - Page sections
+- `MainNav` / `NavItem` - Navigation
+
+## Internationalization
+
+Components accept i18n functions as props:
+
+```svelte
+<script>
+  import { BookingRequest } from 'accomadesc';
+
+  let props = {
+    translateFunc: (key: string) => translations[key],
+    formatMoneyFunc: (amount: number, currency: string) =>
+      new Intl.NumberFormat().format(amount) + ' ' + currency,
+    formatDateFunc: (date: Date) => date.toLocaleDateString(),
+  };
+</script>
+
+<BookingRequest {...props} />
+```
+
+## State Management
+
+Use `SiteState` for application state:
+
+```typescript
+import { SiteState } from 'accomadesc';
+
+const site = new SiteState({
+  lang: 'en',
+  siteConfig: { ... },
+  translateFunc: (key) => ...,
+  formatMoneyFunc: (amount, currency) => ...,
+  formatDateFunc: (date) => ...,
+});
+```
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start dev server
 npm run dev
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+# Run tests
+npm run test
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+# Type check
+npm run check
 
-## Building
+# Format code
+npm run format
 
-To build your library:
-
-```bash
+# Build library
 npm run package
 ```
 
-To create a production version of your showcase app:
+## License
 
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
-
-## Publishing
-
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```bash
-npm publish
-```
+MIT

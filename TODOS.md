@@ -4,8 +4,8 @@ This document outlines potential improvements and next steps for the Accomade Sv
 
 ## Documentation
 
-- Provide an overiew of Accomade Svelte Components intent and usage in README.md
-- Add a /docs folder containing small usage examples for every component provided
+- ~~Provide an overiew of Accomade Svelte Components intent and usage in README.md~~ ✓ Updated README with library overview, installation, usage examples, and component documentation
+- ~~Add a /docs folder containing small usage examples for every component provided~~ ✓ Created docs/ folder with examples for AccoCard, Button, Calendar, and Pricing components
 
 ## Testing
 

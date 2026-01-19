@@ -31,7 +31,7 @@ import Text from '$lib/Text.svelte';
 import Weather from '$lib/Weather.svelte';
 import PageComponent from '$lib/PageComponent.svelte';
 
-export type { OccuplanTranslations } from '$lib/occuplan/state.svelte';
+export type { OccuplanTranslations } from '$lib/occusplan-link/state.svelte.js';
 
 export type {
   GridPhoto,
