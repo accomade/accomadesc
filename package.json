@@ -48,6 +48,7 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/svelte": "^5.3.1",
     "@types/luxon": "^3.7.1",
+    "@types/node": "^25.0.9",
     "@vitest/ui": "^4.0.17",
     "gdpr-cooco-banner": "^0.0.13",
     "jsdom": "^27.4.0",

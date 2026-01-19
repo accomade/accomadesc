@@ -9,6 +9,12 @@ This document outlines potential improvements and next steps for the Accomade Sv
 - **Dependency cleanup**: Removed unused `@dinero.js/currencies` dependency (not imported anywhere in codebase)
 - **Testing setup**: Added `@testing-library/svelte` and `@testing-library/dom` for future component testing (Svelte 5 testing requires additional setup)
 - **Test coverage**: All 78 existing tests pass across 7 test files
+- **Svelte 5 component testing enabled**: Configured Vitest with proper Svelte 5 + @testing-library/svelte setup:
+  - Created `vitest.setup.ts` with mocks for `$app/environment` and `$app/stores`
+  - Added `@types/node` for path resolution
+  - Configured `vitest.config.ts` with svelte plugin, alias resolution, and jsdom environment
+  - Added 12 component tests for Button.svelte covering rendering, props, and behavior
+  - **Total: 90 tests passing across 8 test files**
 
 ## Documentation
 
@@ -21,14 +27,14 @@ This document outlines potential improvements and next steps for the Accomade Sv
   - ~~Helper functions (`debounce`, `format`, `normalizeDate`, `readICS`, `moneyFormats`)~~ ✓ Added 35 tests
   - ~~State classes (`SiteState.svelte.ts`, `GlobalState`)~~ ✓ Added 22 tests
   - ~~Type guards (`isAccoBlock`, `isCalendar`, etc.)~~ ✓ Added 21 type guard tests
-- **Add component tests**: Core components need tests. Svelte 5 component testing requires `@sveltejs/testing` package:
-  - Button.svelte - Requires Svelte 5 testing setup
-  - TextInput.svelte - Requires Svelte 5 testing setup
-  - AccoCard.svelte - Requires Svelte 5 testing setup
+- **Add component tests**: Core components need tests. Svelte 5 component testing now working:
+  - ~~Button.svelte~~ ✓ Added 12 tests with @testing-library/svelte (rendering, props, behavior)
+  - TextInput.svelte - Ready for component tests
+  - AccoCard.svelte - Ready for component tests
 - **Add coverage reporting**: Configure Vitest with coverage (Codecov, Coveralls, or simple text report) - Added v8 coverage provider to vitest.config.ts
 - Cleanup - remove trivial tests
 
-**Total: 78 tests passing across 7 test files**
+**Total: 90 tests passing across 8 test files**
 
 ## TypeScript Improvements
 
