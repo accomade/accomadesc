@@ -23,7 +23,7 @@
   });
 
   import { I18n } from './I18n.svelte.ts';
-  const i18n = new I18n(pathLang);
+  const i18n = new I18n(pathLang ?? 'en');
 
   const ACCOMADE_USER_ID = 'template1';
   const PUBLIC_SUPABASE_URL = 'https://ipajhcabityibeaqfzju.supabase.co';

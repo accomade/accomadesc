@@ -190,7 +190,7 @@
       coverPhoto: {
         attribution: 'Something',
         photoPath: photos[1],
-        alt: 'accoCCCalt',
+        alt: i18n.translations[i18n.currentLang]?.accoCCCalt ?? 'accoCCCalt',
       },
       amenities: {
         id: randomID(),
@@ -272,7 +272,7 @@
           id: randomID(),
           content: {
             photoPath: photos[0],
-            alt: altRef,
+            alt: i18n.translations[i18n.currentLang]?.[altRef] ?? altRef,
           },
         },
         {
@@ -280,7 +280,7 @@
           id: randomID(),
           content: {
             photoPath: photos[1],
-            alt: altRef,
+            alt: i18n.translations[i18n.currentLang]?.[altRef] ?? altRef,
           },
         },
         {
@@ -288,7 +288,7 @@
           id: randomID(),
           content: {
             photoPath: photos[2],
-            alt: altRef,
+            alt: i18n.translations[i18n.currentLang]?.[altRef] ?? altRef,
           },
         },
       ],

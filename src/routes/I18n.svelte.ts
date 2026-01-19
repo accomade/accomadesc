@@ -1,5 +1,5 @@
 import { MoneyFormats } from '$lib/index.ts';
-import type { OccuplanTranslations } from '$lib/occuplan/state.svelte';
+import type { OccuplanTranslations } from '$lib/occusplan-link/state.svelte.ts';
 import type { I18nFacade } from '$lib/types.js';
 import { DateTime as luxon, type DateTime } from 'luxon';
 
@@ -205,23 +205,31 @@ export class I18n implements I18nFacade {
   calendarTranslation = $derived(calendarTranslations[this.currentLang]);
 
   public translateFunc = (ref: string): string => {
-    return this.translations[this.currentLang][ref];
+    const langTranslations = this.translations[this.currentLang];
+    const translated = langTranslations?.[ref];
+    return translated ?? `[UNDEF:${ref}]`;
   };
 
   public translateWithLangFunc = (ref: string, lang: string): string => {
-    return this.translations[lang][ref];
+    const langTranslations = this.translations[lang];
+    const translated = langTranslations?.[ref];
+    return translated ?? `[UNDEF:${ref}]`;
   };
 
-  public formatFunc = (ref: string, props: Record<string, any>): string => {
-    if (!this.formats[this.currentLang][ref]) {
+  public formatFunc = (ref: string, props: Record<string, unknown>): string => {
+    const langFormats = this.formats[this.currentLang];
+    const formatFn = langFormats?.[ref] as ((props: Record<string, unknown>) => string) | undefined;
+    if (!formatFn) {
       console.log('missing formatFunc', ref);
-      return '';
-    } else {
-      return this.formats[this.currentLang][ref](props);
+      return `[UNDEF:${ref}]`;
     }
+    return formatFn(props);
   };
 
-  moneyFormat = $derived(MoneyFormats[this.currentLang]);
+  moneyFormat = $derived.by(() => {
+    const fmt = MoneyFormats[this.currentLang];
+    return fmt ?? MoneyFormats['en']!;
+  });
   public formatMoneyFunc = (value: number): string => {
     const scaled = value / 100.0;
     return this.moneyFormat.format(scaled);
@@ -231,7 +239,10 @@ export class I18n implements I18nFacade {
     if (typeof d === 'string') {
       d = luxon.fromISO(d);
     }
-    const dFormat = this.formats[this.currentLang].dateFormat;
+    const dFormat = this.formats[this.currentLang]?.dateFormat;
+    if (!dFormat) {
+      return d.toISO() ?? '';
+    }
     return d.toFormat(dFormat);
   };
 }

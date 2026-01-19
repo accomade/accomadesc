@@ -20,7 +20,7 @@
     if (valid && value) {
       if (!pricingEntry.additionalPersonText1) pricingEntry.additionalPersonText1 = randomID();
 
-      i18n.translations[i18n.currentLang][pricingEntry.additionalPersonText1] = `${value}`;
+      i18n.translations[i18n.currentLang]![pricingEntry.additionalPersonText1] = `${value}`;
     }
   };
 
@@ -28,7 +28,7 @@
     if (valid && value) {
       if (!pricingEntry.additionalPersonText2) pricingEntry.additionalPersonText2 = randomID();
 
-      i18n.translations[i18n.currentLang][pricingEntry.additionalPersonText2] = `${value}`;
+      i18n.translations[i18n.currentLang]![pricingEntry.additionalPersonText2] = `${value}`;
     }
   };
 
@@ -36,7 +36,7 @@
     if (valid && value) {
       if (!pricingEntry.additionalPersonText3) pricingEntry.additionalPersonText3 = randomID();
 
-      i18n.translations[i18n.currentLang][pricingEntry.additionalPersonText3] = `${value}`;
+      i18n.translations[i18n.currentLang]![pricingEntry.additionalPersonText3] = `${value}`;
     }
   };
 
@@ -100,7 +100,7 @@
           valueChanged={changeAdd1Translation}
           name={pricingEntry.additionalPersonText1}
           value={pricingEntry.additionalPersonText1
-            ? i18n.translations[i18n.currentLang][pricingEntry.additionalPersonText1]
+            ? (i18n.translations[i18n.currentLang]?.[pricingEntry.additionalPersonText1] ?? '')
             : ''}
         />
       </label>
@@ -112,7 +112,7 @@
           valueChanged={changeAdd2Translation}
           name={pricingEntry.additionalPersonText2}
           value={pricingEntry.additionalPersonText2
-            ? i18n.translations[i18n.currentLang][pricingEntry.additionalPersonText2]
+            ? (i18n.translations[i18n.currentLang]?.[pricingEntry.additionalPersonText2] ?? '')
             : ''}
         />
       </label>
@@ -124,7 +124,7 @@
           valueChanged={changeAdd3Translation}
           name={pricingEntry.additionalPersonText3}
           value={pricingEntry.additionalPersonText3
-            ? i18n.translations[i18n.currentLang][pricingEntry.additionalPersonText3]
+            ? (i18n.translations[i18n.currentLang]?.[pricingEntry.additionalPersonText3] ?? '')
             : ''}
         />
       </label>

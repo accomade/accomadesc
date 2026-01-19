@@ -32,8 +32,13 @@ This document outlines potential improvements and next steps for the Accomade Sv
   - `"noImplicitReturns": true` - Ensures all code paths return a value
   - `"noFallthroughCasesInSwitch": true` - Prevents switch case fallthrough
   - Fixed 18+ undefined access issues in lib/ folder (readICS.ts, SiteState.svelte.ts, state.svelte.ts, debounce.ts, moneyFormats.test.ts, icons.ts, CalendarAvailable.svelte, PhotoGallery.svelte, MainNav.svelte, PageComponent.svelte)
-- **Remaining TypeScript errors**: ~45 errors in `src/routes/` folder (demo/testing code) - See "Legacy Cleanup" section
-  - Fixed 18+ undefined access issues in lib/ folder (readICS.ts, SiteState.svelte.ts, state.svelte.ts, debounce.ts, moneyFormats.test.ts, icons.ts, CalendarAvailable.svelte, PhotoGallery.svelte, MainNav.svelte, PageComponent.svelte)
+- **Fixed routes folder errors**: Added proper type guards and fallbacks to 4 I18n.svelte.ts files:
+  - `src/routes/I18n.svelte.ts` - translateFunc, translateWithLangFunc, formatFunc, formatMoneyFunc
+  - `src/routes/[lang]/heropage/I18n.svelte.ts` - same fixes
+  - `src/routes/[lang]/heropage_ham/I18n.svelte.ts` - same fixes
+  - `src/routes/[lang]/imprint/I18n.svelte.ts` - same fixes
+  - Fixed PricingEntryEditor.svelte translation access with optional chaining
+- **Remaining TypeScript errors**: ~29 errors remaining, primarily in `src/routes/full/+page.svelte` demo page - See "Legacy Cleanup" section
 
 ## Code Quality
 
@@ -130,5 +135,8 @@ This document outlines potential improvements and next steps for the Accomade Sv
 
 - **Remove dead code**: Some files reference non-existent components or imports
 - **Clean up routes**: `src/routes/full/` and `src/routes/css.ts` seem to be demo/testing code
-  - **Note**: These files have ~45 TypeScript errors due to `noUncheckedIndexedAccess` - they are demo code and may be deleted or fixed separately
+  - **Progress**: Fixed 4 I18n.svelte.ts files (src/routes/I18n.svelte.ts, [lang]/heropage/I18n.svelte.ts, [lang]/heropage_ham/I18n.svelte.ts, [lang]/imprint/I18n.svelte.ts) - added proper type guards and fallbacks for translation/formats access
+  - Fixed PricingEntryEditor.svelte translation access issues
+  - Fixed [lang]/imprint/+page.svelte undefined pathLang issue
+  - **Remaining**: ~29 errors in `src/routes/full/+page.svelte` - these are demo code issues where `i18n` is used before declaration in $state objects
 - **Update README**: The README contains outdated create-svelte template content

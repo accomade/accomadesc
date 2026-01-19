@@ -150,29 +150,28 @@ export class I18n implements I18nFacade {
 
   public translateFunc = (ref: string): string => {
     const translation = this.translations[this.currentLang];
-    const res = translation[ref];
-    if (!res) {
-      return ref;
-    } else {
-      return res;
-    }
+    const res = translation?.[ref];
+    return res ?? `[UNDEF:${ref}]`;
   };
 
-  public translateWitthLangFunc = (ref: string, lang: string) => {
-    return this.translations[lang][ref];
+  public translateWitthLangFunc = (ref: string, lang: string): string => {
+    const langTranslations = this.translations[lang];
+    const res = langTranslations?.[ref];
+    return res ?? `[UNDEF:${ref}]`;
   };
 
-  public formatFunc = (ref: string, props: Record<string, any>): string => {
-    if (!this.formats[this.currentLang][ref]) {
+  public formatFunc = (ref: string, props: Record<string, unknown>): string => {
+    const langFormats = this.formats[this.currentLang];
+    const formatFn = langFormats?.[ref] as ((props: Record<string, unknown>) => string) | undefined;
+    if (!formatFn) {
       console.log('missing formatFunc', ref);
-      return '';
-    } else {
-      return this.formats[this.currentLang][ref](props);
+      return `[UNDEF:${ref}]`;
     }
+    return formatFn(props);
   };
 
   public formatMoneyFunc = (value: number): string => {
-    const locale = this.formats[this.currentLang].locale;
+    const locale = this.formats[this.currentLang]?.locale ?? 'en-US';
     return new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(value);
   };
 
