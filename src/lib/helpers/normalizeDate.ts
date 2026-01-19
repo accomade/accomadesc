@@ -1,7 +1,7 @@
 import { DateTime as luxon } from 'luxon';
 import type { DateTime } from 'luxon';
 
-export const normalizeDate = (date?: any): DateTime => {
+export const normalizeDate = (date?: unknown): DateTime => {
   //initialize default return values, for the case the input is not
   //"normalizable"
 
@@ -26,7 +26,7 @@ export const normalizeDate = (date?: any): DateTime => {
   let pDate;
 
   //check if it's already a numeric value, assuming millis from start of time
-  if (Number.isInteger(date)) {
+  if (typeof date === 'number' && Number.isInteger(date)) {
     pDate = luxon.fromMillis(date);
     if (pDate.isValid) {
       return luxon.utc(pDate.year, pDate.month, pDate.day, 12);
@@ -34,31 +34,42 @@ export const normalizeDate = (date?: any): DateTime => {
   }
 
   //check if it has a valueOf function and if that function yields an integer
-  if (typeof date.valueOf === 'function' && Number.isInteger(date.valueOf())) {
-    pDate = luxon.fromMillis(date.valueOf());
+  if (
+    typeof date === 'object' &&
+    date !== null &&
+    typeof (date as { valueOf?: () => unknown }).valueOf === 'function'
+  ) {
+    const value = (date as { valueOf: () => number }).valueOf();
+    if (typeof value === 'number' && Number.isInteger(value)) {
+      pDate = luxon.fromMillis(value);
+      if (pDate.isValid) {
+        return luxon.utc(pDate.year, pDate.month, pDate.day, 12);
+      }
+    }
+  }
+
+  //parse it, as if it is an ISO string
+  if (typeof date === 'string') {
+    pDate = luxon.fromISO(date, { setZone: true });
     if (pDate.isValid) {
       return luxon.utc(pDate.year, pDate.month, pDate.day, 12);
     }
   }
 
-  //parse it, as if it is an ISO string
-  pDate = luxon.fromISO(date, { setZone: true });
-  if (pDate.isValid) {
-    return luxon.utc(pDate.year, pDate.month, pDate.day, 12);
-  }
-
   //parse it, as if it is in HTTP format
-  //@ts-ignore
-  pDate = luxon.fromHTTP(date, { setZone: true });
-  if (pDate.isValid) {
-    return luxon.utc(pDate.year, pDate.month, pDate.day, 12);
+  if (typeof date === 'string') {
+    pDate = luxon.fromHTTP(date, { setZone: true });
+    if (pDate.isValid) {
+      return luxon.utc(pDate.year, pDate.month, pDate.day, 12);
+    }
   }
 
   //parse it, as if it is in SQL format
-  //@ts-ignore
-  pDate = luxon.fromSQL(date, { setZone: true });
-  if (pDate.isValid) {
-    return luxon.utc(pDate.year, pDate.month, pDate.day, 12);
+  if (typeof date === 'string') {
+    pDate = luxon.fromSQL(date, { setZone: true });
+    if (pDate.isValid) {
+      return luxon.utc(pDate.year, pDate.month, pDate.day, 12);
+    }
   }
 
   //if nothing helps, return today at noon GMT

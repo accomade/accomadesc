@@ -98,14 +98,14 @@ export class SiteState implements I18nFacade {
     return this.translations[this.currentLang][ref];
   };
 
-  public formatFunc = (ref: string, props: Record<string, any>): string => {
+  public formatFunc = (ref: string, props: Record<string, unknown>): string => {
     const fString = this.formats[this.currentLang][ref];
     if (!fString) {
       console.warn(`[Missing formatFunc: ${ref}]`);
       return '[UNDEF]';
     }
 
-    let formatted = format(fString, props);
+    let formatted = format(fString, props as Record<string, string>);
     return formatted;
   };
 

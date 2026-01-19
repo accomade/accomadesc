@@ -494,7 +494,7 @@ export interface I18nFacade {
   calendarTranslation?: OccuplanTranslations;
   translateFunc?: (ref: string) => string;
   translateWithLangFunc?: (ref: string, lang: string) => string;
-  formatFunc?: (formatter: string, props: Record<string, any>) => string;
+  formatFunc?: (formatter: string, props: Record<string, unknown>) => string;
   formatMoneyFunc?: (d: number) => string;
   formatDateFunc?: (d: DateTime | string) => string;
   updateCurrentLang?: (lang: string) => void;

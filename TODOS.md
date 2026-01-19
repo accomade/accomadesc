@@ -22,13 +22,11 @@ This document outlines potential improvements and next steps for the Accomade Sv
 ## TypeScript Improvements
 
 - **Remove `any` types**: Found 3+ instances using `any`:
-  - `types.ts:497` - `formatFunc?: (formatter: string, props: Record<string, any>)`
-  - `normalizeDate.ts:4` - `date?: any`
-  - `SiteState.svelte.ts:92` - `props: Record<string, any>`
-  - Replace with explicit types or `unknown` with type guards
+  - ~~`types.ts:497` - `formatFunc?: (formatter: string, props: Record<string, any>)`~~ ✓ Changed to `Record<string, unknown>`
+  - ~~`normalizeDate.ts:4` - `date?: any`~~ ✓ Changed to `unknown` with proper type guards
+  - ~~`SiteState.svelte.ts:92` - `props: Record<string, any>`~~ ✓ Changed to `Record<string, unknown>` with type assertion
 - **Remove `@ts-ignore`**: Found 2 instances in `normalizeDate.ts:51,58`
-  - These suppress Luxon type checking for `fromHTTP` and `fromSQL`
-  - Either add proper type declarations or use type assertions
+  - ~~These suppress Luxon type checking for `fromHTTP` and `fromSQL`~~ ✓ Removed by adding `typeof date === 'string'` type guards
 - **Enable stricter checks**: Consider adding to `tsconfig.json`:
   - `"noUncheckedIndexedAccess": true`
   - `"noImplicitReturns": true`
