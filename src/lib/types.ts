@@ -452,7 +452,7 @@ export interface PageProps {
   header?: string;
   showFooter?: boolean;
   footerRef?: string;
-  isToS?: string;
+  isToS?: boolean;
   fixedHamburger?: boolean;
   navbarOverHamburger?: boolean;
   disableLinks?: boolean;
