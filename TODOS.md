@@ -124,6 +124,12 @@ This document outlines potential improvements and next steps for the Accomade Sv
 - **Audit ARIA attributes**: Some components may need better ARIA support
 - **Keyboard navigation**: Test tab order in complex components
 - **Screen reader testing**: Verify content is announced correctly
+- **TextInput accessibility improvements**: Added:
+  - `aria-invalid` attribute when input is invalid
+  - `aria-describedby` to link inputs with validation messages
+  - `aria-required` for required fields
+  - `autocomplete` attribute for email, tel, and password types
+  - `aria-live="polite"` for validation message announcements
 
 ## Build & Release
 

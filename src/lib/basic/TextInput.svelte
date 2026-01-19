@@ -33,6 +33,8 @@
     checkValidity = () => {
       return true;
     },
+    label = '',
+    autocomplete = '',
   }: {
     placeholder?: string;
     phonePattern?: string;
@@ -58,7 +60,8 @@
     showMessageOnInvalid?: boolean;
     id?: string;
     translating?: boolean;
-
+    label?: string;
+    autocomplete?: string | undefined;
     checkValidity?: (currentValue: string | number) => boolean;
     blurred?: (name: string, value: string | number) => void;
     focussed?: (name: string, value: string | number) => void;
@@ -136,7 +139,7 @@
 >
   {#if enabled && (showInitialMessage || (showMessageOnInvalid && !valid))}
     <div class="message-wrapper">
-      <span class="message" class:valid
+      <span id="{id}-message" class="message" class:valid aria-live="polite"
         >{#if valid}{@html messageValid}{:else}{@html messageInvalid}{/if}</span
       >
     </div>
@@ -156,6 +159,12 @@
       {name}
       disabled={!enabled}
       {required}
+      aria-required={required}
+      aria-invalid={enabled && !valid}
+      aria-describedby={enabled && (showInitialMessage || (showMessageOnInvalid && !valid))
+        ? `${id}-message`
+        : undefined}
+      autocomplete={autocomplete as any}
       bind:value
       onblur={handleBlur}
       onfocus={handleFocus}
@@ -177,6 +186,12 @@
       {name}
       disabled={!enabled}
       {required}
+      aria-required={required}
+      aria-invalid={enabled && !valid}
+      aria-describedby={enabled && (showInitialMessage || (showMessageOnInvalid && !valid))
+        ? `${id}-message`
+        : undefined}
+      autocomplete={(autocomplete || 'email') as any}
       bind:value
       onblur={handleBlur}
       onfocus={handleFocus}
@@ -199,6 +214,12 @@
       {name}
       disabled={!enabled}
       {required}
+      aria-required={required}
+      aria-invalid={enabled && !valid}
+      aria-describedby={enabled && (showInitialMessage || (showMessageOnInvalid && !valid))
+        ? `${id}-message`
+        : undefined}
+      autocomplete={(autocomplete || 'tel') as any}
       bind:value
       onblur={handleBlur}
       onfocus={handleFocus}
@@ -223,6 +244,12 @@
       {name}
       disabled={!enabled}
       {required}
+      aria-required={required}
+      aria-invalid={enabled && !valid}
+      aria-describedby={enabled && (showInitialMessage || (showMessageOnInvalid && !valid))
+        ? `${id}-message`
+        : undefined}
+      autocomplete={autocomplete as any}
       bind:value
       onblur={handleBlur}
       onfocus={handleFocus}
@@ -244,6 +271,12 @@
       {name}
       disabled={!enabled}
       {required}
+      aria-required={required}
+      aria-invalid={enabled && !valid}
+      aria-describedby={enabled && (showInitialMessage || (showMessageOnInvalid && !valid))
+        ? `${id}-message`
+        : undefined}
+      autocomplete="current-password"
       bind:value
       onblur={handleBlur}
       onfocus={handleFocus}
