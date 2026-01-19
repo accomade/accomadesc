@@ -65,10 +65,10 @@ export class SiteState implements I18nFacade {
     return this.siteTranslations;
   }
   get calendarTranslation(): OccuplanTranslations {
-    return this.calendarTranslations[this.currentLang];
+    return this.calendarTranslations[this.currentLang] ?? ({} as OccuplanTranslations);
   }
   get cookieTranslation(): CookieTranslation {
-    return this.cookieTranslations[this.currentLang];
+    return this.cookieTranslations[this.currentLang] ?? ({} as CookieTranslation);
   }
 
   get formats(): Record<string, FormatSpec> {
@@ -93,13 +93,20 @@ export class SiteState implements I18nFacade {
     if (!ref) return '[UNDEF]';
 
     const current = this.translations[this.currentLang];
-    if (!current[ref]) return '';
+    if (!current) return '';
+    const value = current[ref];
+    if (!value) return '';
 
-    return this.translations[this.currentLang][ref];
+    return value;
   };
 
   public formatFunc = (ref: string, props: Record<string, unknown>): string => {
-    const fString = this.formats[this.currentLang][ref];
+    const langFormats = this.formats[this.currentLang];
+    if (!langFormats) {
+      console.warn(`[Missing format language: ${this.currentLang}]`);
+      return '[UNDEF]';
+    }
+    const fString = langFormats[ref];
     if (!fString) {
       console.warn(`[Missing formatFunc: ${ref}]`);
       return '[UNDEF]';
@@ -113,8 +120,11 @@ export class SiteState implements I18nFacade {
     if (!d) return this.translateFunc('invalid');
 
     const formatSpecs = this.formats[this.currentLang];
+    if (!formatSpecs) {
+      return this.translateFunc('invalid');
+    }
     let f = 'yyyy-MM-dd';
-    if (formatSpecs?.dateFormat) {
+    if (formatSpecs.dateFormat) {
       f = formatSpecs.dateFormat;
     }
 
@@ -122,9 +132,7 @@ export class SiteState implements I18nFacade {
     if (typeof d === 'string') date = DateTime.fromISO(d);
     else date = d;
 
-    // if d was invalid to begin with or
-    // translformation from ISO didn't yield a valid DateTime object
-    if (date.isValid) return this.translateFunc('invalid');
+    if (!date.isValid) return this.translateFunc('invalid');
 
     return date.setLocale(formatSpecs.locale).toFormat(f);
   };

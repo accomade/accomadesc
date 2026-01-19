@@ -27,10 +27,13 @@ This document outlines potential improvements and next steps for the Accomade Sv
   - ~~`SiteState.svelte.ts:92` - `props: Record<string, any>`~~ ✓ Changed to `Record<string, unknown>` with type assertion
 - **Remove `@ts-ignore`**: Found 2 instances in `normalizeDate.ts:51,58`
   - ~~These suppress Luxon type checking for `fromHTTP` and `fromSQL`~~ ✓ Removed by adding `typeof date === 'string'` type guards
-- **Enable stricter checks**: Consider adding to `tsconfig.json`:
-  - `"noUncheckedIndexedAccess": true`
-  - `"noImplicitReturns": true`
-  - `"noFallthroughCasesInSwitch": true`
+- **Enable stricter checks**: Added to `tsconfig.json`:
+  - `"noUncheckedIndexedAccess": true` - Catches undefined access on indexed types
+  - `"noImplicitReturns": true` - Ensures all code paths return a value
+  - `"noFallthroughCasesInSwitch": true` - Prevents switch case fallthrough
+  - Fixed 18+ undefined access issues in lib/ folder (readICS.ts, SiteState.svelte.ts, state.svelte.ts, debounce.ts, moneyFormats.test.ts, icons.ts, CalendarAvailable.svelte, PhotoGallery.svelte, MainNav.svelte, PageComponent.svelte)
+- **Remaining TypeScript errors**: ~45 errors in `src/routes/` folder (demo/testing code) - See "Legacy Cleanup" section
+  - Fixed 18+ undefined access issues in lib/ folder (readICS.ts, SiteState.svelte.ts, state.svelte.ts, debounce.ts, moneyFormats.test.ts, icons.ts, CalendarAvailable.svelte, PhotoGallery.svelte, MainNav.svelte, PageComponent.svelte)
 
 ## Code Quality
 
@@ -127,4 +130,5 @@ This document outlines potential improvements and next steps for the Accomade Sv
 
 - **Remove dead code**: Some files reference non-existent components or imports
 - **Clean up routes**: `src/routes/full/` and `src/routes/css.ts` seem to be demo/testing code
+  - **Note**: These files have ~45 TypeScript errors due to `noUncheckedIndexedAccess` - they are demo code and may be deleted or fixed separately
 - **Update README**: The README contains outdated create-svelte template content

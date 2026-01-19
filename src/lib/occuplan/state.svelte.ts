@@ -425,7 +425,7 @@ export class OccupationState {
 
   public dayOccupied = (day: DateTime): boolean => {
     const key = this.dayKey(day);
-    return this.occupiedDays[key];
+    return this.occupiedDays[key] ?? false;
   };
 
   public startingOccupation = (d: DateTime): Occupation | undefined => {

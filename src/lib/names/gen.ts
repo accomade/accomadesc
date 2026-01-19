@@ -3743,17 +3743,22 @@ const rndAdjective = () => {
 const rndSpecies = () => {
   const plantsLength = plants.length;
   const i = Math.floor(Math.random() * plantsLength);
-  const name = plants[i].name;
+  const plant = plants[i];
+  if (!plant) return 'default';
+  const name = plant.name;
   return name.replace('-', ' ').replace(/[^a-zA-Z|\s]/g, '');
 };
 
 const capWord = (w: string) => {
+  if (!w) return '';
   const [firstLetter, ...rest] = w;
+  if (!firstLetter) return '';
   return `${firstLetter.toLocaleUpperCase()}${rest.join('')}`.trim();
 };
 
 const rndName = (): string => {
   const adj = rndAdjective();
+  if (!adj) return 'Default Name';
   const capAdj = capWord(adj);
   let result = capAdj;
 

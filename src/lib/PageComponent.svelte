@@ -53,11 +53,10 @@
   let currentPath = $derived(page.url.pathname);
   const pathForLang = (lang: string) => {
     const pathElements = currentPath.split('/');
-    //initial slash results in empty string real first element
     if (pathElements.length == 1) return `/${lang}`;
 
     const firstElement = pathElements[1];
-    if (supportedLangs?.includes(firstElement)) {
+    if (firstElement && supportedLangs?.includes(firstElement)) {
       return ['', lang, ...pathElements.slice(2)].join('/');
     } else {
       return ['', lang, ...pathElements.slice(1)].join('/');

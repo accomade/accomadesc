@@ -23,7 +23,11 @@
   );
 
   let zoomed: number | null = $state(0);
-  let zoomedPhoto: Photo | null = $derived(zoomed != null ? photos[zoomed] : null);
+  let zoomedPhoto: Photo | null = $derived.by(() => {
+    if (zoomed === null) return null;
+    const photo = photos[zoomed];
+    return photo ?? null;
+  });
 
   const zoom = (i: number) => {
     zoomed = i;

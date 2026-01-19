@@ -20,7 +20,7 @@
     DateTime.utc().set({ day: 31, month: 12 }).plus({ years: maxFutureYears }),
   );
 
-  const formatAvailability = (from: DateTime | null, forDays: number): string => {
+  const formatAvailability = (from: DateTime | null | undefined, forDays: number): string => {
     if (!formatFunc || !formatDateFunc) return '';
     if (from == null) {
       const formattedFutureDate = formatDateFunc(maxFutureDate);

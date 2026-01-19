@@ -11,7 +11,9 @@ export interface GetEventsResult {
 const extractOccupationType = (line: string): OccupationType => {
   try {
     const oTypes = line.split('CATEGORIES:')[1];
+    if (!oTypes) return 'one';
     const [first] = oTypes.split(',');
+    if (!first) return 'one';
     return first.trim() as OccupationType;
   } catch (e) {
     console.log('Error occured extracting occupation type from line', line);
@@ -94,11 +96,19 @@ export const getEvents = async (
 };
 
 const getDate = (icsLine: string): DateTime => {
-  //e.g. DTEND;VALUE=DATE:20260818
   const [typePart, valuePart] = icsLine.split('=');
+  if (!valuePart) {
+    return lx
+      .utc()
+      .set({ year: 1970, month: 1, day: 1, hour: 12, minute: 0, second: 0, millisecond: 0 });
+  }
 
   const dateString = valuePart.split(':')[1];
-  //console.log(dateString);
+  if (!dateString) {
+    return lx
+      .utc()
+      .set({ year: 1970, month: 1, day: 1, hour: 12, minute: 0, second: 0, millisecond: 0 });
+  }
   const year = parseInt(dateString.slice(0, 4));
   const month = parseInt(dateString.slice(4, 6));
   const day = parseInt(dateString.slice(6, 8));

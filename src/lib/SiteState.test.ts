@@ -221,7 +221,7 @@ describe('SiteState', () => {
   describe('formatFunc', () => {
     it('formats string with replacements', () => {
       const config = createMockSiteConfig(['en', 'de'], 'en');
-      config.lang.formats.en.dateFormat = '{{year}}-{{month}}-{{day}}';
+      config.lang.formats.en!.dateFormat = '{{year}}-{{month}}-{{day}}';
       const state = new SiteState(() => config, 'en');
       expect(state.formatFunc('dateFormat', { year: '2024', month: '05', day: '15' })).toBe(
         '2024-05-15',

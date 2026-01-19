@@ -40,7 +40,9 @@ const doDebounce = async (
         return doDebounce(id, false, config);
       }, config.initialDelay + 10);
     } else {
-      const result = await nextUpdates[id]();
+      const updateFn = nextUpdates[id];
+      if (!updateFn) return false;
+      const result = await updateFn();
       updateTimestamps[id] = now;
       //console.log('INITIAL')
       return result;
@@ -49,7 +51,9 @@ const doDebounce = async (
 
   //last execution was more than debounceDelay ms ago
   else if (priorExecTime < now.minus({ milliseconds: config.debounceDelay })) {
-    const result = await nextUpdates[id]();
+    const updateFn = nextUpdates[id];
+    if (!updateFn) return false;
+    const result = await updateFn();
     updateTimestamps[id] = now;
     //console.log('DUE')
     return result;
