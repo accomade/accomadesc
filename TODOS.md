@@ -11,11 +11,13 @@ This document outlines potential improvements and next steps for the Accomade Sv
 - **Test coverage**: All 78 existing tests pass across 7 test files
 - **Svelte 5 component testing enabled**: Configured Vitest with proper Svelte 5 + @testing-library/svelte setup:
   - Created `vitest.setup.ts` with mocks for `$app/environment` and `$app/stores`
+  - Added `ResizeObserver` mock for components that use it (Photo.svelte)
   - Added `@types/node` for path resolution
   - Configured `vitest.config.ts` with svelte plugin, alias resolution, and jsdom environment
   - Added 12 component tests for Button.svelte covering rendering, props, and behavior
   - Added 41 component tests for TextInput.svelte covering all input types, validation, accessibility, and event handlers
-  - **Total: 131 tests passing across 9 test files**
+  - Added 17 component tests for AccoCard.svelte covering rendering, props, conditional sub-components, and i18n handling
+  - **Total: 148 tests passing across 10 test files**
 
 ## Documentation
 
@@ -31,11 +33,11 @@ This document outlines potential improvements and next steps for the Accomade Sv
 - **Add component tests**: Core components need tests. Svelte 5 component testing now working:
   - ~~Button.svelte~~ ✓ Added 12 tests with @testing-library/svelte (rendering, props, behavior)
   - ~~TextInput.svelte~~ ✓ Added 41 tests with @testing-library/svelte (all input types, validation, accessibility, event handlers)
-  - AccoCard.svelte - Ready for component tests
+  - ~~AccoCard.svelte~~ ✓ Added 17 tests with @testing-library/svelte (rendering, props, conditional sub-components, i18n)
 - **Add coverage reporting**: Configure Vitest with coverage (Codecov, Coveralls, or simple text report) - Added v8 coverage provider to vitest.config.ts
 - Cleanup - remove trivial tests
 
-**Total: 131 tests passing across 9 test files**
+**Total: 148 tests passing across 10 test files**
 
 ## TypeScript Improvements
 

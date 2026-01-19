@@ -10,29 +10,29 @@ This is a Svelte 5 component library (`asc` - Accomade Svelte Components) used a
 
 ```bash
 # Development server with hot reload
-npm run dev
+pnpm run dev
 
 # Build library package (outputs to dist/)
-npm run package
+pnpm run package
 
 # Build with preview
-npm run build
-npm run preview
+pnpm run build
+pnpm run preview
 
 # Type checking
-npm run check              # Run svelte-check once
-npm run check:watch        # Watch mode
+pnpm run check              # Run svelte-check once
+pnpm run check:watch        # Watch mode
 
 # Testing
-npm run test               # Run all tests once
-npm run test:unit          # Run vitest in watch mode
+pnpm run test               # Run all tests once
+pnpm run test:unit          # Run vitest in watch mode
 
 # Formatting
-npm run format             # Format all files with Prettier
-npm run lint               # Check formatting with Prettier
+pnpm run format             # Format all files with Prettier
+pnpm run lint               # Check formatting with Prettier
 
 # Package publishing
-npm run prepublishOnly     # Sync, package, and lint before publish
+pnpm run prepublishOnly     # Sync, package, and lint before publish
 ```
 
 ## Testing
@@ -41,13 +41,13 @@ Tests use Vitest. Create test files with `.test.ts` or `.test.js` extension alon
 
 ```bash
 # Run all tests once
-npm run test
+pnpm run test
 
 # Run specific test file
-npm run test:unit -- src/lib/helpers/debounce.test.ts
+pnpm run test:unit -- src/lib/helpers/debounce.test.ts
 
 # Run tests matching pattern
-npm run test:unit -- --testNamePattern="debounce"
+pnpm run test:unit -- --testNamePattern="debounce"
 ```
 
 ## Code Style Guidelines
@@ -58,7 +58,7 @@ npm run test:unit -- --testNamePattern="debounce"
 - Single quotes for strings: `'example'`
 - Trailing commas: `all`
 - Print width: 100 characters
-- Run `npm run format` before committing
+- Run `pnpm run format` before committing
 
 ### TypeScript
 

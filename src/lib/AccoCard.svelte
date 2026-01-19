@@ -21,7 +21,7 @@
   let translatedSlug = $derived(translateFunc && slug ? translateFunc(slug) : '');
 </script>
 
-<div class="accocard-wrapper">
+<div class="accocard-wrapper" data-testid="accocard-wrapper">
   <div class="title-with-slug">
     <h2>{displayName}</h2>
     {#if slug}

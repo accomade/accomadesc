@@ -13,3 +13,12 @@ vi.mock('$app/stores', () => ({
   navigating: vi.fn(),
   updated: vi.fn(),
 }));
+
+vi.stubGlobal(
+  'ResizeObserver',
+  class ResizeObserver {
+    observe = vi.fn();
+    unobserve = vi.fn();
+    disconnect = vi.fn();
+  },
+);

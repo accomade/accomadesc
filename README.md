@@ -137,22 +137,22 @@ const site = new SiteState({
 
 ```bash
 # Install dependencies
-npm install
+pnpm install
 
 # Start dev server
-npm run dev
+pnpm run dev
 
 # Run tests
-npm run test
+pnpm run test
 
 # Type check
-npm run check
+pnpm run check
 
 # Format code
-npm run format
+pnpm run format
 
 # Build library
-npm run package
+pnpm run package
 ```
 
 ## License
