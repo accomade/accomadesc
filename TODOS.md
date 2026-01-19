@@ -4,6 +4,7 @@ This document outlines potential improvements and next steps for the Accomade Sv
 
 ## Recent Changes (Jan 2026)
 
+- **Pricing.svelte refactoring**: Consolidated duplicate `colOutputRange` and `colOutputStaticRange` functions into single `colOutput` function, extracted repetitive table rendering logic into reusable `pricingTable` snippet, reducing file from 524 to 436 lines
 - **TypeScript errors resolved**: All ~29 TypeScript errors in `src/routes/full/+page.svelte` and routes folder have been fixed. TypeScript check now passes with 0 errors.
 - **Dependency cleanup**: Removed unused `@dinero.js/currencies` dependency (not imported anywhere in codebase)
 - **Testing setup**: Added `@testing-library/svelte` and `@testing-library/dom` for future component testing (Svelte 5 testing requires additional setup)
@@ -53,13 +54,17 @@ This document outlines potential improvements and next steps for the Accomade Sv
 ## Code Quality
 
 - **Refactor large components**: Several components exceed 300 lines:
-  - `Pricing.svelte` (524 lines) - Extract table rendering to sub-components
+  - ~~`Pricing.svelte` (524 lines)~~ - Extracted table rendering to reusable snippet (now 436 lines)
   - `Button.svelte` (332 lines) - Complex styling logic could be simplified
   - `PageComponent.svelte` (430 lines) - Consider breaking into Header/Footer/Nav components
   - `OccuPlanPicker.svelte` (575 lines) - Large editor component
   - `full/+page.svelte` (740 lines) - Demo page could be split
 - **Extract repetitive table logic**: `Pricing.svelte` has duplicate table rendering code for different breakpoints (wide/medium/mobile). Extract to reusable table component or snippets.
+  - ✓ **Consolidated duplicate functions**: Merged `colOutputRange` and `colOutputStaticRange` into single `colOutput` function with type guard (`isStaticRange`)
+  - ✓ **Extracted table rendering snippet**: Created reusable `pricingTable` snippet that handles all 3 breakpoint layouts
+  - **Result**: Reduced `Pricing.svelte` from 524 lines to 436 lines (~17% reduction)
 - **Consolidate duplicate code**: The `colOutputRange` and `colOutputStaticRange` functions in `Pricing.svelte` are nearly identical
+  - ✓ **Merged into single function**: Now uses `colOutput(range, col)` with `isStaticRange` type guard for timeRange formatting
 - **Remove commented-out code**: Several files contain commented code (e.g., `debounce.ts:23,45,54,60,63`) - Removed in tests
 - **Fix format function bug**: The `format` function only replaced first occurrence of each placeholder. Fixed to use global regex.
 

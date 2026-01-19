@@ -155,42 +155,20 @@
     return result;
   };
 
-  const colOutputRange = (range: PricingRange, col: PricingColumn): string => {
-    let result = '';
-    if (!formatDateFunc || !translateFunc || !formatMoneyFunc || !formatFunc) return result;
-
-    const entry = range.entry;
-    switch (col) {
-      case 'timeRange':
-        result = formatRangeCol(range);
-        break;
-      case 'firstNight':
-        result = formatFirstNightPriceCol(entry);
-        break;
-      case 'eachNight':
-        result = formatEachNightCol(entry);
-        break;
-      case 'extraPerson':
-        result = formatExtraPersonCol(entry);
-        break;
-      case 'minNumNights':
-        result = formatMinNightsCol(entry);
-        break;
-      case 'peopleNum':
-        result = formatPeopleNum(entry);
-        break;
-    }
-    return result;
+  const isStaticRange = (range: PricingRange | StaticPricingRange): range is StaticPricingRange => {
+    return (
+      'from' in range && 'to' in range && typeof range.from === 'object' && 'month' in range.from
+    );
   };
 
-  const colOutputStaticRange = (range: StaticPricingRange, col: PricingColumn): string => {
+  const colOutput = (range: PricingRange | StaticPricingRange, col: PricingColumn): string => {
     let result = '';
     if (!formatDateFunc || !translateFunc || !formatMoneyFunc || !formatFunc) return result;
 
     const entry = range.entry;
     switch (col) {
       case 'timeRange':
-        result = formatStaticRangeCol(range);
+        result = isStaticRange(range) ? formatStaticRangeCol(range) : formatRangeCol(range);
         break;
       case 'firstNight':
         result = formatFirstNightPriceCol(entry);
@@ -233,6 +211,79 @@
       {/each}
     </tr>
   </thead>
+{/snippet}
+
+{#snippet pricingTable(data: PricingRange[] | StaticPricingRange[])}
+  {#if w > 799}
+    <table class="pricing-table">
+      {@render wideTableHead()}
+      <tbody>
+        {#each data as e}
+          <tr>
+            {#each columns as h}
+              <td style={colCellStyle[h]}>
+                {@html colOutput(e, h)}
+              </td>
+            {/each}
+          </tr>
+        {/each}
+      </tbody>
+    </table>
+  {:else if w > 400 && w < 800}
+    <table class="pricing-table">
+      {#each data as e}
+        <thead>
+          <tr>
+            <th colspan="2" scope="col">
+              {@html colOutput(e, 'timeRange')}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {#each columns as h}
+            {#if h !== 'timeRange'}
+              <tr>
+                <th scope="row">
+                  {@html translateFunc ? translateFunc(h) : ''}:
+                </th>
+                <td>
+                  {@html colOutput(e, h)}
+                </td></tr
+              >
+            {/if}
+          {/each}
+        </tbody>
+      {/each}
+    </table>
+  {:else}
+    <table class="pricing-table">
+      {#each data as e}
+        <thead>
+          <tr>
+            <th scope="col" class="main-header">
+              {@html colOutput(e, 'timeRange')}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {#each columns as h}
+            {#if h !== 'timeRange'}
+              <tr>
+                <th scope="row">
+                  {@html translateFunc ? translateFunc(h) : h}:
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  {@html colOutput(e, h)}
+                </td>
+              </tr>
+            {/if}
+          {/each}
+        </tbody>
+      {/each}
+    </table>
+  {/if}
 {/snippet}
 
 {#key currentLang}
@@ -281,148 +332,10 @@
       </table>
     {/if}
     {#if staticRanges.length > 0}
-      {#if w > 799}
-        <table class="pricing-table">
-          {@render wideTableHead()}
-          <tbody>
-            {#each staticRanges as e}
-              <tr>
-                {#each columns as h}
-                  <td style={colCellStyle[h]}>
-                    {@html colOutputStaticRange(e, h)}
-                  </td>
-                {/each}
-              </tr>
-            {/each}
-          </tbody>
-        </table>
-      {:else if w > 400 && w < 800}
-        <table class="pricing-table">
-          {#each staticRanges as e}
-            <thead>
-              <tr>
-                <th colspan="2" scope="col">
-                  {@html colOutputStaticRange(e, 'timeRange')}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {#each columns as h}
-                {#if h !== 'timeRange'}
-                  <tr>
-                    <th scope="row">
-                      {@html translateFunc ? translateFunc(h) : ''}:
-                    </th>
-                    <td>
-                      {@html colOutputStaticRange(e, h)}
-                    </td></tr
-                  >
-                {/if}
-              {/each}
-            </tbody>
-          {/each}
-        </table>
-      {:else}
-        <table class="pricing-table">
-          {#each staticRanges as e}
-            <thead>
-              <tr>
-                <th scope="col" class="main-header">
-                  {@html colOutputStaticRange(e, 'timeRange')}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {#each columns as h}
-                {#if h !== 'timeRange'}
-                  <tr>
-                    <th scope="row">
-                      {@html translateFunc ? translateFunc(h) : h}:
-                    </th>
-                  </tr>
-                  <tr>
-                    <td>
-                      {@html colOutputStaticRange(e, h)}
-                    </td>
-                  </tr>
-                {/if}
-              {/each}
-            </tbody>
-          {/each}
-        </table>
-      {/if}
+      {@render pricingTable(staticRanges)}
     {/if}
     {#if filteredRanges.length > 0}
-      {#if w > 799}
-        <table class="pricing-table">
-          {@render wideTableHead()}
-          <tbody>
-            {#each filteredRanges as e}
-              <tr>
-                {#each columns as h}
-                  <td style={colCellStyle[h]}>
-                    {@html colOutputRange(e, h)}
-                  </td>
-                {/each}
-              </tr>
-            {/each}
-          </tbody>
-        </table>
-      {:else if w > 400 && w < 800}
-        <table class="pricing-table">
-          {#each filteredRanges as e}
-            <thead>
-              <tr>
-                <th colspan="2" scope="col">
-                  {@html colOutputRange(e, 'timeRange')}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {#each columns as h}
-                {#if h !== 'timeRange'}
-                  <tr>
-                    <th scope="row">
-                      {@html translateFunc ? translateFunc(h) : ''}:
-                    </th>
-                    <td>
-                      {@html colOutputRange(e, h)}
-                    </td></tr
-                  >
-                {/if}
-              {/each}
-            </tbody>
-          {/each}
-        </table>
-      {:else}
-        <table class="pricing-table">
-          {#each filteredRanges as e}
-            <thead>
-              <tr>
-                <th scope="col" class="main-header">
-                  {@html colOutputRange(e, 'timeRange')}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {#each columns as h}
-                {#if h !== 'timeRange'}
-                  <tr>
-                    <th scope="row">
-                      {@html translateFunc ? translateFunc(h) : h}:
-                    </th>
-                  </tr>
-                  <tr>
-                    <td>
-                      {@html colOutputRange(e, h)}
-                    </td>
-                  </tr>
-                {/if}
-              {/each}
-            </tbody>
-          {/each}
-        </table>
-      {/if}
+      {@render pricingTable(filteredRanges)}
     {/if}
 
     {#if footnote}
