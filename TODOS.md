@@ -2,8 +2,26 @@
 
 This document outlines potential improvements and next steps for the Accomade Svelte Components library.
 
-## Recent Changes (Jan 2026)
+## Current State (Jan 2026)
 
+- **Version**: 0.4.0
+- **TypeScript**: All errors resolved (0 errors)
+- **Tests**: 148 tests passing across 10 test files
+- **Build**: Package builds successfully with `npm run package`
+
+## Recent Changes
+
+### TypeScript & Testing Improvements
+
+- **TypeScript errors fixed**: Resolved 3 event handler type errors in `TextInput.svelte`:
+  - Added `InputEventHandler` and `ClipboardEventHandler` types
+  - Properly typed `extraAttrs` state to include event handler types
+  - Fixed type casting for `onchange`, `oninput`, and `onpaste` props
+- **Added jest-dom type declarations**: Created `src/vitest-jest-dom.d.ts` to provide TypeScript types for:
+  - `toBeInTheDocument()`
+  - `toBeRequired()`
+  - `toHaveAttribute()`
+  - `toHaveStyle()`
 - **Pricing.svelte refactoring**: Consolidated duplicate `colOutputRange` and `colOutputStaticRange` functions into single `colOutput` function, extracted repetitive table rendering logic into reusable `pricingTable` snippet, reducing file from 524 to 436 lines
 - **TypeScript errors resolved**: All ~29 TypeScript errors in `src/routes/full/+page.svelte` and routes folder have been fixed. TypeScript check now passes with 0 errors.
 - **Dependency cleanup**: Removed unused `@dinero.js/currencies` dependency (not imported anywhere in codebase)
@@ -35,7 +53,13 @@ This document outlines potential improvements and next steps for the Accomade Sv
   - ~~TextInput.svelte~~ ✓ Added 41 tests with @testing-library/svelte (all input types, validation, accessibility, event handlers)
   - ~~AccoCard.svelte~~ ✓ Added 17 tests with @testing-library/svelte (rendering, props, conditional sub-components, i18n)
 - **Add coverage reporting**: Configure Vitest with coverage (Codecov, Coveralls, or simple text report) - Added v8 coverage provider to vitest.config.ts
-- Cleanup - remove trivial tests
+- **Add more component tests**: Core components still need testing:
+  - Calendar.svelte
+  - Pricing.svelte
+  - BookingRequest.svelte
+  - Photo.svelte
+  - LeafletMap.svelte
+- **Add integration tests**: Test component interactions and state management
 
 **Total: 148 tests passing across 10 test files**
 
@@ -177,3 +201,26 @@ This document outlines potential improvements and next steps for the Accomade Sv
   - Fixed ~29 TypeScript errors in `src/routes/full/+page.svelte`: Moved `i18n` declaration to top of script, added `getTranslation()` helper function, and added state variables for bound translation values to handle `noUncheckedIndexedAccess` strictness
   - All TypeScript errors now resolved (npm run check passes with 0 errors)
 - **Update README**: The README contains outdated create-svelte template content
+
+## Remaining Work
+
+### High Priority
+
+1. **Add more component tests** - Only 3 components have tests (Button, TextInput, AccoCard)
+2. **Refactor PageComponent.svelte** - At 430 lines, it should be split into smaller components
+3. **Add JSDoc documentation** - Components need better documentation for API consumers
+4. **Fix prerender build issue** - `npm run build` fails due to missing `/[lang]/new-site-state` route
+
+### Medium Priority
+
+1. **Add coverage reporting** - Configure v8 coverage to generate reports
+2. **Create Storybook stories** - Add interactive examples for components
+3. **Add CHANGELOG.md** - Document changes for releases
+4. **Refactor Button.svelte** - 332 lines, complex styling logic
+
+### Low Priority
+
+1. **Add domain directories** - Group calendar, pricing, booking components
+2. **Add error boundaries** - Wrap components for graceful error handling
+3. **Icon optimization** - Consider SVG sprites or lazy loading
+4. **Bundle analysis** - Monitor bundle size with rollup-plugin-analyzer

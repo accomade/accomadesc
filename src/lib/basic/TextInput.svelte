@@ -1,6 +1,13 @@
 <script lang="ts">
   import { randomID } from '$lib/names/gen.js';
 
+  type InputEventHandler = (
+    event: Event & { currentTarget: EventTarget & HTMLInputElement },
+  ) => void;
+  type ClipboardEventHandler = (
+    event: ClipboardEvent & { currentTarget: EventTarget & HTMLInputElement },
+  ) => void;
+
   let {
     placeholder = '',
     phonePattern = '^(\\+|00)(\\d|\\s){9,24}',
@@ -135,7 +142,9 @@
   );
 
   let currentType = $state('text');
-  let extraAttrs = $state<Record<string, unknown>>({});
+  let extraAttrs = $state<
+    Record<string, string | number | boolean | InputEventHandler | ClipboardEventHandler>
+  >({});
 
   $effect(() => {
     switch (type) {
@@ -200,9 +209,9 @@
     bind:value
     onblur={handleBlur}
     onfocus={handleFocus}
-    onchange={extraAttrs.onchange ?? handleChanged}
-    oninput={extraAttrs.oninput ?? handleChanged}
-    onpaste={extraAttrs.onpaste ?? handlePaste}
+    onchange={(extraAttrs.onchange as InputEventHandler | undefined) ?? handleChanged}
+    oninput={(extraAttrs.oninput as InputEventHandler | undefined) ?? handleChanged}
+    onpaste={(extraAttrs.onpaste as ClipboardEventHandler | undefined) ?? handlePaste}
     {...extraAttrs}
   />
 </div>
