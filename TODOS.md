@@ -2,6 +2,11 @@
 
 This document outlines potential improvements and next steps for the Accomade Svelte Components library.
 
+## Documentation
+
+- Provide an overiew of Accomade Svelte Components intent and usage in README.md
+- Add a /docs folder containing small usage examples for every component provided
+
 ## Testing
 
 - ~~Add test suite~~: No tests exist (0 test files found). Create `.test.ts` or `.test.js` files for:
@@ -10,6 +15,7 @@ This document outlines potential improvements and next steps for the Accomade Sv
   - ~~Type guards (`isAccoBlock`, `isCalendar`, etc.)~~ ✓ Added 21 type guard tests
   - Core components (`Button`, `TextInput`, `AccoCard`) - Pending
 - **Add coverage reporting**: Configure Vitest with coverage (Codecov, Coveralls, or simple text report) - Added v8 coverage provider to vitest.config.ts
+- Cleanup - remove trivial tests
 
 **Total: 78 tests passing across 7 test files**
 
