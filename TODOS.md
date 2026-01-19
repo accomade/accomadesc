@@ -14,7 +14,8 @@ This document outlines potential improvements and next steps for the Accomade Sv
   - Added `@types/node` for path resolution
   - Configured `vitest.config.ts` with svelte plugin, alias resolution, and jsdom environment
   - Added 12 component tests for Button.svelte covering rendering, props, and behavior
-  - **Total: 90 tests passing across 8 test files**
+  - Added 41 component tests for TextInput.svelte covering all input types, validation, accessibility, and event handlers
+  - **Total: 131 tests passing across 9 test files**
 
 ## Documentation
 
@@ -29,12 +30,12 @@ This document outlines potential improvements and next steps for the Accomade Sv
   - ~~Type guards (`isAccoBlock`, `isCalendar`, etc.)~~ ✓ Added 21 type guard tests
 - **Add component tests**: Core components need tests. Svelte 5 component testing now working:
   - ~~Button.svelte~~ ✓ Added 12 tests with @testing-library/svelte (rendering, props, behavior)
-  - TextInput.svelte - Ready for component tests
+  - ~~TextInput.svelte~~ ✓ Added 41 tests with @testing-library/svelte (all input types, validation, accessibility, event handlers)
   - AccoCard.svelte - Ready for component tests
 - **Add coverage reporting**: Configure Vitest with coverage (Codecov, Coveralls, or simple text report) - Added v8 coverage provider to vitest.config.ts
 - Cleanup - remove trivial tests
 
-**Total: 90 tests passing across 8 test files**
+**Total: 131 tests passing across 9 test files**
 
 ## TypeScript Improvements
 
