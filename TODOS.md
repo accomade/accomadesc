@@ -76,7 +76,7 @@ This document outlines potential improvements and next steps for the Accomade Sv
 ## Architecture & Structure
 
 - **Organize icons**: `icons.ts` (109KB) is very large. Consider:
-  - Splitting into multiple files by category
+  - ~~Splitting into multiple files by category~~ ✓ Split into icons/navigation.ts, icons/actions.ts, icons/ui.ts (~24KB total)
   - Lazy-loading icons only when needed
   - Using SVG sprites instead of inline strings
 - **Add barrel exports**: Currently `index.ts` re-exports everything but internal structure could be improved:
@@ -90,7 +90,7 @@ This document outlines potential improvements and next steps for the Accomade Sv
 
 - **Code splitting**: Large components like `Pricing` could be lazy-loaded
 - **Tree-shaking**: Ensure unused helpers aren't bundled
-- **Icon optimization**: `icons.ts` at 109KB affects bundle size. Consider dynamic imports
+- **Icon optimization**: icons.ts reduced from 107KB to ~24KB by splitting into categorized files
 - **Component lazy loading**: Some components (`OccuPlanPicker`, `PageComponent`) are large and used conditionally
 
 ## Dependencies
