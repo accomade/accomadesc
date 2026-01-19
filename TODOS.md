@@ -2,6 +2,13 @@
 
 This document outlines potential improvements and next steps for the Accomade Svelte Components library.
 
+## Recent Changes (Jan 2026)
+
+- **TypeScript errors resolved**: All ~29 TypeScript errors in `src/routes/full/+page.svelte` and routes folder have been fixed. TypeScript check now passes with 0 errors.
+- **Dependency cleanup**: Removed unused `@dinero.js/currencies` dependency (not imported anywhere in codebase)
+- **Testing setup**: Added `@testing-library/svelte` and `@testing-library/dom` for future component testing (Svelte 5 testing requires additional setup)
+- **Test coverage**: All 78 existing tests pass across 7 test files
+
 ## Documentation
 
 - ~~Provide an overiew of Accomade Svelte Components intent and usage in README.md~~ ✓ Updated README with library overview, installation, usage examples, and component documentation
@@ -13,7 +20,10 @@ This document outlines potential improvements and next steps for the Accomade Sv
   - ~~Helper functions (`debounce`, `format`, `normalizeDate`, `readICS`, `moneyFormats`)~~ ✓ Added 35 tests
   - ~~State classes (`SiteState.svelte.ts`, `GlobalState`)~~ ✓ Added 22 tests
   - ~~Type guards (`isAccoBlock`, `isCalendar`, etc.)~~ ✓ Added 21 type guard tests
-  - Core components (`Button`, `TextInput`, `AccoCard`) - Pending
+- **Add component tests**: Core components need tests. Svelte 5 component testing requires `@sveltejs/testing` package:
+  - Button.svelte - Requires Svelte 5 testing setup
+  - TextInput.svelte - Requires Svelte 5 testing setup
+  - AccoCard.svelte - Requires Svelte 5 testing setup
 - **Add coverage reporting**: Configure Vitest with coverage (Codecov, Coveralls, or simple text report) - Added v8 coverage provider to vitest.config.ts
 - Cleanup - remove trivial tests
 
@@ -38,7 +48,7 @@ This document outlines potential improvements and next steps for the Accomade Sv
   - `src/routes/[lang]/heropage_ham/I18n.svelte.ts` - same fixes
   - `src/routes/[lang]/imprint/I18n.svelte.ts` - same fixes
   - Fixed PricingEntryEditor.svelte translation access with optional chaining
-- **Remaining TypeScript errors**: ~29 errors remaining, primarily in `src/routes/full/+page.svelte` demo page - See "Legacy Cleanup" section
+- **TypeScript check passes**: All ~29 TypeScript errors in `src/routes/full/+page.svelte` have been fixed. Run `npm run check` for verification.
 
 ## Code Quality
 
@@ -85,10 +95,11 @@ This document outlines potential improvements and next steps for the Accomade Sv
 
 ## Dependencies
 
-- **Audit dependencies**: Some packages may be outdated:
-  - `gdpr-cooco-banner: ^0.0.13` - Very old version, check for updates
-  - `@dinero.js/currencies: 2.0.0-alpha.14` - Alpha version
+- **Audit dependencies**: Package versions reviewed:
+  - `gdpr-cooco-banner: ^0.0.13` - Latest available version (actively used for cookie consent translations)
+  - `@dinero.js/currencies: 2.0.0-alpha.14` - Removed! Not actively used in codebase (replaced with Intl.NumberFormat, only referenced in commented-out type definitions)
 - **Remove unused imports**: Several components have unused imports
+- **Removed unused dependency**: `@dinero.js/currencies` has been removed as it's not imported anywhere in the codebase
 
 ## Internationalization
 
@@ -96,6 +107,10 @@ This document outlines potential improvements and next steps for the Accomade Sv
 - **Language detection**: Improve automatic language detection logic
 
 ## CSS & Styling
+
+- **Add CSS variable documentation**: Document all CSS custom properties used in components
+- **Theme consistency**: Ensure all components use CSS variables for colors, spacing, and fonts
+- **Responsive design audit**: Verify all components work at 999px and 750px breakpoints
 
 ## Error Handling
 
@@ -139,4 +154,5 @@ This document outlines potential improvements and next steps for the Accomade Sv
   - Fixed PricingEntryEditor.svelte translation access issues
   - Fixed [lang]/imprint/+page.svelte undefined pathLang issue
   - Fixed ~29 TypeScript errors in `src/routes/full/+page.svelte`: Moved `i18n` declaration to top of script, added `getTranslation()` helper function, and added state variables for bound translation values to handle `noUncheckedIndexedAccess` strictness
+  - All TypeScript errors now resolved (npm run check passes with 0 errors)
 - **Update README**: The README contains outdated create-svelte template content
