@@ -33,6 +33,12 @@
   import AmenitiesEditor from '../AmenitiesEditor.svelte';
   import MapEditor from '../MapEditor.svelte';
   import { I18n } from '../I18n.svelte.js';
+  const i18n = new I18n();
+
+  function getTranslation(ref: string, fallback: string): string {
+    return i18n.translations[i18n.currentLang]?.[ref] ?? fallback;
+  }
+
   import LeafletMap from '$lib/LeafletMap.svelte';
   import Photo from '$lib/Photo.svelte';
 
@@ -60,6 +66,11 @@
 
   let css = $state(initialCss);
   let styleOpen = $state(false);
+
+  let footnoteText = $state('priceGFoot');
+  let footnoteTextShort = $state('priceGFoot');
+  let textRefValue = $state('textRef');
+  let altTextValue = $state('photoAlt');
 
   let textRef = 'textRef';
   const text: TextBlock = $state({
@@ -189,8 +200,8 @@
       slug: 'accRef',
       coverPhoto: {
         attribution: 'Something',
-        photoPath: photos[1],
-        alt: i18n.translations[i18n.currentLang]?.accoCCCalt ?? 'accoCCCalt',
+        photoPath: photos[1]!,
+        alt: getTranslation('accoCCCalt', 'accoCCCalt'),
       },
       amenities: {
         id: randomID(),
@@ -271,24 +282,24 @@
           kind: 'photo',
           id: randomID(),
           content: {
-            photoPath: photos[0],
-            alt: i18n.translations[i18n.currentLang]?.[altRef] ?? altRef,
+            photoPath: photos[0]!,
+            alt: getTranslation(altRef, altRef),
           },
         },
         {
           kind: 'photo',
           id: randomID(),
           content: {
-            photoPath: photos[1],
-            alt: i18n.translations[i18n.currentLang]?.[altRef] ?? altRef,
+            photoPath: photos[1]!,
+            alt: getTranslation(altRef, altRef),
           },
         },
         {
           kind: 'photo',
           id: randomID(),
           content: {
-            photoPath: photos[2],
-            alt: i18n.translations[i18n.currentLang]?.[altRef] ?? altRef,
+            photoPath: photos[2]!,
+            alt: getTranslation(altRef, altRef),
           },
         },
       ],
@@ -404,8 +415,6 @@
       explainer: 'brRef10',
     },
   };
-
-  const i18n = new I18n();
 </script>
 
 <h1>Welcome to Accomade Svelte Components (accomadesc)</h1>
@@ -545,7 +554,7 @@
       bind:ranges={pricing.content.ranges as PricingRange[]}
       bind:staticRanges={pricing.content.staticRanges as StaticPricingRange[]}
       bind:columns={pricing.content.columns as PricingColumn[]}
-      bind:footnoteText={i18n.translations[i18n.currentLang].priceGFoot}
+      bind:footnoteText
       {i18n}
     />
   </div>
@@ -559,7 +568,7 @@
       bind:global={pricingShort.content.global}
       bind:ranges={pricingShort.content.ranges as PricingRange[]}
       bind:staticRanges={pricingShort.content.staticRanges as StaticPricingRange[]}
-      bind:footnoteText={i18n.translations[i18n.currentLang].priceGFoot}
+      bind:footnoteText={footnoteTextShort}
       useColumns={false}
       {i18n}
     />
@@ -571,7 +580,7 @@
       <Text {...text.content} {...i18n} />
     </div>
     <TextEditor
-      bind:text={i18n.translations[i18n.currentLang].textRef}
+      bind:text={textRefValue}
       bind:minHeight={text.content.minHeight}
       bind:textFontSize={text.content.textFontSize}
       bind:headerFontSize={text.content.headerFontSize}
@@ -622,7 +631,7 @@
     <PhotoEditor
       {photos}
       bind:photoPath={photo.content.photoPath}
-      bind:altText={i18n.translations[i18n.currentLang][altRef]}
+      bind:altText={altTextValue}
       bind:attribution={photo.content.attribution}
       bind:link={photo.content.link}
       bind:external={photo.content.external}

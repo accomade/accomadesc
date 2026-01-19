@@ -131,12 +131,12 @@ This document outlines potential improvements and next steps for the Accomade Sv
 - **CSP headers**: Add Content Security Policy for the library consumers
 - **Sanitize inputs**: Form components (`ContactForm`, `BookingRequest`) should sanitize user input
 
-## Legacy Cleanup
+## Legacy Cleanup ✓
 
 - **Remove dead code**: Some files reference non-existent components or imports
 - **Clean up routes**: `src/routes/full/` and `src/routes/css.ts` seem to be demo/testing code
   - **Progress**: Fixed 4 I18n.svelte.ts files (src/routes/I18n.svelte.ts, [lang]/heropage/I18n.svelte.ts, [lang]/heropage_ham/I18n.svelte.ts, [lang]/imprint/I18n.svelte.ts) - added proper type guards and fallbacks for translation/formats access
   - Fixed PricingEntryEditor.svelte translation access issues
   - Fixed [lang]/imprint/+page.svelte undefined pathLang issue
-  - **Remaining**: ~29 errors in `src/routes/full/+page.svelte` - these are demo code issues where `i18n` is used before declaration in $state objects
+  - Fixed ~29 TypeScript errors in `src/routes/full/+page.svelte`: Moved `i18n` declaration to top of script, added `getTranslation()` helper function, and added state variables for bound translation values to handle `noUncheckedIndexedAccess` strictness
 - **Update README**: The README contains outdated create-svelte template content
