@@ -209,7 +209,7 @@ This document outlines potential improvements and next steps for the Accomade Sv
 1. **Add more component tests** - Only 3 components have tests (Button, TextInput, AccoCard)
 2. **Refactor PageComponent.svelte** - At 430 lines, it should be split into smaller components
 3. **Add JSDoc documentation** - Components need better documentation for API consumers
-4. **Fix prerender build issue** - `npm run build` fails due to missing `/[lang]/new-site-state` route
+4. **~~Fix prerender build issue~~** - `npm run build` failed due to missing `/[lang]/new-site-state` route entries - Fixed by adding the route to `entries` array in `svelte.config.js`
 
 ### Medium Priority
 

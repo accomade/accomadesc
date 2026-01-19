@@ -21,6 +21,8 @@ const config = {
         '/en/imprint',
         '/en/heropage_ham',
         '/de/heropage_ham',
+        '/de/new-site-state',
+        '/en/new-site-state',
       ],
       origin: 'http://localhost',
       handleHttpError: 'ignore',
