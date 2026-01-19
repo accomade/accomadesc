@@ -64,6 +64,7 @@ This document outlines potential improvements and next steps for the Accomade Sv
 
 - **Refactor large components**: Several components exceed 300 lines:
   - ~~`Pricing.svelte` (524 lines)~~ - Extracted table rendering to reusable snippet (now 436 lines)
+  - ~~`TextInput.svelte` (364 lines)~~ - Consolidated 5 repetitive input type blocks into single input with reactive type switching (now 283 lines, 22% reduction)
   - `Button.svelte` (332 lines) - Complex styling logic could be simplified
   - `PageComponent.svelte` (430 lines) - Consider breaking into Header/Footer/Nav components
   - `OccuPlanPicker.svelte` (575 lines) - Large editor component

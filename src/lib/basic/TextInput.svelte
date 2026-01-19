@@ -83,7 +83,6 @@
 
   const handleChanged = () => {
     let v = checkValidity(value);
-    //console.log(v, valid)
     if (v !== valid) {
       valid = v;
       validityChanged(valid, name, value);
@@ -106,11 +105,9 @@
     event.preventDefault();
     let paste = event.clipboardData?.getData('text');
     if (input && paste) {
-      //console.log(paste)
       input.value = paste;
       value = paste;
     }
-
     handleChanged();
   };
 
@@ -130,6 +127,45 @@
       input.focus();
     }
   });
+
+  const describedBy = $derived(
+    enabled && (showInitialMessage || (showMessageOnInvalid && !valid))
+      ? `${id}-message`
+      : undefined,
+  );
+
+  let currentType = $state('text');
+  let extraAttrs = $state<Record<string, unknown>>({});
+
+  $effect(() => {
+    switch (type) {
+      case 'email':
+        currentType = 'email';
+        extraAttrs = { autocomplete: autocomplete || 'email' };
+        break;
+      case 'tel':
+        currentType = 'tel';
+        extraAttrs = {
+          pattern: phonePattern,
+          autocomplete: autocomplete || 'tel',
+          onchange: handleTelChanged,
+          oninput: handleTelChanged,
+          onpaste: handleTelPaste,
+        };
+        break;
+      case 'number':
+        currentType = 'number';
+        extraAttrs = { min: minNumber, max: maxNumber, step, autocomplete };
+        break;
+      case 'password':
+        currentType = 'password';
+        extraAttrs = { autocomplete: 'current-password' };
+        break;
+      default:
+        currentType = 'text';
+        extraAttrs = { autocomplete };
+    }
+  });
 </script>
 
 <div
@@ -144,147 +180,31 @@
       >
     </div>
   {/if}
-  {#if type == 'text'}
-    <input
-      {id}
-      bind:this={input}
-      minlength={minLength}
-      maxlength={maxLength}
-      style="max-width: {maxWidth}; min-width: {minWidth};"
-      class:invalid={enabled && !valid}
-      class:disabled={!enabled}
-      class:translating
-      {placeholder}
-      type="text"
-      {name}
-      disabled={!enabled}
-      {required}
-      aria-required={required}
-      aria-invalid={enabled && !valid}
-      aria-describedby={enabled && (showInitialMessage || (showMessageOnInvalid && !valid))
-        ? `${id}-message`
-        : undefined}
-      autocomplete={autocomplete as any}
-      bind:value
-      onblur={handleBlur}
-      onfocus={handleFocus}
-      onchange={handleChanged}
-      oninput={handleChanged}
-      onpaste={handlePaste}
-    />
-  {:else if type == 'email'}
-    <input
-      {id}
-      bind:this={input}
-      style="max-width: {maxWidth}; min-width: {minWidth};"
-      class:invalid={enabled && !valid}
-      class:disabled={!enabled}
-      minlength={minLength}
-      maxlength={maxLength}
-      {placeholder}
-      type="email"
-      {name}
-      disabled={!enabled}
-      {required}
-      aria-required={required}
-      aria-invalid={enabled && !valid}
-      aria-describedby={enabled && (showInitialMessage || (showMessageOnInvalid && !valid))
-        ? `${id}-message`
-        : undefined}
-      autocomplete={(autocomplete || 'email') as any}
-      bind:value
-      onblur={handleBlur}
-      onfocus={handleFocus}
-      onchange={handleChanged}
-      oninput={handleChanged}
-      onpaste={handlePaste}
-    />
-  {:else if type == 'tel'}
-    <input
-      {id}
-      bind:this={input}
-      style="max-width: {maxWidth}; min-width: {minWidth};"
-      class:invalid={enabled && !valid}
-      class:disabled={!enabled}
-      {placeholder}
-      minlength={minLength}
-      maxlength={maxLength}
-      type="tel"
-      pattern={phonePattern}
-      {name}
-      disabled={!enabled}
-      {required}
-      aria-required={required}
-      aria-invalid={enabled && !valid}
-      aria-describedby={enabled && (showInitialMessage || (showMessageOnInvalid && !valid))
-        ? `${id}-message`
-        : undefined}
-      autocomplete={(autocomplete || 'tel') as any}
-      bind:value
-      onblur={handleBlur}
-      onfocus={handleFocus}
-      onchange={handleTelChanged}
-      oninput={handleTelChanged}
-      onpaste={handleTelPaste}
-    />
-  {:else if type == 'number'}
-    <input
-      {id}
-      bind:this={input}
-      style="max-width: {maxWidth}; min-width: {minWidth};"
-      class:invalid={enabled && !valid}
-      class:disabled={!enabled}
-      {placeholder}
-      minlength={minLength}
-      maxlength={maxLength}
-      type="number"
-      min={minNumber}
-      max={maxNumber}
-      {step}
-      {name}
-      disabled={!enabled}
-      {required}
-      aria-required={required}
-      aria-invalid={enabled && !valid}
-      aria-describedby={enabled && (showInitialMessage || (showMessageOnInvalid && !valid))
-        ? `${id}-message`
-        : undefined}
-      autocomplete={autocomplete as any}
-      bind:value
-      onblur={handleBlur}
-      onfocus={handleFocus}
-      onchange={handleChanged}
-      oninput={handleChanged}
-      onpaste={handlePaste}
-    />
-  {:else if type == 'password'}
-    <input
-      {id}
-      bind:this={input}
-      style="max-width: {maxWidth}; min-width: {minWidth};"
-      class:invalid={enabled && !valid}
-      class:disabled={!enabled}
-      {placeholder}
-      minlength={minLength}
-      maxlength={maxLength}
-      type="password"
-      {name}
-      disabled={!enabled}
-      {required}
-      aria-required={required}
-      aria-invalid={enabled && !valid}
-      aria-describedby={enabled && (showInitialMessage || (showMessageOnInvalid && !valid))
-        ? `${id}-message`
-        : undefined}
-      autocomplete="current-password"
-      bind:value
-      onblur={handleBlur}
-      onfocus={handleFocus}
-      onchange={handleChanged}
-      oninput={handleChanged}
-      onpaste={handlePaste}
-    />
-  {/if}
+  <input
+    bind:this={input}
+    type={currentType}
+    {id}
+    style="max-width: {maxWidth}; min-width: {minWidth};"
+    class:invalid={enabled && !valid}
+    class:disabled={!enabled}
+    class:translating
+    minlength={minLength}
+    maxlength={maxLength}
+    {placeholder}
+    {name}
+    disabled={!enabled}
+    {required}
+    aria-required={required}
+    aria-invalid={enabled && !valid}
+    aria-describedby={describedBy}
+    bind:value
+    onblur={handleBlur}
+    onfocus={handleFocus}
+    onchange={extraAttrs.onchange ?? handleChanged}
+    oninput={extraAttrs.oninput ?? handleChanged}
+    onpaste={extraAttrs.onpaste ?? handlePaste}
+    {...extraAttrs}
+  />
 </div>
 
 <style>
