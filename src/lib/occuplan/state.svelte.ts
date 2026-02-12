@@ -1,8 +1,8 @@
 import { normalizeDate } from '$lib/helpers/normalizeDate.js';
 import { getEvents } from '$lib/helpers/readICS.js';
 import { DateTime, type MonthNumbers, type WeekdayNumbers } from 'luxon';
-import { DateTime as luxon } from 'luxon';
-import { getContext, setContext } from 'svelte';
+
+export const contextKey = (id: string) => `SS_${id}_CONTEXT`
 
 export interface AvailableSpans {
   [key: number]: DateTime | null;
@@ -24,8 +24,6 @@ export type MonthLabels = {
 };
 
 export type OccupationType = 'one' | 'two' | 'three';
-
-export const OCCUPATION_STATE = 'occupation-state';
 
 export const occupationTypeFormattingByOccupation = (
   o?: Occupation,
@@ -197,8 +195,8 @@ export const realFirstMonth = (
 };
 
 const validDay = (d: DayHelper): boolean => {
-  const today = luxon.utc();
-  const m = luxon.local(d.year, d.month, d.day);
+  const today = DateTime.utc();
+  const m = DateTime.local(d.year, d.month, d.day);
   if (m < today) {
     return false;
   }
@@ -301,10 +299,11 @@ export class OccupationState {
   public loading: boolean = $state(false);
   public debug: boolean = $state(false);
 
-  constructor(iCalURL: string, debug: boolean = false) {
-    this.debug = debug;
-    if (this.debug) console.log('Constructing OState with CalUrl: ', iCalURL);
-    this.iCalURL = iCalURL;
+  constructor(iniFn: () => { iCalURL: string, debug: boolean | undefined }) {
+    const data = iniFn()
+    this.debug = data.debug ?? false;
+    if (this.debug) console.log('Constructing OState with CalUrl: ', data.iCalURL);
+    this.iCalURL = data.iCalURL;
     //this.loadOccupations();
   }
 
@@ -388,7 +387,7 @@ export class OccupationState {
     let firstDate: DateTime;
     let consecutive = 0;
 
-    let d = normalizeDate(luxon.utc());
+    let d = normalizeDate(DateTime.utc());
     while (d <= maxFutureDate) {
       const key = `${d.year}-${d.month}-${d.day}`;
       if (this.occupiedDays[key]) {
@@ -463,7 +462,7 @@ export class OccupationState {
       return 'background-color: var(--occuplan-invalid-days-bg-color); color: var(--occuplan-invalid-days-font-color);';
     }
 
-    const day = luxon.utc(d.year, d.month, d.day);
+    const day = DateTime.utc(d.year, d.month, d.day);
     const outOfScope = day >= maxDate;
     if (outOfScope) {
       return 'background-color: var(--occuplan-invalid-days-bg-color); color: var(--occuplan-invalid-days-font-color);';
@@ -554,13 +553,3 @@ export class OccupationState {
   };
 }
 
-export const getOccupationState = (url: string, debug: boolean = false): OccupationState => {
-  if (debug) console.log('Get OState /w url', url);
-  const stateID = `i-${url}-${OCCUPATION_STATE}`;
-  let _instance: OccupationState = getContext(stateID);
-  if (_instance) return _instance;
-
-  setContext(stateID, new OccupationState(url, debug));
-
-  return getContext(stateID);
-};

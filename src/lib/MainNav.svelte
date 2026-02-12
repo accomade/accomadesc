@@ -82,7 +82,7 @@
   }
 
   nav.main-nav {
-    z-index: 998;
+    z-index: 1001; /*needs to be higher then leaflet notice*/
     position: fixed;
     padding-right: 1rem;
     top: 0;

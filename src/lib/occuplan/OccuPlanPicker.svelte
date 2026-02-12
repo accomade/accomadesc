@@ -1,15 +1,15 @@
 <script lang="ts">
   import { DateTime, type MonthNumbers } from 'luxon';
   import {
+    contextKey,
     defaultMonthHeaderFormat,
     defaultMonthLabels,
     defaultWeekdayLabels,
     OccupationState,
-    getOccupationState,
     realFirstMonth,
     type OccuplanTranslations,
   } from '$lib/occuplan/state.svelte.js';
-  import { onMount, untrack } from 'svelte';
+  import { getContext, onMount, setContext, untrack } from 'svelte';
   import Button from '$lib/basic/Button.svelte';
   import Spinner from '$lib/basic/Spinner.svelte';
   import { normalizeDate } from '$lib/helpers/normalizeDate.js';
@@ -56,7 +56,16 @@
     dateSelected?: (arrival: DateTime, leave: DateTime) => void;
   } = $props();
 
-  let occupationState: OccupationState = $derived(getOccupationState(url, debug));
+  const stateID = contextKey(untrack(() => url));
+  let ss: OccupationState = getContext(stateID);
+  if (!ss) {
+    ss = new OccupationState(() => {
+      return { iCalURL: url, debug };
+    });
+    setContext(stateID, ss);
+  }
+
+  let occupationState: OccupationState = $derived(ss);
 
   const monthHeader = (monthNum: MonthNumbers, year: number): string => {
     const monthLabel = monthLabels[monthNum];

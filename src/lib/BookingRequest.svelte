@@ -4,11 +4,12 @@
   import Notes from '$lib/basic/Notes.svelte';
   import Spinner from '$lib/basic/Spinner.svelte';
   import TextInput from '$lib/basic/TextInput.svelte';
-  import { getOccupationState, OccupationState } from '$lib/occuplan/state.svelte.js';
+  import { contextKey, OccupationState } from '$lib/occuplan/state.svelte.js';
   import OccuPlanPicker from '$lib/occuplan/OccuPlanPicker.svelte';
   import { fade } from 'svelte/transition';
   import type { DateTime } from 'luxon';
   import { randomID } from './names/gen.js';
+  import { getContext, setContext, untrack } from 'svelte';
 
   const {
     endpoint,
@@ -54,7 +55,16 @@
   let sending = $state(false);
   let disabled = $derived(preview || errored || successfullySent);
 
-  let occupationState: OccupationState = $derived(getOccupationState(calUrl));
+  const stateID = contextKey(untrack(() => calUrl));
+  let ss: OccupationState = getContext(stateID);
+  if (!ss) {
+    ss = new OccupationState(() => {
+      return { iCalURL: calUrl, debug: false };
+    });
+    setContext(stateID, ss);
+  }
+
+  let occupationState: OccupationState = $derived(ss);
   let invalid = $derived(
     occupationState && arrival && leave ? !occupationState.validRequest(arrival, leave) : false,
   );

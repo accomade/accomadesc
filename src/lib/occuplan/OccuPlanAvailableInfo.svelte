@@ -1,12 +1,8 @@
 <script lang="ts">
   import { DateTime } from 'luxon';
   import { normalizeDate } from '$lib/helpers/normalizeDate.js';
-  import { onMount, type Snippet } from 'svelte';
-  import {
-    OccupationState,
-    getOccupationState,
-    type AvailableSpans,
-  } from '$lib/occuplan/state.svelte.js';
+  import { getContext, onMount, untrack, setContext, type Snippet } from 'svelte';
+  import { OccupationState, contextKey, type AvailableSpans } from '$lib/occuplan/state.svelte.js';
   import Spinner from '$lib/basic/Spinner.svelte';
 
   let {
@@ -17,13 +13,22 @@
     children,
   }: {
     url: string;
-    debug?: boolean;
+    debug?: boolean | undefined;
     search?: number[];
     maxFutureDate?: DateTime;
     children: Snippet<[AvailableSpans]>;
   } = $props();
 
-  let occupationState: OccupationState = $derived(getOccupationState(url, debug));
+  const stateID = contextKey(untrack(() => url));
+  let ss: OccupationState = getContext(stateID);
+  if (!ss) {
+    ss = new OccupationState(() => {
+      return { iCalURL: url, debug };
+    });
+    setContext(stateID, ss);
+  }
+
+  let occupationState: OccupationState = $derived(ss);
   let av = $derived(occupationState ? occupationState.calcAvailability(search, maxFutureDate) : {});
 
   onMount(() => {

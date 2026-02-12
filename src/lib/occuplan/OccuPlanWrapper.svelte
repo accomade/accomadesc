@@ -8,8 +8,11 @@
     defaultMonthLabels,
     defaultWeekdayLabels,
     defaultMonthHeaderFormat,
+    contextKey,
+    OccupationState,
   } from '$lib/occuplan/state.svelte.js';
   import { DateTime } from 'luxon';
+  import { getContext, setContext, untrack } from 'svelte';
 
   let {
     url,
@@ -58,6 +61,15 @@
       showGrid = false;
     }
   });
+
+  const stateID = contextKey(untrack(() => url));
+  let ss: OccupationState = getContext(stateID);
+  if (!ss) {
+    ss = new OccupationState(() => {
+      return { iCalURL: url, debug };
+    });
+    setContext(stateID, ss);
+  }
 </script>
 
 <div class="calendar-wrapper" bind:clientWidth={w}>

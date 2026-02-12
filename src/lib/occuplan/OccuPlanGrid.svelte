@@ -1,11 +1,11 @@
 <script lang="ts">
   import { DateTime, type MonthNumbers } from 'luxon';
   import {
+    contextKey,
     defaultMonthHeaderFormat,
     defaultMonthLabels,
     defaultWeekdayLabels,
     OccupationState,
-    getOccupationState,
     occupationTypeFormatting,
     realFirstMonth,
     type FirstMonth,
@@ -15,7 +15,7 @@
   import Button from '$lib/basic/Button.svelte';
   import Spinner from '$lib/basic/Spinner.svelte';
   import { randomID } from '$lib/names/gen.js';
-  import { onMount } from 'svelte';
+  import { getContext, onMount, setContext, untrack } from 'svelte';
 
   let {
     url,
@@ -49,7 +49,15 @@
 
   const id = randomID();
 
-  let occupationState: OccupationState = $derived(getOccupationState(url, debug));
+  const stateID = contextKey(untrack(() => url));
+  let ss: OccupationState = getContext(stateID);
+  if (!ss) {
+    ss = new OccupationState(() => {
+      return { iCalURL: url, debug };
+    });
+    setContext(stateID, ss);
+  }
+  let occupationState: OccupationState = $derived(ss);
 
   //let formatFun = $derived(Sqrl.compile(monthHeaderFormat, { useWith: true }));
   const monthHeader = (monthNum: MonthNumbers, year: number): string => {

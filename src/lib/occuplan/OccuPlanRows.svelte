@@ -4,19 +4,19 @@
     defaultMonthLabels,
     defaultWeekendLabel,
     OccupationState,
-    getOccupationState,
     occupationTypeFormatting,
     type OccupationType,
     type OccuplanTranslations,
     type DayHelper,
     type FirstMonth,
     realFirstMonth,
+    contextKey,
   } from '$lib/occuplan/state.svelte.js';
   import Button from '$lib/basic/Button.svelte';
   import { browser } from '$app/environment';
   import Spinner from '$lib/basic/Spinner.svelte';
   import { randomID } from '$lib/names/gen.js';
-  import { onMount } from 'svelte';
+  import { getContext, onMount, setContext, untrack } from 'svelte';
 
   let {
     url,
@@ -47,7 +47,15 @@
 
   const id = randomID();
 
-  let occupationState: OccupationState = $derived(getOccupationState(url, debug));
+  const stateID = contextKey(untrack(() => url));
+  let ss: OccupationState = getContext(stateID);
+  if (!ss) {
+    ss = new OccupationState(() => {
+      return { iCalURL: url, debug };
+    });
+    setContext(stateID, ss);
+  }
+  let occupationState: OccupationState = $derived(ss);
 
   let page: number = $state(0);
   let rfMonth: number | DateTime = $derived(
