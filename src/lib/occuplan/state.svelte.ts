@@ -2,7 +2,7 @@ import { normalizeDate } from '$lib/helpers/normalizeDate.js';
 import { getEvents } from '$lib/helpers/readICS.js';
 import { DateTime, type MonthNumbers, type WeekdayNumbers } from 'luxon';
 
-export const contextKey = (id: string) => `SS_${id}_CONTEXT`
+export const contextKey = (id: string) => `SS_${id}_CONTEXT`;
 
 export interface AvailableSpans {
   [key: number]: DateTime | null;
@@ -299,8 +299,8 @@ export class OccupationState {
   public loading: boolean = $state(false);
   public debug: boolean = $state(false);
 
-  constructor(iniFn: () => { iCalURL: string, debug: boolean | undefined }) {
-    const data = iniFn()
+  constructor(iniFn: () => { iCalURL: string; debug: boolean | undefined }) {
+    const data = iniFn();
     this.debug = data.debug ?? false;
     if (this.debug) console.log('Constructing OState with CalUrl: ', data.iCalURL);
     this.iCalURL = data.iCalURL;
@@ -552,4 +552,3 @@ export class OccupationState {
       `;
   };
 }
-

@@ -1,6 +1,5 @@
 <script lang="ts">
-  import LinkSvg from '$lib/svg/LinkSVG.svelte';
-  import ExtLinkSvg from '$lib/svg/ExtLinkSVG.svelte';
+  import Icon from '$lib/basic/Icon.svelte';
   import { TwicImg } from '@twicpics/components/svelte5';
   import type { PhotoContent, I18nFacade } from '$lib/types.js';
 
@@ -57,12 +56,26 @@
       rel="noreferrer noopener nofollow"
     >
       {@render twic()}
-      <div class="link-icon-wrapper"><ExtLinkSvg size="1.8rem" /></div>
+      <div class="link-icon-wrapper">
+        <Icon
+          iconName="extlink"
+          width="1.8rem"
+          height="1.8rem"
+          color="var(--external-link-font-color, blue)"
+        />
+      </div>
     </a>
   {:else}
     <a bind:clientHeight={photoHeight} style="width: {width}; height: {height};" href={link}>
       {@render twic()}
-      <div class="link-icon-wrapper"><LinkSvg size="1.4rem" /></div>
+      <div class="link-icon-wrapper">
+        <Icon
+          iconName="link"
+          width="1.4rem"
+          height="1.4rem"
+          color="var(--picture-link-font-color, black)"
+        />
+      </div>
     </a>
   {/if}
 {:else}

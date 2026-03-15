@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { NavItem, I18nFacade } from '$lib/types.js';
-  import ExtLinkSvg from '$lib/svg/ExtLinkSVG.svelte';
+  import Icon from '$lib/basic/Icon.svelte';
   import { getContext } from 'svelte';
   import { GLOBAL_STATE, GlobalState } from './state.svelte';
 
@@ -24,7 +24,12 @@
     {#if n.external}
       <div class="ext-link-wrapper">
         <div class="link-icon-wrapper">
-          <ExtLinkSvg size="1.6rem" />
+          <Icon
+            iconName="extlink"
+            width="1.6rem"
+            height="1.6rem"
+            color="var(--external-link-font-color, blue)"
+          />
         </div>
         <a
           href={n.path}

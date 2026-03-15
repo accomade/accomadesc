@@ -3,8 +3,7 @@
   import { blur } from 'svelte/transition';
 
   import MainNav from '$lib/MainNav.svelte';
-  import HamburgerSVG from '$lib/svg/HamburgerSVG.svelte';
-  import XSVG from '$lib/svg/XSVG.svelte';
+  import Icon from '$lib/basic/Icon.svelte';
 
   let {
     nav,
@@ -38,9 +37,13 @@
   tabindex={isMenuOpen ? 0 : -1}
 >
   {#if isMenuOpen}
-    <XSVG />
+    <Icon
+      iconName="x"
+      color="var(--nav-font-color)"
+      filter="drop-shadow(0.2rem 0.2rem 0.2rem black)"
+    />
   {:else}
-    <HamburgerSVG />
+    <Icon iconName="hamburger" color="var(--hamburger-color)" filter="var(--hamburger-filter)" />
   {/if}
 </button>
 
