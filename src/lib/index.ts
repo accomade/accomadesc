@@ -30,7 +30,6 @@ import Section from '$lib/Section.svelte';
 import Text from '$lib/Text.svelte';
 import Weather from '$lib/Weather.svelte';
 import PageComponent from '$lib/PageComponent.svelte';
-
 export type { OccuplanTranslations } from '$lib/occusplan-link/state.svelte.js';
 
 export type {
@@ -114,6 +113,24 @@ export {
   isAccoBlock,
 } from '$lib/types.js';
 
+import AcSVG from './svg/AcSVG.svelte';
+import AreaSVG from './svg/AreaSVG.svelte';
+import BathroomSVG from './svg/BathroomSVG.svelte';
+import CheckSVG from './svg/CheckSVG.svelte';
+import ExtLinkSVG from './svg/ExtLinkSVG.svelte';
+import HamburgerSVG from './svg/HamburgerSVG.svelte';
+import LinkSVG from './svg/LinkSVG.svelte';
+import LogoSVG from './svg/LogoSVG.svelte';
+import NoCheckSVG from './svg/NoCheckSVG.svelte';
+import NotSVG from './svg/NotSVG.svelte';
+import ParkingSVG from './svg/ParkingSVG.svelte';
+import PeopleSVG from './svg/PeopleSVG.svelte';
+import PetsSVG from './svg/PetsSVG.svelte';
+import SmokingSVG from './svg/SmokingSVG.svelte';
+import TvSVG from './svg/TvSVG.svelte';
+import WifiSVG from './svg/WifiSVG.svelte';
+import XSVG from './svg/XSVG.svelte';
+
 export {
   randomID,
   randomName,
@@ -144,4 +161,21 @@ export {
   Notes,
   PageComponent,
   SiteState,
-};
+  AcSVG,
+  AreaSVG,
+  BathroomSVG,
+  CheckSVG,
+  ExtLinkSVG,
+  HamburgerSVG,
+  LinkSVG,
+  LogoSVG,
+  NoCheckSVG,
+  NotSVG,
+  ParkingSVG,
+  PeopleSVG,
+  PetsSVG,
+  SmokingSVG,
+  TvSVG,
+  WifiSVG,
+  XSVG,
+}
