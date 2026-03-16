@@ -60,13 +60,8 @@ const categoryMap: Record<string, keyof typeof iconCategories> = {
   wifi: 'amenities',
 };
 
-const iconCache: Record<string, string> = {};
 
 export const getIcon = (name: string, color = 'black'): string => {
-  if (iconCache[name]) {
-    return iconCache[name];
-  }
-
   const category = categoryMap[name];
   if (!category || !iconCategories[category]) {
     console.warn(`Icon "${name}" not found`);
@@ -78,7 +73,6 @@ export const getIcon = (name: string, color = 'black'): string => {
 
   if (iconSvg) {
     const coloredIcon = iconSvg.replace(/\{color\}|{color}/g, color);
-    iconCache[name] = coloredIcon;
     return coloredIcon;
   }
 

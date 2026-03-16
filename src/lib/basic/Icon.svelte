@@ -14,7 +14,10 @@
     filter?: string;
   } = $props();
 
-  const icon = $derived(getIcon(iconName, color));
+  const icon = $derived.by(() => {
+    console.log('Color changed:', color);
+    return getIcon(iconName, color);
+  });
 </script>
 
 <div

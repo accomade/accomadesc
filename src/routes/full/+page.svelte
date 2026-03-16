@@ -26,6 +26,8 @@
   import Text from '$lib/Text.svelte';
   import Button from '$lib/basic/Button.svelte';
   import AmenitiesCore from '$lib/AmenitiesCore.svelte';
+  import Icon from '$lib/basic/Icon.svelte';
+
   import { randomID } from '$lib/names/gen.js';
 
   import ContactForm from '$lib/ContactForm.svelte';
@@ -63,6 +65,7 @@
   import BookingRequest from '$lib/BookingRequest.svelte';
   import OccuPlanPicker from '$lib/occuplan/OccuPlanPicker.svelte';
   import PricingShort from '$lib/PricingShort.svelte';
+  import ColorPicker from '$lib/basic/ColorPicker.svelte';
 
   let css = $state(initialCss);
   let styleOpen = $state(false);
@@ -415,6 +418,11 @@
       explainer: 'brRef10',
     },
   };
+
+  let iconColor = $state('#000000');
+  $effect(() => {
+    console.log('IconColor:', iconColor);
+  });
 </script>
 
 <h1>Welcome to Accomade Svelte Components (accomadesc)</h1>
@@ -449,6 +457,16 @@
       <CssEditor bind:css />
     </div>
   {/if}
+  <h3>Icons</h3>
+  <div class="component">
+    <div class="component-view" style="height: 6rem;">
+      <Icon iconName="extlink" color={iconColor} width="4rem" height="4rem" />
+    </div>
+    <div style="display: flex; justify-content: center; align-items: center; padding: 1rem;">
+      <ColorPicker rgbColor={iconColor} colorChanged={(newColor) => (iconColor = newColor)}
+      ></ColorPicker>
+    </div>
+  </div>
   <h3>Booking Request</h3>
   <div class="component">
     <div class="component-view" style={css}>
