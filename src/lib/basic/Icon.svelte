@@ -15,7 +15,6 @@
   } = $props();
 
   const icon = $derived.by(() => {
-    console.log('Color changed:', color);
     return getIcon(iconName, color);
   });
 </script>
