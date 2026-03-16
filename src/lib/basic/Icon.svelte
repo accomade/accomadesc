@@ -13,6 +13,8 @@
     height?: string;
     filter?: string;
   } = $props();
+
+  const icon = $derived(getIcon(iconName, color));
 </script>
 
 <div
@@ -23,5 +25,5 @@
     {filter ? `filter: ${filter};` : ''}
     "
 >
-  {@html getIcon(iconName, color)}
+  {@html icon}
 </div>
