@@ -78,4 +78,26 @@
     width: 100%;
     min-height: 60vh;
   }
+
+  /* Auto-detect system dark mode */
+  @media (prefers-color-scheme: dark) {
+    /* Target ONLY the tile pane so markers and popups stay normal */
+    :global(.leaflet-tile-pane) {
+      filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
+    }
+
+    /* Darken the container so you don't get white flashes while tiles load */
+    :global(.leaflet-container) {
+      background-color: #222222 !important;
+    }
+
+    /* Optional: Tweak the attribution link colors for dark mode readability */
+    :global(.leaflet-control-attribution) {
+      background-color: rgba(34, 34, 34, 0.7) !important;
+      color: #ccc !important;
+    }
+    :global(.leaflet-control-attribution a) {
+      color: #66b2ff !important;
+    }
+  }
 </style>
