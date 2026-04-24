@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 import type { FormatSpec, I18nFacade, SiteConfig } from './types.js';
 import type { OccuplanTranslations } from './occuplan/state.svelte.js';
 import { format } from './helpers/format.js';
+import { MoneyFormats } from './helpers/moneyFormats.js';
 
 interface FullTranslation {
   calendar: OccuplanTranslations;
@@ -75,11 +76,18 @@ export class SiteState implements I18nFacade {
     return this._getSiteConfigFn().lang.formats;
   }
 
+  #defaultFormats: Record<string, FormatSpec> | undefined;
+
   selectedTheme: 'light' | 'dark' = $state('light');
   selectedThemeInitialized: boolean = $state(false);
 
-  constructor(getSiteConfig: () => SiteConfig, lang: string | undefined) {
+  constructor(
+    getSiteConfig: () => SiteConfig,
+    lang: string | undefined,
+    defaultFormats?: Record<string, FormatSpec>,
+  ) {
     this._getSiteConfigFn = getSiteConfig;
+    this.#defaultFormats = defaultFormats;
     if (!lang || !getSiteConfig().lang.supportedLangs.includes(lang)) {
       this.currentLang = getSiteConfig().lang.defaultLang;
     } else {
@@ -102,11 +110,8 @@ export class SiteState implements I18nFacade {
 
   public formatFunc = (ref: string, props: Record<string, unknown>): string => {
     const langFormats = this.formats[this.currentLang];
-    if (!langFormats) {
-      console.warn(`[Missing format language: ${this.currentLang}]`);
-      return '[UNDEF]';
-    }
-    const fString = langFormats[ref];
+    const defaultLangFormats = this.#defaultFormats?.[this.currentLang];
+    const fString = langFormats?.[ref] ?? defaultLangFormats?.[ref];
     if (!fString) {
       console.warn(`[Missing formatFunc: ${ref}]`);
       return '[UNDEF]';
@@ -120,12 +125,14 @@ export class SiteState implements I18nFacade {
     if (!d) return this.translateFunc('invalid');
 
     const formatSpecs = this.formats[this.currentLang];
-    if (!formatSpecs) {
+    const defaultFormatSpecs = this.#defaultFormats?.[this.currentLang];
+    const effectiveFormat = formatSpecs ?? defaultFormatSpecs;
+    if (!effectiveFormat) {
       return this.translateFunc('invalid');
     }
     let f = 'yyyy-MM-dd';
-    if (formatSpecs.dateFormat) {
-      f = formatSpecs.dateFormat;
+    if (effectiveFormat.dateFormat) {
+      f = effectiveFormat.dateFormat;
     }
 
     let date: DateTime;
@@ -134,7 +141,16 @@ export class SiteState implements I18nFacade {
 
     if (!date.isValid) return this.translateFunc('invalid');
 
-    return date.setLocale(formatSpecs.locale).toFormat(f);
+    return date.setLocale(effectiveFormat.locale).toFormat(f);
+  };
+
+  public formatMoneyFunc = (value: number): string => {
+    const scaled = value / 100.0;
+    const fmt = MoneyFormats[this.currentLang] ?? MoneyFormats['en'];
+    if (!fmt) {
+      return String(scaled);
+    }
+    return fmt.format(scaled);
   };
 
   public translateWithLangFunc = (ref: string, lang: string): string => {
