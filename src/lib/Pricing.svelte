@@ -49,7 +49,10 @@
   const formatAdditionalPersonPrice = (price: number, termsRef: string | undefined): string => {
     if (formatFunc && translateFunc) {
       let terms = '';
-      if (termsRef) terms = translateFunc(termsRef);
+      if (termsRef) {
+        terms = translateFunc(termsRef);
+        if (!terms) terms = termsRef;
+      }
       let formattedPrice = formatMoneyFunc?.(price);
       return formatFunc('additionalPersonPrice', {
         price: formattedPrice,
@@ -124,13 +127,13 @@
   const formatExtraPersonCol = (entry: PricingEntry): string => {
     let result = '<div style="display:flex; column-gap: 2rem; padding-left:1rem;flex-wrap: wrap;">';
 
-    if (entry.additionalPersonPrice1) {
+    if (entry.additionalPersonPrice1 && entry.additionalPersonText1) {
       result += `<span>${formatAdditionalPersonPrice(entry.additionalPersonPrice1, entry.additionalPersonText1)}</span>`;
     }
-    if (entry.additionalPersonPrice2) {
+    if (entry.additionalPersonPrice2 && entry.additionalPersonText2) {
       result += `<span>${formatAdditionalPersonPrice(entry.additionalPersonPrice2, entry.additionalPersonText2)}</span>`;
     }
-    if (entry.additionalPersonPrice3) {
+    if (entry.additionalPersonPrice3 && entry.additionalPersonText3) {
       result += `<span>${formatAdditionalPersonPrice(entry.additionalPersonPrice3, entry.additionalPersonText3)}</span>`;
     }
     result += '</div>';
