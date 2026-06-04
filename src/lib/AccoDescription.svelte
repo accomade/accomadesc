@@ -49,6 +49,11 @@
     position: relative;
     height: 100%;
     width: 100%;
+    background-color: var(--main-bg-color);
+
+    :global(*) {
+      color: var(--main-font-color);
+    }
 
     div.content {
       width: 100%;
