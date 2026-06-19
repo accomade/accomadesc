@@ -14,7 +14,7 @@
 </script>
 
 <header>
-  <object title="logo" class="logo" data={logoLink}></object>
+  <img title="logo" class="logo" src={logoLink} alt="logo" />
   <div class="text-wrapper">
     <div class="header"><h1>{@html translateFunc ? translateFunc(title) : ''}</h1></div>
     {#if slug}
@@ -59,7 +59,7 @@
     color: var(--header-font-color);
   }
 
-  object.logo {
+  img.logo {
     position: absolute;
     left: 0;
     top: 0;
@@ -85,7 +85,7 @@
     div.slug {
       display: none;
     }
-    object.logo {
+    img.logo {
       width: 4.5rem;
     }
     div.header h1 {
@@ -100,7 +100,7 @@
       margin-right: 1rem;
     }
 
-    object.logo {
+    img.logo {
       display: none;
     }
     div.header h1 {
