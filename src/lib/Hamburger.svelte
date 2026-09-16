@@ -55,7 +55,7 @@
     border-radius: 0.2rem;
     width: 4rem;
     height: 4rem;
-    z-index: 999;
+    z-index: 1002;
     position: relative;
   }
 </style>
