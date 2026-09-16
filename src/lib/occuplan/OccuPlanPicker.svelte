@@ -220,6 +220,12 @@
   <Spinner />
 {/if}
 
+{#if occupationState?.error}
+  <div class="occuplan-error">
+    <p>{occupationState.error}</p>
+  </div>
+{/if}
+
 <div class="wrapper">
   <section class="occuplan-wrapper" style="max-width: {maxWidth}; width: 100%;">
     <header class="occupation-plan-header">
@@ -580,5 +586,14 @@
   .request-button.request {
     background-color: var(--occupation-type-2-bg-color);
     color: var(--occupation-type-font-bg-color);
+  }
+
+  .occuplan-error {
+    border: var(--occuplan-main-border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    color: var(--occuplan-main-font-color);
+    background-color: var(--occuplan-main-bg-color);
+    text-align: center;
   }
 </style>

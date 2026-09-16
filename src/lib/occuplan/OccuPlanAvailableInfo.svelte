@@ -40,4 +40,10 @@
   <Spinner />
 {/if}
 
-{@render children(av)}
+{#if occupationState?.error}
+  <div class="occuplan-error">
+    <p>{occupationState.error}</p>
+  </div>
+{:else}
+  {@render children(av)}
+{/if}

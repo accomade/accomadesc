@@ -297,6 +297,7 @@ export class OccupationState {
   public occupiedDays: Record<string, boolean> = $state({});
   public occupations: Occupation[] = $state([]);
   public loading: boolean = $state(false);
+  public error: string = $state('');
   public debug: boolean = $state(false);
 
   constructor(iniFn: () => { iCalURL: string; debug: boolean | undefined }) {
@@ -310,12 +311,19 @@ export class OccupationState {
   public loadOccupations = async () => {
     if (this.debug) console.log('(Re)Loading Occupations');
     this.loading = true;
+    this.error = '';
     if (this.iCalURL) {
       const eventsResult = await getEvents(this.iCalURL, this.eventsIncomingCallback);
 
       this.loading = false;
-      return !eventsResult.error;
+      if (eventsResult.error) {
+        this.error = eventsResult.message || 'Failed to load calendar data';
+        return false;
+      }
+      return true;
     }
+    this.loading = false;
+    this.error = 'No calendar URL configured';
     return false;
   };
 

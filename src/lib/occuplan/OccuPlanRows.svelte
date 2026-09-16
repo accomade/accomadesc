@@ -146,6 +146,12 @@
   <Spinner />
 {/if}
 
+{#if occupationState?.error}
+  <div class="occuplan-error">
+    <p>{occupationState.error}</p>
+  </div>
+{/if}
+
 <section class="occuplan-wrapper" style="max-width: {maxWidth};">
   <header class="occupation-plan-header">
     <div class="header-controls">
@@ -372,5 +378,14 @@
       color: var(--occuplan-main-font-color);
       font-size: clamp(1rem, 55cqh, 2rem);
     }
+  }
+
+  .occuplan-error {
+    border: var(--occuplan-main-border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    color: var(--occuplan-main-font-color);
+    background-color: var(--occuplan-main-bg-color);
+    text-align: center;
   }
 </style>
