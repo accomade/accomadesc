@@ -1,8 +1,13 @@
 <script lang="ts">
   import type { MapOptions, Map } from 'leaflet';
   import 'leaflet/dist/leaflet.css';
-  import 'leaflet/dist/images/marker-shadow.png';
-  import 'leaflet/dist/images/marker-icon.png';
+
+  // Bundlers break leaflet's automatic marker-image path detection (it scans
+  // for a leaflet script/link tag), so markers 404 as relative
+  // `marker-icon.png` (P23 on the published site). Pin the bundled URLs.
+  import markerIconUrl from 'leaflet/dist/images/marker-icon.png';
+  import markerIconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
+  import markerShadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
   import { onMount, onDestroy } from 'svelte';
   import type { LeafletMapContent } from '$lib/types.js';
@@ -24,6 +29,11 @@
     };
     const leafletModule = await import('leaflet');
     const L = leafletModule.default;
+    L.Icon.Default.mergeOptions({
+      iconUrl: markerIconUrl,
+      iconRetinaUrl: markerIconRetinaUrl,
+      shadowUrl: markerShadowUrl,
+    });
 
     if (mapElement) {
       theMap = L.map(mapElement, options);
