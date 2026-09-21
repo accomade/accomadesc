@@ -58,7 +58,9 @@
     }
 
     div.content {
-      width: 100%;
+      /* width:auto (not 100%): side margins must fit inside the container,
+         otherwise 100% + margins overflow the viewport → h-scrollbar. */
+      width: auto;
       height: 100%;
 
       text-align: left;
