@@ -25,6 +25,7 @@
     sentErroredText,
     submitText,
     invalidText,
+    accoInactiveText,
     maxCharsAllowed = 300,
     preview = false,
     translateFunc,
@@ -51,9 +52,10 @@
   );
 
   let errored = $state(false);
+  let unavailable = $state(false);
   let successfullySent = $state(false);
   let sending = $state(false);
-  let disabled = $derived(preview || errored || successfullySent);
+  let disabled = $derived(preview || errored || unavailable || successfullySent);
 
   const stateID = contextKey(untrack(() => calUrl));
   let ss: OccupationState = getContext(stateID);
@@ -123,7 +125,10 @@
           leave: leave?.toISO(),
         }),
       });
-      if (response.status != 201) {
+      if (response.status == 410) {
+        unavailable = true;
+        console.log('Accommodation no longer available for booking');
+      } else if (response.status != 201) {
         errored = true;
         console.log('Error sending mail', response.status, response.statusText);
       } else {
@@ -228,6 +233,13 @@
       {#if errored || preview}
         <div class="message error">
           {translateFunc ? translateFunc(sentErroredText) : 'Error Occurred Sending Email'}
+        </div>
+      {/if}
+      {#if unavailable}
+        <div class="message error">
+          {translateFunc && accoInactiveText
+            ? translateFunc(accoInactiveText)
+            : 'This accommodation is no longer available for booking.'}
         </div>
       {/if}
       {#if invalid || preview}

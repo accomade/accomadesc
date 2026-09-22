@@ -331,6 +331,9 @@ export interface BookingRequestContent {
   successfullySentText: string;
   sentErroredText: string;
   invalidText: string;
+  /** Optional: shown when the server answers 410 (acco deactivated). Falls
+      back to an English default so older published configs keep working. */
+  accoInactiveText?: string;
   messageLabel: string;
   explainer: string;
   maxCharsAllowed?: number;
