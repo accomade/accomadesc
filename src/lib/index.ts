@@ -30,7 +30,33 @@ import Section from '$lib/Section.svelte';
 import Text from '$lib/Text.svelte';
 import Weather from '$lib/Weather.svelte';
 import PageComponent from '$lib/PageComponent.svelte';
-export type { OccuplanTranslations } from '$lib/occusplan-link/state.svelte.js';
+
+import OccuPlanAvailableInfo from '$lib/occuplan/OccuPlanAvailableInfo.svelte';
+import OccuPlanGrid from '$lib/occuplan/OccuPlanGrid.svelte';
+import OccuPlanPicker from '$lib/occuplan/OccuPlanPicker.svelte';
+import OccuPlanRows from '$lib/occuplan/OccuPlanRows.svelte';
+import OccuPlanWrapper from '$lib/occuplan/OccuPlanWrapper.svelte';
+import {
+  OccupationState,
+  contextKey,
+  occupationTypeFormatting,
+  occupationTypeFormattingByOccupation,
+  defaultWeekendLabel,
+  defaultWeekdayLabels,
+  defaultMonthLabels,
+  defaultMonthHeaderFormat,
+} from '$lib/occuplan/state.svelte.js';
+import { getEvents } from '$lib/helpers/readICS.js';
+export type {
+  OccuplanTranslations,
+  Occupation,
+  OccupationCallback,
+  OccupationType,
+  AvailableSpans,
+  WeekdayLabels,
+  MonthLabels,
+} from '$lib/occuplan/state.svelte.js';
+export type { GetEventsResult } from '$lib/helpers/readICS.js';
 
 export type {
   GridPhoto,
@@ -143,4 +169,18 @@ export {
   Notes,
   PageComponent,
   SiteState,
+  OccuPlanAvailableInfo,
+  OccuPlanGrid,
+  OccuPlanPicker,
+  OccuPlanRows,
+  OccuPlanWrapper,
+  OccupationState,
+  contextKey,
+  occupationTypeFormatting,
+  occupationTypeFormattingByOccupation,
+  defaultWeekendLabel,
+  defaultWeekdayLabels,
+  defaultMonthLabels,
+  defaultMonthHeaderFormat,
+  getEvents,
 };
