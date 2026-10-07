@@ -279,7 +279,9 @@
   main {
     display: grid;
     width: 100%;
-    overflow-x: auto;
+    /* No scrollbar: month paging is done with the pager buttons above.
+       A scroller here only paints Chrome's horizontal bar. */
+    overflow-x: hidden;
   }
 
   .month-label {
