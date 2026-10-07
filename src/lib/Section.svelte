@@ -73,8 +73,12 @@
     }
   });
 
+  // max-width caps the section; padding always applies as side gutters
+  // (box-sizing is border-box, so padding stays inside the cap). Either/or
+  // dropped padding whenever maxWidth was set — and the editor defaults
+  // maxWidth to '100%', so configured gutters never rendered.
   let widthStyle = $derived(
-    maxWidth ? `max-width: ${maxWidth};` : `padding-left: ${padding}; padding-right: ${padding};`,
+    `${maxWidth ? `max-width: ${maxWidth};` : ''}padding-left: ${padding}; padding-right: ${padding};`,
   );
 </script>
 
