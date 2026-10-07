@@ -157,6 +157,11 @@ export interface PhotoGallery {
 export interface PhotoGalleryContent {
   gridPhotoWidth?: number;
   photos: Photo[];
+  /**
+   * Start with all photos minimized (old behaviour). Absent means true.
+   * Set false to maximize the first photo on load.
+   */
+  minimizedAtLoad?: boolean;
 }
 
 export interface Pricing extends AccoBlock {

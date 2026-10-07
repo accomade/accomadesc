@@ -3,9 +3,10 @@
   import PhotoComponent from '$lib/Photo.svelte';
   import type { I18nFacade, Photo, PhotoGalleryContent } from '$lib/types.js';
   import { browser } from '$app/environment';
+  import { untrack } from 'svelte';
   import { slide } from 'svelte/transition';
 
-  let { photos, gridPhotoWidth = 300, translateFunc }: PhotoGalleryContent & I18nFacade = $props();
+  let { photos, gridPhotoWidth = 300, minimizedAtLoad = true, translateFunc }: PhotoGalleryContent & I18nFacade = $props();
 
   let landscape = $state(true);
   if (browser) {
@@ -22,7 +23,8 @@
     Math.floor(width / (gridPhotoWidth && Number.isInteger(gridPhotoWidth) ? gridPhotoWidth : 300)),
   );
 
-  let zoomed: number | null = $state(0);
+  // Initial zoom only: later prop changes must not yank the viewer.
+  let zoomed: number | null = $state(untrack(() => minimizedAtLoad) ? null : 0);
   let zoomedPhoto: Photo | null = $derived.by(() => {
     if (zoomed === null) return null;
     const photo = photos[zoomed];
