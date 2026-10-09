@@ -47,17 +47,17 @@
     "luxon": "^3.7.2"
   },
   "devDependencies": {
-    "@playwright/test": "^1.63.0",
+    "@playwright/test": "^1.64.0",
     "@sveltejs/adapter-auto": "^8.0.0",
     "@sveltejs/adapter-static": "^4.0.0",
-    "@sveltejs/kit": "^3.0.0",
+    "@sveltejs/kit": "^3.0.1",
     "@sveltejs/package": "^3.0.0",
     "@sveltejs/vite-plugin-svelte": "^7.3.1",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/svelte": "^5.4.2",
     "@types/luxon": "^3.7.6",
-    "@types/node": "^26.6.4",
+    "@types/node": "^26.6.5",
     "@vitest/ui": "^5.0.3",
     "gdpr-cooco-banner": "^0.0.13",
     "jsdom": "^30.1.2",
@@ -66,8 +66,8 @@
     "publint": "^0.3.25",
     "svelte": "^5.57.2",
     "svelte-check": "^4.7.6",
-    "typescript": "^6.0.3",
-    "vite": "^8.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4",
     "vitest": "^5.0.3"
   },
   "peerDependencies": {
