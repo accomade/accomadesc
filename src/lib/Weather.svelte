@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { browser } from '$app/environment';
-  import type { I18nFacade, WeatherContent } from '$lib/types.js';
-  import { randomID } from '$lib/names/gen.js';
+  import { browser } from '$app/env';
+  import type { I18nFacade, WeatherContent } from '#lib/types.js';
+  import { randomID } from '#lib/names/gen.js';
 
   let { header1, header2, location, translateFunc, currentLang }: WeatherContent & I18nFacade =
     $props();

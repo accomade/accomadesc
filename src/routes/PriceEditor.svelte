@@ -1,5 +1,5 @@
 <script lang="ts">
-  import TextInput from '$lib/basic/TextInput.svelte';
+  import TextInput from '#lib/basic/TextInput.svelte';
 
   let {
     price = $bindable(),

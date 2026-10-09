@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Icon from '$lib/basic/Icon.svelte';
-  import type { AmenitiesCoreContent, I18nFacade } from '$lib/types.js';
+  import Icon from '#lib/basic/Icon.svelte';
+  import type { AmenitiesCoreContent, I18nFacade } from '#lib/types.js';
 
   let {
     peopleMin,

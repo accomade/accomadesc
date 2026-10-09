@@ -1,8 +1,8 @@
 <script lang="ts">
   import { page } from '$app/state';
   import { fade } from 'svelte/transition';
-  import type { Nav, I18nFacade } from '$lib/types.js';
-  import NavItem from '$lib/NavItem.svelte';
+  import type { Nav, I18nFacade } from '#lib/types.js';
+  import NavItem from '#lib/NavItem.svelte';
   import { getContext } from 'svelte';
   import { GLOBAL_STATE, GlobalState } from './state.svelte';
 

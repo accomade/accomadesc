@@ -1,12 +1,17 @@
 <script lang="ts">
-  import Button from '$lib/basic/Button.svelte';
-  import PhotoComponent from '$lib/Photo.svelte';
-  import type { I18nFacade, Photo, PhotoGalleryContent } from '$lib/types.js';
-  import { browser } from '$app/environment';
+  import Button from '#lib/basic/Button.svelte';
+  import PhotoComponent from '#lib/Photo.svelte';
+  import type { I18nFacade, Photo, PhotoGalleryContent } from '#lib/types.js';
+  import { browser } from '$app/env';
   import { untrack } from 'svelte';
   import { slide } from 'svelte/transition';
 
-  let { photos, gridPhotoWidth = 300, minimizedAtLoad = true, translateFunc }: PhotoGalleryContent & I18nFacade = $props();
+  let {
+    photos,
+    gridPhotoWidth = 300,
+    minimizedAtLoad = true,
+    translateFunc,
+  }: PhotoGalleryContent & I18nFacade = $props();
 
   let landscape = $state(true);
   if (browser) {

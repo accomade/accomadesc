@@ -1,15 +1,15 @@
 <script lang="ts">
-  import Photo from '$lib/Photo.svelte';
-  import Section from '$lib/Section.svelte';
-  import Hamburger from '$lib/Hamburger.svelte';
-  import PageHeader from '$lib/PageHeader.svelte';
-  import PageFooter from '$lib/PageFooter.svelte';
+  import Photo from '#lib/Photo.svelte';
+  import Section from '#lib/Section.svelte';
+  import Hamburger from '#lib/Hamburger.svelte';
+  import PageHeader from '#lib/PageHeader.svelte';
+  import PageFooter from '#lib/PageFooter.svelte';
   import {
     type Nav,
     type PageProps,
     type Section as SectionI,
     type I18nFacade,
-  } from '$lib/types.js';
+  } from '#lib/types.js';
   import NavItem from './NavItem.svelte';
   import { fade } from 'svelte/transition';
   import Icon from './basic/Icon.svelte';

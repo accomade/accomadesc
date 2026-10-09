@@ -10,7 +10,7 @@
     type TextI,
     type PageProps,
     type NavI,
-  } from '$lib/index.ts';
+  } from '#lib/index.ts';
 
   import { css } from './style.ts';
   import { page } from '$app/state';

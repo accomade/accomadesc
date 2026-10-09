@@ -8,11 +8,11 @@
     OccupationState,
     realFirstMonth,
     type OccuplanTranslations,
-  } from '$lib/occuplan/state.svelte.js';
+  } from '#lib/occuplan/state.svelte.js';
   import { getContext, onMount, setContext, untrack } from 'svelte';
-  import Button from '$lib/basic/Button.svelte';
-  import Spinner from '$lib/basic/Spinner.svelte';
-  import { normalizeDate } from '$lib/helpers/normalizeDate.js';
+  import Button from '#lib/basic/Button.svelte';
+  import Spinner from '#lib/basic/Spinner.svelte';
+  import { normalizeDate } from '#lib/helpers/normalizeDate.js';
 
   let {
     url,

@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { Nav, I18nFacade } from '$lib/types.js';
+  import type { Nav, I18nFacade } from '#lib/types.js';
   import { blur } from 'svelte/transition';
 
-  import MainNav from '$lib/MainNav.svelte';
-  import Icon from '$lib/basic/Icon.svelte';
+  import MainNav from '#lib/MainNav.svelte';
+  import Icon from '#lib/basic/Icon.svelte';
 
   let {
     nav,

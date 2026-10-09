@@ -10,7 +10,7 @@
   import markerShadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
   import { onMount, onDestroy } from 'svelte';
-  import type { LeafletMapContent } from '$lib/types.js';
+  import type { LeafletMapContent } from '#lib/types.js';
 
   let { lat, long, zoom, address = 'Achterstr. 4, 17459 Koserow' }: LeafletMapContent = $props();
 

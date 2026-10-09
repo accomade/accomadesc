@@ -60,7 +60,6 @@ const categoryMap: Record<string, keyof typeof iconCategories> = {
   wifi: 'amenities',
 };
 
-
 export const getIcon = (name: string, color = 'black'): string => {
   const category = categoryMap[name];
   if (!category || !iconCategories[category]) {

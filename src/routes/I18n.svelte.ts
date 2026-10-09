@@ -1,6 +1,6 @@
-import { MoneyFormats } from '$lib/index.ts';
-import type { OccuplanTranslations } from '$lib/occuplan/state.svelte.ts';
-import type { I18nFacade } from '$lib/types.js';
+import { MoneyFormats } from '#lib/index.ts';
+import type { OccuplanTranslations } from '#lib/occuplan/state.svelte.ts';
+import type { I18nFacade } from '#lib/types.js';
 import { DateTime as luxon, type DateTime } from 'luxon';
 
 export const calendarTranslations: Record<string, OccuplanTranslations> = {

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Icon from '$lib/basic/Icon.svelte';
+  import Icon from '#lib/basic/Icon.svelte';
   import { TwicImg } from '@twicpics/components/svelte5';
-  import type { PhotoContent, I18nFacade } from '$lib/types.js';
+  import type { PhotoContent, I18nFacade } from '#lib/types.js';
 
   let {
     alt,

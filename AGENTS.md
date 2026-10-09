@@ -65,7 +65,7 @@ pnpm run test:unit -- --testNamePattern="debounce"
 - Strict mode enabled in `tsconfig.json`
 - No `any` types - use explicit types or `unknown` where appropriate
 - Use interface for object types, type for unions/primitives
-- Export all types from `$lib/types.ts` and `$lib/index.ts`
+- Export all types from `#lib/types.ts` and `$lib/index.ts`
 - Use Type Guards for discriminated unions (see `isAccoBlock`, `isCalendar`, etc. in `types.ts`)
 
 ### Svelte 5 Components
@@ -79,7 +79,7 @@ pnpm run test:unit -- --testNamePattern="debounce"
 - Use `$state()` for reactive state
 - Place script tag at top, then template, then styles
 - Component files: PascalCase (e.g., `BookingRequest.svelte`)
-- Sub-components in `$lib/basic/` for atomic UI elements
+- Sub-components in `#lib/basic/` for atomic UI elements
 
 ### State Management
 
@@ -90,15 +90,15 @@ pnpm run test:unit -- --testNamePattern="debounce"
 
 ### Imports
 
-- Use `$lib` alias for absolute imports
+- Use `#lib` alias for absolute imports
 - Separate imports by type: values, types, components
 - Example:
   ```typescript
-  import AmenitiesCore from '$lib/AmenitiesCore.svelte';
+  import AmenitiesCore from '#lib/AmenitiesCore.svelte';
   import { type AccoCardContent, type I18nFacade } from './types.js';
-  import { format } from '$lib/helpers/format.js';
+  import { format } from '#lib/helpers/format.js';
   ```
-- Re-export everything from `$lib/index.ts`
+- Re-export everything from `#lib/index.ts`
 
 ### Naming Conventions
 

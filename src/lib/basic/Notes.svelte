@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { randomID } from '$lib/names/gen.js';
+  import { randomID } from '#lib/names/gen.js';
 
   let {
     id = randomID(),

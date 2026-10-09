@@ -1,13 +1,13 @@
 <script lang="ts">
-  import Button from '$lib/basic/Button.svelte';
-  import TextInput from '$lib/basic/TextInput.svelte';
-  import { PRICING_COLUMNS } from '$lib/types.js';
+  import Button from '#lib/basic/Button.svelte';
+  import TextInput from '#lib/basic/TextInput.svelte';
+  import { PRICING_COLUMNS } from '#lib/types.js';
   import type {
     PricingColumn,
     PricingEntry,
     PricingRange,
     StaticPricingRange,
-  } from '$lib/types.js';
+  } from '#lib/types.js';
   import type { I18n } from './I18n.svelte.js';
   import PricingEntryEditor from './PricingEntryEditor.svelte';
   import { DateTime } from 'luxon';

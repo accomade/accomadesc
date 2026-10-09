@@ -12,9 +12,9 @@
     type OccupationType,
     type OccuplanTranslations,
   } from './state.svelte.js';
-  import Button from '$lib/basic/Button.svelte';
-  import Spinner from '$lib/basic/Spinner.svelte';
-  import { randomID } from '$lib/names/gen.js';
+  import Button from '#lib/basic/Button.svelte';
+  import Spinner from '#lib/basic/Spinner.svelte';
+  import { randomID } from '#lib/names/gen.js';
   import { getContext, onMount, setContext, untrack } from 'svelte';
 
   let {

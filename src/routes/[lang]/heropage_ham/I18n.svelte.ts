@@ -1,5 +1,5 @@
-import type { OccuplanTranslations } from '$lib/occuplan/state.svelte';
-import type { I18nFacade } from '$lib/types.js';
+import type { OccuplanTranslations } from '#lib/occuplan/state.svelte.js';
+import type { I18nFacade } from '#lib/types.js';
 import { DateTime as luxon, type DateTime } from 'luxon';
 
 export const calendarTranslations: Record<string, OccuplanTranslations> = {

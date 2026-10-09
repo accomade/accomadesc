@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { BookingRequestContent, I18nFacade } from '$lib/types.js';
-  import Button from '$lib/basic/Button.svelte';
-  import Notes from '$lib/basic/Notes.svelte';
-  import Spinner from '$lib/basic/Spinner.svelte';
-  import TextInput from '$lib/basic/TextInput.svelte';
-  import { contextKey, OccupationState } from '$lib/occuplan/state.svelte.js';
-  import OccuPlanPicker from '$lib/occuplan/OccuPlanPicker.svelte';
+  import type { BookingRequestContent, I18nFacade } from '#lib/types.js';
+  import Button from '#lib/basic/Button.svelte';
+  import Notes from '#lib/basic/Notes.svelte';
+  import Spinner from '#lib/basic/Spinner.svelte';
+  import TextInput from '#lib/basic/TextInput.svelte';
+  import { contextKey, OccupationState } from '#lib/occuplan/state.svelte.js';
+  import OccuPlanPicker from '#lib/occuplan/OccuPlanPicker.svelte';
   import { fade } from 'svelte/transition';
   import type { DateTime } from 'luxon';
   import { randomID } from './names/gen.js';

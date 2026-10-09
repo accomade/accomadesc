@@ -1,6 +1,6 @@
 <script lang="ts">
-  import OccuPlanGrid from '$lib/occuplan/OccuPlanGrid.svelte';
-  import OccuPlanRows from '$lib/occuplan/OccuPlanRows.svelte';
+  import OccuPlanGrid from '#lib/occuplan/OccuPlanGrid.svelte';
+  import OccuPlanRows from '#lib/occuplan/OccuPlanRows.svelte';
   import {
     type OccuplanTranslations,
     type OccuplanMiscProps,
@@ -10,7 +10,7 @@
     defaultMonthHeaderFormat,
     contextKey,
     OccupationState,
-  } from '$lib/occuplan/state.svelte.js';
+  } from '#lib/occuplan/state.svelte.js';
   import { DateTime } from 'luxon';
   import { getContext, setContext, untrack } from 'svelte';
 

@@ -22,15 +22,15 @@
     type CalendarGrid as CalendarGridBlock,
     type Weather as WeatherBlock,
     type BookingRequest as BookingRequestBlock,
-  } from '$lib/types.js';
-  import Text from '$lib/Text.svelte';
-  import Button from '$lib/basic/Button.svelte';
-  import AmenitiesCore from '$lib/AmenitiesCore.svelte';
-  import Icon from '$lib/basic/Icon.svelte';
+  } from '#lib/types.js';
+  import Text from '#lib/Text.svelte';
+  import Button from '#lib/basic/Button.svelte';
+  import AmenitiesCore from '#lib/AmenitiesCore.svelte';
+  import Icon from '#lib/basic/Icon.svelte';
 
-  import { randomID } from '$lib/names/gen.js';
+  import { randomID } from '#lib/names/gen.js';
 
-  import ContactForm from '$lib/ContactForm.svelte';
+  import ContactForm from '#lib/ContactForm.svelte';
   import TextEditor from '../TextEditor.svelte';
   import AmenitiesEditor from '../AmenitiesEditor.svelte';
   import MapEditor from '../MapEditor.svelte';
@@ -41,8 +41,8 @@
     return i18n.translations[i18n.currentLang]?.[ref] ?? fallback;
   }
 
-  import LeafletMap from '$lib/LeafletMap.svelte';
-  import Photo from '$lib/Photo.svelte';
+  import LeafletMap from '#lib/LeafletMap.svelte';
+  import Photo from '#lib/Photo.svelte';
 
   import { installTwicPics } from '@twicpics/components/sveltekit';
   import '@twicpics/components/style.css';
@@ -52,20 +52,20 @@
   });
   import { css as initialCss } from '../css.ts';
   import CssEditor from '../CssEditor.svelte';
-  import Pricing from '$lib/Pricing.svelte';
+  import Pricing from '#lib/Pricing.svelte';
   import PricingEditor from '../PricingEditor.svelte';
-  import AccoCard from '$lib/AccoCard.svelte';
-  import PhotoGallery from '$lib/PhotoGallery.svelte';
-  import Weather from '$lib/Weather.svelte';
-  import CalendarAvailable from '$lib/CalendarAvailable.svelte';
-  import Calendar from '$lib/Calendar.svelte';
-  import CalendarRows from '$lib/CalendarRows.svelte';
-  import CalendarGrid from '$lib/CalendarGrid.svelte';
+  import AccoCard from '#lib/AccoCard.svelte';
+  import PhotoGallery from '#lib/PhotoGallery.svelte';
+  import Weather from '#lib/Weather.svelte';
+  import CalendarAvailable from '#lib/CalendarAvailable.svelte';
+  import Calendar from '#lib/Calendar.svelte';
+  import CalendarRows from '#lib/CalendarRows.svelte';
+  import CalendarGrid from '#lib/CalendarGrid.svelte';
   import CalendarDynamicEditor from '../CalendarDynamicEditor.svelte';
-  import BookingRequest from '$lib/BookingRequest.svelte';
-  import OccuPlanPicker from '$lib/occuplan/OccuPlanPicker.svelte';
-  import PricingShort from '$lib/PricingShort.svelte';
-  import ColorPicker from '$lib/basic/ColorPicker.svelte';
+  import BookingRequest from '#lib/BookingRequest.svelte';
+  import OccuPlanPicker from '#lib/occuplan/OccuPlanPicker.svelte';
+  import PricingShort from '#lib/PricingShort.svelte';
+  import ColorPicker from '#lib/basic/ColorPicker.svelte';
 
   let css = $state(initialCss);
   let styleOpen = $state(false);

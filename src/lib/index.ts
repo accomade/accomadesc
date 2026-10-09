@@ -1,41 +1,41 @@
 // Reexport your entry components here
-import { randomName, randomID } from '$lib/names/gen.js';
-import { format } from '$lib/helpers/format.js';
-import { MoneyFormats } from '$lib/helpers/moneyFormats.js';
+import { randomName, randomID } from '#lib/names/gen.js';
+import { format } from '#lib/helpers/format.js';
+import { MoneyFormats } from '#lib/helpers/moneyFormats.js';
 import { SiteState } from './SiteState.svelte.js';
 
-import Avatar from '$lib/basic/Avatar.svelte';
-import Button from '$lib/basic/Button.svelte';
-import Icon from '$lib/basic/Icon.svelte';
-import Notes from '$lib/basic/Notes.svelte';
-import Spinner from '$lib/basic/Spinner.svelte';
-import TextInput from '$lib/basic/TextInput.svelte';
+import Avatar from '#lib/basic/Avatar.svelte';
+import Button from '#lib/basic/Button.svelte';
+import Icon from '#lib/basic/Icon.svelte';
+import Notes from '#lib/basic/Notes.svelte';
+import Spinner from '#lib/basic/Spinner.svelte';
+import TextInput from '#lib/basic/TextInput.svelte';
 
-import AccoCard from '$lib/AccoCard.svelte';
-import AccoDescription from '$lib/AccoDescription.svelte';
-import AmenitiesCore from '$lib/AmenitiesCore.svelte';
-import BookingRequest from '$lib/BookingRequest.svelte';
-import Calendar from '$lib/Calendar.svelte';
-import CalendarGrid from '$lib/CalendarGrid.svelte';
-import CalendarRows from '$lib/CalendarRows.svelte';
-import ContactForm from '$lib/ContactForm.svelte';
+import AccoCard from '#lib/AccoCard.svelte';
+import AccoDescription from '#lib/AccoDescription.svelte';
+import AmenitiesCore from '#lib/AmenitiesCore.svelte';
+import BookingRequest from '#lib/BookingRequest.svelte';
+import Calendar from '#lib/Calendar.svelte';
+import CalendarGrid from '#lib/CalendarGrid.svelte';
+import CalendarRows from '#lib/CalendarRows.svelte';
+import ContactForm from '#lib/ContactForm.svelte';
 
-import CalendarAvailable from '$lib/CalendarAvailable.svelte';
-import LeafletMap from '$lib/LeafletMap.svelte';
-import Photo from '$lib/Photo.svelte';
-import PhotoGallery from '$lib/PhotoGallery.svelte';
-import Pricing from '$lib/Pricing.svelte';
-import PricingShort from '$lib/PricingShort.svelte';
-import Section from '$lib/Section.svelte';
-import Text from '$lib/Text.svelte';
-import Weather from '$lib/Weather.svelte';
-import PageComponent from '$lib/PageComponent.svelte';
+import CalendarAvailable from '#lib/CalendarAvailable.svelte';
+import LeafletMap from '#lib/LeafletMap.svelte';
+import Photo from '#lib/Photo.svelte';
+import PhotoGallery from '#lib/PhotoGallery.svelte';
+import Pricing from '#lib/Pricing.svelte';
+import PricingShort from '#lib/PricingShort.svelte';
+import Section from '#lib/Section.svelte';
+import Text from '#lib/Text.svelte';
+import Weather from '#lib/Weather.svelte';
+import PageComponent from '#lib/PageComponent.svelte';
 
-import OccuPlanAvailableInfo from '$lib/occuplan/OccuPlanAvailableInfo.svelte';
-import OccuPlanGrid from '$lib/occuplan/OccuPlanGrid.svelte';
-import OccuPlanPicker from '$lib/occuplan/OccuPlanPicker.svelte';
-import OccuPlanRows from '$lib/occuplan/OccuPlanRows.svelte';
-import OccuPlanWrapper from '$lib/occuplan/OccuPlanWrapper.svelte';
+import OccuPlanAvailableInfo from '#lib/occuplan/OccuPlanAvailableInfo.svelte';
+import OccuPlanGrid from '#lib/occuplan/OccuPlanGrid.svelte';
+import OccuPlanPicker from '#lib/occuplan/OccuPlanPicker.svelte';
+import OccuPlanRows from '#lib/occuplan/OccuPlanRows.svelte';
+import OccuPlanWrapper from '#lib/occuplan/OccuPlanWrapper.svelte';
 import {
   OccupationState,
   contextKey,
@@ -45,8 +45,8 @@ import {
   defaultWeekdayLabels,
   defaultMonthLabels,
   defaultMonthHeaderFormat,
-} from '$lib/occuplan/state.svelte.js';
-import { getEvents } from '$lib/helpers/readICS.js';
+} from '#lib/occuplan/state.svelte.js';
+import { getEvents } from '#lib/helpers/readICS.js';
 export type {
   OccuplanTranslations,
   Occupation,
@@ -55,8 +55,8 @@ export type {
   AvailableSpans,
   WeekdayLabels,
   MonthLabels,
-} from '$lib/occuplan/state.svelte.js';
-export type { GetEventsResult } from '$lib/helpers/readICS.js';
+} from '#lib/occuplan/state.svelte.js';
+export type { GetEventsResult } from '#lib/helpers/readICS.js';
 
 export type {
   GridPhoto,
@@ -115,7 +115,7 @@ export type {
   SiteTranslation,
   FontSpec,
   Hero,
-} from '$lib/types.js';
+} from '#lib/types.js';
 
 export {
   PRICING_COLUMNS,
@@ -137,7 +137,7 @@ export {
   isBookingRequest,
   isContactForm,
   isAccoBlock,
-} from '$lib/types.js';
+} from '#lib/types.js';
 
 export {
   randomID,

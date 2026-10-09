@@ -1,6 +1,6 @@
 <script lang="ts">
-  import TextInput from '$lib/basic/TextInput.svelte';
-  import { firstMonthValid, type FirstMonth } from '$lib/occuplan/state.svelte';
+  import TextInput from '#lib/basic/TextInput.svelte';
+  import { firstMonthValid, type FirstMonth } from '#lib/occuplan/state.svelte.js';
 
   let {
     toggleGridOffset = $bindable(640),

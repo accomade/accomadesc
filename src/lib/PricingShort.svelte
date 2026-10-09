@@ -1,6 +1,6 @@
 <script lang="ts">
   import { DateTime } from 'luxon';
-  import type { I18nFacade, PricingShortContent, PricingEntry } from '$lib/types.js';
+  import type { I18nFacade, PricingShortContent, PricingEntry } from '#lib/types.js';
 
   let {
     global,

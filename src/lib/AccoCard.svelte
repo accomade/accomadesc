@@ -1,8 +1,8 @@
 <script lang="ts">
-  import AmenitiesCore from '$lib/AmenitiesCore.svelte';
-  import CalendarAvailable from '$lib/CalendarAvailable.svelte';
-  import Photo from '$lib/Photo.svelte';
-  import PricingShort from '$lib/PricingShort.svelte';
+  import AmenitiesCore from '#lib/AmenitiesCore.svelte';
+  import CalendarAvailable from '#lib/CalendarAvailable.svelte';
+  import Photo from '#lib/Photo.svelte';
+  import PricingShort from '#lib/PricingShort.svelte';
   import { type AccoCardContent, type I18nFacade } from './types.js';
 
   let {

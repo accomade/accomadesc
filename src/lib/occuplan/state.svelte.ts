@@ -1,5 +1,5 @@
-import { normalizeDate } from '$lib/helpers/normalizeDate.js';
-import { getEvents } from '$lib/helpers/readICS.js';
+import { normalizeDate } from '#lib/helpers/normalizeDate.js';
+import { getEvents } from '#lib/helpers/readICS.js';
 import { DateTime, type MonthNumbers, type WeekdayNumbers } from 'luxon';
 
 export const contextKey = (id: string) => `SS_${id}_CONTEXT`;
@@ -221,31 +221,9 @@ export interface OccuplanTranslations {
 }
 
 export type NextMonthNumbers =
-  | '+1'
-  | '+2'
-  | '+3'
-  | '+4'
-  | '+5'
-  | '+6'
-  | '+7'
-  | '+8'
-  | '+9'
-  | '+10'
-  | '+11'
-  | '+12';
+  '+1' | '+2' | '+3' | '+4' | '+5' | '+6' | '+7' | '+8' | '+9' | '+10' | '+11' | '+12';
 export type PrevMonthNumbers =
-  | '-1'
-  | '-2'
-  | '-3'
-  | '-4'
-  | '-5'
-  | '-6'
-  | '-7'
-  | '-8'
-  | '-9'
-  | '-10'
-  | '-11'
-  | '-12';
+  '-1' | '-2' | '-3' | '-4' | '-5' | '-6' | '-7' | '-8' | '-9' | '-10' | '-11' | '-12';
 
 export type FirstMonth = MonthNumbers | NextMonthNumbers | PrevMonthNumbers | 0;
 

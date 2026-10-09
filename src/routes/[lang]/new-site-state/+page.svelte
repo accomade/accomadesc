@@ -1,10 +1,10 @@
 <script lang="ts">
   import '@fontsource/raleway/500.css';
   import '@fontsource/raleway/700.css';
-  import type { FontSpec, Hero, Nav, PageProps, SiteConfig } from '$lib/types.js';
+  import type { FontSpec, Hero, Nav, PageProps, SiteConfig } from '#lib/types.js';
 
-  import Page from '$lib/PageComponent.svelte';
-  import { randomID, SiteState, type LeafletMapI, type SectionI } from '$lib/index.js';
+  import Page from '#lib/PageComponent.svelte';
+  import { randomID, SiteState, type LeafletMapI, type SectionI } from '#lib/index.js';
 
   import { page } from '$app/state';
   let pathLang = page.params['lang'];
@@ -12,7 +12,7 @@
   import { css } from './style.ts';
   import { installTwicPics } from '@twicpics/components/sveltekit';
   import '@twicpics/components/style.css';
-  import { DefaultCalTranslations } from '$lib/occuplan/defaultTranslations.ts';
+  import { DefaultCalTranslations } from '#lib/occuplan/defaultTranslations.ts';
   import { DefaultTranslations } from 'gdpr-cooco-banner';
   installTwicPics({
     domain: `https://accomade.twic.pics`,

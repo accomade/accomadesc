@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { CalendarGridContent, I18nFacade } from '$lib/types.js';
-  import OccuPlanGrid from '$lib/occuplan/OccuPlanGrid.svelte';
+  import type { CalendarGridContent, I18nFacade } from '#lib/types.js';
+  import OccuPlanGrid from '#lib/occuplan/OccuPlanGrid.svelte';
   import { DateTime } from 'luxon';
 
   let {

@@ -1,4 +1,4 @@
-import type { FirstMonth, OccuplanTranslations } from '$lib/occuplan/state.svelte.js';
+import type { FirstMonth, OccuplanTranslations } from '#lib/occuplan/state.svelte.js';
 import type { DateTime, MonthNumbers, WeekdayNumbers } from 'luxon';
 import type { CookieType, Translation as CookieTranslation } from 'gdpr-cooco-banner';
 

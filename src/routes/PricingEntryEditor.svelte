@@ -1,10 +1,10 @@
 <script lang="ts">
   import { I18n } from './I18n.svelte';
-  import type { PricingEntry } from '$lib/types.js';
+  import type { PricingEntry } from '#lib/types.js';
   import PriceEditor from './PriceEditor.svelte';
-  import TextInput from '$lib/basic/TextInput.svelte';
-  import { randomID } from '$lib/names/gen.js';
-  import Button from '$lib/basic/Button.svelte';
+  import TextInput from '#lib/basic/TextInput.svelte';
+  import { randomID } from '#lib/names/gen.js';
+  import Button from '#lib/basic/Button.svelte';
 
   let {
     pricingEntry = $bindable(),

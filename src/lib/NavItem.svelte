@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { NavItem, I18nFacade } from '$lib/types.js';
-  import Icon from '$lib/basic/Icon.svelte';
+  import type { NavItem, I18nFacade } from '#lib/types.js';
+  import Icon from '#lib/basic/Icon.svelte';
   import { getContext } from 'svelte';
   import { GLOBAL_STATE, GlobalState } from './state.svelte';
 

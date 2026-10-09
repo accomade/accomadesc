@@ -7,7 +7,7 @@
     StaticPricingRange,
     PricingEntry,
     PricingColumn,
-  } from '$lib/types.js';
+  } from '#lib/types.js';
 
   let filteredRanges: PricingRange[] = $state([]);
   let {

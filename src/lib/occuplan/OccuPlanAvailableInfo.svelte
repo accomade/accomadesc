@@ -1,9 +1,9 @@
 <script lang="ts">
   import { DateTime } from 'luxon';
-  import { normalizeDate } from '$lib/helpers/normalizeDate.js';
+  import { normalizeDate } from '#lib/helpers/normalizeDate.js';
   import { getContext, onMount, untrack, setContext, type Snippet } from 'svelte';
-  import { OccupationState, contextKey, type AvailableSpans } from '$lib/occuplan/state.svelte.js';
-  import Spinner from '$lib/basic/Spinner.svelte';
+  import { OccupationState, contextKey, type AvailableSpans } from '#lib/occuplan/state.svelte.js';
+  import Spinner from '#lib/basic/Spinner.svelte';
 
   let {
     url,

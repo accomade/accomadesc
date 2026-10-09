@@ -1,6 +1,6 @@
 import type { DateTime } from 'luxon';
 import { DateTime as lx } from 'luxon';
-import type { OccupationCallback, OccupationType } from '$lib/occuplan/state.svelte.js';
+import type { OccupationCallback, OccupationType } from '#lib/occuplan/state.svelte.js';
 
 export interface GetEventsResult {
   message: string;

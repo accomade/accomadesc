@@ -11,11 +11,11 @@
     type FirstMonth,
     realFirstMonth,
     contextKey,
-  } from '$lib/occuplan/state.svelte.js';
-  import Button from '$lib/basic/Button.svelte';
-  import { browser } from '$app/environment';
-  import Spinner from '$lib/basic/Spinner.svelte';
-  import { randomID } from '$lib/names/gen.js';
+  } from '#lib/occuplan/state.svelte.js';
+  import Button from '#lib/basic/Button.svelte';
+  import { browser } from '$app/env';
+  import Spinner from '#lib/basic/Spinner.svelte';
+  import { randomID } from '#lib/names/gen.js';
   import { getContext, onMount, setContext, untrack } from 'svelte';
 
   let {
@@ -177,9 +177,7 @@
       style="
         grid-area: columnLegend / rowLegend / columnLegend / rowLegend;
         background-color: var(--occuplan-main-bg-color);"
-    >
-      &nbsp;
-    </div>
+    ></div>
 
     {#each monthDays as d}
       <div class="monthday-header" style="grid-area: columnLegend / d{d} / columnLegend / d{d};">
@@ -215,9 +213,7 @@
             grid-area: m{d.month}y{d.year}  / d{d.day} / m{d.month}y{d.year} / d{d.day};
             {occupationState.occupationStyle(d, true, maxDate)}
             "
-        >
-          &nbsp;
-        </div>
+        ></div>
       {/each}
     {/if}
   </main>
@@ -231,9 +227,8 @@
             outline: var(--occuplan-grid-border);
             background: radial-gradient(var(--occuplan-weekend-bg-color), var(--occuplan-main-bg-color), var(--occuplan-main-bg-color));
             "
-      >
-        &nbsp;
-      </div>
+      ></div>
+
       {#each foundOccupationTypes as t}
         {@const format = occupationTypeFormatting(t)}
         <span>{typeLabels[t]}</span>
@@ -241,9 +236,7 @@
           id="occupation-type-{t}-legend"
           class="legend-entry-marker"
           style="background-color: {format.bgColor}; outline: var(--occuplan-grid-border);"
-        >
-          &nbsp;
-        </div>
+        ></div>
       {/each}
     </div>
     <div class="footer-content">

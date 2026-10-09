@@ -1,5 +1,5 @@
 <script>
-  import { Button } from '$lib/index.js';
+  import { Button } from '#lib/index.js';
   import { css } from './css.ts';
   let x = $state(0);
 </script>
