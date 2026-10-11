@@ -437,7 +437,6 @@ export interface Style {
   base: string;
   themes: {
     light: string;
-    dark: string;
   };
 }
 
@@ -464,7 +463,6 @@ export interface PageProps {
   fixedHamburger?: boolean;
   navbarOverHamburger?: boolean;
   disableLinks?: boolean;
-  selectedTheme?: 'light' | 'dark';
   content?: Section[];
 }
 

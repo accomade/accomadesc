@@ -78,9 +78,6 @@ export class SiteState implements I18nFacade {
 
   #defaultFormats: Record<string, FormatSpec> | undefined;
 
-  selectedTheme: 'light' | 'dark' = $state('light');
-  selectedThemeInitialized: boolean = $state(false);
-
   constructor(
     getSiteConfig: () => SiteConfig,
     lang: string | undefined,

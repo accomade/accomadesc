@@ -24,8 +24,13 @@
   let galleryContainer: HTMLDivElement | undefined = $state();
 
   let width = $state(1000);
+  // At least one column: a grid width wider than the container means a
+  // single-column gallery, never a zero-column (invisible) grid.
   let numberOfCols = $derived(
-    Math.floor(width / (gridPhotoWidth && Number.isInteger(gridPhotoWidth) ? gridPhotoWidth : 300)),
+    Math.max(
+      1,
+      Math.floor(width / (gridPhotoWidth && Number.isInteger(gridPhotoWidth) ? gridPhotoWidth : 300)),
+    ),
   );
 
   // Initial zoom only: later prop changes must not yank the viewer.

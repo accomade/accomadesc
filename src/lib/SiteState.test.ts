@@ -123,7 +123,7 @@ const createMockSiteConfig = (
   },
   css: {
     base: '',
-    themes: { light: '', dark: '' },
+    themes: { light: '' },
   },
 });
 
@@ -147,10 +147,10 @@ describe('SiteState', () => {
       expect(state.currentLang).toBe('en');
     });
 
-    it('initializes with default theme', () => {
+    it('has no theme switch (light only)', () => {
       const config = createMockSiteConfig();
       const state = new SiteState(() => config, 'en');
-      expect(state.selectedTheme).toBe('light');
+      expect('selectedTheme' in state).toBe(false);
     });
   });
 

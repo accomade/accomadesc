@@ -14,7 +14,6 @@
   import { fade } from 'svelte/transition';
   import Icon from './basic/Icon.svelte';
   import { page } from '$app/state';
-  import Button from './basic/Button.svelte';
   import { fallbackCSS } from './style.js';
   import { GLOBAL_STATE, GlobalState } from './state.svelte';
   import { setContext, untrack } from 'svelte';
@@ -28,7 +27,6 @@
     content,
     nav,
     css,
-    selectedTheme = $bindable('light'),
     showFooter = true,
     footerRef = 'footer_html',
     fixedHamburger = true,
@@ -65,10 +63,8 @@
 
   let theme = $state(fallbackCSS.themes.light);
   $effect(() => {
-    if (!!css && selectedTheme == 'light') {
+    if (!!css) {
       theme = css?.themes.light;
-    } else if (!!css && selectedTheme == 'dark') {
-      theme = css?.themes.dark;
     }
   });
 
@@ -111,16 +107,6 @@
           {/if}
         {/each}
       </div>
-    {/if}
-  </div>
-{/snippet}
-
-{#snippet themeswitcher()}
-  <div class="theme" class:hero={!!hero} class:ham={!!hero && !navbarOverHamburger}>
-    {#if selectedTheme == 'light'}
-      <Button iconName="moon" clicked={() => (selectedTheme = 'dark')} />
-    {:else}
-      <Button iconName="sun" clicked={() => (selectedTheme = 'light')} />
     {/if}
   </div>
 {/snippet}
@@ -219,24 +205,9 @@
       {/each}
     </fieldset>
   {/if}
-  {@render themeswitcher()}
 </div>
 
 <style>
-  .theme {
-    position: absolute;
-    top: 7rem;
-    right: 0.5rem;
-  }
-
-  .theme.hero {
-    top: 0.5rem;
-  }
-
-  .theme.hero.ham {
-    left: 0.5rem;
-  }
-
   div.section-wrapper {
     margin-bottom: 2rem;
     width: 100%;
