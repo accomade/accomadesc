@@ -67,6 +67,13 @@ pnpm run test:unit -- --testNamePattern="debounce"
 - Use interface for object types, type for unions/primitives
 - Export all types from `#lib/types.ts` and `$lib/index.ts`
 - Use Type Guards for discriminated unions (see `isAccoBlock`, `isCalendar`, etc. in `types.ts`)
+- **TypeScript is pinned to `6.0.3`** (exact, no caret). TypeScript 7 removed the classic JS compiler API (`ts.sys`, `ts.readConfigFile`) that `svelte-kit sync`, `svelte-check`, and `@sveltejs/package` still require. Do not bump it until all three support TS 7. Periodically re-check with:
+  ```bash
+  pnpm view @sveltejs/kit@latest peerDependencies.typescript
+  pnpm view svelte-check@latest peerDependencies.typescript
+  pnpm view @sveltejs/package@latest peerDependencies.typescript
+  ```
+  If they allow `^7`, bump, then run `pnpm install && pnpm run check && pnpm run package`.
 
 ### Svelte 5 Components
 
@@ -170,8 +177,8 @@ Use type guards (`isBookingRequest()`, `isCalendar()`, etc.) for type narrowing.
 ## Key Dependencies
 
 - Svelte 5.x with runes
-- SvelteKit 2.x
-- TypeScript 5.x
+- SvelteKit 3.x
+- TypeScript 6.0.3 (exact pin; TS 7 not yet supported by Svelte tooling - see TypeScript section above)
 - Luxon for date handling
 - Leaflet for maps
 - Prettier + prettier-plugin-svelte

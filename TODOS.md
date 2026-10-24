@@ -134,6 +134,13 @@ This document outlines potential improvements and next steps for the Accomade Sv
 
 ## Dependencies
 
+- **Revisit TypeScript pin** - `typescript` is pinned to exact `6.0.3` because SvelteKit 3.1.0, `svelte-check` 4.7.7, and `@sveltejs/package` 3.0.1 still use the TS 6 JS compiler API. TS 7 removed it (`ts.sys` / `ts.readConfigFile` undefined), so `svelte-kit sync` fails with `Cannot read properties of undefined (reading 'readFile')`. Check periodically whether the restriction can be lifted:
+  ```bash
+  pnpm view @sveltejs/kit@latest peerDependencies.typescript
+  pnpm view svelte-check@latest peerDependencies.typescript
+  pnpm view @sveltejs/package@latest peerDependencies.typescript
+  ```
+  If all allow `^7`, bump with `pnpm add -D -E typescript@7`, then verify `pnpm run check` and `pnpm run package`.
 - **Audit dependencies**: Package versions reviewed:
   - `gdpr-cooco-banner: ^0.0.13` - Latest available version (actively used for cookie consent translations)
   - `@dinero.js/currencies: 2.0.0-alpha.14` - Removed! Not actively used in codebase (replaced with Intl.NumberFormat, only referenced in commented-out type definitions)
