@@ -65,7 +65,7 @@ pnpm run test:unit -- --testNamePattern="debounce"
 - Strict mode enabled in `tsconfig.json`
 - No `any` types - use explicit types or `unknown` where appropriate
 - Use interface for object types, type for unions/primitives
-- Export all types from `#lib/types.ts` and `$lib/index.ts`
+- Export all types from `#lib/types.ts` and `#lib/index.ts`
 - Use Type Guards for discriminated unions (see `isAccoBlock`, `isCalendar`, etc. in `types.ts`)
 - **TypeScript is pinned to `6.0.3`** (exact, no caret). TypeScript 7 removed the classic JS compiler API (`ts.sys`, `ts.readConfigFile`) that `svelte-kit sync`, `svelte-check`, and `@sveltejs/package` still require. Do not bump it until all three support TS 7. Periodically re-check with:
   ```bash

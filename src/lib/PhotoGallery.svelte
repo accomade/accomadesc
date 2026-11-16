@@ -29,7 +29,9 @@
   let numberOfCols = $derived(
     Math.max(
       1,
-      Math.floor(width / (gridPhotoWidth && Number.isInteger(gridPhotoWidth) ? gridPhotoWidth : 300)),
+      Math.floor(
+        width / (gridPhotoWidth && Number.isInteger(gridPhotoWidth) ? gridPhotoWidth : 300),
+      ),
     ),
   );
 
