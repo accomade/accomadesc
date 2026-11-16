@@ -5,6 +5,10 @@
   // Bundlers break leaflet's automatic marker-image path detection (it scans
   // for a leaflet script/link tag), so markers 404 as relative
   // `marker-icon.png` (P23 on the published site). Pin the bundled URLs.
+  // Build the icon with `L.icon` rather than `Icon.Default.mergeOptions`:
+  // the default icon prepends its auto-detected `imagePath` to `iconUrl`,
+  // which doubles these already-resolved URLs in dev:
+  //   /node_modules/.../images//node_modules/.../images/marker-icon-2x.png
   import markerIconUrl from 'leaflet/dist/images/marker-icon.png';
   import markerIconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
   import markerShadowUrl from 'leaflet/dist/images/marker-shadow.png';
@@ -29,10 +33,15 @@
     };
     const leafletModule = await import('leaflet');
     const L = leafletModule.default;
-    L.Icon.Default.mergeOptions({
+    const markerIcon = L.icon({
       iconUrl: markerIconUrl,
       iconRetinaUrl: markerIconRetinaUrl,
       shadowUrl: markerShadowUrl,
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      tooltipAnchor: [16, -28],
+      shadowSize: [41, 41],
     });
 
     if (mapElement) {
@@ -41,7 +50,7 @@
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(theMap);
-      L.marker([lat, long]).addTo(theMap);
+      L.marker([lat, long], { icon: markerIcon }).addTo(theMap);
     }
   });
 
