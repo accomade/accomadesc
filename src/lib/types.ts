@@ -1,4 +1,8 @@
-import type { FirstMonth, OccuplanTranslations } from '#lib/occuplan/state.svelte.js';
+import type {
+  CalendarLayout,
+  FirstMonth,
+  OccuplanTranslations,
+} from '#lib/occuplan/state.svelte.js';
 import type { DateTime, MonthNumbers, WeekdayNumbers } from 'luxon';
 import type { CookieType, Translation as CookieTranslation } from 'gdpr-cooco-banner';
 
@@ -40,6 +44,13 @@ export interface Calendar extends AccoBlock {
 }
 export interface CalendarContent {
   url: string;
+  /**
+   * Layout preference for the responsive calendar block:
+   * - `auto` (default): grid on narrow screens, rows on wide screens.
+   * - `grid`: always grid.
+   * - `rows`: always rows.
+   */
+  layout?: CalendarLayout;
   toggleGridOffset?: number;
   gridMonthNumbers?: number;
   gridFirstMonth?: FirstMonth;

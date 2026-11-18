@@ -227,9 +227,12 @@ export type PrevMonthNumbers =
 
 export type FirstMonth = MonthNumbers | NextMonthNumbers | PrevMonthNumbers | 0;
 
+export type CalendarLayout = 'auto' | 'grid' | 'rows';
+
 export interface OccuplanMiscProps {
   url: string;
   debug?: boolean;
+  layout?: CalendarLayout;
   gridNumberOfMonths?: number;
   gridFirstMonth?: FirstMonth;
   gridMaxWidth?: string;

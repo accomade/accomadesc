@@ -7,6 +7,7 @@
     url,
     debug = false,
     calendarTranslation,
+    layout = 'auto',
     toggleGridOffset,
     gridMonthNumbers,
     gridFirstMonth,
@@ -30,6 +31,7 @@
     {maxDate}
     {url}
     {debug}
+    {layout}
     {toggleGridOffset}
     gridNumberOfMonths={gridMonthNumbers}
     {gridFirstMonth}

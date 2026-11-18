@@ -11,6 +11,7 @@
     contextKey,
     OccupationState,
   } from '#lib/occuplan/state.svelte.js';
+  import { type CalendarView, resolveCalendarView } from '#lib/occuplan/layout.js';
   import { DateTime } from 'luxon';
   import { getContext, setContext, untrack } from 'svelte';
 
@@ -19,6 +20,7 @@
     header = '',
     footer = '',
     debug = false,
+    layout = 'auto',
     weekendLabel = defaultWeekendLabel,
     monthLabels = defaultMonthLabels,
     weekdayLabels = defaultWeekdayLabels,
@@ -43,24 +45,14 @@
   }: OccuplanTranslations & OccuplanMiscProps = $props();
 
   /*
-    use different component based on different media size.
+    Use the explicit layout when set. `auto` switches by container width.
+    Before the width is measured grid is rendered, so SSR and no-JS clients
+    never show rows on a narrow screen.
   */
   let w: number = $state(0);
-  let showGrid: boolean = $state(false);
-  let showRows: boolean = $state(true);
-
-  $effect(() => {
-    if (w < toggleGridOffset && showRows) {
-      showGrid = true;
-      showRows = false;
-    }
-  });
-  $effect(() => {
-    if (w > toggleRowsOffset && showGrid) {
-      showRows = true;
-      showGrid = false;
-    }
-  });
+  let view: CalendarView = $derived(
+    resolveCalendarView(layout, w, toggleGridOffset, toggleRowsOffset),
+  );
 
   const stateID = contextKey(untrack(() => url));
   let ss: OccupationState = getContext(stateID);
@@ -73,7 +65,7 @@
 </script>
 
 <div class="calendar-wrapper" bind:clientWidth={w}>
-  {#if showRows}
+  {#if view === 'rows'}
     <OccuPlanRows
       {debug}
       {url}
@@ -88,7 +80,7 @@
       firstMonth={rowsFirstMonth}
       {typeLabels}
     />
-  {:else if showGrid}
+  {:else}
     <OccuPlanGrid
       {debug}
       {url}

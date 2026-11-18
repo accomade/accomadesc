@@ -49,6 +49,7 @@ import {
 import { getEvents } from '#lib/helpers/readICS.js';
 export type {
   OccuplanTranslations,
+  CalendarLayout,
   Occupation,
   OccupationCallback,
   OccupationType,
